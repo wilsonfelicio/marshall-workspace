@@ -20,7 +20,7 @@ body { background:var(--bg); color:var(--text); font-family:-apple-system,BlinkM
 .card h3 { color:var(--muted); font-size:0.85rem; margin-bottom:10px; text-transform:uppercase; letter-spacing:0.5px; }
 .card.full { grid-column: 1 / -1; }
 .schedule { list-style:none; }
-.schedule li { display:flex; justify-content:space-between; align-items:center; padding:8px 0; border-bottom:1px solid var(--border); }
+.schedule li { display:grid; grid-template-columns:1fr auto auto; gap:12px; align-items:center; padding:8px 0; border-bottom:1px solid var(--border); }
 .schedule li:last-child { border:none; }
 .schedule .session { font-weight:600; }
 .schedule .race { color:var(--accent); font-size:1.1rem; }
