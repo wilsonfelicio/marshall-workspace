@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width"><title>Suzuka Circuit</title>
+<style>body{margin:0;background:#0a0a0a;display:flex;justify-content:center;align-items:center;min-height:100vh;}</style>
+</head><body><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 700" style="background:#0a0a0a;">
+  <defs>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="glow2">
+      <feGaussianBlur stdDeviation="6" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  
+  <!-- Title -->
+  <text x="500" y="40" text-anchor="middle" fill="#e0e0e0" font-family="-apple-system,sans-serif" font-size="22" font-weight="700">🇯🇵 Suzuka International Racing Course</text>
+  <text x="500" y="62" text-anchor="middle" fill="#888" font-family="-apple-system,sans-serif" font-size="13">5.807 km · 18 turns · Figure-8 layout</text>
+  
+  <!-- Track outline (simplified Suzuka shape) -->
+  <!-- Main track path -->
+  <path d="
+    M 200,350
+    C 200,280 220,220 280,180
+    C 310,162 330,155 350,150
+    C 380,143 400,138 420,140
+    C 450,143 470,150 490,165
+    C 510,178 520,185 540,180
+    C 560,174 580,160 600,150
+    C 630,136 660,130 690,140
+    C 720,150 740,170 750,200
+    C 758,225 760,250 755,280
+    C 748,320 730,350 700,370
+    C 670,392 640,400 610,395
+    C 580,388 560,380 540,365
+    C 518,348 500,340 480,345
+    C 455,352 440,360 425,375
+    C 405,396 390,420 380,450
+    C 368,485 360,510 355,540
+    C 350,570 340,590 320,600
+    C 295,615 270,610 250,595
+    C 225,572 210,540 205,510
+    C 198,470 198,420 200,350
+    Z
+  " fill="none" stroke="#333" stroke-width="28" stroke-linecap="round" stroke-linejoin="round"/>
+  
+  <!-- Track surface -->
+  <path d="
+    M 200,350
+    C 200,280 220,220 280,180
+    C 310,162 330,155 350,150
+    C 380,143 400,138 420,140
+    C 450,143 470,150 490,165
+    C 510,178 520,185 540,180
+    C 560,174 580,160 600,150
+    C 630,136 660,130 690,140
+    C 720,150 740,170 750,200
+    C 758,225 760,250 755,280
+    C 748,320 730,350 700,370
+    C 670,392 640,400 610,395
+    C 580,388 560,380 540,365
+    C 518,348 500,340 480,345
+    C 455,352 440,360 425,375
+    C 405,396 390,420 380,450
+    C 368,485 360,510 355,540
+    C 350,570 340,590 320,600
+    C 295,615 270,610 250,595
+    C 225,572 210,540 205,510
+    C 198,470 198,420 200,350
+    Z
+  " fill="none" stroke="#555" stroke-width="18" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- DRS Zone 1: Back straight into Turn 1 -->
+  <path d="M 210,420 C 205,390 205,365 200,350 C 200,310 210,260 240,210" 
+    fill="none" stroke="#22c55e" stroke-width="22" stroke-linecap="round" opacity="0.35" filter="url(#glow2)"/>
+  <path d="M 210,420 C 205,390 205,365 200,350 C 200,310 210,260 240,210" 
+    fill="none" stroke="#22c55e" stroke-width="6" stroke-linecap="round" stroke-dasharray="12,6" opacity="0.9"/>
+  
+  <!-- DRS Zone 2: Straight before 130R/Casio -->
+  <path d="M 700,370 C 670,392 640,400 610,395 C 580,388 560,380 540,365"
+    fill="none" stroke="#22c55e" stroke-width="22" stroke-linecap="round" opacity="0.35" filter="url(#glow2)"/>
+  <path d="M 700,370 C 670,392 640,400 610,395 C 580,388 560,380 540,365"
+    fill="none" stroke="#22c55e" stroke-width="6" stroke-linecap="round" stroke-dasharray="12,6" opacity="0.9"/>
+
+  <!-- Overtake zones (orange highlights) -->
+  <!-- OZ1: Turn 1 braking zone -->
+  <circle cx="270" cy="190" r="18" fill="#f59e0b" opacity="0.25" filter="url(#glow2)"/>
+  <circle cx="270" cy="190" r="8" fill="#f59e0b" opacity="0.8"/>
+  
+  <!-- OZ2: Hairpin -->
+  <circle cx="750" cy="240" r="18" fill="#f59e0b" opacity="0.25" filter="url(#glow2)"/>
+  <circle cx="750" cy="240" r="8" fill="#f59e0b" opacity="0.8"/>
+  
+  <!-- OZ3: Spoon exit into back straight -->
+  <circle cx="530" cy="370" r="18" fill="#f59e0b" opacity="0.25" filter="url(#glow2)"/>
+  <circle cx="530" cy="370" r="8" fill="#f59e0b" opacity="0.8"/>
+  
+  <!-- OZ4: Chicane braking -->
+  <circle cx="340" cy="580" r="18" fill="#f59e0b" opacity="0.25" filter="url(#glow2)"/>
+  <circle cx="340" cy="580" r="8" fill="#f59e0b" opacity="0.8"/>
+
+  <!-- Start/Finish line -->
+  <line x1="195" y1="395" x2="215" y2="395" stroke="#fff" stroke-width="4"/>
+  <rect x="185" y="388" width="8" height="14" fill="#fff" opacity="0.5"/>
+  
+  <!-- Corner labels -->
+  <g font-family="-apple-system,sans-serif" font-size="11" fill="#e0e0e0">
+    <!-- Turn 1-2 -->
+    <text x="255" y="170" text-anchor="middle" font-weight="600">T1-2</text>
+    
+    <!-- S-Curves -->
+    <text x="400" y="125" text-anchor="middle" fill="#60a5fa" font-weight="600" font-size="12">S-Curves</text>
+    <text x="400" y="138" text-anchor="middle" fill="#888" font-size="9">T3-7 · 160-200 km/h</text>
+    
+    <!-- Dunlop -->
+    <text x="530" y="165" text-anchor="middle" font-weight="600">Dunlop</text>
+    <text x="530" y="177" text-anchor="middle" fill="#888" font-size="9">T8</text>
+    
+    <!-- Degner -->
+    <text x="660" y="125" text-anchor="middle" font-weight="600">Degner</text>
+    <text x="660" y="137" text-anchor="middle" fill="#888" font-size="9">T9-10</text>
+    
+    <!-- Hairpin -->
+    <text x="790" y="230" text-anchor="start" fill="#f59e0b" font-weight="700" font-size="13">Hairpin</text>
+    <text x="790" y="244" text-anchor="start" fill="#888" font-size="9">T11 · 65 km/h · KEY OVERTAKE</text>
+    
+    <!-- Spoon -->
+    <text x="640" y="425" text-anchor="middle" fill="#60a5fa" font-weight="600" font-size="12">Spoon</text>
+    <text x="640" y="438" text-anchor="middle" fill="#888" font-size="9">T13-14 · Commitment corner</text>
+    
+    <!-- 130R -->
+    <text x="440" y="330" text-anchor="middle" fill="#ef4444" font-weight="700" font-size="13">130R</text>
+    <text x="440" y="343" text-anchor="middle" fill="#888" font-size="9">T15 · 300+ km/h · Flat out</text>
+    
+    <!-- Casio Triangle / Chicane -->
+    <text x="370" y="560" text-anchor="start" fill="#f59e0b" font-weight="600" font-size="12">Chicane</text>
+    <text x="370" y="573" text-anchor="start" fill="#888" font-size="9">T16-17 · Heavy braking</text>
+    
+    <!-- Start/Finish -->
+    <text x="170" y="400" text-anchor="end" fill="#fff" font-weight="700" font-size="12">S/F</text>
+    
+    <!-- Back straight -->
+    <text x="200" y="460" text-anchor="end" fill="#22c55e" font-weight="600" font-size="11">Back</text>
+    <text x="200" y="473" text-anchor="end" fill="#22c55e" font-weight="600" font-size="11">Straight</text>
+  </g>
+  
+  <!-- Direction arrow -->
+  <path d="M 225,300 L 230,285 L 235,300" fill="none" stroke="#888" stroke-width="2"/>
+  <text x="230" y="315" text-anchor="middle" fill="#888" font-family="-apple-system,sans-serif" font-size="9">Direction →</text>
+
+  <!-- Legend -->
+  <g transform="translate(50, 640)">
+    <circle cx="0" cy="0" r="6" fill="#f59e0b" opacity="0.8"/>
+    <text x="12" y="4" fill="#e0e0e0" font-family="-apple-system,sans-serif" font-size="11">Overtake zone</text>
+    
+    <line x1="100" y1="-4" x2="130" y2="-4" stroke="#22c55e" stroke-width="4" stroke-dasharray="8,4"/>
+    <text x="138" y="0" fill="#e0e0e0" font-family="-apple-system,sans-serif" font-size="11">DRS zone</text>
+    
+    <line x1="240" y1="-4" x2="260" y2="-4" stroke="#fff" stroke-width="3"/>
+    <text x="268" y="0" fill="#e0e0e0" font-family="-apple-system,sans-serif" font-size="11">Start/Finish</text>
+    
+    <text x="400" y="0" fill="#888" font-family="-apple-system,sans-serif" font-size="10">Marshall 🔶</text>
+  </g>
+</svg></body></html>
