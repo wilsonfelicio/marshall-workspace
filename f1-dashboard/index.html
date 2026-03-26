@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🏎️ F1 Japanese GP — Race Weekend Dashboard</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+<style>
+:root { --bg:#0a0a0a; --surface:#141414; --border:#2a2a2a; --text:#e0e0e0; --muted:#888; --accent:#DC0000; }
+* { margin:0; padding:0; box-sizing:border-box; }
+body { background:var(--bg); color:var(--text); font-family:-apple-system,BlinkMacSystemFont,'Inter',sans-serif; padding:16px; }
+.header { text-align:center; margin-bottom:20px; }
+.header h1 { font-size:1.6rem; font-weight:700; }
+.header .flag { font-size:2.5rem; }
+.header .meta { color:var(--muted); font-size:0.85rem; margin-top:4px; }
+.header .round { color:var(--accent); font-weight:600; }
+.grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:16px; }
+@media (max-width:800px) { .grid { grid-template-columns:1fr; } }
+.card { background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:16px; }
+.card h3 { color:var(--muted); font-size:0.85rem; margin-bottom:10px; text-transform:uppercase; letter-spacing:0.5px; }
+.card.full { grid-column: 1 / -1; }
+.schedule { list-style:none; }
+.schedule li { display:flex; justify-content:space-between; align-items:center; padding:8px 0; border-bottom:1px solid var(--border); }
+.schedule li:last-child { border:none; }
+.schedule .session { font-weight:600; }
+.schedule .race { color:var(--accent); font-size:1.1rem; }
+.schedule .time { color:#f59e0b; font-weight:600; }
+.schedule .note { color:var(--muted); font-size:0.75rem; }
+.standings { list-style:none; }
+.standings li { display:flex; align-items:center; padding:6px 0; border-bottom:1px solid var(--border); font-size:0.85rem; }
+.standings li:last-child { border:none; }
+.standings .pos { width:24px; color:var(--muted); font-weight:600; }
+.standings .bar { height:6px; border-radius:3px; margin-left:8px; transition:width 0.3s; }
+.standings .name { flex:1; }
+.standings .pts { font-weight:600; width:40px; text-align:right; margin-right:8px; }
+.standings .team-dot { width:10px; height:10px; border-radius:50%; margin-right:8px; flex-shrink:0; }
+.stories { list-style:none; }
+.stories li { padding:6px 0; border-bottom:1px solid var(--border); font-size:0.85rem; line-height:1.4; }
+.stories li:last-child { border:none; }
+.stories li::before { content:'📌 '; }
+.circuit-info { display:flex; flex-wrap:wrap; gap:16px; }
+.circuit-stat { text-align:center; flex:1; min-width:80px; }
+.circuit-stat .val { font-size:1.3rem; font-weight:700; color:#f59e0b; }
+.circuit-stat .label { font-size:0.7rem; color:var(--muted); }
+.chart-container { position:relative; height:280px; }
+.countdown { text-align:center; font-size:1.8rem; font-weight:700; color:var(--accent); margin:8px 0; }
+.countdown .label { font-size:0.75rem; color:var(--muted); font-weight:400; }
+</style>
+</head>
+<body>
+<div class="header">
+    <div class="flag">🇯🇵</div>
+    <h1>Japanese Grand Prix</h1>
+    <div class="meta"><span class="round">Round 3</span> · Suzuka · March 27-29, 2026</div>
+    <div class="countdown" id="countdown"><div class="label">until lights out</div></div>
+</div>
+
+<div class="grid">
+    <!-- Schedule -->
+    <div class="card">
+        <h3>📅 Schedule (BRT — São Paulo)</h3>
+        <ul class="schedule">
+<li>
+    <div><span class="session ">FP1</span><br><span class="note">Thu night in SP</span></div>
+    <div><span class="time">23:30 BRT</span><br><span class="note">Fri 27</span></div>
+</li>
+<li>
+    <div><span class="session ">FP2</span><br><span class="note">Fri early morning</span></div>
+    <div><span class="time">03:00 BRT</span><br><span class="note">Sat 28</span></div>
+</li>
+<li>
+    <div><span class="session ">FP3</span><br><span class="note">Sat night</span></div>
+    <div><span class="time">23:30 BRT</span><br><span class="note">Sat 28</span></div>
+</li>
+<li>
+    <div><span class="session ">Qualifying</span><br><span class="note">Sat late night/Sun early AM</span></div>
+    <div><span class="time">03:00 BRT</span><br><span class="note">Dom 29</span></div>
+</li>
+<li>
+    <div><span class="session race">RACE</span><br><span class="note">Sat late night → Sun 2AM BRT</span></div>
+    <div><span class="time">02:00 BRT</span><br><span class="note">Dom 29</span></div>
+</li>
+        </ul>
+    </div>
+
+    <!-- Circuit Info -->
+    <div class="card">
+        <h3>🏁 Circuit</h3>
+        <div style="font-size:1.1rem;font-weight:600;margin-bottom:12px;">Suzuka International Racing Course</div>
+        <div class="circuit-info">
+            <div class="circuit-stat"><div class="val">5.807</div><div class="label">km length</div></div>
+            <div class="circuit-stat"><div class="val">53</div><div class="label">laps</div></div>
+            <div class="circuit-stat"><div class="val">18</div><div class="label">turns</div></div>
+            <div class="circuit-stat"><div class="val">2</div><div class="label">DRS zones</div></div>
+            <div class="circuit-stat"><div class="val">307</div><div class="label">km total</div></div>
+        </div>
+        <div style="margin-top:12px;color:var(--muted);font-size:0.8rem;">Figure-8 layout. Legendary corners: 130R, Spoon, S-curves. One of the most technically demanding circuits on the calendar.</div>
+    </div>
+
+    <!-- Drivers Standings -->
+    <div class="card">
+        <h3>🏆 Drivers Championship</h3>
+        <ul class="standings">
+<li>
+    <span class="pos">1</span>
+    <span class="team-dot" style="background:#00D2BE"></span>
+    <span class="name">George Russell</span>
+    <span class="pts">51</span>
+    <div class="bar" style="width:100%;background:#00D2BE"></div>
+</li>
+<li>
+    <span class="pos">2</span>
+    <span class="team-dot" style="background:#00D2BE"></span>
+    <span class="name">Kimi Antonelli</span>
+    <span class="pts">47</span>
+    <div class="bar" style="width:92%;background:#00D2BE"></div>
+</li>
+<li>
+    <span class="pos">3</span>
+    <span class="team-dot" style="background:#DC0000"></span>
+    <span class="name">Charles Leclerc</span>
+    <span class="pts">34</span>
+    <div class="bar" style="width:67%;background:#DC0000"></div>
+</li>
+<li>
+    <span class="pos">4</span>
+    <span class="team-dot" style="background:#DC0000"></span>
+    <span class="name">Lewis Hamilton</span>
+    <span class="pts">33</span>
+    <div class="bar" style="width:65%;background:#DC0000"></div>
+</li>
+<li>
+    <span class="pos">5</span>
+    <span class="team-dot" style="background:#B6BABD"></span>
+    <span class="name">Oliver Bearman</span>
+    <span class="pts">17</span>
+    <div class="bar" style="width:33%;background:#B6BABD"></div>
+</li>
+<li>
+    <span class="pos">6</span>
+    <span class="team-dot" style="background:#FF8700"></span>
+    <span class="name">Lando Norris</span>
+    <span class="pts">15</span>
+    <div class="bar" style="width:29%;background:#FF8700"></div>
+</li>
+<li>
+    <span class="pos">7</span>
+    <span class="team-dot" style="background:#0090FF"></span>
+    <span class="name">Pierre Gasly</span>
+    <span class="pts">9</span>
+    <div class="bar" style="width:18%;background:#0090FF"></div>
+</li>
+<li>
+    <span class="pos">8</span>
+    <span class="team-dot" style="background:#3671C6"></span>
+    <span class="name">Max Verstappen</span>
+    <span class="pts">8</span>
+    <div class="bar" style="width:16%;background:#3671C6"></div>
+</li>
+<li>
+    <span class="pos">9</span>
+    <span class="team-dot" style="background:#6692FF"></span>
+    <span class="name">Liam Lawson</span>
+    <span class="pts">8</span>
+    <div class="bar" style="width:16%;background:#6692FF"></div>
+</li>
+<li>
+    <span class="pos">10</span>
+    <span class="team-dot" style="background:#6692FF"></span>
+    <span class="name">Arvid Lindblad</span>
+    <span class="pts">4</span>
+    <div class="bar" style="width:8%;background:#6692FF"></div>
+</li>
+<li>
+    <span class="pos">11</span>
+    <span class="team-dot" style="background:#3671C6"></span>
+    <span class="name">Isack Hadjar</span>
+    <span class="pts">4</span>
+    <div class="bar" style="width:8%;background:#3671C6"></div>
+</li>
+<li>
+    <span class="pos">12</span>
+    <span class="team-dot" style="background:#FF8700"></span>
+    <span class="name">Oscar Piastri</span>
+    <span class="pts">3</span>
+    <div class="bar" style="width:6%;background:#FF8700"></div>
+</li>
+<li>
+    <span class="pos">13</span>
+    <span class="team-dot" style="background:#64C4FF"></span>
+    <span class="name">Carlos Sainz</span>
+    <span class="pts">2</span>
+    <div class="bar" style="width:4%;background:#64C4FF"></div>
+</li>
+<li>
+    <span class="pos">14</span>
+    <span class="team-dot" style="background:#B6BABD"></span>
+    <span class="name">Gabriel Bortoleto</span>
+    <span class="pts">2</span>
+    <div class="bar" style="width:4%;background:#B6BABD"></div>
+</li>
+<li>
+    <span class="pos">15</span>
+    <span class="team-dot" style="background:#0090FF"></span>
+    <span class="name">Franco Colapinto</span>
+    <span class="pts">1</span>
+    <div class="bar" style="width:2%;background:#0090FF"></div>
+</li>
+        </ul>
+    </div>
+
+    <!-- Constructors -->
+    <div class="card">
+        <h3>🏗️ Constructors Championship</h3>
+        <div class="chart-container"><canvas id="constChart"></canvas></div>
+    </div>
+
+    <!-- Key Stories -->
+    <div class="card full">
+        <h3>📰 Key Stories Heading Into Suzuka</h3>
+        <ul class="stories">
+<li>Antonelli historic: youngest pole sitter + 2nd youngest race winner ever at China GP</li>
+<li>Mercedes dominant — 1-2 in both races so far, 98 pts vs Ferrari's 67</li>
+<li>Hamilton's first Ferrari podium at China — adapting to new car</li>
+<li>Verstappen struggling — P8 in standings, Red Bull with new regs look lost</li>
+<li>Bearman surprise P5 in championship with Haas — 2026 regs shaking up the order</li>
+<li>Bahrain & Saudi cancelled due to Iran conflict — next race after Japan is Miami (May 1-3)</li>
+        </ul>
+    </div>
+</div>
+
+<div style="text-align:center;color:var(--muted);font-size:0.7rem;margin-top:16px;">
+    Built by Marshall 🔶 for Wilson · Data: formula1.com, various sources
+</div>
+
+<script>
+// Countdown to race
+const raceTime = new Date('2026-03-29T05:00:00Z'); // 14:00 JST = 02:00 BRT = 05:00 UTC
+function updateCountdown() {
+    const now = new Date();
+    const diff = raceTime - now;
+    if (diff <= 0) { document.getElementById('countdown').innerHTML = '🏁 LIGHTS OUT'; return; }
+    const days = Math.floor(diff / 86400000);
+    const hours = Math.floor((diff % 86400000) / 3600000);
+    const mins = Math.floor((diff % 3600000) / 60000);
+    document.getElementById('countdown').innerHTML = 
+        days + 'd ' + hours + 'h ' + mins + 'm<div class="label">until lights out</div>';
+}
+updateCountdown();
+setInterval(updateCountdown, 60000);
+
+// Constructors chart
+const teams = ["Mercedes", "Ferrari", "McLaren", "Haas", "Red Bull", "Racing Bulls", "Alpine", "Audi", "Williams", "Cadillac", "Aston Martin"];
+const pts = [98, 67, 18, 17, 12, 12, 10, 2, 2, 0, 0];
+const colors = ["#00D2BE", "#DC0000", "#FF8700", "#B6BABD", "#3671C6", "#6692FF", "#0090FF", "#00594F", "#64C4FF", "#1E1E1E", "#006F62"];
+
+new Chart(document.getElementById('constChart').getContext('2d'), {
+    type: 'bar',
+    data: { labels: teams, datasets: [{ data: pts, backgroundColor: colors.map(c=>c+'cc'), borderColor: colors, borderWidth: 1 }] },
+    options: {
+        indexAxis: 'y',
+        responsive: true, maintainAspectRatio: false,
+        plugins: { legend: { display: false } },
+        scales: {
+            x: { grid:{color:'#1a1a1a'}, ticks:{color:'#888'} },
+            y: { grid:{display:false}, ticks:{color:'#e0e0e0', font:{size:11}} }
+        }
+    }
+});
+</script>
+</body>
+</html>
