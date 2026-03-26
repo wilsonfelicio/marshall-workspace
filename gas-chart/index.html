@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TTF vs US NatGas (2024+)</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns@3.0.0/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
+<style>
+body { background: #0a0a0a; color: #e0e0e0; font-family: -apple-system, BlinkMacSystemFont, 'Inter', sans-serif; padding: 20px; margin: 0; }
+.header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 16px; flex-wrap: wrap; gap: 8px; }
+.header h1 { font-size: 1.3rem; font-weight: 600; }
+.header h1 span { color: #f59e0b; }
+.meta { color: #888; font-size: 0.8rem; }
+.card { background: #141414; border: 1px solid #2a2a2a; border-radius: 10px; padding: 20px; }
+.chart-container { position: relative; height: 500px; }
+.stats { display: flex; gap: 24px; margin-top: 16px; flex-wrap: wrap; }
+.stat { text-align: center; }
+.stat .label { font-size: 0.75rem; color: #888; }
+.stat .val { font-size: 1.2rem; font-weight: 600; }
+.ttf { color: #3b82f6; }
+.hh { color: #22c55e; }
+.spread { color: #f59e0b; }
+.note { color: #666; font-size: 0.75rem; margin-top: 12px; }
+</style>
+</head>
+<body>
+<div class="header">
+    <h1>TTF vs US Henry Hub — Natural Gas</h1>
+    <div class="meta">USD/MMBtu | Weekly | Jan 2024 — Present</div>
+</div>
+<div class="card">
+    <div class="chart-container"><canvas id="chart"></canvas></div>
+    <div class="stats" id="stats"></div>
+    <div class="note">
+        TTF converted from EUR/MWh to USD/MMBtu using weekly EUR/USD spot. 1 MWh = 3.412 MMBtu.<br>
+        Source: Yahoo Finance (TTF=F, NG=F, EURUSD=X) | Chart: Marshall
+    </div>
+</div>
+<script>
+const ttfData = [{"date": "2024-01-01", "value": 11.094}, {"date": "2024-01-08", "value": 10.279}, {"date": "2024-01-15", "value": 9.095}, {"date": "2024-01-22", "value": 8.941}, {"date": "2024-01-29", "value": 9.282}, {"date": "2024-02-05", "value": 8.572}, {"date": "2024-02-12", "value": 7.842}, {"date": "2024-02-19", "value": 7.283}, {"date": "2024-02-26", "value": 8.208}, {"date": "2024-03-04", "value": 8.466}, {"date": "2024-03-11", "value": 8.634}, {"date": "2024-03-18", "value": 8.844}, {"date": "2024-03-25", "value": 8.693}, {"date": "2024-04-01", "value": 8.322}, {"date": "2024-04-08", "value": 9.608}, {"date": "2024-04-15", "value": 9.649}, {"date": "2024-04-22", "value": 9.121}, {"date": "2024-04-29", "value": 9.652}, {"date": "2024-05-06", "value": 9.589}, {"date": "2024-05-13", "value": 9.79}, {"date": "2024-05-20", "value": 10.856}, {"date": "2024-05-27", "value": 10.848}, {"date": "2024-06-03", "value": 10.403}, {"date": "2024-06-10", "value": 11.094}, {"date": "2024-06-17", "value": 10.663}, {"date": "2024-06-24", "value": 10.969}, {"date": "2024-07-01", "value": 10.584}, {"date": "2024-07-08", "value": 10.127}, {"date": "2024-07-15", "value": 10.252}, {"date": "2024-07-22", "value": 10.395}, {"date": "2024-07-29", "value": 11.733}, {"date": "2024-08-05", "value": 13.066}, {"date": "2024-08-12", "value": 13.024}, {"date": "2024-08-19", "value": 11.951}, {"date": "2024-08-26", "value": 12.948}, {"date": "2024-09-02", "value": 11.852}, {"date": "2024-09-09", "value": 11.676}, {"date": "2024-09-16", "value": 11.275}, {"date": "2024-09-23", "value": 12.268}, {"date": "2024-09-30", "value": 13.152}, {"date": "2024-10-07", "value": 12.711}, {"date": "2024-10-14", "value": 12.41}, {"date": "2024-10-21", "value": 13.773}, {"date": "2024-10-28", "value": 12.494}, {"date": "2024-11-04", "value": 13.329}, {"date": "2024-11-11", "value": 14.388}, {"date": "2024-11-18", "value": 14.358}, {"date": "2024-11-25", "value": 14.826}, {"date": "2024-12-02", "value": 14.409}, {"date": "2024-12-09", "value": 12.691}, {"date": "2024-12-16", "value": 13.492}, {"date": "2024-12-23", "value": 14.59}, {"date": "2024-12-30", "value": 15.0}, {"date": "2025-01-06", "value": 13.529}, {"date": "2025-01-13", "value": 14.162}, {"date": "2025-01-20", "value": 15.304}, {"date": "2025-01-27", "value": 16.17}, {"date": "2025-02-03", "value": 16.876}, {"date": "2025-02-10", "value": 15.595}, {"date": "2025-02-17", "value": 14.476}, {"date": "2025-02-24", "value": 13.484}, {"date": "2025-03-03", "value": 12.696}, {"date": "2025-03-10", "value": 13.539}, {"date": "2025-03-17", "value": 13.582}, {"date": "2025-03-24", "value": 13.038}, {"date": "2025-03-31", "value": 12.12}, {"date": "2025-04-07", "value": 11.177}, {"date": "2025-04-14", "value": 11.908}, {"date": "2025-04-21", "value": 10.744}, {"date": "2025-04-28", "value": 10.911}, {"date": "2025-05-05", "value": 11.327}, {"date": "2025-05-12", "value": 11.716}, {"date": "2025-05-19", "value": 12.125}, {"date": "2025-05-26", "value": 11.442}, {"date": "2025-06-02", "value": 12.278}, {"date": "2025-06-09", "value": 12.8}, {"date": "2025-06-16", "value": 14.059}, {"date": "2025-06-23", "value": 11.424}, {"date": "2025-06-30", "value": 11.455}, {"date": "2025-07-07", "value": 12.12}, {"date": "2025-07-14", "value": 11.567}, {"date": "2025-07-21", "value": 11.044}, {"date": "2025-07-28", "value": 11.599}, {"date": "2025-08-04", "value": 11.133}, {"date": "2025-08-11", "value": 10.662}, {"date": "2025-08-18", "value": 11.499}, {"date": "2025-08-25", "value": 10.865}, {"date": "2025-09-01", "value": 10.997}, {"date": "2025-09-08", "value": 11.287}, {"date": "2025-09-15", "value": 11.086}, {"date": "2025-09-22", "value": 11.252}, {"date": "2025-09-29", "value": 10.706}, {"date": "2025-10-06", "value": 10.995}, {"date": "2025-10-13", "value": 10.842}, {"date": "2025-10-20", "value": 10.134}, {"date": "2025-10-27", "value": 10.581}, {"date": "2025-11-03", "value": 10.581}, {"date": "2025-11-10", "value": 10.651}, {"date": "2025-11-17", "value": 10.193}, {"date": "2025-11-24", "value": 9.794}, {"date": "2025-12-01", "value": 9.307}, {"date": "2025-12-08", "value": 9.531}, {"date": "2025-12-15", "value": 9.668}, {"date": "2025-12-22", "value": 9.696}, {"date": "2025-12-29", "value": 9.972}, {"date": "2026-01-05", "value": 9.676}, {"date": "2026-01-12", "value": 12.546}, {"date": "2026-01-19", "value": 13.878}, {"date": "2026-01-26", "value": 13.649}, {"date": "2026-02-02", "value": 12.364}, {"date": "2026-02-09", "value": 11.308}, {"date": "2026-02-16", "value": 11.067}, {"date": "2026-02-23", "value": 11.07}, {"date": "2026-03-02", "value": 18.184}, {"date": "2026-03-09", "value": 16.845}, {"date": "2026-03-16", "value": 20.132}, {"date": "2026-03-23", "value": 18.346}, {"date": "2026-03-25", "value": 17.576}];
+const ngData = [{"date": "2024-01-01", "value": 2.893}, {"date": "2024-01-08", "value": 3.313}, {"date": "2024-01-15", "value": 2.519}, {"date": "2024-01-22", "value": 2.712}, {"date": "2024-01-29", "value": 2.079}, {"date": "2024-02-05", "value": 1.847}, {"date": "2024-02-12", "value": 1.609}, {"date": "2024-02-19", "value": 1.603}, {"date": "2024-02-26", "value": 1.835}, {"date": "2024-03-04", "value": 1.805}, {"date": "2024-03-11", "value": 1.655}, {"date": "2024-03-18", "value": 1.659}, {"date": "2024-03-25", "value": 1.763}, {"date": "2024-04-01", "value": 1.785}, {"date": "2024-04-08", "value": 1.77}, {"date": "2024-04-15", "value": 1.752}, {"date": "2024-04-22", "value": 1.614}, {"date": "2024-04-29", "value": 2.142}, {"date": "2024-05-06", "value": 2.252}, {"date": "2024-05-13", "value": 2.626}, {"date": "2024-05-20", "value": 2.52}, {"date": "2024-05-27", "value": 2.587}, {"date": "2024-06-03", "value": 2.918}, {"date": "2024-06-10", "value": 2.881}, {"date": "2024-06-17", "value": 2.705}, {"date": "2024-06-24", "value": 2.601}, {"date": "2024-07-01", "value": 2.319}, {"date": "2024-07-08", "value": 2.329}, {"date": "2024-07-15", "value": 2.128}, {"date": "2024-07-22", "value": 2.006}, {"date": "2024-07-29", "value": 1.967}, {"date": "2024-08-05", "value": 2.143}, {"date": "2024-08-12", "value": 2.123}, {"date": "2024-08-19", "value": 2.022}, {"date": "2024-08-26", "value": 2.127}, {"date": "2024-09-02", "value": 2.275}, {"date": "2024-09-09", "value": 2.305}, {"date": "2024-09-16", "value": 2.434}, {"date": "2024-09-23", "value": 2.902}, {"date": "2024-09-30", "value": 2.854}, {"date": "2024-10-07", "value": 2.632}, {"date": "2024-10-14", "value": 2.258}, {"date": "2024-10-21", "value": 2.56}, {"date": "2024-10-28", "value": 2.663}, {"date": "2024-11-04", "value": 2.669}, {"date": "2024-11-11", "value": 2.823}, {"date": "2024-11-18", "value": 3.129}, {"date": "2024-11-25", "value": 3.363}, {"date": "2024-12-02", "value": 3.076}, {"date": "2024-12-09", "value": 3.28}, {"date": "2024-12-16", "value": 3.748}, {"date": "2024-12-23", "value": 3.514}, {"date": "2024-12-30", "value": 3.354}, {"date": "2025-01-06", "value": 3.989}, {"date": "2025-01-13", "value": 3.948}, {"date": "2025-01-20", "value": 4.027}, {"date": "2025-01-27", "value": 3.044}, {"date": "2025-02-03", "value": 3.309}, {"date": "2025-02-10", "value": 3.725}, {"date": "2025-02-17", "value": 4.234}, {"date": "2025-02-24", "value": 3.834}, {"date": "2025-03-03", "value": 4.399}, {"date": "2025-03-10", "value": 4.104}, {"date": "2025-03-17", "value": 3.98}, {"date": "2025-03-24", "value": 4.065}, {"date": "2025-03-31", "value": 3.837}, {"date": "2025-04-07", "value": 3.527}, {"date": "2025-04-14", "value": 3.245}, {"date": "2025-04-21", "value": 2.937}, {"date": "2025-04-28", "value": 3.63}, {"date": "2025-05-05", "value": 3.795}, {"date": "2025-05-12", "value": 3.334}, {"date": "2025-05-19", "value": 3.334}, {"date": "2025-05-26", "value": 3.447}, {"date": "2025-06-02", "value": 3.784}, {"date": "2025-06-09", "value": 3.581}, {"date": "2025-06-16", "value": 3.847}, {"date": "2025-06-23", "value": 3.739}, {"date": "2025-06-30", "value": 3.387}, {"date": "2025-07-07", "value": 3.314}, {"date": "2025-07-14", "value": 3.565}, {"date": "2025-07-21", "value": 3.11}, {"date": "2025-07-28", "value": 3.083}, {"date": "2025-08-04", "value": 2.99}, {"date": "2025-08-11", "value": 2.916}, {"date": "2025-08-18", "value": 2.698}, {"date": "2025-08-25", "value": 2.997}, {"date": "2025-09-01", "value": 3.048}, {"date": "2025-09-08", "value": 2.941}, {"date": "2025-09-15", "value": 2.888}, {"date": "2025-09-22", "value": 2.835}, {"date": "2025-09-29", "value": 3.324}, {"date": "2025-10-06", "value": 3.106}, {"date": "2025-10-13", "value": 3.008}, {"date": "2025-10-20", "value": 3.304}, {"date": "2025-10-27", "value": 4.124}, {"date": "2025-11-03", "value": 4.315}, {"date": "2025-11-10", "value": 4.566}, {"date": "2025-11-17", "value": 4.58}, {"date": "2025-11-24", "value": 4.85}, {"date": "2025-12-01", "value": 5.289}, {"date": "2025-12-08", "value": 4.113}, {"date": "2025-12-15", "value": 3.984}, {"date": "2025-12-22", "value": 4.366}, {"date": "2025-12-29", "value": 3.618}, {"date": "2026-01-05", "value": 3.169}, {"date": "2026-01-12", "value": 3.103}, {"date": "2026-01-19", "value": 5.275}, {"date": "2026-01-26", "value": 4.354}, {"date": "2026-02-02", "value": 3.422}, {"date": "2026-02-09", "value": 3.243}, {"date": "2026-02-16", "value": 3.047}, {"date": "2026-02-23", "value": 2.859}, {"date": "2026-03-02", "value": 3.186}, {"date": "2026-03-09", "value": 3.131}, {"date": "2026-03-16", "value": 3.095}, {"date": "2026-03-23", "value": 2.943}, {"date": "2026-03-25", "value": 2.868}];
+const ttfL = ttfData[ttfData.length-1].value;
+const hhL = ngData[ngData.length-1].value;
+document.getElementById('stats').innerHTML = 
+    '<div class="stat"><div class="label">TTF (Latest)</div><div class="val ttf">$'+ttfL.toFixed(2)+'/MMBtu</div></div>'+
+    '<div class="stat"><div class="label">Henry Hub (Latest)</div><div class="val hh">$'+hhL.toFixed(2)+'/MMBtu</div></div>'+
+    '<div class="stat"><div class="label">Spread</div><div class="val spread">$'+(ttfL-hhL).toFixed(2)+'/MMBtu</div></div>'+
+    '<div class="stat"><div class="label">Ratio</div><div class="val spread">'+(ttfL/hhL).toFixed(1)+'x</div></div>';
+new Chart(document.getElementById('chart').getContext('2d'), {
+    type: 'line',
+    data: { datasets: [
+        { label: 'TTF (Europe)', data: ttfData.map(d=>({x:d.date,y:d.value})), borderColor:'#3b82f6', borderWidth:2, pointRadius:0, tension:0.2, fill:false },
+        { label: 'Henry Hub (US)', data: ngData.map(d=>({x:d.date,y:d.value})), borderColor:'#22c55e', borderWidth:2, pointRadius:0, tension:0.2, fill:false }
+    ]},
+    options: {
+        responsive:true, maintainAspectRatio:false,
+        interaction:{mode:'index',intersect:false},
+        plugins:{
+            legend:{position:'top',labels:{color:'#888',font:{size:12},boxWidth:14}},
+            tooltip:{backgroundColor:'#1a1a1a',titleColor:'#f59e0b',bodyColor:'#e0e0e0',borderColor:'#333',borderWidth:1,
+                callbacks:{label:function(ctx){return ctx.dataset.label+': $'+ctx.parsed.y.toFixed(2)+'/MMBtu';}}}
+        },
+        scales:{
+            x:{type:'time',time:{unit:'month'},grid:{color:'#1a1a1a'},ticks:{color:'#666'}},
+            y:{title:{display:true,text:'USD / MMBtu',color:'#888'},grid:{color:'#1a1a1a'},ticks:{color:'#666',callback:v=>'$'+v}}
+        }
+    }
+});
+</script>
+</body>
+</html>
