@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>🏎️ F1 Japanese GP — Race Weekend Dashboard</title>
+<title>🏎️ F1 Miami GP — Race Weekend Dashboard</title>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
 <style>
 :root { --bg:#0a0a0a; --surface:#141414; --border:#2a2a2a; --text:#e0e0e0; --muted:#888; --accent:#DC0000; }
@@ -14,16 +14,18 @@ body { background:var(--bg); color:var(--text); font-family:-apple-system,BlinkM
 .header .flag { font-size:2.5rem; }
 .header .meta { color:var(--muted); font-size:0.85rem; margin-top:4px; }
 .header .round { color:var(--accent); font-weight:600; }
+.header .sprint-badge { background:#f59e0b; color:#000; padding:2px 8px; border-radius:4px; font-size:0.75rem; font-weight:700; margin-left:6px; }
 .grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:16px; }
 @media (max-width:800px) { .grid { grid-template-columns:1fr; } }
 .card { background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:16px; }
 .card h3 { color:var(--muted); font-size:0.85rem; margin-bottom:10px; text-transform:uppercase; letter-spacing:0.5px; }
 .card.full { grid-column: 1 / -1; }
 .schedule { list-style:none; }
-.schedule li { display:grid; grid-template-columns:140px 90px 120px; gap:8px; align-items:center; padding:8px 0; border-bottom:1px solid var(--border); }
+.schedule li { display:grid; grid-template-columns:160px 90px 1fr; gap:8px; align-items:center; padding:8px 0; border-bottom:1px solid var(--border); }
 .schedule li:last-child { border:none; }
 .schedule .session { font-weight:600; }
 .schedule .race { color:var(--accent); font-size:1.1rem; }
+.schedule .sprint { color:#f59e0b; font-size:1rem; }
 .schedule .time { color:#f59e0b; font-weight:600; }
 .schedule .note { color:var(--muted); font-size:0.75rem; }
 .standings { list-style:none; }
@@ -49,9 +51,9 @@ body { background:var(--bg); color:var(--text); font-family:-apple-system,BlinkM
 </head>
 <body>
 <div class="header">
-    <div class="flag">🇯🇵</div>
-    <h1>Japanese Grand Prix</h1>
-    <div class="meta"><span class="round">Round 3</span> · Suzuka · March 27-29, 2026</div>
+    <div class="flag">🇺🇸</div>
+    <h1>Miami Grand Prix</h1>
+    <div class="meta"><span class="round">Round 4</span><span class="sprint-badge">SPRINT</span> · Miami Gardens, Florida · May 1–3, 2026</div>
     <div class="countdown" id="countdown"><div class="label">until lights out</div></div>
 </div>
 
@@ -61,156 +63,164 @@ body { background:var(--bg); color:var(--text); font-family:-apple-system,BlinkM
         <h3>📅 Schedule (BRT — São Paulo)</h3>
         <ul class="schedule">
 <li>
-    <div><span class="session ">FP1</span><br><span class="note">Thu night in SP</span></div>
-    <div style="text-align:right"><span class="time">23:30</span><br><span class="note">Fri 27</span></div>
-    <div style="text-align:right"><span style="font-size:0.85rem">☀️ 15°C</span><br><span class="note">Rain 0% · 1km/h</span></div>
+    <div><span class="session">FP1</span><br><span class="note">Fri afternoon</span></div>
+    <div style="text-align:right"><span class="time">17:30</span><br><span class="note">Fri 1 May</span></div>
+    <div style="text-align:right"><span style="font-size:0.85rem">☀️ 30°C</span><br><span class="note">Humid · Miami heat</span></div>
 </li>
 <li>
-    <div><span class="session ">FP2</span><br><span class="note">Fri early AM</span></div>
-    <div style="text-align:right"><span class="time">03:00</span><br><span class="note">Sat 28</span></div>
-    <div style="text-align:right"><span style="font-size:0.85rem">⛅ 16°C</span><br><span class="note">Rain 0% · 3km/h</span></div>
+    <div><span class="session sprint">Sprint Qualifying</span><br><span class="note">Fri evening</span></div>
+    <div style="text-align:right"><span class="time">21:30</span><br><span class="note">Fri 1 May</span></div>
+    <div style="text-align:right"><span style="font-size:0.85rem">⛅ 29°C</span><br><span class="note">Partly cloudy</span></div>
 </li>
 <li>
-    <div><span class="session ">FP3</span><br><span class="note">Sat night</span></div>
-    <div style="text-align:right"><span class="time">23:30</span><br><span class="note">Sat 28</span></div>
-    <div style="text-align:right"><span style="font-size:0.85rem">☀️ 13°C</span><br><span class="note">Rain 0% · 5km/h</span></div>
+    <div><span class="session sprint">SPRINT RACE</span><br><span class="note">Sat afternoon</span></div>
+    <div style="text-align:right"><span class="time">17:00</span><br><span class="note">Sat 2 May</span></div>
+    <div style="text-align:right"><span style="font-size:0.85rem">☀️ 31°C</span><br><span class="note">Sunny · Hot track</span></div>
 </li>
 <li>
-    <div><span class="session ">Qualifying</span><br><span class="note">Sun early AM</span></div>
-    <div style="text-align:right"><span class="time">03:00</span><br><span class="note">Sun 29</span></div>
-    <div style="text-align:right"><span style="font-size:0.85rem">☀️ 16°C</span><br><span class="note">Rain 0% · 10km/h</span></div>
+    <div><span class="session">Qualifying</span><br><span class="note">Sat evening</span></div>
+    <div style="text-align:right"><span class="time">21:00</span><br><span class="note">Sat 2 May</span></div>
+    <div style="text-align:right"><span style="font-size:0.85rem">⛅ 29°C</span><br><span class="note">Cooling down</span></div>
 </li>
 <li>
-    <div><span class="session race">RACE</span><br><span class="note">Sun early AM</span></div>
-    <div style="text-align:right"><span class="time">02:00</span><br><span class="note">Sun 29</span></div>
-    <div style="text-align:right"><span style="font-size:0.85rem">🌧️ 14°C</span><br><span class="note" style="color:#ef4444">Rain 100% · 7km/h</span></div>
+    <div><span class="session race">RACE</span><br><span class="note">Sun evening — 57 laps</span></div>
+    <div style="text-align:right"><span class="time">21:00</span><br><span class="note">Sun 3 May</span></div>
+    <div style="text-align:right"><span style="font-size:0.85rem">🌙 26°C</span><br><span class="note">Night race vibes</span></div>
 </li>
         </ul>
-        <div class="note" style="margin-top:8px">⚠️ Dry through qualifying but rain forecast for Saturday evening local time — could mean a wet race. Strategy wildcard.</div>
+        <div class="note" style="margin-top:8px">⚠️ Sprint weekend format — no FP2/FP3. One practice session then straight to Sprint Quali. High stakes from the start.</div>
     </div>
 
     <!-- Circuit Info -->
     <div class="card">
         <h3>🏁 Circuit</h3>
-        <div style="font-size:1.1rem;font-weight:600;margin-bottom:12px;">Suzuka International Racing Course</div>
+        <div style="font-size:1.1rem;font-weight:600;margin-bottom:12px;">Miami International Autodrome</div>
         <div class="circuit-info">
-            <div class="circuit-stat"><div class="val">5.807</div><div class="label">km length</div></div>
-            <div class="circuit-stat"><div class="val">53</div><div class="label">laps</div></div>
-            <div class="circuit-stat"><div class="val">18</div><div class="label">turns</div></div>
-            <div class="circuit-stat"><div class="val">2</div><div class="label">DRS zones</div></div>
-            <div class="circuit-stat"><div class="val">307</div><div class="label">km total</div></div>
+            <div class="circuit-stat"><div class="val">5.412</div><div class="label">km length</div></div>
+            <div class="circuit-stat"><div class="val">57</div><div class="label">laps</div></div>
+            <div class="circuit-stat"><div class="val">19</div><div class="label">turns</div></div>
+            <div class="circuit-stat"><div class="val">3</div><div class="label">DRS zones</div></div>
+            <div class="circuit-stat"><div class="val">308</div><div class="label">km total</div></div>
         </div>
-        <div style="margin-top:12px;color:var(--muted);font-size:0.8rem;">Figure-8 layout. Legendary corners: 130R, Spoon, S-curves. One of the most technically demanding circuits on the calendar.</div>
+        <div style="margin-top:12px;color:var(--muted);font-size:0.8rem;">Semi-permanent circuit around Hard Rock Stadium. 3 DRS zones create huge overtaking opportunities. Anti-clockwise. Key braking zones at T11 and T17. High temps and humidity punish tyres and PU cooling.</div>
+        <div style="margin-top:8px;"><a href="circuit.html" style="color:#f59e0b;font-size:0.8rem;">→ View circuit diagram</a></div>
     </div>
 
     <!-- Drivers Standings -->
     <div class="card">
-        <h3>🏆 Drivers Championship</h3>
+        <h3>🏆 Drivers Championship — After Round 3</h3>
         <ul class="standings">
 <li>
     <span class="pos">1</span>
     <span class="team-dot" style="background:#00D2BE"></span>
-    <span class="name">George Russell</span>
-    <span class="pts">51</span>
+    <span class="name">Kimi Antonelli</span>
+    <span class="pts">72</span>
     <div class="bar" style="width:100%;background:#00D2BE"></div>
 </li>
 <li>
     <span class="pos">2</span>
     <span class="team-dot" style="background:#00D2BE"></span>
-    <span class="name">Kimi Antonelli</span>
-    <span class="pts">47</span>
-    <div class="bar" style="width:92%;background:#00D2BE"></div>
+    <span class="name">George Russell</span>
+    <span class="pts">63</span>
+    <div class="bar" style="width:88%;background:#00D2BE"></div>
 </li>
 <li>
     <span class="pos">3</span>
     <span class="team-dot" style="background:#DC0000"></span>
     <span class="name">Charles Leclerc</span>
-    <span class="pts">34</span>
-    <div class="bar" style="width:67%;background:#DC0000"></div>
+    <span class="pts">49</span>
+    <div class="bar" style="width:68%;background:#DC0000"></div>
 </li>
 <li>
     <span class="pos">4</span>
     <span class="team-dot" style="background:#DC0000"></span>
     <span class="name">Lewis Hamilton</span>
-    <span class="pts">33</span>
-    <div class="bar" style="width:65%;background:#DC0000"></div>
+    <span class="pts">41</span>
+    <div class="bar" style="width:57%;background:#DC0000"></div>
 </li>
 <li>
     <span class="pos">5</span>
-    <span class="team-dot" style="background:#B6BABD"></span>
-    <span class="name">Oliver Bearman</span>
-    <span class="pts">17</span>
-    <div class="bar" style="width:33%;background:#B6BABD"></div>
+    <span class="team-dot" style="background:#FF8700"></span>
+    <span class="name">Lando Norris</span>
+    <span class="pts">25</span>
+    <div class="bar" style="width:35%;background:#FF8700"></div>
 </li>
 <li>
     <span class="pos">6</span>
     <span class="team-dot" style="background:#FF8700"></span>
-    <span class="name">Lando Norris</span>
-    <span class="pts">15</span>
+    <span class="name">Oscar Piastri</span>
+    <span class="pts">21</span>
     <div class="bar" style="width:29%;background:#FF8700"></div>
 </li>
 <li>
     <span class="pos">7</span>
-    <span class="team-dot" style="background:#0090FF"></span>
-    <span class="name">Pierre Gasly</span>
-    <span class="pts">9</span>
-    <div class="bar" style="width:18%;background:#0090FF"></div>
+    <span class="team-dot" style="background:#B6BABD"></span>
+    <span class="name">Oliver Bearman</span>
+    <span class="pts">17</span>
+    <div class="bar" style="width:24%;background:#B6BABD"></div>
 </li>
 <li>
     <span class="pos">8</span>
-    <span class="team-dot" style="background:#3671C6"></span>
-    <span class="name">Max Verstappen</span>
-    <span class="pts">8</span>
-    <div class="bar" style="width:16%;background:#3671C6"></div>
+    <span class="team-dot" style="background:#0090FF"></span>
+    <span class="name">Pierre Gasly</span>
+    <span class="pts">15</span>
+    <div class="bar" style="width:21%;background:#0090FF"></div>
 </li>
 <li>
     <span class="pos">9</span>
-    <span class="team-dot" style="background:#6692FF"></span>
-    <span class="name">Liam Lawson</span>
-    <span class="pts">8</span>
-    <div class="bar" style="width:16%;background:#6692FF"></div>
+    <span class="team-dot" style="background:#3671C6"></span>
+    <span class="name">Max Verstappen</span>
+    <span class="pts">12</span>
+    <div class="bar" style="width:17%;background:#3671C6"></div>
 </li>
 <li>
     <span class="pos">10</span>
     <span class="team-dot" style="background:#6692FF"></span>
-    <span class="name">Arvid Lindblad</span>
-    <span class="pts">4</span>
-    <div class="bar" style="width:8%;background:#6692FF"></div>
+    <span class="name">Liam Lawson</span>
+    <span class="pts">10</span>
+    <div class="bar" style="width:14%;background:#6692FF"></div>
 </li>
 <li>
     <span class="pos">11</span>
-    <span class="team-dot" style="background:#3671C6"></span>
-    <span class="name">Isack Hadjar</span>
+    <span class="team-dot" style="background:#6692FF"></span>
+    <span class="name">Arvid Lindblad</span>
     <span class="pts">4</span>
-    <div class="bar" style="width:8%;background:#3671C6"></div>
+    <div class="bar" style="width:6%;background:#6692FF"></div>
 </li>
 <li>
     <span class="pos">12</span>
-    <span class="team-dot" style="background:#FF8700"></span>
-    <span class="name">Oscar Piastri</span>
-    <span class="pts">3</span>
-    <div class="bar" style="width:6%;background:#FF8700"></div>
+    <span class="team-dot" style="background:#3671C6"></span>
+    <span class="name">Isack Hadjar</span>
+    <span class="pts">4</span>
+    <div class="bar" style="width:6%;background:#3671C6"></div>
 </li>
 <li>
     <span class="pos">13</span>
-    <span class="team-dot" style="background:#64C4FF"></span>
-    <span class="name">Carlos Sainz</span>
+    <span class="team-dot" style="background:#00594F"></span>
+    <span class="name">Gabriel Bortoleto</span>
     <span class="pts">2</span>
-    <div class="bar" style="width:4%;background:#64C4FF"></div>
+    <div class="bar" style="width:3%;background:#00594F"></div>
 </li>
 <li>
     <span class="pos">14</span>
-    <span class="team-dot" style="background:#B6BABD"></span>
-    <span class="name">Gabriel Bortoleto</span>
+    <span class="team-dot" style="background:#64C4FF"></span>
+    <span class="name">Carlos Sainz</span>
     <span class="pts">2</span>
-    <div class="bar" style="width:4%;background:#B6BABD"></div>
+    <div class="bar" style="width:3%;background:#64C4FF"></div>
 </li>
 <li>
     <span class="pos">15</span>
+    <span class="team-dot" style="background:#B6BABD"></span>
+    <span class="name">Esteban Ocon</span>
+    <span class="pts">1</span>
+    <div class="bar" style="width:1%;background:#B6BABD"></div>
+</li>
+<li>
+    <span class="pos">16</span>
     <span class="team-dot" style="background:#0090FF"></span>
     <span class="name">Franco Colapinto</span>
     <span class="pts">1</span>
-    <div class="bar" style="width:2%;background:#0090FF"></div>
+    <div class="bar" style="width:1%;background:#0090FF"></div>
 </li>
         </ul>
     </div>
@@ -223,55 +233,54 @@ body { background:var(--bg); color:var(--text); font-family:-apple-system,BlinkM
 
     <!-- Track History -->
     <div class="card full">
-        <h3>📜 Suzuka — Track History & Iconic Moments</h3>
+        <h3>📜 Miami — Track History & Iconic Moments</h3>
         <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:12px;margin-bottom:16px;">
-            <div class="circuit-stat"><div class="val">1987</div><div class="label">First F1 race</div></div>
-            <div class="circuit-stat"><div class="val">35</div><div class="label">GPs held</div></div>
-            <div class="circuit-stat"><div class="val">1:30.9</div><div class="label">Race lap record</div></div>
-            <div class="circuit-stat"><div class="val">1:26.9</div><div class="label">Quali record</div></div>
-            <div class="circuit-stat"><div class="val">54%</div><div class="label">Won from pole</div></div>
+            <div class="circuit-stat"><div class="val">2022</div><div class="label">First F1 race</div></div>
+            <div class="circuit-stat"><div class="val">4</div><div class="label">GPs held</div></div>
+            <div class="circuit-stat"><div class="val">1:29.7</div><div class="label">Race lap record</div></div>
+            <div class="circuit-stat"><div class="val">3</div><div class="label">DRS zones</div></div>
+            <div class="circuit-stat"><div class="val">75%</div><div class="label">Won from top 5</div></div>
         </div>
         <div style="font-size:0.82rem;line-height:1.6;">
-            <div style="margin-bottom:10px;"><strong style="color:#f59e0b;">Most wins:</strong> Schumacher (6) · Vettel, Hamilton, Verstappen (4 each)</div>
-            <div style="margin-bottom:10px;"><strong style="color:#f59e0b;">Most poles:</strong> Schumacher (8) · Vettel (5)</div>
-            <div style="margin-bottom:10px;"><strong style="color:#f59e0b;">Most constructor wins:</strong> Red Bull (8) · Ferrari, McLaren (7) · Mercedes (6)</div>
-            <div style="margin-bottom:10px;"><strong style="color:#f59e0b;">Lap record:</strong> 1:30.965 — Antonelli (Mercedes, 2025) · Quali: 1:26.983 — Verstappen (Red Bull, 2025)</div>
+            <div style="margin-bottom:10px;"><strong style="color:#f59e0b;">Winners:</strong> Verstappen (2022, 2023) · Norris (2024) · Piastri (2025)</div>
+            <div style="margin-bottom:10px;"><strong style="color:#f59e0b;">Most constructor wins:</strong> Red Bull (2) · McLaren (2)</div>
+            <div style="margin-bottom:10px;"><strong style="color:#f59e0b;">Lap record:</strong> 1:29.708 — Verstappen (Red Bull RB19, 2023)</div>
+            <div style="margin-bottom:10px;"><strong style="color:#f59e0b;">Key overtake zones:</strong> T11 heavy braking (marina section) · T17 hairpin · T1 end of main straight</div>
         </div>
         <div style="margin-top:14px;border-top:1px solid var(--border);padding-top:14px;">
             <div style="font-size:0.8rem;color:var(--muted);margin-bottom:8px;text-transform:uppercase;letter-spacing:0.5px;">Iconic Moments</div>
             <ul style="list-style:none;font-size:0.82rem;line-height:1.6;">
-                <li style="padding:6px 0;border-bottom:1px solid var(--border);">🏆 <strong>1989 — Senna vs Prost I:</strong> The chicane collision that defined an era. Prost walked away champion after Senna was disqualified for rejoining via the escape road. Politics, rage, and the greatest rivalry F1 has ever seen.</li>
-                <li style="padding:6px 0;border-bottom:1px solid var(--border);">💥 <strong>1990 — Senna vs Prost II:</strong> Senna deliberately drove into Prost at Turn 1. "If he thinks I'm going to leave room, he's wrong." Title settled on the spot. The most premeditated move in F1 history.</li>
-                <li style="padding:6px 0;border-bottom:1px solid var(--border);">🌧️ <strong>2005 — Räikkönen from P17:</strong> Kimi started 17th and carved through the entire field, passing Fisichella on the final lap for the win. Many consider it the greatest drive in Suzuka history.</li>
-                <li style="padding:6px 0;border-bottom:1px solid var(--border);">🇯🇵 <strong>2012 — Kobayashi's home podium:</strong> Kamui Kobayashi P3 for Sauber — first Japanese driver on the Suzuka podium in 22 years. The crowd went absolutely mental.</li>
-                <li style="padding:6px 0;border-bottom:1px solid var(--border);">😢 <strong>2014 — Jules Bianchi:</strong> Rain, a recovery crane, and an impact that changed F1 safety forever. Bianchi passed away 9 months later. The halo exists because of Suzuka.</li>
-                <li style="padding:6px 0;border-bottom:1px solid var(--border);">🏎️ <strong>2000 — Schumacher's redemption:</strong> After 21 years, Ferrari won the drivers' championship again. Schumacher cried on the podium. Five consecutive titles started here.</li>
-                <li style="padding:6px 0;">🎌 <strong>The circuit itself:</strong> Designed by John Hugenholtz in 1962 as Honda's test track. The only figure-8 circuit in F1. The S-curves, 130R, Spoon, and Degner — every corner has a story. Drivers consistently rate it the most rewarding track to drive.</li>
+                <li style="padding:6px 0;border-bottom:1px solid var(--border);">🏆 <strong>2022 — Verstappen's inaugural win:</strong> Started P3, overtook Leclerc and Sainz to win the first-ever Miami GP. Late safety car made for a tense finish, but Max held firm. The beginning of a new classic.</li>
+                <li style="padding:6px 0;border-bottom:1px solid var(--border);">🚀 <strong>2023 — Verstappen from P9:</strong> After a difficult qualifying, Max carved through the entire field from ninth to win. Legendary tire management and pace. Set the lap record (1:29.708) in the process.</li>
+                <li style="padding:6px 0;border-bottom:1px solid var(--border);">🎉 <strong>2024 — Norris's maiden win:</strong> After 110 races, Lando finally broke through. Started P5, benefited from a safety car and the upgraded McLaren's raw pace. Emotional scenes — the monkey was off his back.</li>
+                <li style="padding:6px 0;border-bottom:1px solid var(--border);">🔧 <strong>2025 — McLaren 1-2, Piastri dominates:</strong> Oscar Piastri led a McLaren 1-2 with an immaculate drive. The team executed a flawless double-stack pit stop. McLaren's third consecutive win — a dynasty forming.</li>
+                <li style="padding:6px 0;border-bottom:1px solid var(--border);">🏟️ <strong>The venue:</strong> Built around Hard Rock Stadium, home of the Miami Dolphins. The faux marina with yachts, the celebrity paddock, the neon-drenched atmosphere — love it or hate it, Miami is F1's most American race. The track punishes cars with extreme heat and humidity.</li>
+                <li style="padding:6px 0;">💨 <strong>3 DRS zones = chaos:</strong> The triple-DRS setup creates some of the best wheel-to-wheel racing on the calendar. The T11 and T17 braking zones are where races are won and lost. Combined zones 2 & 3 allow multi-corner attack sequences like Jeddah.</li>
             </ul>
         </div>
     </div>
 
     <!-- Key Stories -->
     <div class="card full">
-        <h3>📰 Key Stories Heading Into Suzuka</h3>
+        <h3>📰 Key Stories Heading Into Miami</h3>
         <ul class="stories">
-<li>Antonelli historic: youngest pole sitter + 2nd youngest race winner ever at China GP</li>
-<li>Mercedes dominant — 1-2 in both races so far, 98 pts vs Ferrari's 67</li>
-<li>Hamilton's first Ferrari podium at China — adapting to new car</li>
-<li>Verstappen struggling — P8 in standings, Red Bull with new regs look lost</li>
-<li>Bearman surprise P5 in championship with Haas — 2026 regs shaking up the order</li>
-<li>Bahrain & Saudi cancelled due to Iran conflict — next race after Japan is Miami (May 1-3)</li>
-        </ul>
+<li><strong>Antonelli leads the championship</strong> — youngest ever WDC leader at 19. Two consecutive wins (China, Japan). The kid is the real deal. Can Mercedes maintain dominance on a power-heavy street circuit?</li>
+<li><strong>5-week break after Japan</strong> — Bahrain & Saudi cancelled due to Middle East conflict. Teams have had a full month to develop. Who brings the biggest upgrades to Miami?</li>
+<li><strong>McLaren's Miami fortress</strong> — back-to-back winners here (Norris '24, Piastri '25). Norris P5 with 25 pts, Piastri P6 with 21. Dangerous on a power circuit with 3 DRS zones.</li>
+<li><strong>Verstappen & Red Bull struggling</strong> — P9 in championship, only 12 pts after 3 races. Red Bull P6 in constructors tied with Alpine on 16 pts. The 2026 regs have exposed them. Must-improve weekend.</li>
+<li><strong>Bearman the surprise package</strong> — Haas rookie P7 with 17 pts, ahead of Gasly, Verstappen, and Lawson. Haas P4 in constructors with 18 pts. The new regs are a great equalizer.</li>
+<li><strong>Sprint format</strong> — extra points on offer Saturday. With only 1 practice session, preparation is compressed. Rewards drivers who adapt fast. Antonelli's natural speed vs Russell's methodical approach — advantage kid.</li>
+</ul>
     </div>
 </div>
 
 <div style="text-align:center;color:var(--muted);font-size:0.7rem;margin-top:16px;">
-    Built by Marshall 🔶 for Wilson · Data: formula1.com, various sources
+    Built by Marshall 🔶 for Wilson · Data: formula1.com · Updated Apr 8, 2026
 </div>
 
 <script>
-// Countdown to race
-const raceTime = new Date('2026-03-29T05:00:00Z'); // 14:00 JST = 02:00 BRT = 05:00 UTC
+// Countdown to race: Sun May 3, 20:00 EDT = 00:00 UTC May 4
+const raceTime = new Date('2026-05-04T00:00:00Z');
 function updateCountdown() {
     const now = new Date();
     const diff = raceTime - now;
@@ -286,9 +295,9 @@ updateCountdown();
 setInterval(updateCountdown, 60000);
 
 // Constructors chart
-const teams = ["Mercedes", "Ferrari", "McLaren", "Haas", "Red Bull", "Racing Bulls", "Alpine", "Audi", "Williams", "Cadillac", "Aston Martin"];
-const pts = [98, 67, 18, 17, 12, 12, 10, 2, 2, 0, 0];
-const colors = ["#00D2BE", "#DC0000", "#FF8700", "#B6BABD", "#3671C6", "#6692FF", "#0090FF", "#00594F", "#64C4FF", "#1E1E1E", "#006F62"];
+const teams = ["Mercedes", "Ferrari", "McLaren", "Haas", "Alpine", "Red Bull", "Racing Bulls", "Audi", "Williams", "Cadillac", "Aston Martin"];
+const pts = [135, 90, 46, 18, 16, 16, 14, 2, 2, 0, 0];
+const colors = ["#00D2BE", "#DC0000", "#FF8700", "#B6BABD", "#0090FF", "#3671C6", "#6692FF", "#00594F", "#64C4FF", "#1E1E1E", "#006F62"];
 
 new Chart(document.getElementById('constChart').getContext('2d'), {
     type: 'bar',
