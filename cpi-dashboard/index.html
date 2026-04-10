@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>US CPI Dashboard — March 2026</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+  :root {
+    --bg: #0d1117;
+    --card: #161b22;
+    --border: #30363d;
+    --text: #e6edf3;
+    --muted: #8b949e;
+    --green: #3fb950;
+    --red: #f85149;
+    --orange: #d29922;
+    --blue: #58a6ff;
+    --purple: #bc8cff;
+    --cyan: #39d2c0;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    padding: 20px;
+    line-height: 1.5;
+  }
+  .header {
+    text-align: center;
+    margin-bottom: 30px;
+    padding: 30px 20px;
+    background: linear-gradient(135deg, #1a1e2e 0%, #0d1117 100%);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+  }
+  .header h1 { font-size: 2rem; margin-bottom: 8px; }
+  .header .subtitle { color: var(--muted); font-size: 1.1rem; }
+  .header .release-badge {
+    display: inline-block;
+    background: var(--orange);
+    color: #000;
+    padding: 4px 14px;
+    border-radius: 20px;
+    font-weight: 600;
+    font-size: 0.85rem;
+    margin-top: 10px;
+  }
+
+  .grid { display: grid; gap: 20px; margin-bottom: 20px; }
+  .grid-4 { grid-template-columns: repeat(4, 1fr); }
+  .grid-2 { grid-template-columns: repeat(2, 1fr); }
+  .grid-3 { grid-template-columns: repeat(3, 1fr); }
+  .grid-1 { grid-template-columns: 1fr; }
+
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px;
+  }
+  .card h3 {
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--muted);
+    margin-bottom: 12px;
+  }
+
+  /* KPI Cards */
+  .kpi { text-align: center; padding: 24px 16px; }
+  .kpi .value { font-size: 2.4rem; font-weight: 700; line-height: 1.1; }
+  .kpi .label { font-size: 0.8rem; color: var(--muted); margin-top: 4px; text-transform: uppercase; letter-spacing: 0.05em; }
+  .kpi .delta { font-size: 0.9rem; margin-top: 6px; font-weight: 600; }
+  .kpi .delta.up { color: var(--red); }
+  .kpi .delta.down { color: var(--green); }
+  .kpi .delta.flat { color: var(--muted); }
+  .kpi .vs-exp { font-size: 0.8rem; color: var(--muted); margin-top: 4px; }
+
+  /* Table */
+  .data-table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+  .data-table th {
+    text-align: left;
+    padding: 10px 12px;
+    border-bottom: 2px solid var(--border);
+    color: var(--muted);
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+  .data-table td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--border);
+  }
+  .data-table tr:last-child td { border-bottom: none; }
+  .data-table .num { text-align: right; font-variant-numeric: tabular-nums; font-weight: 500; }
+  .data-table .highlight { background: rgba(88,166,255,0.06); }
+  .pos { color: var(--red); }
+  .neg { color: var(--green); }
+  .bold { font-weight: 700; }
+
+  /* Bar indicators */
+  .bar-cell { display: flex; align-items: center; gap: 8px; }
+  .bar-track { flex: 1; height: 8px; background: var(--border); border-radius: 4px; overflow: hidden; position: relative; }
+  .bar-fill { height: 100%; border-radius: 4px; transition: width 0.5s; }
+  .bar-fill.hot { background: linear-gradient(90deg, var(--orange), var(--red)); }
+  .bar-fill.cool { background: linear-gradient(90deg, var(--green), var(--cyan)); }
+
+  /* Insight boxes */
+  .insight {
+    background: rgba(88,166,255,0.08);
+    border-left: 3px solid var(--blue);
+    padding: 14px 18px;
+    border-radius: 0 8px 8px 0;
+    margin-top: 16px;
+    font-size: 0.9rem;
+    line-height: 1.6;
+  }
+  .insight.warning {
+    background: rgba(210,153,34,0.08);
+    border-left-color: var(--orange);
+  }
+  .insight.danger {
+    background: rgba(248,81,73,0.08);
+    border-left-color: var(--red);
+  }
+  .insight strong { color: var(--blue); }
+  .insight.warning strong { color: var(--orange); }
+  .insight.danger strong { color: var(--red); }
+
+  /* Charts */
+  .chart-container { position: relative; height: 280px; margin-top: 10px; }
+  .chart-container-sm { height: 220px; }
+
+  /* Section headers */
+  .section-title {
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin: 30px 0 16px 0;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .section-title .icon { font-size: 1.4rem; }
+
+  /* Footer */
+  .footer {
+    text-align: center;
+    color: var(--muted);
+    font-size: 0.8rem;
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border);
+  }
+
+  /* Responsive */
+  @media (max-width: 900px) {
+    .grid-4 { grid-template-columns: repeat(2, 1fr); }
+    .grid-3 { grid-template-columns: repeat(1, 1fr); }
+  }
+  @media (max-width: 600px) {
+    .grid-4, .grid-2 { grid-template-columns: 1fr; }
+    body { padding: 12px; }
+    .kpi .value { font-size: 1.8rem; }
+  }
+
+  /* Record badge */
+  .record-badge {
+    display: inline-block;
+    background: var(--red);
+    color: #fff;
+    font-size: 0.65rem;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    vertical-align: middle;
+    margin-left: 6px;
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <h1>🇺🇸 US CPI Dashboard</h1>
+  <div class="subtitle">Consumer Price Index — March 2026</div>
+  <div class="release-badge">📅 Released April 10, 2026 · BLS USDL-26-0599</div>
+</div>
+
+<!-- TOP KPIs -->
+<div class="grid grid-4">
+  <div class="card kpi">
+    <div class="value pos">+0.9%</div>
+    <div class="label">Headline CPI m/m</div>
+    <div class="delta up">▲ from +0.3% in Feb</div>
+    <div class="vs-exp">Exp: +0.93% · <span style="color:var(--green)">Slight beat</span></div>
+  </div>
+  <div class="card kpi">
+    <div class="value pos">3.3%</div>
+    <div class="label">Headline CPI y/y</div>
+    <div class="delta up">▲ from 2.4% in Feb</div>
+    <div class="vs-exp">Exp: 3.4%-3.7% · <span style="color:var(--green)">Below consensus</span></div>
+  </div>
+  <div class="card kpi">
+    <div class="value" style="color:var(--orange)">+0.2%</div>
+    <div class="label">Core CPI m/m</div>
+    <div class="delta flat">= unchanged from Feb</div>
+    <div class="vs-exp">Exp: +0.29% · <span style="color:var(--green)">Below consensus</span></div>
+  </div>
+  <div class="card kpi">
+    <div class="value" style="color:var(--orange)">2.6%</div>
+    <div class="label">Core CPI y/y</div>
+    <div class="delta up">▲ from 2.5% in Feb</div>
+    <div class="vs-exp">Exp: 2.7% · <span style="color:var(--green)">Below consensus</span></div>
+  </div>
+</div>
+
+<!-- KEY TAKEAWAYS -->
+<div class="grid grid-1">
+  <div class="card">
+    <h3>🎯 Key Takeaways</h3>
+    <div class="insight danger">
+      <strong>Energy drove the entire spike.</strong> Gasoline +21.2% m/m — the largest monthly increase since the BLS started the series in 1967. Fuel oil +30.7% m/m. Energy overall +10.9% m/m, the biggest jump since Hurricane Katrina (Sep 2005). This is the Iran war flowing through to the consumer.
+    </div>
+    <div class="insight" style="margin-top:12px">
+      <strong>Core inflation remains contained.</strong> Ex food & energy, CPI rose just 0.2% m/m — unchanged from February and below the 0.29% consensus. The Fed's worst nightmare (energy shock + broadening core inflation) hasn't materialized yet. Shelter +0.3%, services ex-energy +0.2%. Used cars -0.4%, medical care -0.2%.
+    </div>
+    <div class="insight warning" style="margin-top:12px">
+      <strong>Headline vs Core divergence is extreme.</strong> The 0.7pp gap between headline m/m (+0.9%) and core m/m (+0.2%) is one of the widest on record. This is a pure energy-driven print. The question: does it stay contained or does energy pass through to services and wages in coming months?
+    </div>
+  </div>
+</div>
+
+<!-- ENERGY SECTION -->
+<div class="section-title"><span class="icon">⛽</span> Energy — The War Premium</div>
+<div class="grid grid-2">
+  <div class="card">
+    <h3>Energy Components m/m</h3>
+    <table class="data-table">
+      <thead><tr><th>Component</th><th class="num">Mar m/m</th><th class="num">Feb m/m</th><th class="num">12m y/y</th></tr></thead>
+      <tbody>
+        <tr class="highlight"><td><strong>Energy (total)</strong></td><td class="num bold pos">+10.9%</td><td class="num">+0.6%</td><td class="num pos">+12.5%</td></tr>
+        <tr><td>Gasoline <span class="record-badge">Record</span></td><td class="num bold pos">+21.2%</td><td class="num">+0.8%</td><td class="num pos">+18.9%</td></tr>
+        <tr><td>Fuel Oil</td><td class="num pos">+30.7%</td><td class="num">+11.1%</td><td class="num pos">+44.2%</td></tr>
+        <tr><td>Electricity</td><td class="num pos">+0.8%</td><td class="num neg">-0.7%</td><td class="num pos">+4.6%</td></tr>
+        <tr><td>Natural Gas</td><td class="num neg">-0.9%</td><td class="num pos">+3.1%</td><td class="num pos">+6.4%</td></tr>
+      </tbody>
+    </table>
+    <div class="insight danger" style="margin-top:16px">
+      Gasoline accounted for <strong>~75% of the entire all-items monthly increase</strong>. Before seasonal adjustment, gas prices surged 24.9%. National average crossed $4/gal for the first time in 4 years.
+    </div>
+  </div>
+  <div class="card">
+    <h3>Energy Contribution to Headline CPI</h3>
+    <div class="chart-container">
+      <canvas id="energyChart"></canvas>
+    </div>
+  </div>
+</div>
+
+<!-- CORE BREAKDOWN -->
+<div class="section-title"><span class="icon">📊</span> Core CPI Breakdown (ex Food & Energy)</div>
+<div class="grid grid-2">
+  <div class="card">
+    <h3>Core Components m/m — March 2026</h3>
+    <table class="data-table">
+      <thead><tr><th>Component</th><th class="num">Mar m/m</th><th class="num">Feb m/m</th><th class="num">12m y/y</th></tr></thead>
+      <tbody>
+        <tr class="highlight"><td><strong>Core CPI</strong></td><td class="num bold" style="color:var(--orange)">+0.2%</td><td class="num">+0.2%</td><td class="num">+2.6%</td></tr>
+        <tr><td>Shelter</td><td class="num pos">+0.3%</td><td class="num">+0.2%</td><td class="num">+3.0%</td></tr>
+        <tr><td>OER (Owners' Equiv. Rent)</td><td class="num pos">+0.3%</td><td class="num">+0.2%</td><td class="num">—</td></tr>
+        <tr><td>Rent of Primary Residence</td><td class="num">+0.2%</td><td class="num">+0.2%</td><td class="num">—</td></tr>
+        <tr><td>Airline Fares</td><td class="num pos">+2.7%</td><td class="num">+1.4%</td><td class="num pos">+14.9%</td></tr>
+        <tr><td>Transportation Services</td><td class="num pos">+0.6%</td><td class="num">+0.2%</td><td class="num pos">+4.1%</td></tr>
+        <tr><td>Apparel</td><td class="num pos">+1.0%</td><td class="num">+1.3%</td><td class="num">+3.4%</td></tr>
+        <tr><td>New Vehicles</td><td class="num">+0.1%</td><td class="num">0.0%</td><td class="num">+0.5%</td></tr>
+        <tr><td>Used Cars & Trucks</td><td class="num neg">-0.4%</td><td class="num neg">-0.4%</td><td class="num neg">-3.2%</td></tr>
+        <tr><td>Medical Care</td><td class="num neg">-0.2%</td><td class="num">+0.5%</td><td class="num">+3.1%</td></tr>
+        <tr><td>Prescription Drugs</td><td class="num neg">-1.5%</td><td class="num">—</td><td class="num">—</td></tr>
+        <tr><td>Personal Care</td><td class="num neg">-0.5%</td><td class="num">—</td><td class="num">—</td></tr>
+        <tr><td>Education</td><td class="num pos">+0.3%</td><td class="num">—</td><td class="num">—</td></tr>
+        <tr><td>Recreation</td><td class="num flat">0.0%</td><td class="num">—</td><td class="num">+2.2%</td></tr>
+        <tr><td>Motor Vehicle Insurance</td><td class="num flat">0.0%</td><td class="num">—</td><td class="num">—</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="card">
+    <h3>Core CPI m/m Trend (SA)</h3>
+    <div class="chart-container">
+      <canvas id="coreChart"></canvas>
+    </div>
+    <div class="insight" style="margin-top:16px">
+      <strong>Core is behaving.</strong> Shelter remains the stickiest component at +3.0% y/y, but the m/m pace is manageable. Used cars continue deflating (-3.2% y/y). Medical care flipped negative. The 0.2% core m/m print annualizes to ~2.4% — below the Fed's 2% PCE target equivalent.
+    </div>
+  </div>
+</div>
+
+<!-- FOOD -->
+<div class="section-title"><span class="icon">🍽️</span> Food Prices</div>
+<div class="grid grid-3">
+  <div class="card kpi">
+    <div class="value" style="color:var(--cyan)">0.0%</div>
+    <div class="label">Food Total m/m</div>
+    <div class="delta flat">Flat (was +0.4% in Feb)</div>
+  </div>
+  <div class="card kpi">
+    <div class="value neg">-0.2%</div>
+    <div class="label">Food at Home m/m</div>
+    <div class="delta down">▼ Grocery deflation</div>
+  </div>
+  <div class="card kpi">
+    <div class="value pos">+0.2%</div>
+    <div class="label">Food Away from Home m/m</div>
+    <div class="delta flat">3.8% y/y</div>
+  </div>
+</div>
+<div class="grid grid-1">
+  <div class="card">
+    <h3>Food at Home Detail</h3>
+    <table class="data-table">
+      <thead><tr><th>Category</th><th class="num">Mar m/m</th><th class="num">12m y/y</th><th>Note</th></tr></thead>
+      <tbody>
+        <tr><td>Eggs</td><td class="num neg">-3.4%</td><td class="num">—</td><td>Reversal after HPAI-driven spike</td></tr>
+        <tr><td>Meats, Poultry, Fish, Eggs</td><td class="num neg">-0.6%</td><td class="num neg">-0.9%</td><td>Deflationary y/y</td></tr>
+        <tr><td>Cereals & Bakery</td><td class="num neg">-0.6%</td><td class="num pos">+2.1%</td><td></td></tr>
+        <tr><td>Dairy</td><td class="num neg">-0.6%</td><td class="num neg">-1.6%</td><td>Deflationary y/y</td></tr>
+        <tr><td>Fruits & Vegetables</td><td class="num pos">+1.0%</td><td class="num pos">+4.0%</td><td>Seasonal + trade disruption</td></tr>
+        <tr><td>Nonalcoholic Beverages</td><td class="num neg">-0.3%</td><td class="num pos">+4.7%</td><td></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- HISTORICAL -->
+<div class="section-title"><span class="icon">📈</span> CPI Trajectory</div>
+<div class="grid grid-2">
+  <div class="card">
+    <h3>Headline CPI y/y</h3>
+    <div class="chart-container">
+      <canvas id="headlineYoY"></canvas>
+    </div>
+  </div>
+  <div class="card">
+    <h3>Headline vs Core m/m</h3>
+    <div class="chart-container">
+      <canvas id="momChart"></canvas>
+    </div>
+  </div>
+</div>
+
+<!-- FED IMPLICATIONS -->
+<div class="section-title"><span class="icon">🏦</span> Fed Implications</div>
+<div class="grid grid-1">
+  <div class="card">
+    <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+      <div>
+        <h3>Rate Decision Outlook</h3>
+        <div style="margin-top:12px;">
+          <div style="font-size:2rem; font-weight:700; color:var(--muted);">HOLD</div>
+          <div style="color:var(--muted); font-size:0.9rem; margin-top:4px;">Fed Funds: 3.50%–3.75%</div>
+          <div style="margin-top:16px; font-size:0.9rem; line-height:1.7;">
+            <strong>April 29 FOMC:</strong> 98.4% probability of hold (CME FedWatch)<br>
+            <strong>September:</strong> Only 15.4% pricing a 25bp cut<br>
+            <strong>Powell (March):</strong> "We will remain attentive to risks to both sides of our dual mandate."
+          </div>
+        </div>
+      </div>
+      <div>
+        <h3>What This Print Means</h3>
+        <div class="insight" style="margin-top:12px">
+          <strong>Dovish lean in the data.</strong> Core at 0.2% m/m is benign — this is not the second-round effects the Fed fears. The energy shock is mechanical and (if the ceasefire holds) partially reversible. The Fed can look through a one-month energy spike. What they can't look through: if next month shows energy passthrough into services, wages, and inflation expectations.
+        </div>
+        <div class="insight warning" style="margin-top:12px">
+          <strong>The risk ahead:</strong> Tariffs are still pushing core goods higher (Goldman sees +0.22% m/m in core goods). Airline fares +14.9% y/y reflects jet fuel costs bleeding through. If oil stays above $90-100, the second-round effects will come — it's a question of when, not if.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- RECORDS & CONTEXT -->
+<div class="section-title"><span class="icon">🏆</span> Records & Context</div>
+<div class="grid grid-3">
+  <div class="card" style="border-left:3px solid var(--red);">
+    <h3>🔴 Gasoline m/m: +21.2%</h3>
+    <div style="font-size:0.9rem; color:var(--muted); margin-top:8px;">
+      <strong>Largest monthly increase ever recorded</strong> in the gasoline CPI series (since 1967). Before seasonal adjustment: +24.9%. National average hit $4.02/gal — first time above $4 in 4 years.
+    </div>
+  </div>
+  <div class="card" style="border-left:3px solid var(--orange);">
+    <h3>🟠 Energy m/m: +10.9%</h3>
+    <div style="font-size:0.9rem; color:var(--muted); margin-top:8px;">
+      <strong>Largest since September 2005</strong> (Hurricane Katrina). Fuel oil +30.7% — biggest since Feb 2000. Three-quarters of the all-items increase came from energy alone.
+    </div>
+  </div>
+  <div class="card" style="border-left:3px solid var(--blue);">
+    <h3>🔵 Headline m/m: +0.9%</h3>
+    <div style="font-size:0.9rem; color:var(--muted); margin-top:8px;">
+      <strong>Largest since June 2022.</strong> But headline y/y at 3.3% came in below the 3.4-3.7% consensus range — a small silver lining. The ceasefire (Apr 8) is NOT reflected in this data.
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  <p>Data: Bureau of Labor Statistics (USDL-26-0599) · Analysis by Marshall 🔶</p>
+  <p style="margin-top:4px;">March 2026 CPI release — April 10, 2026 · Next release: May 12, 2026 (April CPI)</p>
+  <p style="margin-top:4px; font-style:italic;">Note: Oct & Nov 2025 data unavailable due to 2025 appropriations lapse.</p>
+</div>
+
+<script>
+// Chart defaults
+Chart.defaults.color = '#8b949e';
+Chart.defaults.borderColor = '#30363d';
+Chart.defaults.font.family = "-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif";
+
+// Energy contribution chart
+new Chart(document.getElementById('energyChart'), {
+  type: 'bar',
+  data: {
+    labels: ['Sep 25', 'Dec 25', 'Jan 26', 'Feb 26', 'Mar 26'],
+    datasets: [
+      {
+        label: 'Energy m/m %',
+        data: [1.4, 0.3, -1.5, 0.6, 10.9],
+        backgroundColor: [
+          'rgba(210,153,34,0.7)',
+          'rgba(210,153,34,0.7)',
+          'rgba(63,185,80,0.7)',
+          'rgba(210,153,34,0.7)',
+          'rgba(248,81,73,0.9)'
+        ],
+        borderRadius: 4,
+        borderSkipped: false,
+      }
+    ]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: { display: false },
+      tooltip: { callbacks: { label: ctx => ctx.raw + '%' } }
+    },
+    scales: {
+      y: {
+        grid: { color: '#21262d' },
+        ticks: { callback: v => v + '%' }
+      },
+      x: { grid: { display: false } }
+    }
+  }
+});
+
+// Core CPI m/m trend
+new Chart(document.getElementById('coreChart'), {
+  type: 'line',
+  data: {
+    labels: ['Sep 25', 'Dec 25', 'Jan 26', 'Feb 26', 'Mar 26'],
+    datasets: [
+      {
+        label: 'Core CPI m/m',
+        data: [0.2, 0.2, 0.3, 0.2, 0.2],
+        borderColor: '#bc8cff',
+        backgroundColor: 'rgba(188,140,255,0.1)',
+        fill: true,
+        tension: 0.3,
+        pointRadius: 5,
+        pointBackgroundColor: '#bc8cff',
+        borderWidth: 2,
+      },
+      {
+        label: '0.17% (2% ann. target)',
+        data: [0.17, 0.17, 0.17, 0.17, 0.17],
+        borderColor: 'rgba(63,185,80,0.5)',
+        borderDash: [5, 5],
+        pointRadius: 0,
+        borderWidth: 1,
+        fill: false,
+      }
+    ]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: { position: 'top', labels: { usePointStyle: true, boxWidth: 8 } },
+      tooltip: { callbacks: { label: ctx => ctx.dataset.label + ': ' + ctx.raw + '%' } }
+    },
+    scales: {
+      y: {
+        min: 0,
+        max: 0.5,
+        grid: { color: '#21262d' },
+        ticks: { callback: v => v + '%' }
+      },
+      x: { grid: { display: false } }
+    }
+  }
+});
+
+// Headline y/y
+new Chart(document.getElementById('headlineYoY'), {
+  type: 'line',
+  data: {
+    labels: ['Jun 25', 'Jul 25', 'Aug 25', 'Sep 25', 'Dec 25', 'Jan 26', 'Feb 26', 'Mar 26'],
+    datasets: [{
+      label: 'CPI y/y %',
+      data: [2.6, 2.9, 2.5, 2.4, 2.5, 2.4, 2.4, 3.3],
+      borderColor: '#58a6ff',
+      backgroundColor: 'rgba(88,166,255,0.1)',
+      fill: true,
+      tension: 0.3,
+      pointRadius: 5,
+      pointBackgroundColor: function(ctx) {
+        return ctx.dataIndex === ctx.dataset.data.length - 1 ? '#f85149' : '#58a6ff';
+      },
+      pointBorderColor: function(ctx) {
+        return ctx.dataIndex === ctx.dataset.data.length - 1 ? '#f85149' : '#58a6ff';
+      },
+      borderWidth: 2,
+    },
+    {
+      label: 'Fed Target (2% PCE ≈ 2.3% CPI)',
+      data: [2.3, 2.3, 2.3, 2.3, 2.3, 2.3, 2.3, 2.3],
+      borderColor: 'rgba(63,185,80,0.5)',
+      borderDash: [5, 5],
+      pointRadius: 0,
+      borderWidth: 1,
+      fill: false,
+    }]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: { position: 'top', labels: { usePointStyle: true, boxWidth: 8 } },
+      tooltip: { callbacks: { label: ctx => ctx.dataset.label + ': ' + ctx.raw + '%' } }
+    },
+    scales: {
+      y: {
+        min: 1.5,
+        max: 4,
+        grid: { color: '#21262d' },
+        ticks: { callback: v => v + '%' }
+      },
+      x: { grid: { display: false } }
+    }
+  }
+});
+
+// Headline vs Core m/m
+new Chart(document.getElementById('momChart'), {
+  type: 'bar',
+  data: {
+    labels: ['Sep 25', 'Dec 25', 'Jan 26', 'Feb 26', 'Mar 26'],
+    datasets: [
+      {
+        label: 'Headline m/m',
+        data: [0.3, 0.3, 0.2, 0.3, 0.9],
+        backgroundColor: 'rgba(88,166,255,0.7)',
+        borderRadius: 4,
+      },
+      {
+        label: 'Core m/m',
+        data: [0.2, 0.2, 0.3, 0.2, 0.2],
+        backgroundColor: 'rgba(188,140,255,0.7)',
+        borderRadius: 4,
+      }
+    ]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: { position: 'top', labels: { usePointStyle: true, boxWidth: 8 } },
+      tooltip: { callbacks: { label: ctx => ctx.dataset.label + ': ' + ctx.raw + '%' } }
+    },
+    scales: {
+      y: {
+        grid: { color: '#21262d' },
+        ticks: { callback: v => v + '%' }
+      },
+      x: { grid: { display: false } }
+    }
+  }
+});
+</script>
+</body>
+</html>
