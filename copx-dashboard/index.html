@@ -1,0 +1,889 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>COPX Factor Decomposition Dashboard</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns@3.0.0/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
+<style>
+  :root {
+    --bg: #0a0a0f;
+    --card: #12121a;
+    --border: #1e1e2e;
+    --text: #e0e0e8;
+    --muted: #6b6b80;
+    --accent: #f59e0b;
+    --green: #22c55e;
+    --red: #ef4444;
+    --blue: #3b82f6;
+    --purple: #a855f7;
+    --cyan: #06b6d4;
+    --orange: #f97316;
+    --pink: #ec4899;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'SF Mono', 'Fira Code', 'JetBrains Mono', monospace;
+    background: var(--bg);
+    color: var(--text);
+    padding: 20px;
+    line-height: 1.5;
+  }
+
+  .header {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .header h1 {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--accent);
+    letter-spacing: -0.5px;
+  }
+
+  .header .meta {
+    font-size: 12px;
+    color: var(--muted);
+  }
+
+  /* ─── KPI Row ─── */
+  .kpi-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 12px;
+    margin-bottom: 24px;
+  }
+
+  .kpi-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 14px 16px;
+  }
+
+  .kpi-card .label {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--muted);
+    margin-bottom: 4px;
+  }
+
+  .kpi-card .value {
+    font-size: 22px;
+    font-weight: 700;
+  }
+
+  .kpi-card .sub {
+    font-size: 11px;
+    color: var(--muted);
+    margin-top: 2px;
+  }
+
+  .positive { color: var(--green); }
+  .negative { color: var(--red); }
+
+  /* ─── Tabs ─── */
+  .tab-bar {
+    display: flex;
+    gap: 4px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 0;
+    overflow-x: auto;
+  }
+
+  .tab-bar button {
+    background: none;
+    border: none;
+    color: var(--muted);
+    font-family: inherit;
+    font-size: 13px;
+    padding: 8px 16px;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    white-space: nowrap;
+    transition: all 0.2s;
+  }
+
+  .tab-bar button:hover { color: var(--text); }
+  .tab-bar button.active {
+    color: var(--accent);
+    border-bottom-color: var(--accent);
+  }
+
+  .tab-content { display: none; }
+  .tab-content.active { display: block; }
+
+  /* ─── Charts ─── */
+  .chart-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+
+  .chart-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px;
+  }
+
+  .chart-card.full { grid-column: 1 / -1; }
+
+  .chart-card h3 {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 12px;
+  }
+
+  .chart-card .chart-sub {
+    font-size: 11px;
+    color: var(--muted);
+    margin-bottom: 8px;
+  }
+
+  .chart-container {
+    position: relative;
+    height: 300px;
+  }
+
+  .chart-container.tall { height: 400px; }
+
+  /* ─── Tables ─── */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+  }
+
+  th {
+    text-align: left;
+    padding: 8px 12px;
+    border-bottom: 1px solid var(--border);
+    color: var(--muted);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-weight: 600;
+  }
+
+  td {
+    padding: 8px 12px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  tr:hover { background: rgba(255,255,255,0.02); }
+
+  .num { text-align: right; font-variant-numeric: tabular-nums; }
+
+  /* ─── Correlation Heatmap ─── */
+  .corr-grid {
+    display: grid;
+    grid-template-columns: 60px repeat(6, 1fr);
+    gap: 2px;
+    font-size: 12px;
+  }
+
+  .corr-cell {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 4px;
+    border-radius: 4px;
+    font-weight: 600;
+    font-size: 12px;
+  }
+
+  .corr-header {
+    color: var(--muted);
+    font-size: 11px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* ─── Var Decomp Bar ─── */
+  .var-bar-container {
+    margin: 12px 0;
+  }
+
+  .var-bar-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+    gap: 10px;
+  }
+
+  .var-bar-label {
+    width: 70px;
+    font-size: 12px;
+    color: var(--muted);
+    text-align: right;
+    flex-shrink: 0;
+  }
+
+  .var-bar-track {
+    flex: 1;
+    height: 28px;
+    background: rgba(255,255,255,0.03);
+    border-radius: 4px;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .var-bar-fill {
+    height: 100%;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    padding-left: 8px;
+    font-size: 12px;
+    font-weight: 600;
+    color: white;
+    min-width: 40px;
+    transition: width 0.6s ease;
+  }
+
+  .var-bar-value {
+    width: 55px;
+    font-size: 13px;
+    font-weight: 600;
+    text-align: right;
+    flex-shrink: 0;
+  }
+
+  /* ─── Window Selector ─── */
+  .window-selector {
+    display: flex;
+    gap: 4px;
+    margin-bottom: 12px;
+  }
+
+  .window-selector button {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid var(--border);
+    color: var(--muted);
+    font-family: inherit;
+    font-size: 12px;
+    padding: 4px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .window-selector button.active {
+    background: var(--accent);
+    color: var(--bg);
+    border-color: var(--accent);
+  }
+
+  @media (max-width: 768px) {
+    .chart-grid { grid-template-columns: 1fr; }
+    .kpi-row { grid-template-columns: repeat(3, 1fr); }
+    body { padding: 12px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>🔶 COPX Factor Decomposition</h1>
+  <span class="meta" id="headerMeta"></span>
+</div>
+
+<!-- KPIs -->
+<div class="kpi-row" id="kpiRow"></div>
+
+<!-- Tabs -->
+<div class="tab-bar" id="tabBar">
+  <button class="active" data-tab="overview">Overview</button>
+  <button data-tab="decomp">Decomposition</button>
+  <button data-tab="rolling">Rolling Analytics</button>
+  <button data-tab="contrib">Factor Attribution</button>
+  <button data-tab="correlation">Correlations</button>
+  <button data-tab="regression">Regression</button>
+</div>
+
+<!-- ═══ OVERVIEW TAB ═══ -->
+<div class="tab-content active" id="tab-overview">
+  <div class="chart-grid">
+    <div class="chart-card full">
+      <h3>Cumulative Performance</h3>
+      <div class="chart-sub">Rebased to 1.0 at start</div>
+      <div class="chart-container tall"><canvas id="chartCumPerf"></canvas></div>
+    </div>
+    <div class="chart-card full">
+      <h3>COPX: Actual vs Fitted vs Residual (cumulative)</h3>
+      <div class="chart-sub">Fitted = LASSO model prediction | Residual = idiosyncratic / mining-specific</div>
+      <div class="chart-container tall"><canvas id="chartActualFitted"></canvas></div>
+    </div>
+  </div>
+  <div class="chart-card" style="margin-bottom:24px">
+    <h3>Performance Summary</h3>
+    <table id="perfTable">
+      <thead>
+        <tr><th>Ticker</th><th>Name</th><th class="num">Total</th><th class="num">YTD</th><th class="num">Ann. Vol</th></tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ═══ DECOMPOSITION TAB ═══ -->
+<div class="tab-content" id="tab-decomp">
+  <div class="chart-grid">
+    <div class="chart-card full">
+      <h3>Variance Decomposition — What Drives COPX?</h3>
+      <div class="chart-sub">LASSO regression: % of COPX daily return variance explained by each factor</div>
+      <div id="varDecompBars" class="var-bar-container"></div>
+    </div>
+    <div class="chart-card">
+      <h3>LASSO Coefficients (betas)</h3>
+      <div class="chart-container"><canvas id="chartLassoCoefs"></canvas></div>
+    </div>
+    <div class="chart-card">
+      <h3>Variance Decomposition (pie)</h3>
+      <div class="chart-container"><canvas id="chartVarPie"></canvas></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ ROLLING TAB ═══ -->
+<div class="tab-content" id="tab-rolling">
+  <div class="chart-grid">
+    <div class="chart-card full">
+      <h3>Rolling Beta to Copper (CPER)</h3>
+      <div class="window-selector" id="betaWindowSel"></div>
+      <div class="chart-container tall"><canvas id="chartRollingBetaCopper"></canvas></div>
+    </div>
+    <div class="chart-card full">
+      <h3>Rolling Betas — All Factors</h3>
+      <div class="window-selector" id="betaAllWindowSel"></div>
+      <div class="chart-container tall"><canvas id="chartRollingBetaAll"></canvas></div>
+    </div>
+    <div class="chart-card full">
+      <h3>Rolling R² (120-day OLS)</h3>
+      <div class="chart-sub">How much of COPX is explained by the 5 factors over time</div>
+      <div class="chart-container"><canvas id="chartRollingR2"></canvas></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ ATTRIBUTION TAB ═══ -->
+<div class="tab-content" id="tab-contrib">
+  <div class="chart-grid">
+    <div class="chart-card full">
+      <h3>YTD Factor Attribution (cumulative, %)</h3>
+      <div class="chart-sub">Stacked contribution of each factor + residual to COPX YTD return</div>
+      <div class="chart-container tall"><canvas id="chartYTDContrib"></canvas></div>
+    </div>
+    <div class="chart-card full">
+      <h3>1-Year Factor Attribution (cumulative, %)</h3>
+      <div class="chart-container tall"><canvas id="chartY1Contrib"></canvas></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ CORRELATION TAB ═══ -->
+<div class="tab-content" id="tab-correlation">
+  <div class="chart-grid">
+    <div class="chart-card full">
+      <h3>Correlation Matrix (full sample, daily returns)</h3>
+      <div id="corrHeatmap" class="corr-grid"></div>
+    </div>
+    <div class="chart-card full">
+      <h3>Rolling 60-Day Correlation: COPX vs Factors</h3>
+      <div class="chart-container tall"><canvas id="chartRollingCorr"></canvas></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ REGRESSION TAB ═══ -->
+<div class="tab-content" id="tab-regression">
+  <div class="chart-grid">
+    <div class="chart-card">
+      <h3>OLS Regression</h3>
+      <table id="olsTable">
+        <thead><tr><th>Factor</th><th class="num">Beta</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+    <div class="chart-card">
+      <h3>LASSO Regression (CV)</h3>
+      <table id="lassoTable">
+        <thead><tr><th>Factor</th><th class="num">Beta</th><th>Status</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+    <div class="chart-card full">
+      <h3>OLS vs LASSO Coefficients</h3>
+      <div class="chart-container"><canvas id="chartOlsVsLasso"></canvas></div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ─── DATA PLACEHOLDER (will be replaced by build script) ───
+let DATA = null;
+
+// ─── Chart defaults ───
+Chart.defaults.color = '#6b6b80';
+Chart.defaults.borderColor = '#1e1e2e';
+Chart.defaults.font.family = "'SF Mono', 'Fira Code', monospace";
+Chart.defaults.font.size = 11;
+Chart.defaults.plugins.legend.labels.usePointStyle = true;
+Chart.defaults.plugins.legend.labels.pointStyleWidth = 8;
+Chart.defaults.elements.point.radius = 0;
+Chart.defaults.elements.point.hoverRadius = 4;
+Chart.defaults.elements.line.borderWidth = 1.5;
+
+const COLORS = {
+  COPX: '#f59e0b',
+  CPER: '#f97316',
+  SPY: '#3b82f6',
+  TLT: '#a855f7',
+  UUP: '#22c55e',
+  EEM: '#ec4899',
+  Residual: '#6b6b80',
+  fitted: '#06b6d4',
+  residual: '#6b6b80',
+};
+
+function toXY(arr) {
+  return arr.map(d => ({ x: d.date, y: d.value }));
+}
+
+// ─── Tabs ───
+document.getElementById('tabBar').addEventListener('click', e => {
+  if (e.target.tagName !== 'BUTTON') return;
+  document.querySelectorAll('.tab-bar button').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+  e.target.classList.add('active');
+  document.getElementById('tab-' + e.target.dataset.tab).classList.add('active');
+});
+
+// ─── Build Dashboard ───
+function build(D) {
+  DATA = D;
+  const m = D.metadata;
+  document.getElementById('headerMeta').textContent =
+    `${m.start} → ${m.end} | ${m.obs} obs | Generated ${m.generated.slice(0,16)}`;
+
+  buildKPIs(D);
+  buildPerfTable(D);
+  buildCumPerf(D);
+  buildActualFitted(D);
+  buildVarDecomp(D);
+  buildLassoCoefs(D);
+  buildVarPie(D);
+  buildRollingBetaCopper(D);
+  buildRollingBetaAll(D);
+  buildRollingR2(D);
+  buildContrib(D, 'ytdContribs', 'chartYTDContrib');
+  buildContrib(D, 'y1Contribs', 'chartY1Contrib');
+  buildCorrHeatmap(D);
+  buildRollingCorr(D);
+  buildRegressionTables(D);
+  buildOlsVsLasso(D);
+}
+
+function buildKPIs(D) {
+  const row = document.getElementById('kpiRow');
+  const ps = D.perfSummary;
+
+  const kpis = [
+    { label: 'COPX YTD', value: ps.COPX.ytd, fmt: v => (v >= 0 ? '+' : '') + v.toFixed(1) + '%' },
+    { label: 'Copper YTD', value: ps.CPER.ytd, fmt: v => (v >= 0 ? '+' : '') + v.toFixed(1) + '%' },
+    { label: 'LASSO R²', value: D.lasso.r2, fmt: v => (v * 100).toFixed(1) + '%', neutral: true },
+    { label: 'Copper Variance', value: D.varDecomp.CPER, fmt: v => v.toFixed(1) + '%', neutral: true },
+    { label: 'EM Variance', value: D.varDecomp.EEM, fmt: v => v.toFixed(1) + '%', neutral: true },
+    { label: 'Residual', value: D.varDecomp.Residual, fmt: v => v.toFixed(1) + '%', neutral: true },
+  ];
+
+  row.innerHTML = kpis.map(k => {
+    const cls = k.neutral ? '' : (k.value >= 0 ? 'positive' : 'negative');
+    return `<div class="kpi-card">
+      <div class="label">${k.label}</div>
+      <div class="value ${cls}">${k.fmt(k.value)}</div>
+    </div>`;
+  }).join('');
+}
+
+function buildPerfTable(D) {
+  const tbody = document.querySelector('#perfTable tbody');
+  const order = ['COPX', 'CPER', 'SPY', 'TLT', 'UUP', 'EEM'];
+  tbody.innerHTML = order.map(t => {
+    const p = D.perfSummary[t];
+    const cls = v => v >= 0 ? 'positive' : 'negative';
+    return `<tr>
+      <td><span style="color:${COLORS[t]};font-weight:700">${t}</span></td>
+      <td style="color:var(--muted)">${D.tickers[t]}</td>
+      <td class="num ${cls(p.total)}">${p.total >= 0 ? '+' : ''}${p.total}%</td>
+      <td class="num ${cls(p.ytd)}">${p.ytd >= 0 ? '+' : ''}${p.ytd}%</td>
+      <td class="num">${p.annVol}%</td>
+    </tr>`;
+  }).join('');
+}
+
+function buildCumPerf(D) {
+  new Chart(document.getElementById('chartCumPerf'), {
+    type: 'line',
+    data: {
+      datasets: ['COPX', 'CPER', 'SPY', 'TLT', 'UUP', 'EEM'].map(t => ({
+        label: t,
+        data: toXY(D.cumReturns[t]),
+        borderColor: COLORS[t],
+        backgroundColor: COLORS[t] + '15',
+        borderWidth: t === 'COPX' ? 2.5 : 1.2,
+      }))
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      scales: {
+        x: { type: 'time', time: { unit: 'month', displayFormats: { month: 'MMM yy' } } },
+        y: { title: { display: true, text: 'Cumulative Return (rebased=1)' } }
+      },
+      interaction: { mode: 'index', intersect: false },
+      plugins: { tooltip: { mode: 'index' } }
+    }
+  });
+}
+
+function buildActualFitted(D) {
+  new Chart(document.getElementById('chartActualFitted'), {
+    type: 'line',
+    data: {
+      datasets: [
+        { label: 'COPX Actual', data: toXY(D.cumCopx), borderColor: COLORS.COPX, borderWidth: 2.5 },
+        { label: 'COPX Fitted', data: toXY(D.cumFitted), borderColor: COLORS.fitted, borderWidth: 2, borderDash: [6, 3] },
+        { label: 'Residual (idiosyncratic)', data: toXY(D.cumResidual), borderColor: COLORS.residual, borderWidth: 1.5, borderDash: [3, 3] },
+      ]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      scales: {
+        x: { type: 'time', time: { unit: 'month', displayFormats: { month: 'MMM yy' } } },
+        y: { title: { display: true, text: 'Cumulative' } }
+      },
+      interaction: { mode: 'index', intersect: false },
+    }
+  });
+}
+
+function buildVarDecomp(D) {
+  const container = document.getElementById('varDecompBars');
+  const vd = D.varDecomp;
+  const order = Object.entries(vd).sort((a, b) => Math.abs(b[1]) - Math.abs(a[1]));
+  const max = Math.max(...order.map(([, v]) => Math.abs(v)));
+
+  container.innerHTML = order.map(([name, val]) => {
+    const color = COLORS[name] || '#6b6b80';
+    const width = Math.max((Math.abs(val) / max) * 100, 2);
+    const cls = val >= 0 ? 'positive' : 'negative';
+    return `<div class="var-bar-row">
+      <div class="var-bar-label">${name}</div>
+      <div class="var-bar-track">
+        <div class="var-bar-fill" style="width:${width}%;background:${color}">${Math.abs(val) > 3 ? val.toFixed(1) + '%' : ''}</div>
+      </div>
+      <div class="var-bar-value ${cls}">${val >= 0 ? '+' : ''}${val.toFixed(1)}%</div>
+    </div>`;
+  }).join('');
+}
+
+function buildLassoCoefs(D) {
+  const factors = Object.keys(D.lasso.coefs);
+  new Chart(document.getElementById('chartLassoCoefs'), {
+    type: 'bar',
+    data: {
+      labels: factors,
+      datasets: [{
+        data: factors.map(f => D.lasso.coefs[f]),
+        backgroundColor: factors.map(f => COLORS[f] || '#6b6b80'),
+        borderRadius: 4,
+      }]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { display: false } },
+      scales: {
+        y: { title: { display: true, text: 'Beta' } }
+      }
+    }
+  });
+}
+
+function buildVarPie(D) {
+  const entries = Object.entries(D.varDecomp).filter(([, v]) => Math.abs(v) > 0.5);
+  new Chart(document.getElementById('chartVarPie'), {
+    type: 'doughnut',
+    data: {
+      labels: entries.map(([k]) => k),
+      datasets: [{
+        data: entries.map(([, v]) => Math.abs(v)),
+        backgroundColor: entries.map(([k]) => COLORS[k] || '#6b6b80'),
+        borderWidth: 0,
+      }]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: {
+        legend: { position: 'right' },
+        tooltip: { callbacks: { label: ctx => `${ctx.label}: ${ctx.parsed.toFixed(1)}%` } }
+      }
+    }
+  });
+}
+
+// ─── Rolling Beta to Copper ───
+let betaCopperChart = null;
+function buildRollingBetaCopper(D) {
+  const sel = document.getElementById('betaWindowSel');
+  ['60', '120', '252'].forEach((w, i) => {
+    const btn = document.createElement('button');
+    btn.textContent = w === '252' ? '1Y' : w + 'd';
+    btn.className = i === 0 ? 'active' : '';
+    btn.onclick = () => {
+      sel.querySelectorAll('button').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      updateBetaCopper(D, w);
+    };
+    sel.appendChild(btn);
+  });
+  updateBetaCopper(D, '60');
+}
+
+function updateBetaCopper(D, window) {
+  const cperData = D.rollingBetas[window].CPER;
+  if (betaCopperChart) betaCopperChart.destroy();
+  betaCopperChart = new Chart(document.getElementById('chartRollingBetaCopper'), {
+    type: 'line',
+    data: {
+      datasets: [
+        {
+          label: 'Beta to Copper',
+          data: toXY(cperData),
+          borderColor: COLORS.CPER,
+          borderWidth: 2,
+          fill: { target: { value: 1 }, above: COLORS.CPER + '20', below: COLORS.CPER + '20' },
+        },
+        {
+          label: 'Beta = 1',
+          data: cperData.map(d => ({ x: d.date, y: 1 })),
+          borderColor: '#ffffff20',
+          borderWidth: 1,
+          borderDash: [4, 4],
+          pointRadius: 0,
+        }
+      ]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      scales: {
+        x: { type: 'time', time: { unit: 'month', displayFormats: { month: 'MMM yy' } } },
+        y: { title: { display: true, text: 'Beta' } }
+      },
+      interaction: { mode: 'index', intersect: false },
+    }
+  });
+}
+
+// ─── Rolling Betas All ───
+let betaAllChart = null;
+function buildRollingBetaAll(D) {
+  const sel = document.getElementById('betaAllWindowSel');
+  ['60', '120', '252'].forEach((w, i) => {
+    const btn = document.createElement('button');
+    btn.textContent = w === '252' ? '1Y' : w + 'd';
+    btn.className = i === 0 ? 'active' : '';
+    btn.onclick = () => {
+      sel.querySelectorAll('button').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      updateBetaAll(D, w);
+    };
+    sel.appendChild(btn);
+  });
+  updateBetaAll(D, '60');
+}
+
+function updateBetaAll(D, window) {
+  const factors = ['CPER', 'SPY', 'TLT', 'UUP', 'EEM'];
+  if (betaAllChart) betaAllChart.destroy();
+  betaAllChart = new Chart(document.getElementById('chartRollingBetaAll'), {
+    type: 'line',
+    data: {
+      datasets: factors.map(f => ({
+        label: f,
+        data: toXY(D.rollingBetas[window][f]),
+        borderColor: COLORS[f],
+        borderWidth: 1.5,
+      }))
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      scales: {
+        x: { type: 'time', time: { unit: 'month', displayFormats: { month: 'MMM yy' } } },
+        y: { title: { display: true, text: 'Beta' } }
+      },
+      interaction: { mode: 'index', intersect: false },
+    }
+  });
+}
+
+function buildRollingR2(D) {
+  new Chart(document.getElementById('chartRollingR2'), {
+    type: 'line',
+    data: {
+      datasets: [{
+        label: 'R² (120d OLS)',
+        data: D.rollingR2.map(d => ({ x: d.date, y: d.r2 })),
+        borderColor: COLORS.COPX,
+        borderWidth: 2,
+        fill: { target: 'origin', above: COLORS.COPX + '15' },
+      }]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      scales: {
+        x: { type: 'time', time: { unit: 'month', displayFormats: { month: 'MMM yy' } } },
+        y: { min: 0, max: 1, title: { display: true, text: 'R²' } }
+      },
+      interaction: { mode: 'index', intersect: false },
+    }
+  });
+}
+
+// ─── Factor Attribution (stacked area) ───
+function buildContrib(D, key, canvasId) {
+  const contribs = D[key];
+  if (!contribs || Object.keys(contribs).length === 0) return;
+
+  const factors = ['CPER', 'EEM', 'SPY', 'UUP', 'TLT', 'Residual'];
+  const datasets = factors.filter(f => contribs[f]).map(f => ({
+    label: f,
+    data: contribs[f].map(d => ({ x: d.date, y: d.value })),
+    borderColor: COLORS[f],
+    backgroundColor: COLORS[f] + '40',
+    borderWidth: 1.5,
+    fill: true,
+  }));
+
+  new Chart(document.getElementById(canvasId), {
+    type: 'line',
+    data: { datasets },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      scales: {
+        x: { type: 'time', time: { unit: 'month', displayFormats: { month: 'MMM yy' } } },
+        y: { stacked: true, title: { display: true, text: 'Cumulative Contribution (%)' } }
+      },
+      interaction: { mode: 'index', intersect: false },
+    }
+  });
+}
+
+// ─── Correlation Heatmap ───
+function buildCorrHeatmap(D) {
+  const grid = document.getElementById('corrHeatmap');
+  const tickers = ['COPX', 'CPER', 'SPY', 'TLT', 'UUP', 'EEM'];
+
+  // Header row
+  grid.innerHTML = '<div class="corr-header"></div>' +
+    tickers.map(t => `<div class="corr-header" style="color:${COLORS[t]}">${t}</div>`).join('');
+
+  tickers.forEach(row => {
+    grid.innerHTML += `<div class="corr-header" style="color:${COLORS[row]}">${row}</div>`;
+    tickers.forEach(col => {
+      const val = D.correlation[col][row];
+      const intensity = Math.abs(val);
+      let bg;
+      if (val > 0) bg = `rgba(34, 197, 94, ${intensity * 0.6})`;
+      else if (val < 0) bg = `rgba(239, 68, 68, ${intensity * 0.6})`;
+      else bg = 'transparent';
+      grid.innerHTML += `<div class="corr-cell" style="background:${bg}">${val.toFixed(2)}</div>`;
+    });
+  });
+}
+
+function buildRollingCorr(D) {
+  const factors = ['CPER', 'SPY', 'TLT', 'UUP', 'EEM'];
+  new Chart(document.getElementById('chartRollingCorr'), {
+    type: 'line',
+    data: {
+      datasets: factors.map(f => ({
+        label: f,
+        data: toXY(D.rollingCorr[f]),
+        borderColor: COLORS[f],
+        borderWidth: 1.5,
+      }))
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      scales: {
+        x: { type: 'time', time: { unit: 'month', displayFormats: { month: 'MMM yy' } } },
+        y: { min: -1, max: 1, title: { display: true, text: 'Correlation' } }
+      },
+      interaction: { mode: 'index', intersect: false },
+    }
+  });
+}
+
+function buildRegressionTables(D) {
+  // OLS
+  const olsBody = document.querySelector('#olsTable tbody');
+  const factors = Object.keys(D.ols.coefs);
+  olsBody.innerHTML = factors.map(f =>
+    `<tr><td style="color:${COLORS[f]}">${f}</td><td class="num">${D.ols.coefs[f].toFixed(4)}</td></tr>`
+  ).join('') +
+    `<tr><td style="color:var(--muted)">Intercept</td><td class="num">${D.ols.intercept.toFixed(6)}</td></tr>` +
+    `<tr><td style="color:var(--muted)"><strong>R²</strong></td><td class="num"><strong>${(D.ols.r2 * 100).toFixed(2)}%</strong></td></tr>`;
+
+  // LASSO
+  const lassoBody = document.querySelector('#lassoTable tbody');
+  lassoBody.innerHTML = factors.map(f => {
+    const kept = Math.abs(D.lasso.coefs[f]) > 0.0001;
+    return `<tr><td style="color:${COLORS[f]}">${f}</td><td class="num">${D.lasso.coefs[f].toFixed(4)}</td><td>${kept ? '✓' : '✗ dropped'}</td></tr>`;
+  }).join('') +
+    `<tr><td style="color:var(--muted)">Intercept</td><td class="num">${D.lasso.intercept.toFixed(6)}</td><td></td></tr>` +
+    `<tr><td style="color:var(--muted)"><strong>R²</strong></td><td class="num"><strong>${(D.lasso.r2 * 100).toFixed(2)}%</strong></td><td>α=${D.lasso.alpha.toFixed(6)}</td></tr>`;
+}
+
+function buildOlsVsLasso(D) {
+  const factors = Object.keys(D.ols.coefs);
+  new Chart(document.getElementById('chartOlsVsLasso'), {
+    type: 'bar',
+    data: {
+      labels: factors,
+      datasets: [
+        { label: 'OLS', data: factors.map(f => D.ols.coefs[f]), backgroundColor: '#3b82f650', borderColor: '#3b82f6', borderWidth: 1 },
+        { label: 'LASSO', data: factors.map(f => D.lasso.coefs[f]), backgroundColor: '#f59e0b50', borderColor: '#f59e0b', borderWidth: 1 },
+      ]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      scales: { y: { title: { display: true, text: 'Beta' } } }
+    }
+  });
+}
+
+// ─── Load Data ───
+fetch('data.json')
+  .then(r => r.json())
+  .then(build)
+  .catch(err => {
+    console.error('Failed to load data:', err);
+    document.body.innerHTML += '<div style="color:red;padding:40px;text-align:center">Failed to load data.json — make sure it exists alongside index.html</div>';
+  });
+</script>
+</body>
+</html>
