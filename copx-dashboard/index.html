@@ -8,290 +8,86 @@
 <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns@3.0.0/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
 <style>
   :root {
-    --bg: #0a0a0f;
-    --card: #12121a;
-    --border: #1e1e2e;
-    --text: #e0e0e8;
-    --muted: #6b6b80;
-    --accent: #f59e0b;
-    --green: #22c55e;
-    --red: #ef4444;
-    --blue: #3b82f6;
-    --purple: #a855f7;
-    --cyan: #06b6d4;
-    --orange: #f97316;
-    --pink: #ec4899;
+    --bg: #0a0a0f; --card: #12121a; --border: #1e1e2e;
+    --text: #e0e0e8; --muted: #6b6b80; --accent: #f59e0b;
+    --green: #22c55e; --red: #ef4444; --blue: #3b82f6;
+    --purple: #a855f7; --cyan: #06b6d4; --orange: #f97316; --pink: #ec4899;
   }
-
   * { margin: 0; padding: 0; box-sizing: border-box; }
-
   body {
     font-family: 'SF Mono', 'Fira Code', 'JetBrains Mono', monospace;
-    background: var(--bg);
-    color: var(--text);
-    padding: 20px;
-    line-height: 1.5;
+    background: var(--bg); color: var(--text); padding: 20px; line-height: 1.5;
   }
+  .header { display: flex; align-items: baseline; gap: 16px; margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px solid var(--border); }
+  .header h1 { font-size: 22px; font-weight: 700; color: var(--accent); letter-spacing: -0.5px; }
+  .header .meta { font-size: 12px; color: var(--muted); }
 
-  .header {
-    display: flex;
-    align-items: baseline;
-    gap: 16px;
-    margin-bottom: 24px;
-    padding-bottom: 16px;
-    border-bottom: 1px solid var(--border);
-  }
-
-  .header h1 {
-    font-size: 22px;
-    font-weight: 700;
-    color: var(--accent);
-    letter-spacing: -0.5px;
-  }
-
-  .header .meta {
-    font-size: 12px;
-    color: var(--muted);
-  }
-
-  /* ─── KPI Row ─── */
-  .kpi-row {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-    gap: 12px;
-    margin-bottom: 24px;
-  }
-
-  .kpi-card {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 14px 16px;
-  }
-
-  .kpi-card .label {
-    font-size: 10px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    color: var(--muted);
-    margin-bottom: 4px;
-  }
-
-  .kpi-card .value {
-    font-size: 22px;
-    font-weight: 700;
-  }
-
-  .kpi-card .sub {
-    font-size: 11px;
-    color: var(--muted);
-    margin-top: 2px;
-  }
-
+  .kpi-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; margin-bottom: 24px; }
+  .kpi-card { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 14px 16px; }
+  .kpi-card .label { font-size: 10px; text-transform: uppercase; letter-spacing: 1px; color: var(--muted); margin-bottom: 4px; }
+  .kpi-card .value { font-size: 22px; font-weight: 700; }
+  .kpi-card .sub { font-size: 11px; color: var(--muted); margin-top: 2px; }
   .positive { color: var(--green); }
   .negative { color: var(--red); }
 
-  /* ─── Tabs ─── */
-  .tab-bar {
-    display: flex;
-    gap: 4px;
-    margin-bottom: 20px;
-    border-bottom: 1px solid var(--border);
-    padding-bottom: 0;
-    overflow-x: auto;
-  }
-
-  .tab-bar button {
-    background: none;
-    border: none;
-    color: var(--muted);
-    font-family: inherit;
-    font-size: 13px;
-    padding: 8px 16px;
-    cursor: pointer;
-    border-bottom: 2px solid transparent;
-    white-space: nowrap;
-    transition: all 0.2s;
-  }
-
+  .tab-bar { display: flex; gap: 4px; margin-bottom: 20px; border-bottom: 1px solid var(--border); overflow-x: auto; }
+  .tab-bar button { background: none; border: none; color: var(--muted); font-family: inherit; font-size: 13px; padding: 8px 16px; cursor: pointer; border-bottom: 2px solid transparent; white-space: nowrap; transition: all 0.2s; }
   .tab-bar button:hover { color: var(--text); }
-  .tab-bar button.active {
-    color: var(--accent);
-    border-bottom-color: var(--accent);
-  }
-
+  .tab-bar button.active { color: var(--accent); border-bottom-color: var(--accent); }
   .tab-content { display: none; }
   .tab-content.active { display: block; }
 
-  /* ─── Charts ─── */
-  .chart-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 16px;
-    margin-bottom: 24px;
-  }
-
-  .chart-card {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 16px;
-  }
-
+  .chart-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 24px; }
+  .chart-card { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 16px; }
   .chart-card.full { grid-column: 1 / -1; }
-
-  .chart-card h3 {
-    font-size: 13px;
-    font-weight: 600;
-    color: var(--text);
-    margin-bottom: 12px;
-  }
-
-  .chart-card .chart-sub {
-    font-size: 11px;
-    color: var(--muted);
-    margin-bottom: 8px;
-  }
-
-  .chart-container {
-    position: relative;
-    height: 300px;
-  }
-
+  .chart-card h3 { font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 12px; }
+  .chart-card .chart-sub { font-size: 11px; color: var(--muted); margin-bottom: 8px; }
+  .chart-container { position: relative; height: 300px; }
   .chart-container.tall { height: 400px; }
 
-  /* ─── Tables ─── */
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 13px;
-  }
-
-  th {
-    text-align: left;
-    padding: 8px 12px;
-    border-bottom: 1px solid var(--border);
-    color: var(--muted);
-    font-size: 11px;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    font-weight: 600;
-  }
-
-  td {
-    padding: 8px 12px;
-    border-bottom: 1px solid var(--border);
-  }
-
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th { text-align: left; padding: 8px 12px; border-bottom: 1px solid var(--border); color: var(--muted); font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600; }
+  td { padding: 8px 12px; border-bottom: 1px solid var(--border); }
   tr:hover { background: rgba(255,255,255,0.02); }
-
   .num { text-align: right; font-variant-numeric: tabular-nums; }
 
-  /* ─── Correlation Heatmap ─── */
-  .corr-grid {
-    display: grid;
-    grid-template-columns: 60px repeat(6, 1fr);
-    gap: 2px;
-    font-size: 12px;
-  }
+  .sig-star { color: var(--accent); font-weight: 700; }
+  .sig-badge { display: inline-block; font-size: 10px; padding: 1px 5px; border-radius: 3px; font-weight: 600; margin-left: 4px; }
+  .sig-badge.s3 { background: var(--green); color: #000; }
+  .sig-badge.s2 { background: var(--blue); color: #fff; }
+  .sig-badge.s1 { background: var(--accent); color: #000; }
+  .sig-badge.ns { background: var(--border); color: var(--muted); }
 
-  .corr-cell {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 10px 4px;
-    border-radius: 4px;
-    font-weight: 600;
-    font-size: 12px;
-  }
+  .diag-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 12px; }
+  .diag-item { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid var(--border); font-size: 12px; }
+  .diag-label { color: var(--muted); }
+  .diag-value { font-weight: 600; }
 
-  .corr-header {
-    color: var(--muted);
-    font-size: 11px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
+  .corr-grid { display: grid; grid-template-columns: 60px repeat(6, 1fr); gap: 2px; font-size: 12px; }
+  .corr-cell { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 8px 4px; border-radius: 4px; font-weight: 600; font-size: 12px; }
+  .corr-cell .corr-pval { font-size: 9px; color: rgba(255,255,255,0.5); font-weight: 400; margin-top: 1px; }
+  .corr-header { color: var(--muted); font-size: 11px; display: flex; align-items: center; justify-content: center; }
 
-  /* ─── Var Decomp Bar ─── */
-  .var-bar-container {
-    margin: 12px 0;
-  }
+  .var-bar-container { margin: 12px 0; }
+  .var-bar-row { display: flex; align-items: center; margin-bottom: 8px; gap: 10px; }
+  .var-bar-label { width: 70px; font-size: 12px; color: var(--muted); text-align: right; flex-shrink: 0; }
+  .var-bar-track { flex: 1; height: 28px; background: rgba(255,255,255,0.03); border-radius: 4px; overflow: hidden; }
+  .var-bar-fill { height: 100%; border-radius: 4px; display: flex; align-items: center; padding-left: 8px; font-size: 12px; font-weight: 600; color: white; min-width: 40px; transition: width 0.6s ease; }
+  .var-bar-value { width: 55px; font-size: 13px; font-weight: 600; text-align: right; flex-shrink: 0; }
+  .var-bar-sig { width: 40px; font-size: 12px; text-align: center; flex-shrink: 0; }
 
-  .var-bar-row {
-    display: flex;
-    align-items: center;
-    margin-bottom: 8px;
-    gap: 10px;
-  }
+  .window-selector { display: flex; gap: 4px; margin-bottom: 12px; }
+  .window-selector button { background: rgba(255,255,255,0.05); border: 1px solid var(--border); color: var(--muted); font-family: inherit; font-size: 12px; padding: 4px 12px; border-radius: 4px; cursor: pointer; transition: all 0.2s; }
+  .window-selector button.active { background: var(--accent); color: var(--bg); border-color: var(--accent); }
 
-  .var-bar-label {
-    width: 70px;
-    font-size: 12px;
-    color: var(--muted);
-    text-align: right;
-    flex-shrink: 0;
-  }
-
-  .var-bar-track {
-    flex: 1;
-    height: 28px;
-    background: rgba(255,255,255,0.03);
-    border-radius: 4px;
-    overflow: hidden;
-    position: relative;
-  }
-
-  .var-bar-fill {
-    height: 100%;
-    border-radius: 4px;
-    display: flex;
-    align-items: center;
-    padding-left: 8px;
-    font-size: 12px;
-    font-weight: 600;
-    color: white;
-    min-width: 40px;
-    transition: width 0.6s ease;
-  }
-
-  .var-bar-value {
-    width: 55px;
-    font-size: 13px;
-    font-weight: 600;
-    text-align: right;
-    flex-shrink: 0;
-  }
-
-  /* ─── Window Selector ─── */
-  .window-selector {
-    display: flex;
-    gap: 4px;
-    margin-bottom: 12px;
-  }
-
-  .window-selector button {
-    background: rgba(255,255,255,0.05);
-    border: 1px solid var(--border);
-    color: var(--muted);
-    font-family: inherit;
-    font-size: 12px;
-    padding: 4px 12px;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: all 0.2s;
-  }
-
-  .window-selector button.active {
-    background: var(--accent);
-    color: var(--bg);
-    border-color: var(--accent);
-  }
+  .legend-box { font-size: 11px; color: var(--muted); margin-top: 12px; padding: 8px 12px; background: rgba(255,255,255,0.02); border-radius: 4px; }
+  .legend-box code { color: var(--accent); }
 
   @media (max-width: 768px) {
     .chart-grid { grid-template-columns: 1fr; }
     .kpi-row { grid-template-columns: repeat(3, 1fr); }
     body { padding: 12px; }
+    .diag-grid { grid-template-columns: 1fr; }
   }
 </style>
 </head>
@@ -302,10 +98,8 @@
   <span class="meta" id="headerMeta"></span>
 </div>
 
-<!-- KPIs -->
 <div class="kpi-row" id="kpiRow"></div>
 
-<!-- Tabs -->
 <div class="tab-bar" id="tabBar">
   <button class="active" data-tab="overview">Overview</button>
   <button data-tab="decomp">Decomposition</button>
@@ -313,9 +107,10 @@
   <button data-tab="contrib">Factor Attribution</button>
   <button data-tab="correlation">Correlations</button>
   <button data-tab="regression">Regression</button>
+  <button data-tab="diagnostics">Diagnostics</button>
 </div>
 
-<!-- ═══ OVERVIEW TAB ═══ -->
+<!-- ═══ OVERVIEW ═══ -->
 <div class="tab-content active" id="tab-overview">
   <div class="chart-grid">
     <div class="chart-card full">
@@ -325,32 +120,30 @@
     </div>
     <div class="chart-card full">
       <h3>COPX: Actual vs Fitted vs Residual (cumulative)</h3>
-      <div class="chart-sub">Fitted = LASSO model prediction | Residual = idiosyncratic / mining-specific</div>
+      <div class="chart-sub">Fitted = LASSO model | Residual = idiosyncratic / mining-specific</div>
       <div class="chart-container tall"><canvas id="chartActualFitted"></canvas></div>
     </div>
   </div>
   <div class="chart-card" style="margin-bottom:24px">
     <h3>Performance Summary</h3>
     <table id="perfTable">
-      <thead>
-        <tr><th>Ticker</th><th>Name</th><th class="num">Total</th><th class="num">YTD</th><th class="num">Ann. Vol</th></tr>
-      </thead>
+      <thead><tr><th>Ticker</th><th>Name</th><th class="num">Total</th><th class="num">YTD</th><th class="num">Ann. Vol</th><th class="num">Sharpe</th></tr></thead>
       <tbody></tbody>
     </table>
   </div>
 </div>
 
-<!-- ═══ DECOMPOSITION TAB ═══ -->
+<!-- ═══ DECOMPOSITION ═══ -->
 <div class="tab-content" id="tab-decomp">
   <div class="chart-grid">
     <div class="chart-card full">
       <h3>Variance Decomposition — What Drives COPX?</h3>
-      <div class="chart-sub">LASSO regression: % of COPX daily return variance explained by each factor</div>
+      <div class="chart-sub">LASSO betas × covariance. Significance from bootstrap (1000 iter). <code>***</code> p&lt;0.001 <code>**</code> p&lt;0.01 <code>*</code> p&lt;0.05</div>
       <div id="varDecompBars" class="var-bar-container"></div>
     </div>
     <div class="chart-card">
-      <h3>LASSO Coefficients (betas)</h3>
-      <div class="chart-container"><canvas id="chartLassoCoefs"></canvas></div>
+      <h3>LASSO Coefficients with 95% Bootstrap CI</h3>
+      <div class="chart-container"><canvas id="chartLassoCoefsCI"></canvas></div>
     </div>
     <div class="chart-card">
       <h3>Variance Decomposition (pie)</h3>
@@ -359,7 +152,7 @@
   </div>
 </div>
 
-<!-- ═══ ROLLING TAB ═══ -->
+<!-- ═══ ROLLING ═══ -->
 <div class="tab-content" id="tab-rolling">
   <div class="chart-grid">
     <div class="chart-card full">
@@ -373,14 +166,18 @@
       <div class="chart-container tall"><canvas id="chartRollingBetaAll"></canvas></div>
     </div>
     <div class="chart-card full">
-      <h3>Rolling R² (120-day OLS)</h3>
-      <div class="chart-sub">How much of COPX is explained by the 5 factors over time</div>
+      <h3>Rolling t-statistics (120d OLS, robust SE)</h3>
+      <div class="chart-sub">Dashed lines at ±1.96 (5% significance). Factor is significant when |t| > 1.96</div>
+      <div class="chart-container tall"><canvas id="chartRollingTstats"></canvas></div>
+    </div>
+    <div class="chart-card full">
+      <h3>Rolling R² and Adjusted R² (120d OLS)</h3>
       <div class="chart-container"><canvas id="chartRollingR2"></canvas></div>
     </div>
   </div>
 </div>
 
-<!-- ═══ ATTRIBUTION TAB ═══ -->
+<!-- ═══ ATTRIBUTION ═══ -->
 <div class="tab-content" id="tab-contrib">
   <div class="chart-grid">
     <div class="chart-card full">
@@ -395,11 +192,12 @@
   </div>
 </div>
 
-<!-- ═══ CORRELATION TAB ═══ -->
+<!-- ═══ CORRELATION ═══ -->
 <div class="tab-content" id="tab-correlation">
   <div class="chart-grid">
     <div class="chart-card full">
-      <h3>Correlation Matrix (full sample, daily returns)</h3>
+      <h3>Correlation Matrix with p-values</h3>
+      <div class="chart-sub">Bottom: Pearson correlation. Sub-text: p-value (t-test). All computed on daily returns.</div>
       <div id="corrHeatmap" class="corr-grid"></div>
     </div>
     <div class="chart-card full">
@@ -409,35 +207,65 @@
   </div>
 </div>
 
-<!-- ═══ REGRESSION TAB ═══ -->
+<!-- ═══ REGRESSION ═══ -->
 <div class="tab-content" id="tab-regression">
   <div class="chart-grid">
     <div class="chart-card">
-      <h3>OLS Regression</h3>
+      <h3>OLS Regression (HC1 Robust SE)</h3>
+      <div class="chart-sub">White heteroscedasticity-consistent standard errors</div>
       <table id="olsTable">
-        <thead><tr><th>Factor</th><th class="num">Beta</th></tr></thead>
+        <thead><tr><th>Factor</th><th class="num">Beta</th><th class="num">SE</th><th class="num">t-stat</th><th class="num">p-value</th><th class="num">95% CI</th><th>Sig</th></tr></thead>
         <tbody></tbody>
       </table>
     </div>
     <div class="chart-card">
-      <h3>LASSO Regression (CV)</h3>
+      <h3>LASSO Regression (Bootstrap Inference)</h3>
+      <div class="chart-sub">1000 bootstrap iterations for SE and CI</div>
       <table id="lassoTable">
-        <thead><tr><th>Factor</th><th class="num">Beta</th><th>Status</th></tr></thead>
+        <thead><tr><th>Factor</th><th class="num">Beta</th><th class="num">Boot SE</th><th class="num">pseudo-t</th><th class="num">p-value</th><th class="num">95% CI</th><th>Sig</th></tr></thead>
         <tbody></tbody>
       </table>
     </div>
     <div class="chart-card full">
-      <h3>OLS vs LASSO Coefficients</h3>
-      <div class="chart-container"><canvas id="chartOlsVsLasso"></canvas></div>
+      <h3>OLS vs LASSO Coefficients with Confidence Intervals</h3>
+      <div class="chart-container tall"><canvas id="chartOlsVsLassoCI"></canvas></div>
+    </div>
+  </div>
+  <div class="legend-box">
+    <strong>Significance:</strong> <code>***</code> p&lt;0.001 &nbsp; <code>**</code> p&lt;0.01 &nbsp; <code>*</code> p&lt;0.05 &nbsp;
+    OLS uses HC1 (White) robust standard errors. LASSO uses non-parametric bootstrap (1000 iter) for inference.
+  </div>
+</div>
+
+<!-- ═══ DIAGNOSTICS ═══ -->
+<div class="tab-content" id="tab-diagnostics">
+  <div class="chart-grid">
+    <div class="chart-card">
+      <h3>Model Diagnostics</h3>
+      <div class="chart-sub">OLS regression diagnostic tests</div>
+      <div id="diagTests"></div>
+    </div>
+    <div class="chart-card">
+      <h3>Residual Distribution</h3>
+      <div class="chart-container"><canvas id="chartResidHist"></canvas></div>
+    </div>
+    <div class="chart-card full">
+      <h3>Interpretation Guide</h3>
+      <div class="legend-box" style="font-size:12px; line-height: 1.8">
+        <strong>Durbin-Watson:</strong> Tests serial correlation in residuals. Values near 2.0 = no autocorrelation. &lt;1.5 or &gt;2.5 = concern.<br>
+        <strong>Breusch-Pagan:</strong> Tests heteroscedasticity. Low p-value = residual variance is not constant → use robust SE (HC1).<br>
+        <strong>Jarque-Bera:</strong> Tests normality of residuals. Low p-value = non-normal (common in finance — fat tails).<br>
+        <strong>Adjusted R²:</strong> Penalizes for number of regressors. Closer to R² = good; much lower = overfitting.<br>
+        <strong>F-statistic:</strong> Joint significance — tests whether ALL factors together are significant. p≈0 = model is meaningful.<br>
+        <strong>Bootstrap CI:</strong> If 95% CI does not contain zero, the LASSO coefficient is statistically significant at 5% level.
+      </div>
     </div>
   </div>
 </div>
 
 <script>
-// ─── DATA PLACEHOLDER (will be replaced by build script) ───
 let DATA = null;
 
-// ─── Chart defaults ───
 Chart.defaults.color = '#6b6b80';
 Chart.defaults.borderColor = '#1e1e2e';
 Chart.defaults.font.family = "'SF Mono', 'Fira Code', monospace";
@@ -449,19 +277,24 @@ Chart.defaults.elements.point.hoverRadius = 4;
 Chart.defaults.elements.line.borderWidth = 1.5;
 
 const COLORS = {
-  COPX: '#f59e0b',
-  CPER: '#f97316',
-  SPY: '#3b82f6',
-  TLT: '#a855f7',
-  UUP: '#22c55e',
-  EEM: '#ec4899',
-  Residual: '#6b6b80',
-  fitted: '#06b6d4',
-  residual: '#6b6b80',
+  COPX: '#f59e0b', CPER: '#f97316', SPY: '#3b82f6',
+  TLT: '#a855f7', UUP: '#22c55e', EEM: '#ec4899',
+  Residual: '#6b6b80', fitted: '#06b6d4', residual: '#6b6b80',
 };
 
-function toXY(arr) {
-  return arr.map(d => ({ x: d.date, y: d.value }));
+function toXY(arr) { return arr.map(d => ({ x: d.date, y: d.value })); }
+
+function sigBadge(sig) {
+  if (sig === '***') return '<span class="sig-badge s3">***</span>';
+  if (sig === '**') return '<span class="sig-badge s2">**</span>';
+  if (sig === '*') return '<span class="sig-badge s1">*</span>';
+  return '<span class="sig-badge ns">n.s.</span>';
+}
+
+function fmtPval(p) {
+  if (p === null || p === undefined) return '—';
+  if (p < 0.0001) return '<0.0001';
+  return p.toFixed(4);
 }
 
 // ─── Tabs ───
@@ -473,50 +306,48 @@ document.getElementById('tabBar').addEventListener('click', e => {
   document.getElementById('tab-' + e.target.dataset.tab).classList.add('active');
 });
 
-// ─── Build Dashboard ───
 function build(D) {
   DATA = D;
-  const m = D.metadata;
   document.getElementById('headerMeta').textContent =
-    `${m.start} → ${m.end} | ${m.obs} obs | Generated ${m.generated.slice(0,16)}`;
+    `${D.metadata.start} → ${D.metadata.end} | ${D.metadata.obs} obs | Generated ${D.metadata.generated.slice(0,16)}`;
 
   buildKPIs(D);
   buildPerfTable(D);
   buildCumPerf(D);
   buildActualFitted(D);
   buildVarDecomp(D);
-  buildLassoCoefs(D);
+  buildLassoCoefsCI(D);
   buildVarPie(D);
   buildRollingBetaCopper(D);
   buildRollingBetaAll(D);
+  buildRollingTstats(D);
   buildRollingR2(D);
   buildContrib(D, 'ytdContribs', 'chartYTDContrib');
   buildContrib(D, 'y1Contribs', 'chartY1Contrib');
   buildCorrHeatmap(D);
   buildRollingCorr(D);
   buildRegressionTables(D);
-  buildOlsVsLasso(D);
+  buildOlsVsLassoCI(D);
+  buildDiagnostics(D);
+  buildResidHist(D);
 }
 
 function buildKPIs(D) {
   const row = document.getElementById('kpiRow');
   const ps = D.perfSummary;
-
   const kpis = [
-    { label: 'COPX YTD', value: ps.COPX.ytd, fmt: v => (v >= 0 ? '+' : '') + v.toFixed(1) + '%' },
-    { label: 'Copper YTD', value: ps.CPER.ytd, fmt: v => (v >= 0 ? '+' : '') + v.toFixed(1) + '%' },
-    { label: 'LASSO R²', value: D.lasso.r2, fmt: v => (v * 100).toFixed(1) + '%', neutral: true },
-    { label: 'Copper Variance', value: D.varDecomp.CPER, fmt: v => v.toFixed(1) + '%', neutral: true },
-    { label: 'EM Variance', value: D.varDecomp.EEM, fmt: v => v.toFixed(1) + '%', neutral: true },
-    { label: 'Residual', value: D.varDecomp.Residual, fmt: v => v.toFixed(1) + '%', neutral: true },
+    { label: 'COPX YTD', value: ps.COPX.ytd, fmt: v => (v>=0?'+':'')+v.toFixed(1)+'%' },
+    { label: 'Copper YTD', value: ps.CPER.ytd, fmt: v => (v>=0?'+':'')+v.toFixed(1)+'%' },
+    { label: 'LASSO R²', value: D.lasso.r2, fmt: v => (v*100).toFixed(1)+'%', neutral: true },
+    { label: 'Adj R² (OLS)', value: D.ols.r2_adj, fmt: v => (v*100).toFixed(1)+'%', neutral: true },
+    { label: 'F-stat', value: D.ols.f_stat, fmt: v => v.toFixed(1), neutral: true, sub: 'p≈0' },
+    { label: 'Durbin-Watson', value: D.ols.durbin_watson, fmt: v => v.toFixed(3), neutral: true },
+    { label: 'Copper Var%', value: D.varDecomp.CPER.pct, fmt: v => v.toFixed(1)+'%', neutral: true },
+    { label: 'Residual Var%', value: D.varDecomp.Residual.pct, fmt: v => v.toFixed(1)+'%', neutral: true },
   ];
-
   row.innerHTML = kpis.map(k => {
     const cls = k.neutral ? '' : (k.value >= 0 ? 'positive' : 'negative');
-    return `<div class="kpi-card">
-      <div class="label">${k.label}</div>
-      <div class="value ${cls}">${k.fmt(k.value)}</div>
-    </div>`;
+    return `<div class="kpi-card"><div class="label">${k.label}</div><div class="value ${cls}">${k.fmt(k.value)}</div>${k.sub ? `<div class="sub">${k.sub}</div>` : ''}</div>`;
   }).join('');
 }
 
@@ -529,9 +360,10 @@ function buildPerfTable(D) {
     return `<tr>
       <td><span style="color:${COLORS[t]};font-weight:700">${t}</span></td>
       <td style="color:var(--muted)">${D.tickers[t]}</td>
-      <td class="num ${cls(p.total)}">${p.total >= 0 ? '+' : ''}${p.total}%</td>
-      <td class="num ${cls(p.ytd)}">${p.ytd >= 0 ? '+' : ''}${p.ytd}%</td>
+      <td class="num ${cls(p.total)}">${p.total>=0?'+':''}${p.total}%</td>
+      <td class="num ${cls(p.ytd)}">${p.ytd>=0?'+':''}${p.ytd}%</td>
       <td class="num">${p.annVol}%</td>
+      <td class="num">${p.sharpe.toFixed(2)}</td>
     </tr>`;
   }).join('');
 }
@@ -539,23 +371,14 @@ function buildPerfTable(D) {
 function buildCumPerf(D) {
   new Chart(document.getElementById('chartCumPerf'), {
     type: 'line',
-    data: {
-      datasets: ['COPX', 'CPER', 'SPY', 'TLT', 'UUP', 'EEM'].map(t => ({
-        label: t,
-        data: toXY(D.cumReturns[t]),
-        borderColor: COLORS[t],
-        backgroundColor: COLORS[t] + '15',
-        borderWidth: t === 'COPX' ? 2.5 : 1.2,
-      }))
-    },
+    data: { datasets: ['COPX','CPER','SPY','TLT','UUP','EEM'].map(t => ({
+      label: t, data: toXY(D.cumReturns[t]), borderColor: COLORS[t],
+      borderWidth: t==='COPX'?2.5:1.2,
+    }))},
     options: {
       responsive: true, maintainAspectRatio: false,
-      scales: {
-        x: { type: 'time', time: { unit: 'month', displayFormats: { month: 'MMM yy' } } },
-        y: { title: { display: true, text: 'Cumulative Return (rebased=1)' } }
-      },
-      interaction: { mode: 'index', intersect: false },
-      plugins: { tooltip: { mode: 'index' } }
+      scales: { x: { type:'time', time:{unit:'month', displayFormats:{month:'MMM yy'}} }, y: { title:{display:true,text:'Cumulative (rebased=1)'} } },
+      interaction: { mode:'index', intersect: false },
     }
   });
 }
@@ -563,20 +386,15 @@ function buildCumPerf(D) {
 function buildActualFitted(D) {
   new Chart(document.getElementById('chartActualFitted'), {
     type: 'line',
-    data: {
-      datasets: [
-        { label: 'COPX Actual', data: toXY(D.cumCopx), borderColor: COLORS.COPX, borderWidth: 2.5 },
-        { label: 'COPX Fitted', data: toXY(D.cumFitted), borderColor: COLORS.fitted, borderWidth: 2, borderDash: [6, 3] },
-        { label: 'Residual (idiosyncratic)', data: toXY(D.cumResidual), borderColor: COLORS.residual, borderWidth: 1.5, borderDash: [3, 3] },
-      ]
-    },
+    data: { datasets: [
+      { label:'COPX Actual', data:toXY(D.cumCopx), borderColor:COLORS.COPX, borderWidth:2.5 },
+      { label:'COPX Fitted (LASSO)', data:toXY(D.cumFitted), borderColor:COLORS.fitted, borderWidth:2, borderDash:[6,3] },
+      { label:'Residual (idiosyncratic)', data:toXY(D.cumResidual), borderColor:COLORS.residual, borderWidth:1.5, borderDash:[3,3] },
+    ]},
     options: {
       responsive: true, maintainAspectRatio: false,
-      scales: {
-        x: { type: 'time', time: { unit: 'month', displayFormats: { month: 'MMM yy' } } },
-        y: { title: { display: true, text: 'Cumulative' } }
-      },
-      interaction: { mode: 'index', intersect: false },
+      scales: { x: { type:'time', time:{unit:'month', displayFormats:{month:'MMM yy'}} }, y: { title:{display:true,text:'Cumulative'} } },
+      interaction: { mode:'index', intersect: false },
     }
   });
 }
@@ -584,117 +402,119 @@ function buildActualFitted(D) {
 function buildVarDecomp(D) {
   const container = document.getElementById('varDecompBars');
   const vd = D.varDecomp;
-  const order = Object.entries(vd).sort((a, b) => Math.abs(b[1]) - Math.abs(a[1]));
-  const max = Math.max(...order.map(([, v]) => Math.abs(v)));
-
-  container.innerHTML = order.map(([name, val]) => {
+  const order = Object.entries(vd).sort((a, b) => Math.abs(b[1].pct) - Math.abs(a[1].pct));
+  const max = Math.max(...order.map(([, v]) => Math.abs(v.pct)));
+  container.innerHTML = order.map(([name, v]) => {
     const color = COLORS[name] || '#6b6b80';
-    const width = Math.max((Math.abs(val) / max) * 100, 2);
-    const cls = val >= 0 ? 'positive' : 'negative';
+    const width = Math.max((Math.abs(v.pct) / max) * 100, 2);
+    const cls = v.pct >= 0 ? 'positive' : 'negative';
+    const sig = v.sig ? `<span class="sig-star">${v.sig}</span>` : (name==='Residual'?'':'<span style="color:var(--muted)">n.s.</span>');
     return `<div class="var-bar-row">
       <div class="var-bar-label">${name}</div>
-      <div class="var-bar-track">
-        <div class="var-bar-fill" style="width:${width}%;background:${color}">${Math.abs(val) > 3 ? val.toFixed(1) + '%' : ''}</div>
-      </div>
-      <div class="var-bar-value ${cls}">${val >= 0 ? '+' : ''}${val.toFixed(1)}%</div>
+      <div class="var-bar-track"><div class="var-bar-fill" style="width:${width}%;background:${color}">${Math.abs(v.pct)>3?v.pct.toFixed(1)+'%':''}</div></div>
+      <div class="var-bar-value ${cls}">${v.pct>=0?'+':''}${v.pct.toFixed(1)}%</div>
+      <div class="var-bar-sig">${sig}</div>
     </div>`;
   }).join('');
 }
 
-function buildLassoCoefs(D) {
+function buildLassoCoefsCI(D) {
   const factors = Object.keys(D.lasso.coefs);
-  new Chart(document.getElementById('chartLassoCoefs'), {
+  const betas = factors.map(f => D.lasso.coefs[f].beta);
+  const ciLow = factors.map(f => D.lasso.coefs[f].beta - D.lasso.coefs[f].ci_low);
+  const ciHigh = factors.map(f => D.lasso.coefs[f].ci_high - D.lasso.coefs[f].beta);
+
+  new Chart(document.getElementById('chartLassoCoefsCI'), {
     type: 'bar',
     data: {
       labels: factors,
       datasets: [{
-        data: factors.map(f => D.lasso.coefs[f]),
-        backgroundColor: factors.map(f => COLORS[f] || '#6b6b80'),
+        data: betas,
+        backgroundColor: factors.map(f => D.lasso.coefs[f].sig ? COLORS[f] : COLORS[f]+'40'),
+        borderColor: factors.map(f => COLORS[f]),
+        borderWidth: 1,
         borderRadius: 4,
-      }]
-    },
-    options: {
-      responsive: true, maintainAspectRatio: false,
-      plugins: { legend: { display: false } },
-      scales: {
-        y: { title: { display: true, text: 'Beta' } }
-      }
-    }
-  });
-}
-
-function buildVarPie(D) {
-  const entries = Object.entries(D.varDecomp).filter(([, v]) => Math.abs(v) > 0.5);
-  new Chart(document.getElementById('chartVarPie'), {
-    type: 'doughnut',
-    data: {
-      labels: entries.map(([k]) => k),
-      datasets: [{
-        data: entries.map(([, v]) => Math.abs(v)),
-        backgroundColor: entries.map(([k]) => COLORS[k] || '#6b6b80'),
-        borderWidth: 0,
+        errorBars: factors.map((f,i) => ({ plus: ciHigh[i], minus: ciLow[i] })),
       }]
     },
     options: {
       responsive: true, maintainAspectRatio: false,
       plugins: {
-        legend: { position: 'right' },
-        tooltip: { callbacks: { label: ctx => `${ctx.label}: ${ctx.parsed.toFixed(1)}%` } }
+        legend: { display: false },
+        tooltip: {
+          callbacks: {
+            afterLabel: (ctx) => {
+              const f = factors[ctx.dataIndex];
+              const c = D.lasso.coefs[f];
+              return `95% CI: [${c.ci_low.toFixed(4)}, ${c.ci_high.toFixed(4)}]\np=${fmtPval(c.pseudo_pval)} ${c.sig}`;
+            }
+          }
+        }
+      },
+      scales: { y: { title: { display: true, text: 'Beta (with 95% Bootstrap CI)' } } }
+    },
+    plugins: [{
+      id: 'errorBars',
+      afterDraw(chart) {
+        const { ctx, scales: { x, y } } = chart;
+        const meta = chart.getDatasetMeta(0);
+        meta.data.forEach((bar, i) => {
+          const cx = bar.x;
+          const top = y.getPixelForValue(betas[i] + ciHigh[i]);
+          const bot = y.getPixelForValue(betas[i] - ciLow[i]);
+          ctx.save();
+          ctx.strokeStyle = '#ffffff80';
+          ctx.lineWidth = 1.5;
+          ctx.beginPath();
+          ctx.moveTo(cx, top); ctx.lineTo(cx, bot);
+          ctx.moveTo(cx-4, top); ctx.lineTo(cx+4, top);
+          ctx.moveTo(cx-4, bot); ctx.lineTo(cx+4, bot);
+          ctx.stroke();
+          ctx.restore();
+        });
       }
+    }]
+  });
+}
+
+function buildVarPie(D) {
+  const entries = Object.entries(D.varDecomp).filter(([, v]) => Math.abs(v.pct) > 0.5);
+  new Chart(document.getElementById('chartVarPie'), {
+    type: 'doughnut',
+    data: {
+      labels: entries.map(([k, v]) => `${k} ${v.sig||''}`),
+      datasets: [{ data: entries.map(([,v]) => Math.abs(v.pct)), backgroundColor: entries.map(([k]) => COLORS[k]||'#6b6b80'), borderWidth: 0 }]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { position: 'right' }, tooltip: { callbacks: { label: ctx => `${ctx.label}: ${ctx.parsed.toFixed(1)}%` } } }
     }
   });
 }
 
-// ─── Rolling Beta to Copper ───
+// ─── Rolling Beta (copper) ───
 let betaCopperChart = null;
 function buildRollingBetaCopper(D) {
   const sel = document.getElementById('betaWindowSel');
-  ['60', '120', '252'].forEach((w, i) => {
+  ['60','120','252'].forEach((w,i) => {
     const btn = document.createElement('button');
-    btn.textContent = w === '252' ? '1Y' : w + 'd';
-    btn.className = i === 0 ? 'active' : '';
-    btn.onclick = () => {
-      sel.querySelectorAll('button').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      updateBetaCopper(D, w);
-    };
+    btn.textContent = w==='252'?'1Y':w+'d';
+    btn.className = i===0?'active':'';
+    btn.onclick = () => { sel.querySelectorAll('button').forEach(b=>b.classList.remove('active')); btn.classList.add('active'); updateBetaCopper(D,w); };
     sel.appendChild(btn);
   });
   updateBetaCopper(D, '60');
 }
-
-function updateBetaCopper(D, window) {
-  const cperData = D.rollingBetas[window].CPER;
+function updateBetaCopper(D, w) {
   if (betaCopperChart) betaCopperChart.destroy();
+  const cperData = D.rollingBetas[w].CPER;
   betaCopperChart = new Chart(document.getElementById('chartRollingBetaCopper'), {
     type: 'line',
-    data: {
-      datasets: [
-        {
-          label: 'Beta to Copper',
-          data: toXY(cperData),
-          borderColor: COLORS.CPER,
-          borderWidth: 2,
-          fill: { target: { value: 1 }, above: COLORS.CPER + '20', below: COLORS.CPER + '20' },
-        },
-        {
-          label: 'Beta = 1',
-          data: cperData.map(d => ({ x: d.date, y: 1 })),
-          borderColor: '#ffffff20',
-          borderWidth: 1,
-          borderDash: [4, 4],
-          pointRadius: 0,
-        }
-      ]
-    },
-    options: {
-      responsive: true, maintainAspectRatio: false,
-      scales: {
-        x: { type: 'time', time: { unit: 'month', displayFormats: { month: 'MMM yy' } } },
-        y: { title: { display: true, text: 'Beta' } }
-      },
-      interaction: { mode: 'index', intersect: false },
-    }
+    data: { datasets: [
+      { label:'Beta to Copper', data:toXY(cperData), borderColor:COLORS.CPER, borderWidth:2, fill:{target:{value:1},above:COLORS.CPER+'20',below:COLORS.CPER+'20'} },
+      { label:'Beta = 1', data:cperData.map(d=>({x:d.date,y:1})), borderColor:'#ffffff20', borderWidth:1, borderDash:[4,4], pointRadius:0 },
+    ]},
+    options: { responsive:true, maintainAspectRatio:false, scales:{ x:{type:'time',time:{unit:'month',displayFormats:{month:'MMM yy'}}}, y:{title:{display:true,text:'Beta'}} }, interaction:{mode:'index',intersect:false} }
   });
 }
 
@@ -702,40 +522,52 @@ function updateBetaCopper(D, window) {
 let betaAllChart = null;
 function buildRollingBetaAll(D) {
   const sel = document.getElementById('betaAllWindowSel');
-  ['60', '120', '252'].forEach((w, i) => {
+  ['60','120','252'].forEach((w,i) => {
     const btn = document.createElement('button');
-    btn.textContent = w === '252' ? '1Y' : w + 'd';
-    btn.className = i === 0 ? 'active' : '';
-    btn.onclick = () => {
-      sel.querySelectorAll('button').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      updateBetaAll(D, w);
-    };
+    btn.textContent = w==='252'?'1Y':w+'d';
+    btn.className = i===0?'active':'';
+    btn.onclick = () => { sel.querySelectorAll('button').forEach(b=>b.classList.remove('active')); btn.classList.add('active'); updateBetaAll(D,w); };
     sel.appendChild(btn);
   });
   updateBetaAll(D, '60');
 }
-
-function updateBetaAll(D, window) {
-  const factors = ['CPER', 'SPY', 'TLT', 'UUP', 'EEM'];
+function updateBetaAll(D, w) {
   if (betaAllChart) betaAllChart.destroy();
   betaAllChart = new Chart(document.getElementById('chartRollingBetaAll'), {
     type: 'line',
-    data: {
-      datasets: factors.map(f => ({
-        label: f,
-        data: toXY(D.rollingBetas[window][f]),
-        borderColor: COLORS[f],
-        borderWidth: 1.5,
-      }))
-    },
+    data: { datasets: ['CPER','SPY','TLT','UUP','EEM'].map(f => ({ label:f, data:toXY(D.rollingBetas[w][f]), borderColor:COLORS[f], borderWidth:1.5 })) },
+    options: { responsive:true, maintainAspectRatio:false, scales:{ x:{type:'time',time:{unit:'month',displayFormats:{month:'MMM yy'}}}, y:{title:{display:true,text:'Beta'}} }, interaction:{mode:'index',intersect:false} }
+  });
+}
+
+// ─── Rolling t-stats ───
+function buildRollingTstats(D) {
+  const factors = ['CPER','SPY','TLT','UUP','EEM'];
+  const datasets = factors.map(f => ({
+    label: f,
+    data: D.rollingOLS.map(d => ({ x: d.date, y: d[f+'_tstat'] })),
+    borderColor: COLORS[f],
+    borderWidth: 1.5,
+  }));
+  // Add significance lines
+  const dates = D.rollingOLS.map(d => d.date);
+  datasets.push({ label:'+1.96', data:dates.map(d=>({x:d,y:1.96})), borderColor:'#ffffff30', borderWidth:1, borderDash:[4,4], pointRadius:0 });
+  datasets.push({ label:'-1.96', data:dates.map(d=>({x:d,y:-1.96})), borderColor:'#ffffff30', borderWidth:1, borderDash:[4,4], pointRadius:0 });
+
+  new Chart(document.getElementById('chartRollingTstats'), {
+    type: 'line', data: { datasets },
     options: {
-      responsive: true, maintainAspectRatio: false,
-      scales: {
-        x: { type: 'time', time: { unit: 'month', displayFormats: { month: 'MMM yy' } } },
-        y: { title: { display: true, text: 'Beta' } }
-      },
-      interaction: { mode: 'index', intersect: false },
+      responsive:true, maintainAspectRatio:false,
+      scales: { x:{type:'time',time:{unit:'month',displayFormats:{month:'MMM yy'}}}, y:{title:{display:true,text:'t-statistic'}} },
+      interaction:{mode:'index',intersect:false},
+      plugins: {
+        annotation: {
+          annotations: {
+            line1: { type:'line', yMin:1.96, yMax:1.96, borderColor:'rgba(255,255,255,0.15)', borderDash:[4,4] },
+            line2: { type:'line', yMin:-1.96, yMax:-1.96, borderColor:'rgba(255,255,255,0.15)', borderDash:[4,4] },
+          }
+        }
+      }
     }
   });
 }
@@ -743,146 +575,223 @@ function updateBetaAll(D, window) {
 function buildRollingR2(D) {
   new Chart(document.getElementById('chartRollingR2'), {
     type: 'line',
-    data: {
-      datasets: [{
-        label: 'R² (120d OLS)',
-        data: D.rollingR2.map(d => ({ x: d.date, y: d.r2 })),
-        borderColor: COLORS.COPX,
-        borderWidth: 2,
-        fill: { target: 'origin', above: COLORS.COPX + '15' },
-      }]
-    },
-    options: {
-      responsive: true, maintainAspectRatio: false,
-      scales: {
-        x: { type: 'time', time: { unit: 'month', displayFormats: { month: 'MMM yy' } } },
-        y: { min: 0, max: 1, title: { display: true, text: 'R²' } }
-      },
-      interaction: { mode: 'index', intersect: false },
-    }
+    data: { datasets: [
+      { label:'R²', data:D.rollingOLS.map(d=>({x:d.date,y:d.r2})), borderColor:COLORS.COPX, borderWidth:2, fill:{target:'origin',above:COLORS.COPX+'15'} },
+      { label:'Adj R²', data:D.rollingOLS.map(d=>({x:d.date,y:d.r2_adj})), borderColor:COLORS.fitted, borderWidth:1.5, borderDash:[4,3] },
+    ]},
+    options: { responsive:true, maintainAspectRatio:false, scales:{ x:{type:'time',time:{unit:'month',displayFormats:{month:'MMM yy'}}}, y:{min:0,max:1,title:{display:true,text:'R²'}} }, interaction:{mode:'index',intersect:false} }
   });
 }
 
-// ─── Factor Attribution (stacked area) ───
 function buildContrib(D, key, canvasId) {
   const contribs = D[key];
-  if (!contribs || Object.keys(contribs).length === 0) return;
-
-  const factors = ['CPER', 'EEM', 'SPY', 'UUP', 'TLT', 'Residual'];
-  const datasets = factors.filter(f => contribs[f]).map(f => ({
-    label: f,
-    data: contribs[f].map(d => ({ x: d.date, y: d.value })),
-    borderColor: COLORS[f],
-    backgroundColor: COLORS[f] + '40',
-    borderWidth: 1.5,
-    fill: true,
-  }));
-
+  if (!contribs || !Object.keys(contribs).length) return;
+  const factors = ['CPER','EEM','SPY','UUP','TLT','Residual'];
   new Chart(document.getElementById(canvasId), {
     type: 'line',
-    data: { datasets },
-    options: {
-      responsive: true, maintainAspectRatio: false,
-      scales: {
-        x: { type: 'time', time: { unit: 'month', displayFormats: { month: 'MMM yy' } } },
-        y: { stacked: true, title: { display: true, text: 'Cumulative Contribution (%)' } }
-      },
-      interaction: { mode: 'index', intersect: false },
-    }
+    data: { datasets: factors.filter(f=>contribs[f]).map(f=>({
+      label:f, data:contribs[f].map(d=>({x:d.date,y:d.value})), borderColor:COLORS[f], backgroundColor:COLORS[f]+'40', borderWidth:1.5, fill:true,
+    }))},
+    options: { responsive:true, maintainAspectRatio:false, scales:{ x:{type:'time',time:{unit:'month',displayFormats:{month:'MMM yy'}}}, y:{stacked:true,title:{display:true,text:'Cumulative Contribution (%)'}} }, interaction:{mode:'index',intersect:false} }
   });
 }
 
-// ─── Correlation Heatmap ───
 function buildCorrHeatmap(D) {
   const grid = document.getElementById('corrHeatmap');
-  const tickers = ['COPX', 'CPER', 'SPY', 'TLT', 'UUP', 'EEM'];
-
-  // Header row
-  grid.innerHTML = '<div class="corr-header"></div>' +
-    tickers.map(t => `<div class="corr-header" style="color:${COLORS[t]}">${t}</div>`).join('');
-
+  const tickers = ['COPX','CPER','SPY','TLT','UUP','EEM'];
+  grid.innerHTML = '<div class="corr-header"></div>' + tickers.map(t=>`<div class="corr-header" style="color:${COLORS[t]}">${t}</div>`).join('');
   tickers.forEach(row => {
     grid.innerHTML += `<div class="corr-header" style="color:${COLORS[row]}">${row}</div>`;
     tickers.forEach(col => {
       const val = D.correlation[col][row];
+      const pval = D.corrPvals[row] ? D.corrPvals[row][col] : null;
       const intensity = Math.abs(val);
-      let bg;
-      if (val > 0) bg = `rgba(34, 197, 94, ${intensity * 0.6})`;
-      else if (val < 0) bg = `rgba(239, 68, 68, ${intensity * 0.6})`;
-      else bg = 'transparent';
-      grid.innerHTML += `<div class="corr-cell" style="background:${bg}">${val.toFixed(2)}</div>`;
+      let bg = val>0 ? `rgba(34,197,94,${intensity*0.6})` : val<0 ? `rgba(239,68,68,${intensity*0.6})` : 'transparent';
+      const pText = row===col ? '' : `<span class="corr-pval">${pval!==null&&pval!==undefined ? (pval<0.0001?'p<.0001':'p='+pval.toFixed(4)) : ''}</span>`;
+      grid.innerHTML += `<div class="corr-cell" style="background:${bg}">${val.toFixed(2)}${pText}</div>`;
     });
   });
 }
 
 function buildRollingCorr(D) {
-  const factors = ['CPER', 'SPY', 'TLT', 'UUP', 'EEM'];
   new Chart(document.getElementById('chartRollingCorr'), {
     type: 'line',
-    data: {
-      datasets: factors.map(f => ({
-        label: f,
-        data: toXY(D.rollingCorr[f]),
-        borderColor: COLORS[f],
-        borderWidth: 1.5,
-      }))
-    },
-    options: {
-      responsive: true, maintainAspectRatio: false,
-      scales: {
-        x: { type: 'time', time: { unit: 'month', displayFormats: { month: 'MMM yy' } } },
-        y: { min: -1, max: 1, title: { display: true, text: 'Correlation' } }
-      },
-      interaction: { mode: 'index', intersect: false },
-    }
+    data: { datasets: ['CPER','SPY','TLT','UUP','EEM'].map(f=>({ label:f, data:toXY(D.rollingCorr[f]), borderColor:COLORS[f], borderWidth:1.5 })) },
+    options: { responsive:true, maintainAspectRatio:false, scales:{ x:{type:'time',time:{unit:'month',displayFormats:{month:'MMM yy'}}}, y:{min:-1,max:1,title:{display:true,text:'Correlation'}} }, interaction:{mode:'index',intersect:false} }
   });
 }
 
 function buildRegressionTables(D) {
+  const factors = Object.keys(D.ols.coefs);
   // OLS
   const olsBody = document.querySelector('#olsTable tbody');
-  const factors = Object.keys(D.ols.coefs);
-  olsBody.innerHTML = factors.map(f =>
-    `<tr><td style="color:${COLORS[f]}">${f}</td><td class="num">${D.ols.coefs[f].toFixed(4)}</td></tr>`
-  ).join('') +
-    `<tr><td style="color:var(--muted)">Intercept</td><td class="num">${D.ols.intercept.toFixed(6)}</td></tr>` +
-    `<tr><td style="color:var(--muted)"><strong>R²</strong></td><td class="num"><strong>${(D.ols.r2 * 100).toFixed(2)}%</strong></td></tr>`;
+  olsBody.innerHTML = factors.map(f => {
+    const c = D.ols.coefs[f];
+    return `<tr>
+      <td style="color:${COLORS[f]}">${f}</td>
+      <td class="num">${c.beta.toFixed(4)}</td>
+      <td class="num" style="color:var(--muted)">${c.se.toFixed(4)}</td>
+      <td class="num" style="font-weight:600">${c.tstat.toFixed(3)}</td>
+      <td class="num">${fmtPval(c.pval)}</td>
+      <td class="num" style="color:var(--muted);font-size:11px">[${c.ci_low.toFixed(3)}, ${c.ci_high.toFixed(3)}]</td>
+      <td>${sigBadge(c.sig)}</td>
+    </tr>`;
+  }).join('') +
+  `<tr style="border-top:2px solid var(--border)">
+    <td style="color:var(--muted)">Intercept</td>
+    <td class="num">${D.ols.intercept.toFixed(6)}</td>
+    <td class="num" style="color:var(--muted)">—</td>
+    <td class="num">${D.ols.intercept_tstat.toFixed(3)}</td>
+    <td class="num">${fmtPval(D.ols.intercept_pval)}</td>
+    <td class="num">—</td><td></td>
+  </tr>
+  <tr><td colspan="3"><strong>R² = ${(D.ols.r2*100).toFixed(2)}%</strong></td><td colspan="4" style="color:var(--muted)">Adj R² = ${(D.ols.r2_adj*100).toFixed(2)}% | F = ${D.ols.f_stat}</td></tr>`;
 
   // LASSO
   const lassoBody = document.querySelector('#lassoTable tbody');
   lassoBody.innerHTML = factors.map(f => {
-    const kept = Math.abs(D.lasso.coefs[f]) > 0.0001;
-    return `<tr><td style="color:${COLORS[f]}">${f}</td><td class="num">${D.lasso.coefs[f].toFixed(4)}</td><td>${kept ? '✓' : '✗ dropped'}</td></tr>`;
+    const c = D.lasso.coefs[f];
+    const opacity = c.kept ? '' : 'opacity:0.4';
+    return `<tr style="${opacity}">
+      <td style="color:${COLORS[f]}">${f}</td>
+      <td class="num">${c.beta.toFixed(4)}</td>
+      <td class="num" style="color:var(--muted)">${c.boot_se.toFixed(4)}</td>
+      <td class="num" style="font-weight:600">${c.pseudo_tstat.toFixed(3)}</td>
+      <td class="num">${fmtPval(c.pseudo_pval)}</td>
+      <td class="num" style="color:var(--muted);font-size:11px">[${c.ci_low.toFixed(3)}, ${c.ci_high.toFixed(3)}]${c.zero_in_ci?' ⚠️':''}</td>
+      <td>${sigBadge(c.sig)}</td>
+    </tr>`;
   }).join('') +
-    `<tr><td style="color:var(--muted)">Intercept</td><td class="num">${D.lasso.intercept.toFixed(6)}</td><td></td></tr>` +
-    `<tr><td style="color:var(--muted)"><strong>R²</strong></td><td class="num"><strong>${(D.lasso.r2 * 100).toFixed(2)}%</strong></td><td>α=${D.lasso.alpha.toFixed(6)}</td></tr>`;
+  `<tr style="border-top:2px solid var(--border)">
+    <td colspan="3"><strong>R² = ${(D.lasso.r2*100).toFixed(2)}%</strong></td>
+    <td colspan="4" style="color:var(--muted)">α = ${D.lasso.alpha} | Bootstrap: 1000 iter</td>
+  </tr>`;
 }
 
-function buildOlsVsLasso(D) {
+function buildOlsVsLassoCI(D) {
   const factors = Object.keys(D.ols.coefs);
-  new Chart(document.getElementById('chartOlsVsLasso'), {
+  const olsBetas = factors.map(f => D.ols.coefs[f].beta);
+  const lassoBetas = factors.map(f => D.lasso.coefs[f].beta);
+  const olsCIlow = factors.map(f => D.ols.coefs[f].beta - D.ols.coefs[f].ci_low);
+  const olsCIhigh = factors.map(f => D.ols.coefs[f].ci_high - D.ols.coefs[f].beta);
+  const lassoCIlow = factors.map(f => D.lasso.coefs[f].beta - D.lasso.coefs[f].ci_low);
+  const lassoCIhigh = factors.map(f => D.lasso.coefs[f].ci_high - D.lasso.coefs[f].beta);
+
+  new Chart(document.getElementById('chartOlsVsLassoCI'), {
     type: 'bar',
     data: {
       labels: factors,
       datasets: [
-        { label: 'OLS', data: factors.map(f => D.ols.coefs[f]), backgroundColor: '#3b82f650', borderColor: '#3b82f6', borderWidth: 1 },
-        { label: 'LASSO', data: factors.map(f => D.lasso.coefs[f]), backgroundColor: '#f59e0b50', borderColor: '#f59e0b', borderWidth: 1 },
+        { label:'OLS', data:olsBetas, backgroundColor:'#3b82f650', borderColor:'#3b82f6', borderWidth:1 },
+        { label:'LASSO', data:lassoBetas, backgroundColor:'#f59e0b50', borderColor:'#f59e0b', borderWidth:1 },
       ]
+    },
+    options: { responsive:true, maintainAspectRatio:false, scales:{ y:{title:{display:true,text:'Beta'}} } },
+    plugins: [{
+      id: 'ciWhiskers',
+      afterDraw(chart) {
+        const { ctx } = chart;
+        const meta0 = chart.getDatasetMeta(0);
+        const meta1 = chart.getDatasetMeta(1);
+        const yScale = chart.scales.y;
+        // OLS whiskers
+        meta0.data.forEach((bar, i) => {
+          const top = yScale.getPixelForValue(olsBetas[i] + olsCIhigh[i]);
+          const bot = yScale.getPixelForValue(olsBetas[i] - olsCIlow[i]);
+          ctx.save(); ctx.strokeStyle='#3b82f6'; ctx.lineWidth=1.5;
+          ctx.beginPath(); ctx.moveTo(bar.x,top); ctx.lineTo(bar.x,bot);
+          ctx.moveTo(bar.x-3,top); ctx.lineTo(bar.x+3,top);
+          ctx.moveTo(bar.x-3,bot); ctx.lineTo(bar.x+3,bot);
+          ctx.stroke(); ctx.restore();
+        });
+        // LASSO whiskers
+        meta1.data.forEach((bar, i) => {
+          const top = yScale.getPixelForValue(lassoBetas[i] + lassoCIhigh[i]);
+          const bot = yScale.getPixelForValue(lassoBetas[i] - lassoCIlow[i]);
+          ctx.save(); ctx.strokeStyle='#f59e0b'; ctx.lineWidth=1.5;
+          ctx.beginPath(); ctx.moveTo(bar.x,top); ctx.lineTo(bar.x,bot);
+          ctx.moveTo(bar.x-3,top); ctx.lineTo(bar.x+3,top);
+          ctx.moveTo(bar.x-3,bot); ctx.lineTo(bar.x+3,bot);
+          ctx.stroke(); ctx.restore();
+        });
+      }
+    }]
+  });
+}
+
+function buildDiagnostics(D) {
+  const container = document.getElementById('diagTests');
+  const o = D.ols;
+  const tests = [
+    { label:'R²', value: (o.r2*100).toFixed(2)+'%', desc:'Variance explained' },
+    { label:'Adjusted R²', value: (o.r2_adj*100).toFixed(2)+'%', desc:'Penalized for #factors' },
+    { label:'F-statistic', value: o.f_stat.toFixed(2), desc:'Joint significance', pval: o.f_pval, good: o.f_pval < 0.05 },
+    { label:'Durbin-Watson', value: o.durbin_watson.toFixed(3), desc:'Serial correlation (≈2 is good)', good: o.durbin_watson > 1.5 && o.durbin_watson < 2.5 },
+    { label:'Breusch-Pagan', value: o.bp_stat.toFixed(3), desc:'Heteroscedasticity test', pval: o.bp_pval, good: o.bp_pval > 0.05 },
+    { label:'Jarque-Bera', value: o.jb_stat.toFixed(3), desc:'Normality of residuals', pval: o.jb_pval, good: o.jb_pval > 0.05 },
+    { label:'Residual Skew', value: o.resid_skew.toFixed(3), desc:'0 = symmetric', good: Math.abs(o.resid_skew) < 0.5 },
+    { label:'Residual Kurtosis', value: o.resid_kurt.toFixed(3), desc:'3 = normal', good: Math.abs(o.resid_kurt - 3) < 2 },
+    { label:'AIC', value: o.aic.toFixed(1), desc:'Model selection criterion' },
+    { label:'BIC', value: o.bic.toFixed(1), desc:'Bayesian IC (penalizes complexity more)' },
+    { label:'Observations', value: o.nobs, desc:'' },
+    { label:'Degrees of Freedom', value: o.df_resid, desc:'n - k - 1' },
+  ];
+
+  container.innerHTML = '<div class="diag-grid">' + tests.map(t => {
+    const statusIcon = t.good !== undefined ? (t.good ? '🟢' : '🔴') : '';
+    const pvalText = t.pval !== undefined ? ` (p=${fmtPval(t.pval)})` : '';
+    return `<div class="diag-item">
+      <div><span class="diag-label">${t.label}</span><br><span style="font-size:10px;color:var(--muted)">${t.desc}${pvalText}</span></div>
+      <div class="diag-value">${statusIcon} ${t.value}</div>
+    </div>`;
+  }).join('') + '</div>';
+}
+
+function buildResidHist(D) {
+  // Build histogram from rolling OLS residuals approximation
+  // We'll use the cumResidual differences as proxy
+  const resid = D.cumResidual;
+  const returns = [];
+  for (let i = 1; i < resid.length; i++) {
+    returns.push((resid[i].value / resid[i-1].value - 1) * 100);
+  }
+
+  const nbins = 50;
+  const min = Math.min(...returns);
+  const max = Math.max(...returns);
+  const binWidth = (max - min) / nbins;
+  const bins = new Array(nbins).fill(0);
+  const labels = [];
+  for (let i = 0; i < nbins; i++) {
+    const lo = min + i * binWidth;
+    labels.push(lo.toFixed(2));
+    returns.forEach(r => { if (r >= lo && r < lo + binWidth) bins[i]++; });
+  }
+
+  new Chart(document.getElementById('chartResidHist'), {
+    type: 'bar',
+    data: {
+      labels,
+      datasets: [{ data: bins, backgroundColor: COLORS.COPX + '60', borderColor: COLORS.COPX, borderWidth: 1 }]
     },
     options: {
       responsive: true, maintainAspectRatio: false,
-      scales: { y: { title: { display: true, text: 'Beta' } } }
+      plugins: { legend: { display: false } },
+      scales: {
+        x: { title: { display: true, text: 'Residual Return (%)' }, ticks: { maxTicksLimit: 10 } },
+        y: { title: { display: true, text: 'Frequency' } }
+      }
     }
   });
 }
 
-// ─── Load Data ───
+// ─── Load ───
 fetch('data.json')
   .then(r => r.json())
   .then(build)
   .catch(err => {
     console.error('Failed to load data:', err);
-    document.body.innerHTML += '<div style="color:red;padding:40px;text-align:center">Failed to load data.json — make sure it exists alongside index.html</div>';
+    document.body.innerHTML += '<div style="color:red;padding:40px;text-align:center">Failed to load data.json</div>';
   });
 </script>
 </body>
