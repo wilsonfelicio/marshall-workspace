@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Market Snapshot</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+  /* ============================================================
+     THEME & BASE
+     ============================================================ */
+  :root {
+    --bg-primary: #0d1117;
+    --bg-card: #161b22;
+    --bg-hover: #1c2128;
+    --border: #30363d;
+    --text-primary: #e6edf3;
+    --text-secondary: #8b949e;
+    --green: #3fb950;
+    --red: #f85149;
+    --blue: #58a6ff;
+    --purple: #bc8cff;
+    --yellow: #d29922;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    line-height: 1.5;
+    min-height: 100vh;
+  }
+
+  /* ============================================================
+     HEADER
+     ============================================================ */
+  .header {
+    padding: 24px 32px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .header h1 {
+    font-size: 24px;
+    font-weight: 600;
+    letter-spacing: -0.5px;
+  }
+
+  .header .timestamp {
+    color: var(--text-secondary);
+    font-size: 14px;
+  }
+
+  .header .badge {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 4px 12px;
+    font-size: 12px;
+    color: var(--text-secondary);
+  }
+
+  /* ============================================================
+     SECTION HEADERS
+     ============================================================ */
+  .section-title {
+    padding: 20px 32px 8px;
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--text-secondary);
+  }
+
+  /* ============================================================
+     CARDS GRID
+     ============================================================ */
+  .cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 12px;
+    padding: 8px 32px 16px;
+  }
+
+  .card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px;
+    transition: all 0.2s ease;
+    cursor: default;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .card:hover {
+    background: var(--bg-hover);
+    border-color: var(--text-secondary);
+    transform: translateY(-1px);
+  }
+
+  .card .label {
+    font-size: 12px;
+    color: var(--text-secondary);
+    margin-bottom: 4px;
+    font-weight: 500;
+  }
+
+  .card .price {
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    margin-bottom: 4px;
+  }
+
+  .card .change {
+    font-size: 13px;
+    font-weight: 600;
+  }
+
+  .card .change.positive { color: var(--green); }
+  .card .change.negative { color: var(--red); }
+
+  .card .sparkline-container {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 80px;
+    height: 40px;
+    opacity: 0.3;
+  }
+
+  /* ============================================================
+     CHARTS SECTION
+     ============================================================ */
+  .charts-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    padding: 8px 32px 32px;
+  }
+
+  .chart-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 20px;
+  }
+
+  .chart-card h3 {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 16px;
+    color: var(--text-primary);
+  }
+
+  .chart-card .chart-wrapper {
+    position: relative;
+    height: 250px;
+  }
+
+  /* ============================================================
+     RESPONSIVE
+     ============================================================ */
+  @media (max-width: 768px) {
+    .header { padding: 16px 20px; }
+    .section-title { padding: 16px 20px 4px; }
+    .cards-grid { padding: 8px 20px 12px; grid-template-columns: 1fr 1fr; }
+    .charts-grid { grid-template-columns: 1fr; padding: 8px 20px 20px; }
+    .card .price { font-size: 18px; }
+  }
+
+  @media (max-width: 480px) {
+    .cards-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ================================================================
+     HEADER
+     ================================================================ -->
+<div class="header">
+  <h1>📊 Market Snapshot</h1>
+  <div style="display:flex; align-items:center; gap:12px;">
+    <span class="badge">Built with AI</span>
+    <span class="timestamp" id="timestamp"></span>
+  </div>
+</div>
+
+<!-- ================================================================
+     EQUITIES
+     ================================================================ -->
+<div class="section-title">📈 Equities</div>
+<div class="cards-grid" id="equities-grid"></div>
+
+<!-- ================================================================
+     FX
+     ================================================================ -->
+<div class="section-title">💵 FX</div>
+<div class="cards-grid" id="fx-grid"></div>
+
+<!-- ================================================================
+     RATES
+     ================================================================ -->
+<div class="section-title">🏦 Rates</div>
+<div class="cards-grid" id="rates-grid"></div>
+
+<!-- ================================================================
+     COMMODITIES & VOLATILITY
+     ================================================================ -->
+<div class="section-title">⚡ Commodities & Volatility</div>
+<div class="cards-grid" id="commodities-grid"></div>
+
+<!-- ================================================================
+     CHARTS
+     ================================================================ -->
+<div class="section-title">📉 Charts</div>
+<div class="charts-grid">
+  <div class="chart-card">
+    <h3>S&P 500 — 30 Day Trend</h3>
+    <div class="chart-wrapper">
+      <canvas id="spxChart"></canvas>
+    </div>
+  </div>
+  <div class="chart-card">
+    <h3>Yield Curve — 2Y vs 10Y (30 Days)</h3>
+    <div class="chart-wrapper">
+      <canvas id="yieldChart"></canvas>
+    </div>
+  </div>
+  <div class="chart-card">
+    <h3>Gold (XAU/USD) — 30 Day Trend</h3>
+    <div class="chart-wrapper">
+      <canvas id="goldChart"></canvas>
+    </div>
+  </div>
+  <div class="chart-card">
+    <h3>VIX — 30 Day Trend</h3>
+    <div class="chart-wrapper">
+      <canvas id="vixChart"></canvas>
+    </div>
+  </div>
+</div>
+
+<!-- ================================================================
+     JAVASCRIPT
+     ================================================================ -->
+<script>
+// ==================================================================
+// DATA — Realistic values as of early 2026
+// ==================================================================
+
+const marketData = {
+  equities: [
+    { name: "S&P 500",  ticker: "^GSPC", price: 6816.89, change: 33.92, changePct: 0.50, trend: [6650,6620,6580,6540,6600,6720,6780,6817] },
+    { name: "Nasdaq",   ticker: "^IXIC", price: 22902.90, change: 267.80, changePct: 1.18, trend: [22200,22100,21980,21850,22000,22400,22650,22903] },
+    { name: "Dow Jones", ticker: "^DJI", price: 40213.50, change: -112.40, changePct: -0.28, trend: [40800,40650,40500,40300,40150,40250,40320,40213] },
+  ],
+  fx: [
+    { name: "DXY",     ticker: "DX-Y.NYB", price: 98.70, change: 0.05, changePct: 0.05, trend: [103.2,102.5,101.8,101.0,100.5,99.8,99.2,98.7] },
+    { name: "USD/BRL", ticker: "BRL=X",    price: 5.01,  change: -0.09, changePct: -1.72, trend: [5.18,5.15,5.12,5.10,5.08,5.05,5.03,5.01] },
+  ],
+  rates: [
+    { name: "US 10Y Yield", ticker: "^TNX", price: 4.32, change: 0.024, changePct: 0.56, trend: [4.28,4.25,4.20,4.18,4.22,4.28,4.30,4.32], isPct: true },
+    { name: "US 2Y Yield",  ticker: "^IRX", price: 3.72, change: -0.03, changePct: -0.80, trend: [3.85,3.82,3.80,3.78,3.75,3.74,3.73,3.72], isPct: true },
+  ],
+  commodities: [
+    { name: "Gold",    ticker: "XAU/USD", price: 4787.40, change: 25.70,  changePct: 0.54, trend: [4520,4550,4600,4650,4680,4720,4760,4787] },
+    { name: "Oil WTI", ticker: "CL=F",    price: 96.57,   change: 0.00,   changePct: 0.00, trend: [95.2,94.8,95.5,96.0,95.8,96.2,96.4,96.6] },
+    { name: "VIX",     ticker: "^VIX",    price: 19.23,   change: -0.26,  changePct: -1.33, trend: [22.5,21.8,20.5,19.8,20.2,19.8,19.5,19.2] },
+  ],
+};
+
+// ==================================================================
+// RENDER CARDS
+// ==================================================================
+
+function formatPrice(price, isPct) {
+  if (isPct) return price.toFixed(2) + "%";
+  if (price >= 10000) return price.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  if (price >= 100) return price.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  return price.toFixed(2);
+}
+
+function createCard(item) {
+  const isPositive = item.changePct >= 0;
+  const arrow = isPositive ? "▲" : "▼";
+  const changeClass = isPositive ? "positive" : "negative";
+
+  const card = document.createElement("div");
+  card.className = "card";
+  card.innerHTML = `
+    <div class="label">${item.name} <span style="color:var(--text-secondary);font-size:11px;">${item.ticker}</span></div>
+    <div class="price">${formatPrice(item.price, item.isPct)}</div>
+    <div class="change ${changeClass}">
+      ${arrow} ${Math.abs(item.change).toFixed(2)} (${isPositive ? "+" : ""}${item.changePct.toFixed(2)}%)
+    </div>
+    <div class="sparkline-container"><canvas class="sparkline"></canvas></div>
+  `;
+
+  // Draw mini sparkline
+  setTimeout(() => {
+    const canvas = card.querySelector(".sparkline");
+    const ctx = canvas.getContext("2d");
+    canvas.width = 80;
+    canvas.height = 40;
+
+    const data = item.trend;
+    const min = Math.min(...data);
+    const max = Math.max(...data);
+    const range = max - min || 1;
+
+    ctx.strokeStyle = isPositive ? "rgba(63,185,80,0.8)" : "rgba(248,81,73,0.8)";
+    ctx.lineWidth = 1.5;
+    ctx.beginPath();
+
+    data.forEach((val, i) => {
+      const x = (i / (data.length - 1)) * canvas.width;
+      const y = canvas.height - ((val - min) / range) * canvas.height * 0.8 - canvas.height * 0.1;
+      i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+    });
+
+    ctx.stroke();
+  }, 0);
+
+  return card;
+}
+
+function renderSection(gridId, items) {
+  const grid = document.getElementById(gridId);
+  items.forEach(item => grid.appendChild(createCard(item)));
+}
+
+renderSection("equities-grid", marketData.equities);
+renderSection("fx-grid", marketData.fx);
+renderSection("rates-grid", marketData.rates);
+renderSection("commodities-grid", marketData.commodities);
+
+// ==================================================================
+// TIMESTAMP
+// ==================================================================
+
+document.getElementById("timestamp").textContent =
+  "Last updated: " + new Date().toLocaleString("en-US", {
+    weekday: "short", month: "short", day: "numeric",
+    hour: "2-digit", minute: "2-digit", timeZoneName: "short"
+  });
+
+// ==================================================================
+// CHARTS — Chart.js Configuration
+// ==================================================================
+
+// Shared chart defaults
+Chart.defaults.color = "#8b949e";
+Chart.defaults.borderColor = "#30363d";
+Chart.defaults.font.family = "system-ui, -apple-system, sans-serif";
+
+// Generate 30 days of labels
+const labels30d = Array.from({ length: 30 }, (_, i) => {
+  const d = new Date();
+  d.setDate(d.getDate() - 29 + i);
+  return d.toLocaleDateString("en-US", { month: "short", day: "numeric" });
+});
+
+// Helper: generate realistic random walk data
+function randomWalk(start, volatility, n = 30) {
+  const data = [start];
+  for (let i = 1; i < n; i++) {
+    data.push(data[i-1] + (Math.random() - 0.48) * volatility);
+  }
+  return data.map(v => Math.round(v * 100) / 100);
+}
+
+// --- S&P 500 Chart ---
+const spxData = randomWalk(6600, 40, 30);
+spxData[spxData.length - 1] = 6816.89; // anchor to current
+
+new Chart(document.getElementById("spxChart"), {
+  type: "line",
+  data: {
+    labels: labels30d,
+    datasets: [{
+      label: "S&P 500",
+      data: spxData,
+      borderColor: "#58a6ff",
+      backgroundColor: "rgba(88,166,255,0.1)",
+      fill: true,
+      tension: 0.3,
+      pointRadius: 0,
+      pointHitRadius: 10,
+      borderWidth: 2,
+    }]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: { display: false },
+      tooltip: {
+        backgroundColor: "#161b22",
+        borderColor: "#30363d",
+        borderWidth: 1,
+        titleColor: "#e6edf3",
+        bodyColor: "#e6edf3",
+        callbacks: {
+          label: ctx => "S&P 500: " + ctx.parsed.y.toLocaleString("en-US", { minimumFractionDigits: 2 })
+        }
+      }
+    },
+    scales: {
+      x: { grid: { display: false }, ticks: { maxTicksLimit: 6, font: { size: 11 } } },
+      y: { grid: { color: "#21262d" }, ticks: { font: { size: 11 }, callback: v => v.toLocaleString() } }
+    }
+  }
+});
+
+// --- Yield Curve Chart ---
+const y10Data = randomWalk(4.25, 0.04, 30);
+const y2Data = randomWalk(3.78, 0.03, 30);
+y10Data[y10Data.length - 1] = 4.32;
+y2Data[y2Data.length - 1] = 3.72;
+
+new Chart(document.getElementById("yieldChart"), {
+  type: "line",
+  data: {
+    labels: labels30d,
+    datasets: [
+      {
+        label: "10Y Yield",
+        data: y10Data,
+        borderColor: "#58a6ff",
+        backgroundColor: "rgba(88,166,255,0.05)",
+        fill: false,
+        tension: 0.3,
+        pointRadius: 0,
+        pointHitRadius: 10,
+        borderWidth: 2,
+      },
+      {
+        label: "2Y Yield",
+        data: y2Data,
+        borderColor: "#bc8cff",
+        backgroundColor: "rgba(188,140,255,0.05)",
+        fill: false,
+        tension: 0.3,
+        pointRadius: 0,
+        pointHitRadius: 10,
+        borderWidth: 2,
+      }
+    ]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: {
+        position: "top",
+        labels: { usePointStyle: true, pointStyle: "line", padding: 20, font: { size: 11 } }
+      },
+      tooltip: {
+        backgroundColor: "#161b22",
+        borderColor: "#30363d",
+        borderWidth: 1,
+        titleColor: "#e6edf3",
+        bodyColor: "#e6edf3",
+        callbacks: {
+          label: ctx => ctx.dataset.label + ": " + ctx.parsed.y.toFixed(2) + "%"
+        }
+      }
+    },
+    scales: {
+      x: { grid: { display: false }, ticks: { maxTicksLimit: 6, font: { size: 11 } } },
+      y: { grid: { color: "#21262d" }, ticks: { font: { size: 11 }, callback: v => v.toFixed(2) + "%" } }
+    }
+  }
+});
+
+// --- Gold Chart ---
+const goldData = randomWalk(4500, 50, 30);
+goldData[goldData.length - 1] = 4787.40;
+
+new Chart(document.getElementById("goldChart"), {
+  type: "line",
+  data: {
+    labels: labels30d,
+    datasets: [{
+      label: "Gold (XAU/USD)",
+      data: goldData,
+      borderColor: "#d29922",
+      backgroundColor: "rgba(210,153,34,0.1)",
+      fill: true,
+      tension: 0.3,
+      pointRadius: 0,
+      pointHitRadius: 10,
+      borderWidth: 2,
+    }]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: { display: false },
+      tooltip: {
+        backgroundColor: "#161b22",
+        borderColor: "#30363d",
+        borderWidth: 1,
+        titleColor: "#e6edf3",
+        bodyColor: "#e6edf3",
+        callbacks: {
+          label: ctx => "Gold: $" + ctx.parsed.y.toLocaleString("en-US", { minimumFractionDigits: 2 })
+        }
+      }
+    },
+    scales: {
+      x: { grid: { display: false }, ticks: { maxTicksLimit: 6, font: { size: 11 } } },
+      y: { grid: { color: "#21262d" }, ticks: { font: { size: 11 }, callback: v => "$" + v.toLocaleString() } }
+    }
+  }
+});
+
+// --- VIX Chart ---
+const vixData = randomWalk(22.0, 1.5, 30);
+vixData[vixData.length - 1] = 19.23;
+
+new Chart(document.getElementById("vixChart"), {
+  type: "line",
+  data: {
+    labels: labels30d,
+    datasets: [{
+      label: "VIX",
+      data: vixData,
+      borderColor: "#f85149",
+      backgroundColor: "rgba(248,81,73,0.1)",
+      fill: true,
+      tension: 0.3,
+      pointRadius: 0,
+      pointHitRadius: 10,
+      borderWidth: 2,
+    }]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: { display: false },
+      tooltip: {
+        backgroundColor: "#161b22",
+        borderColor: "#30363d",
+        borderWidth: 1,
+        titleColor: "#e6edf3",
+        bodyColor: "#e6edf3",
+      }
+    },
+    scales: {
+      x: { grid: { display: false }, ticks: { maxTicksLimit: 6, font: { size: 11 } } },
+      y: { grid: { color: "#21262d" }, ticks: { font: { size: 11 } } }
+    }
+  }
+});
+</script>
+
+</body>
+</html>

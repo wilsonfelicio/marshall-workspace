@@ -518,7 +518,7 @@ buildBeveridge();
 </html>"""
 
 # Write output
-out_path = "os.path.join(os.path.dirname(os.path.abspath(__file__)), "index.html")"
+out_path = "/Users/wilsonfelicio/.openclaw/workspace/jolts-dashboard/index.html"
 with open(out_path, "w") as f:
     f.write(html)
 print(f"Dashboard written to {out_path}")

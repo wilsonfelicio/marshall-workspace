@@ -1,0 +1,11 @@
+{
+  "name": "Morning Macro Briefing",
+  "schedule": "cron 0 10 * * 1-5",
+  "payload": "Run the market data script and write a morning briefing.\n\nStep 1: Execute this command to get current market data:\n```\npython3 /Users/wilsonfelicio/.openclaw/workspace/demo-kit/agent2-briefing/pull_data.py\n```\n\nStep 2: Read the output carefully. Note which assets moved significantly.\n\nStep 3: Write a morning macro briefing with this structure:\n\n**Paragraph 1 — What happened:** Summarize the key moves. Lead with the biggest story. Connect related moves (e.g., dollar weakness + gold strength). Use specific numbers.\n\n**Paragraph 2 — What to watch:** Flag the 2-3 things that matter most today. Upcoming data releases, technical levels, or cross-asset signals worth monitoring.\n\nRules:\n- Keep it under 200 words total\n- No filler, no clichés, no 'buckle up' or 'all eyes on'\n- Write like a Bloomberg terminal flash, not a newsletter\n- Use the actual numbers from the data\n- If markets are closed or data is stale, say so",
+  "delivery": {
+    "target": "telegram:direct:YOUR_CHAT_ID"
+  },
+  "sessionTarget": "telegram:direct:YOUR_CHAT_ID",
+  "model": "anthropic/claude-sonnet-4-20250514",
+  "thinking": false
+}

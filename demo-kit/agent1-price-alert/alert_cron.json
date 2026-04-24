@@ -1,0 +1,11 @@
+{
+  "name": "Gold Price Alert",
+  "schedule": "every 15m",
+  "payload": "Check the current gold spot price (XAU/USD) using web_search. Look for the latest price from a reliable source.\n\nRules:\n- If gold is ABOVE $5,000 → Send alert: '🟡 GOLD ALERT: XAU/USD at $X,XXX — Above $5,000 threshold. [source]'\n- If gold is BELOW $4,500 → Send alert: '🔴 GOLD ALERT: XAU/USD at $X,XXX — Below $4,500 threshold. [source]'\n- If gold is BETWEEN $4,500 and $5,000 → Respond with exactly: NO_REPLY\n\nKeep the alert to 1-2 lines. Include the exact price and the source. No commentary, no analysis — just the signal.",
+  "delivery": {
+    "target": "telegram:direct:YOUR_CHAT_ID"
+  },
+  "sessionTarget": "telegram:direct:YOUR_CHAT_ID",
+  "model": "anthropic/claude-sonnet-4-20250514",
+  "thinking": false
+}
