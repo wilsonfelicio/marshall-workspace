@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Brent Jul'26 Futures</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns@3.0.0/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
+<style>body{background:#0a0a0a;color:#e0e0e0;font-family:-apple-system,sans-serif;padding:20px;margin:0}h1{font-size:1.3rem;font-weight:600;margin-bottom:4px}h1 span{color:#f59e0b}.meta{color:#888;font-size:.8rem;margin-bottom:16px}.card{background:#141414;border:1px solid #2a2a2a;border-radius:10px;padding:20px;margin-bottom:16px}.chart-container{position:relative;height:450px}.stats{display:flex;gap:24px;margin-top:14px;flex-wrap:wrap}.stat .label{font-size:.72rem;color:#888}.stat .val{font-size:1.05rem;font-weight:600}.up{color:#22c55e}.down{color:#ef4444}.note{color:#666;font-size:.72rem;margin-top:10px}</style></head><body>
+<h1><span>🛢️</span> Brent Crude — July 2026 Contract (CBN26)</h1>
+<div class="meta">Daily settlement prices | Updated Apr 29, 2026</div>
+<div class="card">
+<div class="chart-container"><canvas id="chart"></canvas></div>
+<div class="stats">
+<div class="stat"><div class="label">Last</div><div class="val" style="color:#f59e0b">$105.14</div></div>
+<div class="stat"><div class="label">Period High</div><div class="val class="up">$119.24</div></div>
+<div class="stat"><div class="label">Period Low</div><div class="val" class="down">$86.09</div></div>
+<div class="stat"><div class="label">1M Chg</div><div class="val up">+5.7%</div></div>
+<div class="stat"><div class="label">3M Chg</div><div class="val up">+58.4%</div></div>
+<div class="stat"><div class="label">52W Range</div><div class="val">$58.79 — $119.24</div></div>
+</div>
+</div>
+<div class="note">Source: Investing.com, Barchart | Marshall</div>
+<script>
+const data=[
+{date:"2026-03-30",price:112.78},
+{date:"2026-03-31",price:118.35},
+{date:"2026-04-01",price:101.16},
+{date:"2026-04-02",price:109.03},
+{date:"2026-04-06",price:109.77},
+{date:"2026-04-07",price:109.27},
+{date:"2026-04-08",price:94.75},
+{date:"2026-04-09",price:95.92},
+{date:"2026-04-10",price:95.20},
+{date:"2026-04-13",price:99.36},
+{date:"2026-04-14",price:94.79},
+{date:"2026-04-15",price:94.93},
+{date:"2026-04-16",price:99.39},
+{date:"2026-04-17",price:90.38},
+{date:"2026-04-20",price:90.43},
+{date:"2026-04-21",price:93.24},
+{date:"2026-04-22",price:96.18},
+{date:"2026-04-23",price:99.35},
+{date:"2026-04-24",price:99.13},
+{date:"2026-04-27",price:101.69},
+{date:"2026-04-28",price:104.40},
+{date:"2026-04-29",price:105.14}
+];
+const ctx=document.getElementById('chart').getContext('2d');
+const gradient=ctx.createLinearGradient(0,0,0,450);
+gradient.addColorStop(0,'rgba(245,158,11,0.25)');
+gradient.addColorStop(1,'rgba(245,158,11,0)');
+new Chart(ctx,{type:'line',data:{datasets:[{
+data:data.map(d=>({x:d.date,y:d.price})),
+borderColor:'#f59e0b',borderWidth:2.5,pointRadius:4,pointBackgroundColor:'#f59e0b',
+pointHoverRadius:6,tension:.2,fill:true,backgroundColor:gradient
+}]},options:{responsive:true,maintainAspectRatio:false,
+plugins:{legend:{display:false},tooltip:{
+backgroundColor:'#1a1a1a',titleColor:'#f59e0b',bodyColor:'#e0e0e0',borderColor:'#333',borderWidth:1,
+callbacks:{label:ctx=>'$'+ctx.parsed.y.toFixed(2)}
+}},
+scales:{x:{type:'time',time:{unit:'day',tooltipFormat:'MMM d'},grid:{color:'#1a1a1a'},ticks:{color:'#666',maxRotation:45}},
+y:{grid:{color:'#1f1f1f'},ticks:{color:'#666',callback:v=>'$'+v},
+suggestedMin:85,suggestedMax:125
+}},
+annotation:{annotations:{
+crash1:{type:'label',xValue:'2026-04-01',yValue:101.16,content:'-14.5%',color:'#ef4444',font:{size:10}},
+crash2:{type:'label',xValue:'2026-04-08',yValue:94.75,content:'-13.3%',color:'#ef4444',font:{size:10}},
+crash3:{type:'label',xValue:'2026-04-17',yValue:90.38,content:'-9.1%',color:'#ef4444',font:{size:10}}
+}}
+}});
+</script></body></html>
