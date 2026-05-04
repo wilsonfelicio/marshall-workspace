@@ -73,6 +73,26 @@ body{background:#faf9f6;color:#2c2c2c;font-family:'DM Sans',sans-serif;padding:0
 .map-legend span{font-size:.7rem;color:#777;display:flex;align-items:center;gap:4px}
 .map-legend .dot{width:10px;height:10px;border-radius:50%;display:inline-block}
 
+/* Walk times */
+.walk-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.walk-item{background:#fff;border:1px solid #e8e5e0;border-radius:8px;padding:10px 12px;display:flex;justify-content:space-between;align-items:center}
+.walk-item .place{font-size:.78rem;color:#555;font-weight:500}
+.walk-item .mins{font-size:.78rem;font-weight:700;color:#2d6a9f;white-space:nowrap}
+
+/* Weather */
+.weather-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;overflow-x:auto}
+.weather-day{background:#fff;border:1px solid #e8e5e0;border-radius:8px;padding:10px 6px;text-align:center}
+.weather-day .wdate{font-size:.6rem;color:#999;font-weight:600}
+.weather-day .wicon{font-size:1.3rem;margin:4px 0}
+.weather-day .wtemp{font-size:.72rem;font-weight:600;color:#2c2c2c}
+.weather-note{font-size:.68rem;color:#999;margin-top:8px;text-align:center}
+
+/* Worth Exploring */
+.explore-card{background:#fff;border:1px solid #e8e5e0;border-radius:10px;padding:14px 16px;margin-bottom:8px}
+.explore-card .ename{font-weight:600;font-size:.85rem;color:#1a3a5c}
+.explore-card .edesc{font-size:.78rem;color:#666;margin-top:3px}
+.explore-card .ewalk{font-size:.68rem;color:#2d6a9f;font-weight:600;margin-top:4px}
+
 /* Rainy */
 .rainy{background:#f0f4f8;border:1px solid #e2e8f0;border-radius:10px;padding:14px 16px}
 .rainy .opt{font-size:.82rem;color:#555;margin-bottom:6px;padding-left:14px;position:relative}
@@ -115,6 +135,30 @@ body{background:#faf9f6;color:#2c2c2c;font-family:'DM Sans',sans-serif;padding:0
 <div class="info-box"><div class="label">Neighborhood</div><div class="val">De Pijp</div></div>
 <div class="info-box"><div class="label">Weather</div><div class="val">15-20&deg;C, rain likely</div></div>
 </div>
+</div>
+
+<div class="section">
+<div class="section-title">Walk Times from Airbnb</div>
+<div class="walk-grid">
+<div class="walk-item"><span class="place">Sarphatipark</span><span class="mins">5 min</span></div>
+<div class="walk-item"><span class="place">Albert Cuyp Market</span><span class="mins">5 min</span></div>
+<div class="walk-item"><span class="place">Amstel Canal</span><span class="mins">3 min</span></div>
+<div class="walk-item"><span class="place">Amstelpark</span><span class="mins">15 min</span></div>
+<div class="walk-item"><span class="place">Vondelpark</span><span class="mins">20 min</span></div>
+<div class="walk-item"><span class="place">Van Gogh Museum</span><span class="mins">20 min</span></div>
+<div class="walk-item"><span class="place">PC Hooftstraat</span><span class="mins">20 min</span></div>
+<div class="walk-item"><span class="place">NEMO</span><span class="mins">15 min tram</span></div>
+<div class="walk-item"><span class="place">Centraal Station</span><span class="mins">20 min tram</span></div>
+<div class="walk-item"><span class="place">Foodhallen</span><span class="mins">15 min tram</span></div>
+</div>
+</div>
+
+<div class="section">
+<div class="section-title">Weather Forecast</div>
+<div class="weather-grid" id="weather-grid">
+<div class="weather-day"><div class="wdate">Loading...</div></div>
+</div>
+<div class="weather-note">Live forecast for Amsterdam &middot; Updates daily</div>
 </div>
 
 <div class="section">
@@ -242,7 +286,18 @@ body{background:#faf9f6;color:#2c2c2c;font-family:'DM Sans',sans-serif;padding:0
 <span><span class="dot" style="background:#db2777"></span>Shopping</span>
 <span><span class="dot" style="background:#2563eb"></span>Activities</span>
 <span><span class="dot" style="background:#94a3b8"></span>Rainy day</span>
+<span><span class="dot" style="background:#0d9488"></span>Worth exploring</span>
 </div>
+</div>
+
+<div class="section">
+<div class="section-title">Worth Exploring</div>
+<div class="explore-card"><div class="ename">Amsterdamse Bos</div><div class="edesc">Goat farm, paddling pool, forest walks. Huge and uncrowded</div><div class="ewalk">20 min by tram/bus</div></div>
+<div class="explore-card"><div class="ename">Kinderboerderij De Pijp</div><div class="edesc">Free petting zoo with goats, chickens, rabbits. Francisco will love it</div><div class="ewalk">5 min walk</div></div>
+<div class="explore-card"><div class="ename">Amsterdam Noord (NDSM Werf)</div><div class="edesc">Free ferry from Centraal. Street art, waterfront, industrial-chic cafes</div><div class="ewalk">Free ferry, 15 min from Centraal</div></div>
+<div class="explore-card"><div class="ename">Begijnhof</div><div class="edesc">Hidden medieval courtyard in city center. Quiet, beautiful, stroller OK</div><div class="ewalk">20 min tram to Dam Square</div></div>
+<div class="explore-card"><div class="ename">Rijksmuseum Fountain</div><div class="edesc">Free! Kids splash in the shallow water on warm days. Museumplein adjacent</div><div class="ewalk">20 min walk</div></div>
+<div class="explore-card"><div class="ename">Carousel Pancake House</div><div class="edesc">Sit at tables inside an old carousel. Dutch pancakes, kid-friendly</div><div class="ewalk">Near Vondelpark, 22 min walk</div></div>
 </div>
 
 <div class="section">
@@ -354,6 +409,37 @@ pin(52.3813,4.9000,'#2563eb','Amsterdam Centraal','Train station');
 pin(52.3720,4.9010,'#94a3b8','TunFun','Indoor playground');
 pin(52.3660,4.9163,'#94a3b8','ARTIS Zoo','Indoor + outdoor');
 pin(52.3762,4.9080,'#94a3b8','OBA Library','Kids ground floor');
+
+// Worth Exploring
+pin(52.3050,4.8270,'#0d9488','Amsterdamse Bos','Goat farm, paddling pool');
+pin(52.3530,4.8930,'#0d9488','Kinderboerderij De Pijp','Free petting zoo, 5 min');
+pin(52.3980,4.8940,'#0d9488','NDSM Werf','Street art, free ferry');
+pin(52.3690,4.8890,'#0d9488','Begijnhof','Medieval courtyard');
+pin(52.3600,4.8850,'#0d9488','Rijksmuseum Fountain','Free, kids splash');
+pin(52.3595,4.8680,'#0d9488','Carousel Pancake House','Near Vondelpark');
+
+// Weather (Open-Meteo, no API key needed)
+(async()=>{
+try{
+const tripStart='2026-06-14',tripEnd='2026-06-23';
+const res=await fetch(`https://api.open-meteo.com/v1/forecast?latitude=52.37&longitude=4.89&daily=temperature_2m_max,temperature_2m_min,weathercode&timezone=Europe/Amsterdam&start_date=${tripStart}&end_date=${tripEnd}`);
+const data=await res.json();
+if(!data.daily)throw new Error('No data');
+const codes={0:'☀️',1:'🌤',2:'⛅',3:'☁️',45:'🌫',48:'🌫',51:'🌦',53:'🌧',55:'🌧',61:'🌧',63:'🌧️',65:'🌧️',71:'❄️',73:'❄️',80:'🌦',81:'🌧',95:'⛈'};
+const days=data.daily.time;
+const grid=document.getElementById('weather-grid');
+grid.innerHTML=days.map((d,i)=>{
+const dt=new Date(d+'T12:00:00');
+const label=dt.toLocaleDateString('en',{weekday:'short',day:'numeric'});
+const icon=codes[data.daily.weathercode[i]]||'🌡';
+const hi=Math.round(data.daily.temperature_2m_max[i]);
+const lo=Math.round(data.daily.temperature_2m_min[i]);
+return `<div class="weather-day"><div class="wdate">${label}</div><div class="wicon">${icon}</div><div class="wtemp">${hi}° / ${lo}°</div></div>`;
+}).join('');
+}catch(e){
+document.getElementById('weather-grid').innerHTML='<div style="grid-column:1/-1;text-align:center;font-size:.75rem;color:#999;padding:12px">Weather available closer to trip dates</div>';
+}
+})();
 
 // Highlight today
 const today=new Date().toISOString().slice(0,10);
