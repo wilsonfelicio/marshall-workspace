@@ -95,6 +95,31 @@ body{background:#f8f7f4;color:#1a1a1a;font-family:'DM Sans',sans-serif;padding:0
 .explore-card .edesc{font-size:.76rem;color:#777;margin-top:4px;line-height:1.5}
 .explore-card .ewalk{font-size:.66rem;color:#2d7ab6;font-weight:600;margin-top:6px}
 
+/* First Times */
+.badges{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.badge{background:#fff;border-radius:14px;padding:14px 16px;box-shadow:0 1px 3px rgba(0,0,0,.04),0 4px 12px rgba(0,0,0,.02);cursor:pointer;transition:all .25s ease;position:relative;overflow:hidden}
+.badge:active{transform:scale(.96)}
+.badge.unlocked{background:linear-gradient(135deg,#ecfdf5,#d1fae5)}
+.badge.unlocked::after{content:'';position:absolute;top:8px;right:10px;font-size:.7rem}
+.badge .bemoji{font-size:1.4rem;margin-bottom:6px}
+.badge .bname{font-size:.74rem;font-weight:600;color:#1a1a1a;line-height:1.3}
+.badge .btime{font-size:.6rem;color:#16a34a;font-weight:600;margin-top:4px;display:none}
+.badge.unlocked .btime{display:block}
+.badge.locked .bemoji{filter:grayscale(1);opacity:.4}
+.badge.locked .bname{color:#aaa}
+
+/* Restaurant Picks */
+.resto-card{background:#fff;border-radius:14px;padding:14px 18px;margin-bottom:10px;box-shadow:0 1px 3px rgba(0,0,0,.04),0 4px 12px rgba(0,0,0,.02)}
+.resto-card .rday{font-size:.6rem;text-transform:uppercase;letter-spacing:1px;color:#a0a0a0;font-weight:600}
+.resto-card .rname{font-weight:600;font-size:.85rem;color:#0f2b44;margin-top:4px}
+.resto-card .rdesc{font-size:.74rem;color:#777;margin-top:3px;line-height:1.4}
+.resto-card .rlink{display:inline-block;margin-top:6px;font-size:.68rem;color:#2d7ab6;font-weight:600;text-decoration:none}
+
+/* Webcam */
+.webcam-wrap{border-radius:16px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.06);position:relative;background:#000}
+.webcam-wrap iframe{width:100%;height:240px;border:none}
+.webcam-label{position:absolute;bottom:10px;left:12px;background:rgba(0,0,0,.6);color:#fff;font-size:.62rem;padding:4px 10px;border-radius:20px;backdrop-filter:blur(4px);font-weight:500;letter-spacing:.3px}
+
 /* Rainy */
 .rainy{background:linear-gradient(135deg,#f0f4f8,#e8eef4);border:none;border-radius:14px;padding:18px 20px}
 .rainy .opt{font-size:.8rem;color:#555;margin-bottom:8px;padding-left:18px;position:relative;line-height:1.5}
@@ -283,6 +308,29 @@ html{scroll-behavior:smooth}
 </div>
 
 <div class="section">
+<div class="section-title">Live from Amsterdam</div>
+<div class="webcam-wrap">
+<iframe src="https://www.youtube.com/embed/1o3B1w0fn5A?autoplay=0&mute=1" allow="autoplay" loading="lazy"></iframe>
+<div class="webcam-label">Prinsengracht Canal &middot; Live</div>
+</div>
+</div>
+
+<div class="section">
+<div class="section-title">First Times</div>
+<div class="badges" id="badges"></div>
+</div>
+
+<div class="section">
+<div class="section-title">Restaurant Picks</div>
+<div class="resto-card"><div class="rday">Near Airbnb (De Pijp)</div><div class="rname">Caf&eacute; de Witte Uyl</div><div class="rdesc">Cozy bistro, terrace on the canal. Great for wine + sharing plates. Stroller fits inside</div><a class="rlink" href="https://maps.google.com/?q=Cafe+de+Witte+Uyl+Amsterdam" target="_blank">Open in Maps &rarr;</a></div>
+<div class="resto-card"><div class="rday">Near Van Gogh Museum</div><div class="rname">Dignita Hoftuin</div><div class="rdesc">Garden terrace hidden behind Hermitage. Brunch/lunch, highchairs available, very kid-friendly</div><a class="rlink" href="https://maps.google.com/?q=Dignita+Hoftuin+Amsterdam" target="_blank">Open in Maps &rarr;</a></div>
+<div class="resto-card"><div class="rday">Near Vondelpark</div><div class="rname">Groot Melkhuis</div><div class="rdesc">Inside Vondelpark. Big playground right outside, pancakes, terrace seating</div><a class="rlink" href="https://maps.google.com/?q=Groot+Melkhuis+Vondelpark" target="_blank">Open in Maps &rarr;</a></div>
+<div class="resto-card"><div class="rday">Near NEMO</div><div class="rname">Hannekes Boom</div><div class="rdesc">Waterfront terrace on the IJ. Relaxed, burgers, views. Short walk from NEMO</div><a class="rlink" href="https://maps.google.com/?q=Hannekes+Boom+Amsterdam" target="_blank">Open in Maps &rarr;</a></div>
+<div class="resto-card"><div class="rday">Canal Boat Day</div><div class="rname">Winkel 43</div><div class="rdesc">Best apple pie in Amsterdam. On Noordermarkt in the Jordaan. Near boat pickup</div><a class="rlink" href="https://maps.google.com/?q=Winkel+43+Amsterdam" target="_blank">Open in Maps &rarr;</a></div>
+<div class="resto-card"><div class="rday">Special Dinner</div><div class="rname">Restaurant BAK</div><div class="rdesc">Refined seasonal Dutch cuisine, intimate setting. One for date night if you get a sitter</div><a class="rlink" href="https://maps.google.com/?q=Restaurant+BAK+Amsterdam" target="_blank">Open in Maps &rarr;</a></div>
+</div>
+
+<div class="section">
 <div class="section-title">Map</div>
 <div id="map"></div>
 <div class="map-legend">
@@ -447,6 +495,41 @@ return `<div class="weather-day"><div class="wdate">${label}</div><div class="wi
 document.getElementById('weather-grid').innerHTML='<div style="grid-column:1/-1;text-align:center;font-size:.75rem;color:#999;padding:12px">Weather available closer to trip dates</div>';
 }
 })();
+
+// First Times Badges
+const badgeData=[
+{id:'stroopwafel',emoji:'🧇',name:'First stroopwafel'},
+{id:'canal',emoji:'🚤',name:'First canal boat ride'},
+{id:'windmill',emoji:'🌬️',name:'Francisco sees a windmill'},
+{id:'tram',emoji:'🚋',name:'Alice sleeps through a tram'},
+{id:'pancake',emoji:'🥞',name:'First Dutch pancake'},
+{id:'rain',emoji:'🌧️',name:'First rain (it will happen)'},
+{id:'bike',emoji:'🚲',name:'Almost hit by a bike'},
+{id:'cheese',emoji:'🧀',name:'First Dutch cheese'},
+{id:'playground',emoji:'🛝',name:'Francisco finds favorite park'},
+{id:'sunset',emoji:'🌅',name:'Canal sunset together'},
+];
+const badgeStore=JSON.parse(localStorage.getItem('ams-badges')||'{}');
+const badgesEl=document.getElementById('badges');
+badgesEl.innerHTML=badgeData.map(b=>{
+const unlocked=badgeStore[b.id];
+const cls=unlocked?'badge unlocked':'badge locked';
+const timeStr=unlocked?new Date(unlocked).toLocaleDateString('en',{month:'short',day:'numeric',hour:'2-digit',minute:'2-digit'}):'';
+return `<div class="${cls}" data-id="${b.id}"><div class="bemoji">${b.emoji}</div><div class="bname">${b.name}</div><div class="btime">${timeStr}</div></div>`;
+}).join('');
+badgesEl.addEventListener('click',e=>{
+const badge=e.target.closest('.badge');
+if(!badge)return;
+const id=badge.dataset.id;
+if(badgeStore[id]){delete badgeStore[id];}
+else{badgeStore[id]=Date.now();}
+localStorage.setItem('ams-badges',JSON.stringify(badgeStore));
+const unlocked=!!badgeStore[id];
+badge.className=unlocked?'badge unlocked':'badge locked';
+const timeEl=badge.querySelector('.btime');
+timeEl.textContent=unlocked?new Date(badgeStore[id]).toLocaleDateString('en',{month:'short',day:'numeric',hour:'2-digit',minute:'2-digit'}):'';
+if(unlocked)badge.style.animation='none',badge.offsetHeight,badge.style.animation='fadeIn .3s ease';
+});
 
 // Highlight today
 const today=new Date().toISOString().slice(0,10);
