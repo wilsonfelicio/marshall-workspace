@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Amsterdam Trip</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#0a0a0a;color:#e0e0e0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;padding:16px;max-width:600px;margin:0 auto}
+h1{font-size:1.4rem;font-weight:700;margin-bottom:2px}
+h1 span{color:#ff6b35}
+.sub{color:#888;font-size:.8rem;margin-bottom:20px}
+.countdown-card{background:linear-gradient(135deg,#1a1a2e,#16213e);border:1px solid #2a2a4a;border-radius:12px;padding:20px;margin-bottom:20px;text-align:center}
+.countdown-card .label{color:#888;font-size:.75rem;text-transform:uppercase;letter-spacing:1px}
+.countdown-nums{display:flex;justify-content:center;gap:16px;margin-top:10px}
+.countdown-nums .unit{text-align:center}
+.countdown-nums .num{font-size:2rem;font-weight:700;color:#ff6b35}
+.countdown-nums .lbl{font-size:.65rem;color:#666;text-transform:uppercase}
+.section{margin-bottom:20px}
+.section-title{font-size:.85rem;font-weight:600;color:#ff6b35;margin-bottom:10px;text-transform:uppercase;letter-spacing:.5px}
+.day-card{background:#141414;border:1px solid #2a2a2a;border-radius:10px;margin-bottom:10px;overflow:hidden;cursor:pointer;transition:border-color .2s}
+.day-card.active{border-color:#ff6b35}
+.day-card.today{border-color:#22c55e;box-shadow:0 0 8px rgba(34,197,94,.15)}
+.day-header{padding:14px 16px;display:flex;justify-content:space-between;align-items:center}
+.day-header .date{font-weight:600;font-size:.9rem}
+.day-header .tag{font-size:.7rem;padding:3px 8px;border-radius:4px;font-weight:600}
+.tag-travel{background:#3b82f620;color:#3b82f6}
+.tag-explore{background:#f59e0b20;color:#f59e0b}
+.tag-museum{background:#a78bfa20;color:#a78bfa}
+.tag-daytrip{background:#22c55e20;color:#22c55e}
+.tag-chill{background:#64748b20;color:#94a3b8}
+.tag-shop{background:#ec489920;color:#ec4899}
+.day-body{padding:0 16px 14px;display:none;font-size:.82rem;line-height:1.6;color:#bbb}
+.day-card.active .day-body{display:block}
+.time{color:#ff6b35;font-weight:600;margin-right:4px}
+.activity{margin-bottom:8px}
+.nap{color:#666;font-style:italic}
+.highlight{color:#fff;font-weight:600}
+.booking-card{background:#1a1a1a;border:1px solid #2a2a2a;border-radius:8px;padding:12px 16px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center}
+.booking-card .info{font-size:.82rem}
+.booking-card .info .name{font-weight:600;color:#e0e0e0}
+.booking-card .info .detail{color:#888;font-size:.72rem}
+.booking-card .status{font-size:.7rem;padding:3px 8px;border-radius:4px;font-weight:600}
+.status-pending{background:#f59e0b20;color:#f59e0b}
+.status-booked{background:#22c55e20;color:#22c55e}
+.checklist{list-style:none;padding:0}
+.checklist li{font-size:.82rem;padding:6px 0;border-bottom:1px solid #1a1a1a;color:#bbb}
+.checklist li::before{content:'';display:inline-block;width:14px;height:14px;border:1.5px solid #444;border-radius:3px;margin-right:10px;vertical-align:middle}
+.info-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.info-box{background:#141414;border:1px solid #2a2a2a;border-radius:8px;padding:12px}
+.info-box .label{font-size:.65rem;color:#888;text-transform:uppercase;letter-spacing:.5px}
+.info-box .val{font-size:.9rem;font-weight:600;margin-top:4px}
+.weather-note{background:#141414;border:1px solid #2a2a2a;border-radius:8px;padding:12px;font-size:.78rem;color:#888;margin-bottom:20px}
+.rainy{background:#1a1a2e;border:1px solid #2a2a4a;border-radius:8px;padding:12px;margin-top:8px}
+.rainy .title{font-size:.78rem;font-weight:600;color:#3b82f6;margin-bottom:6px}
+.rainy .opt{font-size:.78rem;color:#bbb;margin-bottom:4px}
+.map-link{display:inline-block;margin-top:8px;color:#ff6b35;font-size:.75rem;text-decoration:none;font-weight:600}
+.footer{text-align:center;color:#444;font-size:.7rem;margin-top:30px;padding-bottom:20px}
+</style></head><body>
+
+<h1><span>🇳🇱</span> Amsterdam</h1>
+<div class="sub">Wilson, Julia, Francisco & Alice | Jun 14-23, 2026</div>
+
+<div class="countdown-card">
+<div class="label">Trip starts in</div>
+<div class="countdown-nums" id="countdown">
+<div class="unit"><div class="num" id="cd-days">--</div><div class="lbl">days</div></div>
+<div class="unit"><div class="num" id="cd-hrs">--</div><div class="lbl">hrs</div></div>
+<div class="unit"><div class="num" id="cd-min">--</div><div class="lbl">min</div></div>
+</div>
+</div>
+
+<div class="section">
+<div class="section-title">Trip Info</div>
+<div class="info-grid">
+<div class="info-box"><div class="label">Flights</div><div class="val">GRU > AMS Direct</div></div>
+<div class="info-box"><div class="label">Landing</div><div class="val">Jun 14, 11:00</div></div>
+<div class="info-box"><div class="label">Departure</div><div class="val">Jun 23, 13:10</div></div>
+<div class="info-box"><div class="label">Stay</div><div class="val">Amsteldijk 18C</div></div>
+<div class="info-box"><div class="label">Neighborhood</div><div class="val">De Pijp</div></div>
+<div class="info-box"><div class="label">Weather (Jun avg)</div><div class="val">15-20C, rain likely</div></div>
+</div>
+</div>
+
+<div class="section">
+<div class="section-title">Bookings</div>
+<div class="booking-card"><div class="info"><div class="name">Van Gogh Museum</div><div class="detail">Tue Jun 16, 9am | vangoghmuseum.nl</div></div><div class="status status-pending">Pending</div></div>
+<div class="booking-card"><div class="info"><div class="name">Self-drive Canal Boat</div><div class="detail">Wed Jun 17, 10am | mokumboot.com</div></div><div class="status status-pending">Pending</div></div>
+<div class="booking-card"><div class="info"><div class="name">NEMO Science Museum</div><div class="detail">Sat Jun 20, 9:30am | nemosciencemuseum.nl</div></div><div class="status status-pending">Pending</div></div>
+</div>
+
+<div class="section">
+<div class="section-title">Day by Day</div>
+
+<div class="day-card" onclick="toggle(this)">
+<div class="day-header"><div class="date">Sun Jun 14</div><div class="tag tag-travel">Arrival</div></div>
+<div class="day-body">
+<div class="activity"><span class="time">11:00</span> Land at Schiphol. Taxi to Airbnb (~25 min)</div>
+<div class="activity"><span class="time">12:30</span> Groceries at <span class="highlight">Albert Heijn</span> nearby. Stock up: milk, snacks, fruit, diapers</div>
+<div class="activity nap">13:00-15:00 Nap. Unpack. Decompress.</div>
+<div class="activity"><span class="time">16:00</span> Walk around De Pijp. Coffee at a canal terrace. Get your bearings. That's it.</div>
+</div></div>
+
+<div class="day-card" onclick="toggle(this)">
+<div class="day-header"><div class="date">Mon Jun 15</div><div class="tag tag-chill">Easy day</div></div>
+<div class="day-body">
+<div class="activity"><span class="time">9:30</span> <span class="highlight">Sarphatipark</span> (5 min walk). Toddler playground. Alice on blanket. Francisco runs around</div>
+<div class="activity"><span class="time">11:30</span> Walk through <span class="highlight">Albert Cuyp Market</span> on the way home. Street food lunch: stroopwafels, kibbeling, poffertjes</div>
+<div class="activity nap">13:00-15:00 Nap</div>
+<div class="activity"><span class="time">15:30</span> Walk along Amstel canal outside your door. Watch the boats with Francisco</div>
+</div></div>
+
+<div class="day-card" onclick="toggle(this)">
+<div class="day-header"><div class="date">Tue Jun 16</div><div class="tag tag-museum">Museum</div></div>
+<div class="day-body">
+<div class="activity"><span class="time">8:45</span> Leave Airbnb. Walk to museum (~20 min)</div>
+<div class="activity"><span class="time">9:00</span> <span class="highlight">Van Gogh Museum</span>. Alice in carrier, Francisco in stroller. 1.5 hrs max</div>
+<div class="activity"><span class="time">10:30</span> <span class="highlight">Museumplein</span> grass. Francisco runs around. Sit and breathe</div>
+<div class="activity"><span class="time">11:15</span> Walk home via De Pijp streets. Coffee stop</div>
+<div class="activity nap">13:00-15:00 Nap</div>
+<div class="activity"><span class="time">15:30</span> Sarphatipark again (5 min). Francisco's new favorite playground</div>
+</div></div>
+
+<div class="day-card" onclick="toggle(this)">
+<div class="day-header"><div class="date">Wed Jun 17</div><div class="tag tag-explore">Canal Boat</div></div>
+<div class="day-body">
+<div class="activity"><span class="time">9:30</span> Tram to boat pickup (~15 min)</div>
+<div class="activity"><span class="time">10:00</span> <span class="highlight">Self-drive electric boat</span> (2 hrs). Bring snacks. Cruise through Jordaan canals. Francisco watches boats. Alice in carrier</div>
+<div class="activity"><span class="time">12:00</span> Dock. Quick lunch nearby</div>
+<div class="activity"><span class="time">12:30</span> Tram home</div>
+<div class="activity nap">13:00-15:00 Nap</div>
+<div class="activity"><span class="time">15:30</span> Stay home. Canal-side walk if energy permits. The boat morning is enough</div>
+</div></div>
+
+<div class="day-card" onclick="toggle(this)">
+<div class="day-header"><div class="date">Thu Jun 18</div><div class="tag tag-daytrip">Day Trip</div></div>
+<div class="day-body">
+<div class="activity"><span class="time">9:00</span> Tram to Centraal (20 min) + train to <span class="highlight">Zaanse Schans</span> (17 min)</div>
+<div class="activity"><span class="time">10:00</span> Windmills, cheese & clog demos. Outdoor, stroller-friendly. Francisco loves windmills and animals</div>
+<div class="activity"><span class="time">12:00</span> Lunch there - Dutch pancakes</div>
+<div class="activity"><span class="time">12:45</span> Train back. Late nap ~13:30</div>
+<div class="activity nap">13:30-15:30 Nap (adjusted)</div>
+<div class="activity"><span class="time">16:00</span> Stay home. Easy dinner in De Pijp</div>
+</div></div>
+
+<div class="day-card" onclick="toggle(this)">
+<div class="day-header"><div class="date">Fri Jun 19</div><div class="tag tag-chill">Market Day</div></div>
+<div class="day-body">
+<div class="activity"><span class="time">9:30</span> <span class="highlight">Albert Cuyp Market</span> (5 min). Full street food crawl: stroopwafels, Vietnamese rolls, Surinamese roti, poffertjes for Francisco</div>
+<div class="activity"><span class="time">11:30</span> Walk home with market spoils</div>
+<div class="activity nap">13:00-15:00 Nap</div>
+<div class="activity"><span class="time">15:30</span> <span class="highlight">Amstelpark</span> (15 min south). Miniature train ride. Goat farm. Big playground</div>
+</div></div>
+
+<div class="day-card" onclick="toggle(this)">
+<div class="day-header"><div class="date">Sat Jun 20</div><div class="tag tag-museum">NEMO</div></div>
+<div class="day-body">
+<div class="activity"><span class="time">9:15</span> Tram to NEMO (~15 min)</div>
+<div class="activity"><span class="time">9:30</span> <span class="highlight">NEMO Science Museum</span>. Toddler zone. Rooftop water play (bring swim shorts + towel for Francisco). Alice in carrier</div>
+<div class="activity"><span class="time">11:30</span> Leave. Tram home</div>
+<div class="activity nap">13:00-15:00 Nap</div>
+<div class="activity"><span class="time">15:30</span> Sarphatipark or canal walk. Low-key afternoon</div>
+</div></div>
+
+<div class="day-card" onclick="toggle(this)">
+<div class="day-header"><div class="date">Sun Jun 21</div><div class="tag tag-daytrip">Day Trip</div></div>
+<div class="day-body">
+<div class="activity"><span class="time">9:15</span> Tram + train to <span class="highlight">Haarlem</span> (~40 min total)</div>
+<div class="activity"><span class="time">10:00</span> Coffee at Grote Markt (main square)</div>
+<div class="activity"><span class="time">10:30</span> <span class="highlight">Haarlemmerhout Park</span>. Petting zoo, playground, pancake restaurant. Francisco: animals. Alice: shade</div>
+<div class="activity"><span class="time">12:00</span> Lunch: pancakes at the park</div>
+<div class="activity"><span class="time">12:45</span> Train back. Nap by ~13:30</div>
+<div class="activity nap">13:30-15:30 Nap (adjusted)</div>
+<div class="activity"><span class="time">16:00</span> Stay home. Easy dinner in De Pijp</div>
+</div></div>
+
+<div class="day-card" onclick="toggle(this)">
+<div class="day-header"><div class="date">Mon Jun 22</div><div class="tag tag-shop">Shopping + Park</div></div>
+<div class="day-body">
+<div class="activity"><span class="time">9:30</span> Walk to <span class="highlight">PC Hooftstraat</span> (~20 min). Julia shops luxury (Hermes, Cartier, Chanel, Rolex)</div>
+<div class="activity"><span class="time">9:30</span> Wilson takes kids to <span class="highlight">Vondelpark</span> (3 min from PC Hooftstraat). Groot Melkhuis playground, paddling pool</div>
+<div class="activity"><span class="time">11:30</span> Regroup. Walk home together</div>
+<div class="activity"><span class="time">12:30</span> Last lunch in De Pijp - pick your favorite spot</div>
+<div class="activity nap">13:00-15:00 Nap</div>
+<div class="activity"><span class="time">15:30</span> Last Albert Cuyp stroll. Final souvenirs. Goodbye to the neighborhood</div>
+<div class="activity"><span class="time">18:30</span> Last dinner - best terrace from the trip</div>
+<div class="activity">Evening: pack</div>
+</div></div>
+
+<div class="day-card" onclick="toggle(this)">
+<div class="day-header"><div class="date">Tue Jun 23</div><div class="tag tag-travel">Departure</div></div>
+<div class="day-body">
+<div class="activity"><span class="time">8:30</span> Final breakfast at Airbnb</div>
+<div class="activity"><span class="time">9:30</span> Taxi to Schiphol (25 min + buffer)</div>
+<div class="activity"><span class="time">13:10</span> Flight home</div>
+</div></div>
+
+</div>
+
+<div class="section">
+<div class="section-title">Rainy Day Backups</div>
+<div class="rainy">
+<div class="opt"><span class="highlight">TunFun</span> - Underground indoor playground (tram, 15 min)</div>
+<div class="opt"><span class="highlight">ARTIS Zoo</span> - Indoor + outdoor exhibits (tram, 10 min)</div>
+<div class="opt"><span class="highlight">OBA Library</span> - Ground floor all kids (near Centraal)</div>
+<div class="opt"><span class="highlight">Foodhallen</span> - Indoor food court, 20+ stalls (tram to West, 15 min)</div>
+</div>
+</div>
+
+<div class="section">
+<div class="section-title">Packing Essentials</div>
+<ul class="checklist">
+<li>Passports + kids' birth certificates</li>
+<li>Health insurance cards (all 4)</li>
+<li>Portable strollers x2 + carrier</li>
+<li>Rain covers for strollers</li>
+<li>Layers + rain jackets (15-20C, rain likely)</li>
+<li>Swim shorts + towel for Francisco (NEMO rooftop)</li>
+<li>Fraldas Alice (~8/day = 80)</li>
+<li>Fraldas Francisco (if still using)</li>
+<li>Bottles / formula / nursing supplies</li>
+<li>Baby meds (antitermico, soro, termometro)</li>
+<li>Chargers + power adapter (Brazil > EU)</li>
+<li>OV-chipkaart (buy at Schiphol for trams)</li>
+</ul>
+</div>
+
+<div class="section">
+<div class="section-title">Useful Info</div>
+<div class="info-grid">
+<div class="info-box"><div class="label">Emergency</div><div class="val">112</div></div>
+<div class="info-box"><div class="label">Hospital</div><div class="val">OLVG Oost</div></div>
+<div class="info-box"><div class="label">Pharmacy</div><div class="val">Etos / Kruidvat</div></div>
+<div class="info-box"><div class="label">Transport</div><div class="val">OV-chipkaart</div></div>
+<div class="info-box"><div class="label">Kids < 4</div><div class="val">Free on trains</div></div>
+<div class="info-box"><div class="label">Timezone</div><div class="val">CEST (UTC+2)</div></div>
+</div>
+</div>
+
+<div class="footer">Amsterdam 2026 | Marshall</div>
+
+<script>
+function toggle(el){
+const wasActive=el.classList.contains('active');
+document.querySelectorAll('.day-card').forEach(c=>c.classList.remove('active'));
+if(!wasActive)el.classList.add('active');
+}
+
+// Countdown to Jun 14 2026 11:00 Amsterdam time (CEST = UTC+2)
+function updateCountdown(){
+const target=new Date('2026-06-14T09:00:00Z'); // 11:00 CEST
+const now=new Date();
+const diff=target-now;
+if(diff<=0){document.getElementById('countdown').innerHTML='<div style="color:#22c55e;font-size:1.2rem;font-weight:700">You\'re here!</div>';return;}
+const d=Math.floor(diff/86400000);
+const h=Math.floor((diff%86400000)/3600000);
+const m=Math.floor((diff%3600000)/60000);
+document.getElementById('cd-days').textContent=d;
+document.getElementById('cd-hrs').textContent=h;
+document.getElementById('cd-min').textContent=m;
+}
+updateCountdown();setInterval(updateCountdown,60000);
+
+// Highlight today
+const today=new Date().toISOString().slice(0,10);
+const dateMap={'2026-06-14':0,'2026-06-15':1,'2026-06-16':2,'2026-06-17':3,'2026-06-18':4,'2026-06-19':5,'2026-06-20':6,'2026-06-21':7,'2026-06-22':8,'2026-06-23':9};
+if(dateMap[today]!==undefined){
+const cards=document.querySelectorAll('.day-card');
+if(cards[dateMap[today]]){cards[dateMap[today]].classList.add('today');cards[dateMap[today]].classList.add('active');}
+}
+</script>
+</body></html>
