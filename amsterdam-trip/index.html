@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Amsterdam Trip</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{background:#0a0a0a;color:#e0e0e0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;padding:16px;max-width:600px;margin:0 auto}
@@ -195,6 +197,20 @@ h1 span{color:#ff6b35}
 </div>
 
 <div class="section">
+<div class="section-title">Map</div>
+<div id="map" style="height:400px;border-radius:10px;border:1px solid #2a2a2a;overflow:hidden"></div>
+<div style="margin-top:8px;display:flex;flex-wrap:wrap;gap:8px">
+<span style="font-size:.7rem;color:#ff6b35">&#9679; Airbnb</span>
+<span style="font-size:.7rem;color:#a78bfa">&#9679; Museums</span>
+<span style="font-size:.7rem;color:#22c55e">&#9679; Parks</span>
+<span style="font-size:.7rem;color:#f59e0b">&#9679; Food & Markets</span>
+<span style="font-size:.7rem;color:#ec4899">&#9679; Shopping</span>
+<span style="font-size:.7rem;color:#3b82f6">&#9679; Activities</span>
+<span style="font-size:.7rem;color:#94a3b8">&#9679; Rainy Day</span>
+</div>
+</div>
+
+<div class="section">
 <div class="section-title">Rainy Day Backups</div>
 <div class="rainy">
 <div class="opt"><span class="highlight">TunFun</span> - Underground indoor playground (tram, 15 min)</div>
@@ -257,6 +273,50 @@ document.getElementById('cd-hrs').textContent=h;
 document.getElementById('cd-min').textContent=m;
 }
 updateCountdown();setInterval(updateCountdown,60000);
+
+// Map
+const map=L.map('map',{zoomControl:false}).setView([52.3547,4.8932],13);
+L.control.zoom({position:'bottomright'}).addTo(map);
+L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',{
+attribution:'&copy; OSM &copy; CARTO',maxZoom:18}).addTo(map);
+
+function pin(lat,lng,color,name,detail){
+const icon=L.divIcon({className:'',html:`<div style="background:${color};width:14px;height:14px;border-radius:50%;border:2px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,.5)"></div>`,iconSize:[14,14],iconAnchor:[7,7]});
+L.marker([lat,lng],{icon}).addTo(map).bindPopup(`<div style="font-size:13px"><b>${name}</b><br><span style="color:#888;font-size:11px">${detail}</span></div>`);
+}
+
+// Airbnb (large marker)
+const homeIcon=L.divIcon({className:'',html:`<div style="background:#ff6b35;width:20px;height:20px;border-radius:50%;border:3px solid #fff;box-shadow:0 2px 6px rgba(0,0,0,.6)"></div>`,iconSize:[20,20],iconAnchor:[10,10]});
+L.marker([52.3530,4.9040],{icon:homeIcon}).addTo(map).bindPopup('<div style="font-size:13px"><b>🏠 Airbnb</b><br><span style="color:#888;font-size:11px">Amsteldijk 18C, De Pijp</span></div>').openPopup();
+
+// Museums (purple)
+pin(52.3584,4.8811,'#a78bfa','Van Gogh Museum','Tue Jun 16, 9am');
+pin(52.3738,4.9124,'#a78bfa','NEMO Science Museum','Sat Jun 20, 9:30am');
+pin(52.3600,4.8852,'#a78bfa','Museumplein','Grass area near museums');
+
+// Parks (green)
+pin(52.3580,4.8686,'#22c55e','Vondelpark','Mon Jun 22 — playground, paddling pool');
+pin(52.3518,4.8940,'#22c55e','Sarphatipark','5 min from Airbnb — toddler playground');
+pin(52.3380,4.8870,'#22c55e','Amstelpark','Miniature train, goat farm, playground');
+pin(52.3040,4.8380,'#22c55e','Haarlemmerhout (Haarlem)','Sun Jun 21 — petting zoo, playground');
+
+// Food & Markets (amber)
+pin(52.3557,4.8920,'#f59e0b','Albert Cuyp Market','5 min walk — street food paradise');
+pin(52.3688,4.8645,'#f59e0b','Foodhallen','Indoor food court, 20+ stalls');
+
+// Shopping (pink)
+pin(52.3588,4.8790,'#ec4899','PC Hooftstraat','Mon Jun 22 — Hermes, Cartier, Chanel');
+pin(52.3700,4.8830,'#ec4899','De 9 Straatjes','Cool streets — vintage, indie boutiques');
+
+// Activities (blue)
+pin(52.3740,4.8910,'#3b82f6','Canal Boat Pickup','Wed Jun 17 — self-drive electric boat');
+pin(52.3667,4.8167,'#3b82f6','Zaanse Schans','Thu Jun 18 — windmills, cheese, clogs');
+pin(52.3813,4.9000,'#3b82f6','Amsterdam Centraal','Train station — day trips depart here');
+
+// Rainy day backups (gray)
+pin(52.3720,4.9010,'#94a3b8','TunFun','Indoor playground');
+pin(52.3660,4.9163,'#94a3b8','ARTIS Zoo','Indoor + outdoor');
+pin(52.3762,4.9080,'#94a3b8','OBA Library','Kids ground floor');
 
 // Highlight today
 const today=new Date().toISOString().slice(0,10);
