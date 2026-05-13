@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width"><title>Miami International Autodrome</title>
+<html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width"><title>Circuit Gilles Villeneuve</title>
 <style>body{margin:0;background:#0a0a0a;display:flex;justify-content:center;align-items:center;min-height:100vh;}</style>
-</head><body><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 700" style="background:#0a0a0a;max-width:1000px;width:100%;">
+</head><body><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 650" style="background:#0a0a0a;max-width:1000px;width:100%;">
   <defs>
     <filter id="glow">
       <feGaussianBlur stdDeviation="3" result="blur"/>
@@ -14,144 +14,198 @@
   </defs>
 
   <!-- Title -->
-  <text x="500" y="35" text-anchor="middle" fill="#e0e0e0" font-family="Inter,system-ui,sans-serif" font-size="22" font-weight="700">Miami International Autodrome</text>
-  <text x="500" y="55" text-anchor="middle" fill="#888" font-family="Inter,system-ui,sans-serif" font-size="12">5.412 km · 19 Turns · Anti-clockwise · 3 DRS Zones</text>
+  <text x="500" y="35" text-anchor="middle" fill="#e0e0e0" font-family="Inter,system-ui,sans-serif" font-size="22" font-weight="700">Circuit Gilles Villeneuve</text>
+  <text x="500" y="55" text-anchor="middle" fill="#888" font-family="Inter,system-ui,sans-serif" font-size="12">4.361 km | 14 Turns | Clockwise | 3 DRS Zones | Ile Notre-Dame, Montreal</text>
 
-  <!-- Track outline — simplified Miami layout -->
-  <!-- Main shape: roughly rectangular with curved sections -->
+  <!-- Track outline — Circuit Gilles Villeneuve simplified layout -->
+  <!-- The track is roughly an elongated shape running east-west on the island -->
+  <!-- Long back straight on top, hairpin on left, chicanes on right, pit straight on bottom -->
+
   <path d="
-    M 250,150
-    L 700,150
-    Q 750,150 750,200
-    L 750,280
-    Q 750,320 720,340
-    L 620,400
-    Q 590,420 590,460
-    L 590,520
-    Q 590,560 550,560
-    L 350,560
-    Q 310,560 310,520
-    L 310,460
-    Q 310,420 280,400
-    L 200,340
-    Q 170,320 170,280
-    L 170,200
-    Q 170,150 220,150
-    Z
-  " fill="none" stroke="#333" stroke-width="28" stroke-linejoin="round" stroke-linecap="round"/>
+    M 200,300
+    L 200,250
+    Q 200,210 240,200
+    L 400,170
+    Q 430,165 440,170
+    L 460,180
+    Q 470,185 480,180
+    L 520,160
+    Q 540,152 560,160
+    L 700,220
+    Q 720,230 740,220
+    L 800,180
+    Q 830,165 850,180
+    L 870,210
+    Q 880,230 870,250
+    L 830,290
+    Q 810,310 810,340
+    L 810,380
+    Q 810,410 790,420
+    L 760,440
+    Q 740,450 720,440
+    L 690,410
+    Q 670,400 650,410
+    L 500,480
+    Q 470,495 440,480
+    L 300,400
+    Q 270,385 240,400
+    L 200,440
+    Q 170,460 150,440
+    L 130,400
+    Q 120,380 130,360
+    L 160,320
+    Q 170,310 180,310
+    L 200,300
+  " fill="none" stroke="#333" stroke-width="26" stroke-linejoin="round" stroke-linecap="round"/>
 
   <!-- Track surface -->
   <path d="
-    M 250,150
-    L 700,150
-    Q 750,150 750,200
-    L 750,280
-    Q 750,320 720,340
-    L 620,400
-    Q 590,420 590,460
-    L 590,520
-    Q 590,560 550,560
-    L 350,560
-    Q 310,560 310,520
-    L 310,460
-    Q 310,420 280,400
-    L 200,340
-    Q 170,320 170,280
-    L 170,200
-    Q 170,150 220,150
-    Z
-  " fill="none" stroke="#555" stroke-width="16" stroke-linejoin="round" stroke-linecap="round"/>
+    M 200,300
+    L 200,250
+    Q 200,210 240,200
+    L 400,170
+    Q 430,165 440,170
+    L 460,180
+    Q 470,185 480,180
+    L 520,160
+    Q 540,152 560,160
+    L 700,220
+    Q 720,230 740,220
+    L 800,180
+    Q 830,165 850,180
+    L 870,210
+    Q 880,230 870,250
+    L 830,290
+    Q 810,310 810,340
+    L 810,380
+    Q 810,410 790,420
+    L 760,440
+    Q 740,450 720,440
+    L 690,410
+    Q 670,400 650,410
+    L 500,480
+    Q 470,495 440,480
+    L 300,400
+    Q 270,385 240,400
+    L 200,440
+    Q 170,460 150,440
+    L 130,400
+    Q 120,380 130,360
+    L 160,320
+    Q 170,310 180,310
+    L 200,300
+  " fill="none" stroke="#555" stroke-width="14" stroke-linejoin="round" stroke-linecap="round"/>
 
-  <!-- DRS Zone 1: Main straight (T17 to T1) -->
-  <line x1="250" y1="150" x2="600" y2="150" stroke="#22c55e" stroke-width="4" stroke-dasharray="12,6" filter="url(#glow2)"/>
-  <text x="425" y="135" text-anchor="middle" fill="#22c55e" font-family="Inter,system-ui,sans-serif" font-size="11" font-weight="600">DRS ZONE 1</text>
+  <!-- DRS Zone 1: After T7, along the back straight toward T10 hairpin -->
+  <line x1="560" y1="160" x2="740" y2="220" stroke="#22c55e" stroke-width="4" stroke-dasharray="12,6" filter="url(#glow2)"/>
+  <text x="650" y="175" text-anchor="middle" fill="#22c55e" font-family="Inter,system-ui,sans-serif" font-size="11" font-weight="600">DRS ZONE 1</text>
 
-  <!-- DRS Zone 2: Back straight top (T7 to T11) -->
-  <line x1="720" y1="280" x2="620" y2="400" stroke="#22c55e" stroke-width="4" stroke-dasharray="12,6" filter="url(#glow2)"/>
-  <text x="700" y="330" text-anchor="start" fill="#22c55e" font-family="Inter,system-ui,sans-serif" font-size="11" font-weight="600" transform="rotate(60,700,330)">DRS 2</text>
+  <!-- DRS Zone 2: From T10 down toward T13 (longest zone, 340+ km/h) -->
+  <line x1="810" y1="340" x2="720" y2="440" stroke="#22c55e" stroke-width="4" stroke-dasharray="12,6" filter="url(#glow2)"/>
+  <text x="795" y="395" text-anchor="start" fill="#22c55e" font-family="Inter,system-ui,sans-serif" font-size="11" font-weight="600">DRS 2</text>
 
-  <!-- DRS Zone 3: Back straight bottom (T11 to T17) -->
-  <line x1="350" y1="560" x2="200" y2="400" stroke="#22c55e" stroke-width="4" stroke-dasharray="12,6" filter="url(#glow2)"/>
-  <text x="240" y="490" text-anchor="start" fill="#22c55e" font-family="Inter,system-ui,sans-serif" font-size="11" font-weight="600" transform="rotate(-55,240,490)">DRS 3</text>
+  <!-- DRS Zone 3: Pit straight, T14 exit to T1 -->
+  <line x1="300" y1="400" x2="200" y2="300" stroke="#22c55e" stroke-width="4" stroke-dasharray="12,6" filter="url(#glow2)"/>
+  <text x="225" y="340" text-anchor="end" fill="#22c55e" font-family="Inter,system-ui,sans-serif" font-size="11" font-weight="600">DRS 3</text>
 
   <!-- Start/Finish line -->
-  <line x1="380" y1="140" x2="380" y2="160" stroke="#fff" stroke-width="3"/>
-  <rect x="370" y="140" width="20" height="6" fill="#fff" opacity="0.3"/>
-  <text x="380" y="130" text-anchor="middle" fill="#fff" font-family="Inter,system-ui,sans-serif" font-size="10" font-weight="700">START/FINISH</text>
+  <line x1="200" y1="290" x2="200" y2="310" stroke="#fff" stroke-width="3"/>
+  <rect x="192" y="288" width="16" height="6" fill="#fff" opacity="0.3"/>
+  <text x="175" y="285" text-anchor="middle" fill="#fff" font-family="Inter,system-ui,sans-serif" font-size="10" font-weight="700">START/FINISH</text>
 
   <!-- Turn labels -->
-  <!-- T1 - end of main straight -->
-  <circle cx="700" cy="150" r="10" fill="none" stroke="#f59e0b" stroke-width="2" filter="url(#glow)"/>
-  <text x="700" y="154" text-anchor="middle" fill="#f59e0b" font-family="Inter,system-ui,sans-serif" font-size="9" font-weight="700">1</text>
-  <text x="730" y="130" fill="#888" font-family="Inter,system-ui,sans-serif" font-size="9">310 km/h→80</text>
 
-  <!-- T3 -->
-  <circle cx="750" cy="200" r="8" fill="none" stroke="#f59e0b" stroke-width="1.5"/>
-  <text x="750" y="204" text-anchor="middle" fill="#f59e0b" font-family="Inter,system-ui,sans-serif" font-size="9" font-weight="700">3</text>
-  <text x="780" y="204" fill="#888" font-family="Inter,system-ui,sans-serif" font-size="9">130</text>
+  <!-- T1-2 Senna S (entry chicane after main straight) -->
+  <circle cx="240" cy="200" r="12" fill="none" stroke="#DC0000" stroke-width="2.5" filter="url(#glow)"/>
+  <text x="240" y="204" text-anchor="middle" fill="#DC0000" font-family="Inter,system-ui,sans-serif" font-size="9" font-weight="700">1-2</text>
+  <text x="260" y="188" fill="#DC0000" font-family="Inter,system-ui,sans-serif" font-size="9" font-weight="600">SENNA S</text>
+  <text x="260" y="199" fill="#888" font-family="Inter,system-ui,sans-serif" font-size="9">300-80 km/h</text>
 
-  <!-- T7 -->
-  <circle cx="750" cy="280" r="8" fill="none" stroke="#f59e0b" stroke-width="1.5"/>
-  <text x="750" y="284" text-anchor="middle" fill="#f59e0b" font-family="Inter,system-ui,sans-serif" font-size="9" font-weight="700">7</text>
-  <text x="780" y="284" fill="#888" font-family="Inter,system-ui,sans-serif" font-size="9">250</text>
+  <!-- T3-4 chicane -->
+  <circle cx="440" cy="170" r="8" fill="none" stroke="#f59e0b" stroke-width="1.5"/>
+  <text x="440" y="174" text-anchor="middle" fill="#f59e0b" font-family="Inter,system-ui,sans-serif" font-size="9" font-weight="700">3-4</text>
+  <text x="440" y="157" fill="#888" font-family="Inter,system-ui,sans-serif" font-size="9" text-anchor="middle">180</text>
 
-  <!-- T11 - heavy braking, marina section -->
-  <circle cx="620" cy="400" r="12" fill="none" stroke="#DC0000" stroke-width="2.5" filter="url(#glow)"/>
-  <text x="620" y="404" text-anchor="middle" fill="#DC0000" font-family="Inter,system-ui,sans-serif" font-size="9" font-weight="700">11</text>
-  <text x="655" y="395" fill="#DC0000" font-family="Inter,system-ui,sans-serif" font-size="9" font-weight="600">HEAVY BRAKE</text>
-  <text x="655" y="410" fill="#888" font-family="Inter,system-ui,sans-serif" font-size="9">300→80 km/h</text>
+  <!-- T5 -->
+  <circle cx="480" cy="180" r="7" fill="none" stroke="#f59e0b" stroke-width="1.5"/>
+  <text x="480" y="184" text-anchor="middle" fill="#f59e0b" font-family="Inter,system-ui,sans-serif" font-size="8" font-weight="700">5</text>
 
-  <!-- T14-15 chicane (elevation change) -->
-  <circle cx="590" cy="490" r="8" fill="none" stroke="#f59e0b" stroke-width="1.5"/>
-  <text x="590" y="494" text-anchor="middle" fill="#f59e0b" font-family="Inter,system-ui,sans-serif" font-size="8" font-weight="700">14</text>
-  <text x="620" y="494" fill="#888" font-family="Inter,system-ui,sans-serif" font-size="9">↗ Chicane</text>
+  <!-- T6-7 -->
+  <circle cx="540" cy="155" r="8" fill="none" stroke="#f59e0b" stroke-width="1.5"/>
+  <text x="540" y="159" text-anchor="middle" fill="#f59e0b" font-family="Inter,system-ui,sans-serif" font-size="9" font-weight="700">6-7</text>
+  <text x="540" y="142" fill="#888" font-family="Inter,system-ui,sans-serif" font-size="9" text-anchor="middle">250</text>
 
-  <!-- T16 -->
-  <circle cx="550" cy="560" r="8" fill="none" stroke="#f59e0b" stroke-width="1.5"/>
-  <text x="550" y="564" text-anchor="middle" fill="#f59e0b" font-family="Inter,system-ui,sans-serif" font-size="9" font-weight="700">16</text>
+  <!-- T8-9 -->
+  <circle cx="720" cy="225" r="8" fill="none" stroke="#f59e0b" stroke-width="1.5"/>
+  <text x="720" y="229" text-anchor="middle" fill="#f59e0b" font-family="Inter,system-ui,sans-serif" font-size="9" font-weight="700">8-9</text>
+  <text x="745" y="215" fill="#888" font-family="Inter,system-ui,sans-serif" font-size="9">280</text>
 
-  <!-- T17 - hairpin, key overtake zone -->
-  <circle cx="310" cy="520" r="12" fill="none" stroke="#DC0000" stroke-width="2.5" filter="url(#glow)"/>
-  <text x="310" y="524" text-anchor="middle" fill="#DC0000" font-family="Inter,system-ui,sans-serif" font-size="9" font-weight="700">17</text>
-  <text x="265" y="515" fill="#DC0000" font-family="Inter,system-ui,sans-serif" font-size="9" font-weight="600" text-anchor="end">OVERTAKE</text>
-  <text x="265" y="530" fill="#888" font-family="Inter,system-ui,sans-serif" font-size="9" text-anchor="end">270→70 km/h</text>
+  <!-- T10 HAIRPIN — key overtake zone -->
+  <circle cx="850" cy="180" r="14" fill="none" stroke="#DC0000" stroke-width="2.5" filter="url(#glow)"/>
+  <text x="850" y="184" text-anchor="middle" fill="#DC0000" font-family="Inter,system-ui,sans-serif" font-size="9" font-weight="700">10</text>
+  <text x="895" y="170" fill="#DC0000" font-family="Inter,system-ui,sans-serif" font-size="10" font-weight="600">HAIRPIN</text>
+  <text x="895" y="183" fill="#888" font-family="Inter,system-ui,sans-serif" font-size="9">310-60 km/h</text>
+  <text x="895" y="196" fill="#f59e0b" font-family="Inter,system-ui,sans-serif" font-size="8" font-weight="600">OVERTAKE</text>
 
-  <!-- T19 -->
-  <circle cx="170" cy="200" r="8" fill="none" stroke="#f59e0b" stroke-width="1.5"/>
-  <text x="170" y="204" text-anchor="middle" fill="#f59e0b" font-family="Inter,system-ui,sans-serif" font-size="9" font-weight="700">19</text>
-  <text x="140" y="204" fill="#888" font-family="Inter,system-ui,sans-serif" font-size="9" text-anchor="end">200</text>
+  <!-- T11 -->
+  <circle cx="870" cy="250" r="7" fill="none" stroke="#f59e0b" stroke-width="1.5"/>
+  <text x="870" y="254" text-anchor="middle" fill="#f59e0b" font-family="Inter,system-ui,sans-serif" font-size="8" font-weight="700">11</text>
+
+  <!-- T12 -->
+  <circle cx="830" cy="290" r="7" fill="none" stroke="#f59e0b" stroke-width="1.5"/>
+  <text x="830" y="294" text-anchor="middle" fill="#f59e0b" font-family="Inter,system-ui,sans-serif" font-size="8" font-weight="700">12</text>
+
+  <!-- T13 Final chicane entry — OVERTAKE ZONE -->
+  <circle cx="740" cy="445" r="12" fill="none" stroke="#DC0000" stroke-width="2.5" filter="url(#glow)"/>
+  <text x="740" y="449" text-anchor="middle" fill="#DC0000" font-family="Inter,system-ui,sans-serif" font-size="9" font-weight="700">13</text>
+  <text x="740" y="470" fill="#DC0000" font-family="Inter,system-ui,sans-serif" font-size="9" font-weight="600" text-anchor="middle">CHICANE ENTRY</text>
+  <text x="740" y="482" fill="#888" font-family="Inter,system-ui,sans-serif" font-size="9" text-anchor="middle">340-100 km/h</text>
+
+  <!-- T14 Final chicane exit — WALL OF CHAMPIONS -->
+  <circle cx="650" cy="410" r="12" fill="none" stroke="#DC0000" stroke-width="2.5" filter="url(#glow)"/>
+  <text x="650" y="414" text-anchor="middle" fill="#DC0000" font-family="Inter,system-ui,sans-serif" font-size="9" font-weight="700">14</text>
+
+  <!-- Wall of Champions marker -->
+  <rect x="590" y="418" width="120" height="28" rx="4" fill="#1a1a1a" stroke="#DC0000" stroke-width="1.5"/>
+  <text x="650" y="430" text-anchor="middle" fill="#DC0000" font-family="Inter,system-ui,sans-serif" font-size="9" font-weight="700">WALL OF CHAMPIONS</text>
+  <text x="650" y="442" text-anchor="middle" fill="#888" font-family="Inter,system-ui,sans-serif" font-size="8">Zero margin for error</text>
 
   <!-- Overtake zone markers (orange dots) -->
-  <circle cx="700" cy="150" r="4" fill="#f59e0b" opacity="0.7" filter="url(#glow)"/>
-  <circle cx="620" cy="400" r="4" fill="#f59e0b" opacity="0.7" filter="url(#glow)"/>
-  <circle cx="310" cy="520" r="4" fill="#f59e0b" opacity="0.7" filter="url(#glow)"/>
+  <circle cx="240" cy="200" r="4" fill="#f59e0b" opacity="0.7" filter="url(#glow)"/>
+  <circle cx="850" cy="180" r="5" fill="#f59e0b" opacity="0.8" filter="url(#glow)"/>
+  <circle cx="740" cy="445" r="4" fill="#f59e0b" opacity="0.7" filter="url(#glow)"/>
 
-  <!-- Hard Rock Stadium label -->
-  <rect x="380" y="320" width="160" height="80" rx="8" fill="#1a1a1a" stroke="#333" stroke-width="1"/>
-  <text x="460" y="350" text-anchor="middle" fill="#888" font-family="Inter,system-ui,sans-serif" font-size="11" font-weight="600">🏟️ Hard Rock</text>
-  <text x="460" y="368" text-anchor="middle" fill="#666" font-family="Inter,system-ui,sans-serif" font-size="10">Stadium</text>
-  <text x="460" y="388" text-anchor="middle" fill="#555" font-family="Inter,system-ui,sans-serif" font-size="9">(Miami Dolphins)</text>
+  <!-- Casino landmark -->
+  <rect x="560" y="505" width="130" height="50" rx="6" fill="#1a1a1a" stroke="#333" stroke-width="1"/>
+  <text x="625" y="525" text-anchor="middle" fill="#888" font-family="Inter,system-ui,sans-serif" font-size="11" font-weight="600">Casino de Montreal</text>
+  <text x="625" y="540" text-anchor="middle" fill="#555" font-family="Inter,system-ui,sans-serif" font-size="9">(Overlooks final chicane)</text>
+
+  <!-- St. Lawrence River label -->
+  <text x="400" y="530" text-anchor="middle" fill="#1a4a7a" font-family="Inter,system-ui,sans-serif" font-size="11" font-style="italic" opacity="0.5">~ St. Lawrence River ~</text>
 
   <!-- Direction arrow -->
-  <path d="M 500,145 L 490,140 L 490,150 Z" fill="#f59e0b" opacity="0.7"/>
-  <text x="490" y="175" fill="#f59e0b" font-family="Inter,system-ui,sans-serif" font-size="9" opacity="0.7">← Direction</text>
+  <path d="M 355,168 L 345,163 L 345,173 Z" fill="#f59e0b" opacity="0.7"/>
+  <text x="350" y="155" fill="#f59e0b" font-family="Inter,system-ui,sans-serif" font-size="9" opacity="0.7" text-anchor="middle">Direction</text>
 
   <!-- Legend -->
-  <rect x="30" y="600" width="280" height="80" rx="6" fill="#141414" stroke="#2a2a2a" stroke-width="1"/>
-  <text x="45" y="618" fill="#e0e0e0" font-family="Inter,system-ui,sans-serif" font-size="11" font-weight="600">Legend</text>
-  
-  <line x1="45" y1="635" x2="75" y2="635" stroke="#22c55e" stroke-width="3" stroke-dasharray="8,4"/>
-  <text x="82" y="639" fill="#888" font-family="Inter,system-ui,sans-serif" font-size="10">DRS Zone</text>
-  
-  <circle cx="55" cy="655" r="5" fill="#f59e0b" opacity="0.8"/>
-  <text x="82" y="659" fill="#888" font-family="Inter,system-ui,sans-serif" font-size="10">Overtake Zone</text>
-  
-  <circle cx="55" cy="672" r="6" fill="none" stroke="#DC0000" stroke-width="2"/>
-  <text x="82" y="676" fill="#888" font-family="Inter,system-ui,sans-serif" font-size="10">Key Braking Zone</text>
+  <rect x="30" y="560" width="300" height="80" rx="6" fill="#141414" stroke="#2a2a2a" stroke-width="1"/>
+  <text x="45" y="578" fill="#e0e0e0" font-family="Inter,system-ui,sans-serif" font-size="11" font-weight="600">Legend</text>
 
-  <line x1="180" y1="635" x2="195" y2="635" stroke="#fff" stroke-width="3"/>
-  <text x="202" y="639" fill="#888" font-family="Inter,system-ui,sans-serif" font-size="10">Start/Finish</text>
+  <line x1="45" y1="595" x2="75" y2="595" stroke="#22c55e" stroke-width="3" stroke-dasharray="8,4"/>
+  <text x="82" y="599" fill="#888" font-family="Inter,system-ui,sans-serif" font-size="10">DRS Zone</text>
 
-  <text x="180" y="659" fill="#888" font-family="Inter,system-ui,sans-serif" font-size="10">Speeds in km/h</text>
+  <circle cx="55" cy="615" r="5" fill="#f59e0b" opacity="0.8"/>
+  <text x="82" y="619" fill="#888" font-family="Inter,system-ui,sans-serif" font-size="10">Overtake Zone</text>
+
+  <circle cx="55" cy="632" r="6" fill="none" stroke="#DC0000" stroke-width="2"/>
+  <text x="82" y="636" fill="#888" font-family="Inter,system-ui,sans-serif" font-size="10">Key Braking / Danger Zone</text>
+
+  <line x1="200" y1="595" x2="215" y2="595" stroke="#fff" stroke-width="3"/>
+  <text x="222" y="599" fill="#888" font-family="Inter,system-ui,sans-serif" font-size="10">Start/Finish</text>
+
+  <text x="200" y="619" fill="#888" font-family="Inter,system-ui,sans-serif" font-size="10">Speeds in km/h</text>
+
+  <!-- Lap record -->
+  <text x="500" y="610" text-anchor="middle" fill="#555" font-family="Inter,system-ui,sans-serif" font-size="10">Lap record: 1:13.078 — Bottas (Mercedes, 2019)</text>
 
 </svg></body></html>
