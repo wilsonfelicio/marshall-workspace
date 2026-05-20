@@ -1,0 +1,166 @@
+#!/usr/bin/env python3
+"""
+Morning Macro Briefing — Orchestrator
+Handles: data pull → (agent writes briefing) → audio generation → delivery
+
+Delegates to standalone scripts — single source of truth per function:
+  - pull_market_data.py  → market data + econ calendar
+  - digest.py            → Twitter/X digest
+  - generate_audio.py    → ElevenLabs TTS + chunking
+  - send_briefing.py     → Telegram + GitHub + Teams delivery
+
+Usage:
+  python3 morning_briefing.py pull      # Step 1: pull all data
+  python3 morning_briefing.py deliver   # Step 3: audio + deliver
+"""
+
+import subprocess, os, sys, time
+from datetime import datetime
+
+# ─── Config ───────────────────────────────────────────────────────────────
+WORKSPACE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+SCRIPTS = os.path.join(WORKSPACE, "scripts")
+
+DIGEST_SCRIPT = os.path.join(WORKSPACE, "twitter-digest", "digest.py")
+MARKET_SCRIPT = os.path.join(SCRIPTS, "pull_market_data.py")
+AUDIO_SCRIPT = os.path.join(SCRIPTS, "generate_audio.py")
+SEND_SCRIPT = os.path.join(SCRIPTS, "send_briefing.py")
+
+DIGEST_OUTPUT = "/tmp/digest_raw.txt"
+MARKET_OUTPUT = "/tmp/market_data.txt"
+BRIEFING_TEXT = "/tmp/briefing_text.txt"  # Agent writes here; deliver reads from here
+AUDIO_OUTPUT = "/tmp/briefing_fast.mp3"   # generate_audio writes here; send_briefing reads from here
+
+
+def log(msg):
+    print(f"[{datetime.now().strftime('%H:%M:%S')}] {msg}", file=sys.stderr, flush=True)
+
+
+# ─── PULL ─────────────────────────────────────────────────────────────────
+def pull_market_data():
+    log("Pulling market data...")
+    result = subprocess.run(
+        ["python3", MARKET_SCRIPT, MARKET_OUTPUT],
+        capture_output=True, text=True, timeout=60
+    )
+    if result.returncode != 0:
+        log(f"Market data FAILED: {result.stderr[:200]}")
+        return False
+    size = os.path.getsize(MARKET_OUTPUT)
+    log(f"Market data: {size:,} bytes")
+    return True
+
+
+def pull_twitter_digest(hours=12):
+    log(f"Pulling Twitter digest ({hours}h lookback)...")
+    result = subprocess.run(
+        ["python3", DIGEST_SCRIPT, "--hours", str(hours), "--output", DIGEST_OUTPUT],
+        capture_output=True, text=True, timeout=900
+    )
+    if result.returncode != 0:
+        log(f"Twitter digest FAILED: {result.stderr[:500]}")
+        return False
+    size = os.path.getsize(DIGEST_OUTPUT)
+    log(f"Twitter digest: {size:,} bytes")
+    return True
+
+
+def pull_all(hours=12):
+    t0 = time.time()
+    pull_market_data()
+    pull_twitter_digest(hours=hours)
+    elapsed = time.time() - t0
+    log(f"All data pulled in {elapsed:.0f}s")
+
+    # Print combined output for the agent to read
+    print("\n" + "=" * 60)
+    print("MARKET DATA")
+    print("=" * 60)
+    if os.path.exists(MARKET_OUTPUT):
+        with open(MARKET_OUTPUT) as f:
+            print(f.read())
+
+    print("\n" + "=" * 60)
+    print("TWITTER DIGEST")
+    print("=" * 60)
+    if os.path.exists(DIGEST_OUTPUT):
+        with open(DIGEST_OUTPUT) as f:
+            print(f.read())
+
+
+# ─── DELIVER ──────────────────────────────────────────────────────────────
+def deliver():
+    t0 = time.time()
+
+    if not os.path.exists(BRIEFING_TEXT):
+        log(f"ERROR: No briefing text at {BRIEFING_TEXT}")
+        sys.exit(1)
+
+    # Step 1: Generate audio via generate_audio.py
+    log("Generating audio...")
+    result = subprocess.run(
+        ["python3", AUDIO_SCRIPT, BRIEFING_TEXT, AUDIO_OUTPUT],
+        capture_output=True, text=True, timeout=300
+    )
+    audio_ok = result.returncode == 0 and os.path.exists(AUDIO_OUTPUT) and os.path.getsize(AUDIO_OUTPUT) > 1000
+
+    if audio_ok:
+        log(f"Audio OK: {os.path.getsize(AUDIO_OUTPUT)/1024:.0f} KB")
+    else:
+        log(f"Audio FAILED: {result.stderr[:300]}")
+
+    # Step 2: Copy audio to workspace and push via git (reliable)
+    if audio_ok:
+        date_str = datetime.now().strftime("%Y-%m-%d")
+        audio_dest = os.path.join(WORKSPACE, "audio", f"briefing-{date_str}.mp3")
+        log(f"Copying audio to {audio_dest}...")
+        import shutil
+        shutil.copy2(AUDIO_OUTPUT, audio_dest)
+        log("Pushing to GitHub via git...")
+        git_result = subprocess.run(
+            f'cd "{WORKSPACE}" && git add "audio/briefing-{date_str}.mp3" '
+            f'&& git commit -m "Audio briefing {date_str}" '
+            f'&& git push',
+            shell=True, capture_output=True, text=True, timeout=120
+        )
+        if git_result.returncode == 0:
+            log("Git push OK")
+        else:
+            log(f"Git push FAILED: {git_result.stderr[:300]}")
+
+    # Step 3: Send everything via send_briefing.py
+    log("Delivering...")
+    result = subprocess.run(
+        ["python3", SEND_SCRIPT],
+        capture_output=True, text=True, timeout=300
+    )
+    if result.returncode != 0:
+        log(f"Delivery FAILED: {result.stderr[:300]}")
+    else:
+        log("Delivery OK")
+        if result.stdout:
+            print(result.stdout, file=sys.stderr)
+
+    elapsed = time.time() - t0
+    log(f"Complete in {elapsed:.0f}s")
+
+
+# ─── MAIN ─────────────────────────────────────────────────────────────────
+if __name__ == "__main__":
+    if len(sys.argv) < 2:
+        print("Usage: morning_briefing.py [pull|deliver]")
+        sys.exit(1)
+
+    cmd = sys.argv[1]
+    if cmd == "pull":
+        # Optional: --hours flag for lookback window
+        hours = 12
+        for i, arg in enumerate(sys.argv):
+            if arg == "--hours" and i + 1 < len(sys.argv):
+                hours = float(sys.argv[i + 1])
+        pull_all(hours=hours)
+    elif cmd == "deliver":
+        deliver()
+    else:
+        print(f"Unknown command: {cmd}")
+        sys.exit(1)

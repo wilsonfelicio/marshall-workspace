@@ -1,0 +1,61 @@
+Backup of twitter-digest-morning cron job prompt (ID: 4862aa82-cb3c-4523-a7c6-d1a995d58d0b)
+Backed up: 2026-05-13
+
+---
+
+Run the morning macro briefing.
+
+Step 1: Pull all data (market data + econ calendar + Twitter digest)
+exec: python3 /Users/wilsonfelicio/.openclaw/workspace/scripts/morning_briefing.py pull 2>&1
+
+Step 2: Read the output above. It contains MARKET DATA and TWITTER DIGEST sections.
+
+Step 3: If it exists, read yesterday's briefing for context:
+read /tmp/last_briefing.txt
+
+Step 4: Write a macro morning briefing combining all data sources.
+
+STRUCTURE:
+1. The dominant macro narrative — what's the story driving markets right now? Central bank shifts, geopolitical escalation, growth scares, policy surprises, trade developments. Lead with the WHY, not the numbers. When describing a macro theme, include what could go right AND what could go wrong. A balanced briefing isn't neutral — it's honest about both directions.
+2. Key developments and news — what happened overnight that matters. Think Bloomberg terminal headlines: central bank speeches, fiscal policy moves, earnings that shift macro sentiment, geopolitical events, commodity supply disruptions.
+3. Economic calendar: what released, what's coming, actuals vs expectations. For EVERY data point, include BOTH the country flag emoji AND the full country name (e.g. "🇺🇸 United States — CPI", "🇩🇪 Germany — Ifo", "🇯🇵 Japan — Tankan", "🇧🇷 Brazil — IPCA"). Never use only the flag without the country name.
+4. What to watch today — the one or two things that could move markets in the next 24 hours.
+
+RULES:
+- NARRATIVE FIRST, PRICES SECOND. Don't lead with "S&P was up 0.5%". Lead with WHY something moved or what's developing. Use prices sparingly to support the narrative, not as the narrative itself.
+- When you do reference price movements, make it clear whether the move is from yesterday's session (cash close) or an overnight/pre-market futures move.
+- Present bull and bear cases when they exist. Macro Twitter skews bearish — actively counterbalance by including constructive or bullish takes when credible ones exist. Don't force optimism, but don't let doom bias dominate either. If consensus is overwhelmingly one-sided, note that as a signal itself.
+- Prioritize facts and opinions from high-reach, high-credibility voices across the bull-bear spectrum. Include strategists, economists, and PMs who are constructive — not just the risk-flaggers. Ignore hyperbolic comments, engagement bait, and technical analysis (gamma, flow, positioning, options).
+- Focus on MACRO: rates, FX, commodities, geopolitics, central banks, fiscal policy, growth, inflation. Not technical analysis or market structure.
+- Don't cite the same account more than twice.
+- If you read yesterday's briefing, don't repeat the same framing, same opening, or same structure. Vary your approach. Monday = week ahead setup. Friday = wrap-up. Midweek = deep dive on the dominant theme.
+- Facts over opinions. Bloomberg terminal flash tone.
+- No cliches, no AI speak, no filler, no hyperbole.
+- TARGET LENGTH: approximately 6500 characters (~7 min audio).
+
+TTS OPTIMIZATION RULES (critical — this text will be read aloud by a TTS engine):
+- Write ALL numbers in words or spoken form. "zero point seven five percent" not "0.75%". "three point five percent" not "3.5%". "one hundred and twelve" not "112".
+- Write currency amounts in spoken form: "forty-two dollars" not "$42", "sixty-eight euros" not "€68".
+- Spell out abbreviations on first use: "the Federal Reserve" not "the Fed" (after first use, "the Fed" is fine). "basis points" not "bps". "year over year" not "YoY". "month over month" not "MoM". "quarter over quarter" not "QoQ".
+- Use hyphens for compound modifiers that should be read as one phrase: "year-over-year", "month-over-month".
+- Avoid symbols entirely: no %, $, €, →, —. Write them as words.
+- For dates: "May fifth" not "May 5", "June twenty-third" not "Jun 23".
+- For ticker symbols or asset names, use the full spoken name: "the S and P five hundred" not "SPX" or "S&P 500". "West Texas Intermediate" or "WTI crude" not "CL1". "the ten-year Treasury yield" not "US10Y".
+- Keep sentences short and punchy for natural speech rhythm. Avoid long subordinate clauses.
+
+Step 5: Save the briefing text to /tmp/briefing_text.txt AND copy it as tomorrow's reference:
+exec: cat > /tmp/briefing_text.txt << 'BRIEFING_EOF'
+[paste your full briefing here]
+BRIEFING_EOF
+exec: cp /tmp/briefing_text.txt /tmp/last_briefing.txt
+
+Step 6: Generate audio and deliver to Telegram + Teams
+exec: python3 /Users/wilsonfelicio/.openclaw/workspace/scripts/morning_briefing.py deliver 2>&1
+
+Step 7: Build the GitHub Pages audio URL for today's date:
+The audio is uploaded to: https://wilsonfelicio.github.io/marshall-workspace/audio/briefing-YYYY-MM-DD.mp3
+Use today's date in YYYY-MM-DD format.
+
+Step 8: Send the full text briefing as your response (same text as Step 5).
+At the END of your response, add a blank line then:
+🎙️ Audio: [the GitHub Pages audio URL from Step 7]
