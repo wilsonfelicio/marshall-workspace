@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>🏎️ F1 Monaco GP — Race Weekend Dashboard</title>
+<title>🏎️ F1 Spanish GP — Race Weekend Dashboard</title>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
 <style>
 :root { --bg:#0a0a0a; --surface:#141414; --border:#2a2a2a; --text:#e0e0e0; --muted:#888; --accent:#DC0000; }
@@ -51,9 +51,9 @@ body { background:var(--bg); color:var(--text); font-family:-apple-system,BlinkM
 </head>
 <body>
 <div class="header">
-    <div class="flag">🇲🇨</div>
-    <h1>Monaco Grand Prix</h1>
-    <div class="meta"><span class="round">Round 6</span> · Monte Carlo, Monaco · June 5–7, 2026</div>
+    <div class="flag">🇪🇸</div>
+    <h1>Spanish Grand Prix — Barcelona-Catalunya</h1>
+    <div class="meta"><span class="round">Round 8</span> · Montmeló, Catalonia · June 12–14, 2026</div>
     <div class="countdown" id="countdown"><div class="label">until lights out</div></div>
 </div>
 
@@ -64,92 +64,92 @@ body { background:var(--bg); color:var(--text); font-family:-apple-system,BlinkM
         <ul class="schedule">
 <li>
     <div><span class="session">FP1</span><br><span class="note">Fri midday · 60 min</span></div>
-    <div style="text-align:right"><span class="time">08:30</span><br><span class="note">Fri 5 Jun</span></div>
-    <div style="text-align:right"><span style="font-size:0.85rem">☀️ 24°C</span><br><span class="note">Sunny · Dry</span></div>
-</li>
-<li>
-    <div><span class="session">FP2</span><br><span class="note">Fri afternoon · 60 min</span></div>
-    <div style="text-align:right"><span class="time">12:00</span><br><span class="note">Fri 5 Jun</span></div>
+    <div style="text-align:right"><span class="time">08:30</span><br><span class="note">Fri 12 Jun</span></div>
     <div style="text-align:right"><span style="font-size:0.85rem">☀️ 27°C</span><br><span class="note">Sunny · Dry</span></div>
 </li>
 <li>
+    <div><span class="session">FP2</span><br><span class="note">Fri afternoon · 60 min</span></div>
+    <div style="text-align:right"><span class="time">12:00</span><br><span class="note">Fri 12 Jun</span></div>
+    <div style="text-align:right"><span style="font-size:0.85rem">☀️ 29°C</span><br><span class="note">Sunny · Warm</span></div>
+</li>
+<li>
     <div><span class="session">FP3</span><br><span class="note">Sat morning · 60 min</span></div>
-    <div style="text-align:right"><span class="time">07:30</span><br><span class="note">Sat 6 Jun</span></div>
-    <div style="text-align:right"><span style="font-size:0.85rem">☀️ 23°C</span><br><span class="note">Clear morning</span></div>
+    <div style="text-align:right"><span class="time">07:30</span><br><span class="note">Sat 13 Jun</span></div>
+    <div style="text-align:right"><span style="font-size:0.85rem">⛅ 25°C</span><br><span class="note">Light cloud</span></div>
 </li>
 <li>
-    <div><span class="session">Qualifying</span><br><span class="note">Sat — pole is everything</span></div>
-    <div style="text-align:right"><span class="time">11:00</span><br><span class="note">Sat 6 Jun</span></div>
-    <div style="text-align:right"><span style="font-size:0.85rem">☀️ 26°C</span><br><span class="note">Sunny · Warm</span></div>
+    <div><span class="session">Qualifying</span><br><span class="note">Sat — Q1/Q2/Q3</span></div>
+    <div style="text-align:right"><span class="time">11:00</span><br><span class="note">Sat 13 Jun</span></div>
+    <div style="text-align:right"><span style="font-size:0.85rem">☀️ 28°C</span><br><span class="note">Sunny · Warm</span></div>
 </li>
 <li>
-    <div><span class="session race">RACE</span><br><span class="note">Sun midday — 78 laps</span></div>
-    <div style="text-align:right"><span class="time">10:00</span><br><span class="note">Sun 7 Jun</span></div>
-    <div style="text-align:right"><span style="font-size:0.85rem">☀️ 27°C</span><br><span class="note">Dry · Low rain risk</span></div>
+    <div><span class="session race">RACE</span><br><span class="note">Sun midday — 66 laps</span></div>
+    <div style="text-align:right"><span class="time">10:00</span><br><span class="note">Sun 14 Jun</span></div>
+    <div style="text-align:right"><span style="font-size:0.85rem">☀️ 30°C</span><br><span class="note">Hot · Dry · Tyre stress high</span></div>
 </li>
         </ul>
-        <div class="note" style="margin-top:8px">⚠️ Standard weekend format (FP1/FP2/FP3 + Quali + Race). Mandatory 2-stop rule from 2025 has been <strong>scrapped</strong> — back to traditional strategy. FIA confirmed <strong>no Straight Mode zones</strong> this weekend (active aero on the leash). 22 cars on track with Cadillac joining the grid. Overtaking is still near-impossible. Saturday afternoon writes Sunday's result.</div>
+        <div class="note" style="margin-top:8px">⚠️ Standard weekend format (FP1/FP2/FP3 + Quali + Race). First proper aero-and-tyre benchmark of the 2026 season — same circuit teams used for winter testing in January, so everyone has reference data. Long Turn 3 right-hander punishes the left-front; mandatory pit-stop rule scrapped, so tyre management decides strategy. Expect 1–2 stops.</div>
     </div>
 
     <!-- Circuit Info -->
     <div class="card">
         <h3>🏁 Circuit</h3>
-        <div style="font-size:1.1rem;font-weight:600;margin-bottom:12px;">Circuit de Monaco</div>
+        <div style="font-size:1.1rem;font-weight:600;margin-bottom:12px;">Circuit de Barcelona-Catalunya</div>
         <div class="circuit-info">
-            <div class="circuit-stat"><div class="val">3.337</div><div class="label">km length</div></div>
-            <div class="circuit-stat"><div class="val">78</div><div class="label">laps</div></div>
-            <div class="circuit-stat"><div class="val">19</div><div class="label">turns</div></div>
-            <div class="circuit-stat"><div class="val">1</div><div class="label">DRS zone</div></div>
-            <div class="circuit-stat"><div class="val">260</div><div class="label">km total</div></div>
+            <div class="circuit-stat"><div class="val">4.657</div><div class="label">km length</div></div>
+            <div class="circuit-stat"><div class="val">66</div><div class="label">laps</div></div>
+            <div class="circuit-stat"><div class="val">14</div><div class="label">turns</div></div>
+            <div class="circuit-stat"><div class="val">2</div><div class="label">DRS zones</div></div>
+            <div class="circuit-stat"><div class="val">307</div><div class="label">km total</div></div>
         </div>
-        <div style="margin-top:12px;color:var(--muted);font-size:0.8rem;">A street circuit threading the streets of Monte Carlo since 1929 — barriers everywhere, zero run-off, and the slowest corner in F1 at the Fairmont Hairpin (~48 km/h). The Tunnel is the only flat-out section; the Nouvelle Chicane after it is the single real passing spot. The shortest lap on the calendar, and the one where a tenth in qualifying is worth a place on Sunday. Get it wrong and you're in the wall.</div>
+        <div style="margin-top:12px;color:var(--muted);font-size:0.8rem;">The ultimate technical benchmark. Long pit straight, hard-braking Turn 1, the high-speed Turn 3 right-hander that punishes anything with a weak left-front, a blind crest at Campsa (T9), and a flowing final sector since the chicane was removed in 2023. Every weakness shows up here — aero, tyres, traction, balance — which is exactly why every team tests here pre-season. Overtaking is hard but real, mostly at T1.</div>
         <div style="margin-top:8px;"><a href="circuit.html" style="color:#f59e0b;font-size:0.8rem;">→ View circuit diagram</a></div>
     </div>
 
     <!-- Drivers Standings -->
     <div class="card">
-        <h3>🏆 Drivers Championship — After Round 5 (Canada)</h3>
+        <h3>🏆 Drivers Championship — After Round 7 (Monaco)</h3>
         <ul class="standings">
 <li>
     <span class="pos">1</span>
     <span class="team-dot" style="background:#00D2BE"></span>
     <span class="name">Kimi Antonelli</span>
-    <span class="pts">131</span>
+    <span class="pts">156</span>
     <div class="bar" style="width:100%;background:#00D2BE"></div>
 </li>
 <li>
     <span class="pos">2</span>
-    <span class="team-dot" style="background:#00D2BE"></span>
-    <span class="name">George Russell</span>
-    <span class="pts">88</span>
-    <div class="bar" style="width:67%;background:#00D2BE"></div>
+    <span class="team-dot" style="background:#DC0000"></span>
+    <span class="name">Lewis Hamilton</span>
+    <span class="pts">90</span>
+    <div class="bar" style="width:58%;background:#DC0000"></div>
 </li>
 <li>
     <span class="pos">3</span>
-    <span class="team-dot" style="background:#DC0000"></span>
-    <span class="name">Charles Leclerc</span>
-    <span class="pts">75</span>
-    <div class="bar" style="width:57%;background:#DC0000"></div>
+    <span class="team-dot" style="background:#00D2BE"></span>
+    <span class="name">George Russell</span>
+    <span class="pts">88</span>
+    <div class="bar" style="width:56%;background:#00D2BE"></div>
 </li>
 <li>
     <span class="pos">4</span>
     <span class="team-dot" style="background:#DC0000"></span>
-    <span class="name">Lewis Hamilton</span>
-    <span class="pts">72</span>
-    <div class="bar" style="width:55%;background:#DC0000"></div>
+    <span class="name">Charles Leclerc</span>
+    <span class="pts">75</span>
+    <div class="bar" style="width:48%;background:#DC0000"></div>
 </li>
 <li>
     <span class="pos">5</span>
     <span class="team-dot" style="background:#FF8700"></span>
-    <span class="name">Lando Norris</span>
+    <span class="name">Oscar Piastri</span>
     <span class="pts">58</span>
-    <div class="bar" style="width:44%;background:#FF8700"></div>
+    <div class="bar" style="width:37%;background:#FF8700"></div>
 </li>
 <li>
     <span class="pos">6</span>
     <span class="team-dot" style="background:#FF8700"></span>
-    <span class="name">Oscar Piastri</span>
-    <span class="pts">48</span>
+    <span class="name">Lando Norris</span>
+    <span class="pts">58</span>
     <div class="bar" style="width:37%;background:#FF8700"></div>
 </li>
 <li>
@@ -157,62 +157,62 @@ body { background:var(--bg); color:var(--text); font-family:-apple-system,BlinkM
     <span class="team-dot" style="background:#3671C6"></span>
     <span class="name">Max Verstappen</span>
     <span class="pts">43</span>
-    <div class="bar" style="width:33%;background:#3671C6"></div>
+    <div class="bar" style="width:28%;background:#3671C6"></div>
 </li>
 <li>
     <span class="pos">8</span>
     <span class="team-dot" style="background:#0090FF"></span>
     <span class="name">Pierre Gasly</span>
-    <span class="pts">20</span>
-    <div class="bar" style="width:15%;background:#0090FF"></div>
+    <span class="pts">22</span>
+    <div class="bar" style="width:14%;background:#0090FF"></div>
 </li>
 <li>
     <span class="pos">9</span>
     <span class="team-dot" style="background:#B6BABD"></span>
     <span class="name">Oliver Bearman</span>
-    <span class="pts">18</span>
-    <div class="bar" style="width:14%;background:#B6BABD"></div>
+    <span class="pts">20</span>
+    <div class="bar" style="width:13%;background:#B6BABD"></div>
 </li>
 <li>
     <span class="pos">10</span>
     <span class="team-dot" style="background:#6692FF"></span>
     <span class="name">Liam Lawson</span>
-    <span class="pts">16</span>
-    <div class="bar" style="width:12%;background:#6692FF"></div>
+    <span class="pts">17</span>
+    <div class="bar" style="width:11%;background:#6692FF"></div>
 </li>
 <li>
     <span class="pos">11</span>
     <span class="team-dot" style="background:#0090FF"></span>
     <span class="name">Franco Colapinto</span>
-    <span class="pts">15</span>
-    <div class="bar" style="width:11%;background:#0090FF"></div>
+    <span class="pts">16</span>
+    <div class="bar" style="width:10%;background:#0090FF"></div>
 </li>
 <li>
     <span class="pos">12</span>
     <span class="team-dot" style="background:#3671C6"></span>
     <span class="name">Isack Hadjar</span>
-    <span class="pts">14</span>
-    <div class="bar" style="width:11%;background:#3671C6"></div>
+    <span class="pts">15</span>
+    <div class="bar" style="width:10%;background:#3671C6"></div>
 </li>
 <li>
     <span class="pos">13</span>
     <span class="team-dot" style="background:#64C4FF"></span>
     <span class="name">Carlos Sainz</span>
-    <span class="pts">6</span>
+    <span class="pts">8</span>
     <div class="bar" style="width:5%;background:#64C4FF"></div>
 </li>
 <li>
     <span class="pos">14</span>
     <span class="team-dot" style="background:#6692FF"></span>
     <span class="name">Arvid Lindblad</span>
-    <span class="pts">5</span>
+    <span class="pts">6</span>
     <div class="bar" style="width:4%;background:#6692FF"></div>
 </li>
 <li>
     <span class="pos">15</span>
     <span class="team-dot" style="background:#00594F"></span>
     <span class="name">Gabriel Bortoleto</span>
-    <span class="pts">2</span>
+    <span class="pts">3</span>
     <div class="bar" style="width:2%;background:#00594F"></div>
 </li>
 <li>
@@ -240,58 +240,58 @@ body { background:var(--bg); color:var(--text); font-family:-apple-system,BlinkM
 
     <!-- Track History -->
     <div class="card full">
-        <h3>📜 Monaco — Track History & Iconic Moments</h3>
+        <h3>📜 Barcelona-Catalunya — Track History & Iconic Moments</h3>
         <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:12px;margin-bottom:16px;">
-            <div class="circuit-stat"><div class="val">1929</div><div class="label">First GP held</div></div>
-            <div class="circuit-stat"><div class="val">70+</div><div class="label">F1 GPs held</div></div>
-            <div class="circuit-stat"><div class="val">1:12.9</div><div class="label">Race lap record</div></div>
-            <div class="circuit-stat"><div class="val">~48</div><div class="label">km/h at hairpin</div></div>
-            <div class="circuit-stat"><div class="val">6</div><div class="label">Senna wins</div></div>
+            <div class="circuit-stat"><div class="val">1991</div><div class="label">First F1 GP</div></div>
+            <div class="circuit-stat"><div class="val">34</div><div class="label">F1 GPs held</div></div>
+            <div class="circuit-stat"><div class="val">1:16.330</div><div class="label">Race lap record</div></div>
+            <div class="circuit-stat"><div class="val">~70</div><div class="label">km/h at La Caixa</div></div>
+            <div class="circuit-stat"><div class="val">6</div><div class="label">Hamilton wins</div></div>
         </div>
         <div style="font-size:0.82rem;line-height:1.6;">
-            <div style="margin-bottom:10px;"><strong style="color:#f59e0b;">Most wins:</strong> Senna (6) · Graham Hill (5) · Schumacher (5) · Prost (4) · Stewart (3)</div>
-            <div style="margin-bottom:10px;"><strong style="color:#f59e0b;">Most constructor wins:</strong> McLaren (15) · Ferrari (10) · Lotus (7) · Mercedes (4) · Red Bull (3)</div>
-            <div style="margin-bottom:10px;"><strong style="color:#f59e0b;">Lap record:</strong> 1:12.909 — Hamilton (Mercedes W12, 2021) · Quali record 1:09.954 — Norris (2025)</div>
-            <div style="margin-bottom:10px;"><strong style="color:#f59e0b;">The only real overtake zone:</strong> Nouvelle Chicane (T10–11) under braking after the Tunnel. Everywhere else, you pass in the pits or not at all.</div>
+            <div style="margin-bottom:10px;"><strong style="color:#f59e0b;">Most wins:</strong> Hamilton (6) · Schumacher (6) · Verstappen (3) · Prost (3) · Alonso (2)</div>
+            <div style="margin-bottom:10px;"><strong style="color:#f59e0b;">Most constructor wins:</strong> Ferrari (8) · McLaren (8) · Mercedes (7) · Red Bull (5) · Williams (3)</div>
+            <div style="margin-bottom:10px;"><strong style="color:#f59e0b;">Lap record:</strong> 1:16.330 — Verstappen (Red Bull, 2023) · The benchmark of benchmarks — every team has thousands of laps of data here.</div>
+            <div style="margin-bottom:10px;"><strong style="color:#f59e0b;">The real overtake spot:</strong> Turn 1 under braking off the 1.05 km pit straight. Turn 10 (La Caixa) hairpin is the secondary chance after the back straight DRS.</div>
         </div>
         <div style="margin-top:14px;border-top:1px solid var(--border);padding-top:14px;">
             <div style="font-size:0.8rem;color:var(--muted);margin-bottom:8px;text-transform:uppercase;letter-spacing:0.5px;">Iconic Moments</div>
             <ul style="list-style:none;font-size:0.82rem;line-height:1.6;">
-                <li style="padding:6px 0;border-bottom:1px solid var(--border);">🌀 <strong>1988 — Senna's lap from another dimension:</strong> Senna qualified 1.4s clear of teammate Prost in identical machinery, later describing being "in a tunnel… beyond conscious understanding." Still cited as the greatest qualifying lap in F1 history. He then crashed out of a huge lead on Sunday — Monaco giveth and taketh.</li>
-                <li style="padding:6px 0;border-bottom:1px solid var(--border);">🛡️ <strong>1992 — Senna holds off Mansell:</strong> On worn tyres in a slower McLaren, Senna defended every inch from a charging Nigel Mansell over the final laps. Mansell threw everything at him; Senna never cracked. A masterclass in the art of the impossible-to-pass defence.</li>
-                <li style="padding:6px 0;border-bottom:1px solid var(--border);">🌧️ <strong>1997 — Schumacher's wet masterclass:</strong> In a flooded Monte Carlo, Schumacher won by 53 seconds for Ferrari — the Scuderia's first Monaco win since 1981. He simply drove on a different planet to the rest of the field.</li>
-                <li style="padding:6px 0;border-bottom:1px solid var(--border);">👑 <strong>King of Monaco:</strong> Senna won five in a row (1989–1993) and six total — the record. Graham Hill ("Mr. Monaco") and Schumacher sit on five each. Win here and you join an exclusive club.</li>
-                <li style="padding:6px 0;border-bottom:1px solid var(--border);">🏠 <strong>2024 — Leclerc breaks the home curse:</strong> After years of Monaco heartbreak, the Monégasque finally won his home race for Ferrari — emotional scenes on the streets where he grew up. He arrives in 2026 desperate to do it again.</li>
-                <li style="padding:6px 0;">🏛️ <strong>The setting:</strong> Yachts in the harbour, the casino, the Tunnel, Tabac, the Swimming Pool section. Glamour on the surface, brutal precision underneath. There is no margin — the walls are right there, all lap, every lap.</li>
+                <li style="padding:6px 0;border-bottom:1px solid var(--border);">⚔️ <strong>1991 — Senna v Mansell, side-by-side down the straight:</strong> The inaugural F1 race at Catalunya. Mansell and Senna ran wheel-to-wheel down the entire main straight, sparks flying, neither lifting. Mansell took the position, the win, and one of the most replayed images in the sport's history.</li>
+                <li style="padding:6px 0;border-bottom:1px solid var(--border);">🌧️ <strong>1996 — Schumacher's wet masterclass for Ferrari:</strong> First Ferrari win for Schumacher, in a downpour, by 45 seconds. He drove on a different planet, in a car that was supposedly the third-fastest on the grid. Pure rain genius — the moment a Schumacher–Ferrari era became inevitable.</li>
+                <li style="padding:6px 0;border-bottom:1px solid var(--border);">🇪🇸 <strong>2006 — Alonso wins at home:</strong> First Spanish F1 driver to win his home GP. La Fiesta nacional. Crowd of 140,000 went berserk.</li>
+                <li style="padding:6px 0;border-bottom:1px solid var(--border);">🚀 <strong>2016 — Verstappen's debut win at 18:</strong> Promoted to Red Bull at 18 mid-season after the Kvyat swap. The Mercedes pair took each other out at Turn 4 on lap 1. Max held off Räikkönen for the win on debut for the senior team — youngest ever F1 winner. A new era announced itself.</li>
+                <li style="padding:6px 0;border-bottom:1px solid var(--border);">🔬 <strong>Pre-season testing capital:</strong> Until recently, every team did winter testing at Catalunya. The corners are stamped into the memory of every engineer in the paddock. It's why the GP is treated as a true performance reading — no other circuit has this much shared data.</li>
+                <li style="padding:6px 0;">🌀 <strong>2023 — the chicane gone:</strong> F1 dropped the slow final-sector chicane and reverted to a flowing, high-speed run to the line. Lap times dropped 4–5 seconds. The final sector became a real corner-speed test instead of a stop-start traffic event.</li>
             </ul>
         </div>
     </div>
 
     <!-- Key Stories -->
     <div class="card full">
-        <h3>📰 Key Stories Heading Into Monaco</h3>
+        <h3>📰 Key Stories Heading Into Spain</h3>
         <ul class="stories">
-<li><strong>Antonelli on four straight — but Monaco is the great equalizer</strong> — The 19-year-old leads by 43 points after winning a fourth consecutive race in Canada. The form driver of the era arrives at the one circuit where the car matters less and the single qualifying lap matters most. Monaco has humbled prodigies before. Can he keep his nerve where a tenth on Saturday is worth a podium on Sunday?</li>
-<li><strong>Russell's "somebody doesn't want me to fight" — PU failure in Canada</strong> — Russell was leading the charge against his teammate when a power-unit failure ended his Canadian GP. "It feels like somebody doesn't want me to fight for this championship," he said in disbelief. He's now 43 back. Intra-Mercedes tension is the quiet subplot — the team is running away with the constructors (219 pts) but the title fight is increasingly one-sided.</li>
-<li><strong>Leclerc's home race — can he repeat 2024?</strong> — The Monégasque ended his infamous home curse with a maiden Monaco win in 2024. He sits P3 in the standings, 13 behind Russell, and there is no race he wants more. Ferrari are a clear P2 in constructors. On the streets he grew up on, a perfect lap on Saturday is the whole ballgame.</li>
-<li><strong>Verstappen — the street-circuit specialist in a struggling car</strong> — Max is a two-time Monaco winner and arguably the best one-lap driver on the grid. Red Bull are a dismal P4 (57 pts) and Max sits P7, but Monaco's low-speed, point-and-squirt nature can mask aero deficiencies. He took P3 in Canada after a race-long scrap with Hamilton. Don't discount him here — Saturday is his weapon.</li>
-<li><strong>Qualifying is the race</strong> — Overtaking at Monaco is near-impossible, and the wider, heavier 2026 cars make it harder still. With a single DRS zone and the Nouvelle Chicane as the only real passing spot, track position is everything. Expect strategy games, undercuts, and a Saturday afternoon that effectively decides the podium.</li>
-<li><strong>McLaren need to bounce back</strong> — Norris took Monaco pole in 2025 and holds the qualifying lap record (1:09.954), so the package can sing here. But both McLarens retired in Canada — a costly weekend that let Mercedes and Ferrari pull clear. P3 in constructors, they need points and a clean weekend on a track that historically suits them.</li>
-<li><strong>First Monaco for the 2026 regulations — and the cars might actually fit</strong> — Antonelli and Leclerc have both said the new lighter, smaller cars could make Monaco less of a procession. "We may see some overtaking because cars are smaller," Antonelli said. Leclerc: "Monaco is actually going to be one of those races where these cars might be very good." The optimism is real, but Sunday will have the final word.</li>
-<li><strong>Two-stop rule SCRAPPED · No Straight Mode zones</strong> — The mandatory two-stop rule introduced in 2025 has been quietly dropped by the FIA. Back to traditional one-stop strategy and tyre management. Separately, the FIA has confirmed there will be <strong>no Straight Mode (active-aero/override) zones</strong> at Monaco — the 2026 cars race here without their long-straight aero trick, which would have been almost useless on these streets anyway.</li>
-<li><strong>22 cars on the grid — Cadillac joins the show</strong> — Cadillac's arrival brings the field to 22 cars. On a 3.337 km circuit with a 78-second lap, that's a traffic problem waiting to happen in Q1. Backmarker management on flying laps will be a Saturday subplot — and yellow flags are now a near-certainty.</li>
-<li><strong>Calendar shuffle — Monaco moves to June</strong> — For 2026, Monaco and Canada were swapped for logistics and sustainability, putting the crown jewel in early June rather than its traditional late-May slot. Same glamour, same walls, same impossible-to-pass reality — just a few weeks later.</li>
+<li><strong>Antonelli chasing six in a row — and the youngest-champion record</strong> — The 19-year-old has won every race since Imola. Five straight. He arrives in Barcelona 66 clear of Hamilton, 68 clear of teammate Russell, and looks on course to become the youngest world champion in F1 history. Barcelona is the technical benchmark — if Mercedes really has the best car, this is where it shows. If they don't, this is where the spell breaks.</li>
+<li><strong>Hamilton's quiet Ferrari rise — P2 in the title</strong> — Lewis's P2 at Monaco and Ferrari's strong weekend pushed him past Russell into second overall. The SF-26 is a high-drag car, which makes Barcelona — fast Sector 3, hard on the front-left through T3 and Campsa — a real test of whether his Ferrari is genuinely the second car on the grid or just a Monaco hero. Six wins here in his Mercedes years; he knows the place better than almost anyone.</li>
+<li><strong>Russell — the "somebody doesn't want me to fight" arc continues</strong> — Penalties at Monaco dropped him out of the points and he's now P3 in the standings, behind a Ferrari driver in his own team's car. The Mercedes is dominant in the constructors' fight (244 vs Ferrari 165) but the intra-team title fight is increasingly one-sided. Barcelona is where Russell needs to remind everyone he is still the senior driver in that garage.</li>
+<li><strong>Verstappen back from a Monaco DNF — and Barcelona historically hasn't loved Red Bull</strong> — Max retired on lap 1 in Monte Carlo. He's down to P7. Barcelona's long T3 and high-speed Sector 3 traditionally favour cars with strong front-end stability, an area where the 2026 Red Bull has not been at its best. Three-time winner here, but in this car? A points haul looks more realistic than a podium.</li>
+<li><strong>McLaren's reset weekend — Catalunya should suit them</strong> — Bleak Monaco for the papaya: reliability bit Norris, pace bit Piastri. Both are tied on 58 points in the standings. The MCL40, on paper, suits Barcelona — efficient aero, good through medium-speed corners. If the car's title pretensions are real, this is the weekend the recovery starts.</li>
+<li><strong>Leclerc — quiet weekend in Spain after Monaco penalties</strong> — Lost his Monaco P4 to penalties. Now P4 overall on 75 points, behind teammate Hamilton for the first time. Catalunya is not a Leclerc circuit historically — he's only ever finished on the podium here once. He needs a clean weekend to stop the momentum sliding the wrong way at Ferrari.</li>
+<li><strong>The first proper aero benchmark of the 2026 regs</strong> — Teams tested here in January with these cars. They're back six months later with six months of development. Barcelona will tell us, more reliably than anywhere else, the true pecking order. If Mercedes wins easily, the title is essentially over. If Ferrari or McLaren upset, the second half of the season opens up.</li>
+<li><strong>Tyre stress and a hot Sunday — strategy is back</strong> — Forecast is 30°C+ on race day. The long Turn 3 right is the worst corner on the calendar for the left-front. With the mandatory two-stop rule scrapped this season, teams can roll the dice on a one-stopper if they manage tyres well — but Catalunya in heat can break a one-stop strategy faster than any other track.</li>
+<li><strong>22 cars, technical track — yellow flag risk on Saturday</strong> — Cadillac on the grid means a full 22-car field navigating a 76-second lap with a single qualifying window. Catalunya has plenty of run-off, so the risk isn't a crash — it's traffic and dirty air costing top runners their lap. Q1 will be a strategic exercise.</li>
+<li><strong>The Madrid question hovering over the weekend</strong> — Barcelona's contract ends at the end of 2026. From 2027, the Spanish Grand Prix moves to Madring (Madrid). Friday in Catalunya may be the last regular F1 Friday practice ever held at this circuit. Expect goodbyes, montages, and a slightly more emotional crowd.</li>
 </ul>
     </div>
 </div>
 
 <div style="text-align:center;color:var(--muted);font-size:0.7rem;margin-top:16px;">
-    Built by Marshall 🔶 for Wilson · Data: formula1.com, FIA, total-motorsport.com, racingnews365.com, gpblog.com · Updated June 3, 2026
+    Built by Marshall 🔶 for Wilson · Data: formula1.com, FIA, total-motorsport.com, racingnews365.com, gpblog.com, racefans.net · Updated June 10, 2026
 </div>
 
 <script>
-// Countdown to race: Sun Jun 7, 15:00 CEST = 13:00 UTC
-const raceTime = new Date('2026-06-07T13:00:00Z');
+// Countdown to race: Sun Jun 14, 15:00 CEST = 13:00 UTC
+const raceTime = new Date('2026-06-14T13:00:00Z');
 function updateCountdown() {
     const now = new Date();
     const diff = raceTime - now;
@@ -307,7 +307,7 @@ setInterval(updateCountdown, 60000);
 
 // Constructors chart
 const teams = ["Mercedes", "Ferrari", "McLaren", "Red Bull", "Alpine", "Racing Bulls", "Haas", "Williams", "Audi", "Cadillac", "Aston Martin"];
-const pts = [219, 147, 106, 57, 35, 21, 19, 7, 2, 0, 0];
+const pts = [244, 165, 116, 58, 38, 23, 21, 9, 3, 0, 0];
 const colors = ["#00D2BE", "#DC0000", "#FF8700", "#3671C6", "#0090FF", "#6692FF", "#B6BABD", "#64C4FF", "#00594F", "#1E1E1E", "#006F62"];
 
 new Chart(document.getElementById('constChart').getContext('2d'), {
