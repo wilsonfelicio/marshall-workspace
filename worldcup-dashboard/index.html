@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🏆 World Cup 2026 — Daily Dashboard</title>
+<style>
+:root { --bg:#0a0a0a; --surface:#141414; --border:#2a2a2a; --text:#e0e0e0; --muted:#888; --accent:#22c55e; --gold:#eab308; --bra:#facc15; }
+* { margin:0; padding:0; box-sizing:border-box; }
+body { background:var(--bg); color:var(--text); font-family:-apple-system,BlinkMacSystemFont,'Inter',sans-serif; padding:16px; }
+.header { text-align:center; margin-bottom:20px; }
+.header h1 { font-size:1.6rem; font-weight:700; }
+.header .flag { font-size:2.2rem; letter-spacing:2px; }
+.header .meta { color:var(--muted); font-size:0.85rem; margin-top:4px; }
+.header .round { color:var(--accent); font-weight:600; }
+.countdown { text-align:center; font-size:1.7rem; font-weight:700; color:var(--bra); margin:10px 0; }
+.countdown .label { font-size:0.75rem; color:var(--muted); font-weight:400; }
+.grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:16px; }
+@media (max-width:800px) { .grid { grid-template-columns:1fr; } }
+.card { background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:16px; }
+.card h3 { color:var(--muted); font-size:0.85rem; margin-bottom:12px; text-transform:uppercase; letter-spacing:0.5px; }
+.card.full { grid-column: 1 / -1; }
+.card.bra { border-color:#3b3416; background:linear-gradient(180deg,#16170d,#141414); }
+
+.fixtures { list-style:none; }
+.fixtures li { display:grid; grid-template-columns:64px 1fr auto; gap:10px; align-items:center; padding:9px 0; border-bottom:1px solid var(--border); }
+.fixtures li:last-child { border:none; }
+.fixtures .time { color:var(--gold); font-weight:600; font-size:0.9rem; }
+.fixtures .time .day { display:block; color:var(--muted); font-weight:400; font-size:0.7rem; }
+.fixtures .match { font-size:0.92rem; }
+.fixtures .match .grp { color:var(--muted); font-size:0.72rem; }
+.fixtures .venue { color:var(--muted); font-size:0.72rem; text-align:right; max-width:120px; }
+.fixtures .score { font-weight:700; color:var(--accent); font-size:0.95rem; }
+.fixtures li.done .match { color:var(--muted); }
+.fixtures li.live .time { color:#ef4444; }
+
+.groups { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:12px; }
+.gtable { background:#0f0f0f; border:1px solid var(--border); border-radius:8px; padding:10px; }
+.gtable .gh { font-size:0.78rem; font-weight:700; color:var(--gold); margin-bottom:6px; }
+.gtable table { width:100%; border-collapse:collapse; font-size:0.78rem; }
+.gtable th { color:var(--muted); font-weight:500; text-align:right; padding:2px 3px; font-size:0.66rem; }
+.gtable th.team { text-align:left; }
+.gtable td { padding:3px; text-align:right; border-top:1px solid #1c1c1c; }
+.gtable td.team { text-align:left; }
+.gtable tr.qual td.team { color:var(--accent); font-weight:600; }
+.gtable tr.bra td.team { color:var(--bra); font-weight:700; }
+.gtable td.pts { font-weight:700; }
+
+.stories { list-style:none; }
+.stories li { padding:7px 0; border-bottom:1px solid var(--border); font-size:0.85rem; line-height:1.45; }
+.stories li:last-child { border:none; }
+.stories li::before { content:'⚽ '; }
+
+.bra-sched { list-style:none; }
+.bra-sched li { display:grid; grid-template-columns:80px 1fr auto; gap:8px; align-items:center; padding:8px 0; border-bottom:1px solid var(--border); font-size:0.9rem; }
+.bra-sched li:last-child { border:none; }
+.bra-sched .t { color:var(--bra); font-weight:600; }
+.bra-sched .t .d { display:block; color:var(--muted); font-weight:400; font-size:0.7rem; }
+
+.legend { color:var(--muted); font-size:0.7rem; margin-top:8px; }
+.legend .q { color:var(--accent); }
+</style>
+</head>
+<body>
+<div class="header">
+    <div class="flag">🇨🇦 🇲🇽 🇺🇸</div>
+    <h1>FIFA World Cup 2026</h1>
+    <div class="meta"><span class="round">Group Stage — Matchday 1</span> · 48 teams · 16 cities · June 11 – July 19, 2026</div>
+    <div class="countdown" id="countdown"><div class="label">until 🇧🇷 Brazil kick off vs Morocco</div></div>
+</div>
+
+<div class="grid">
+    <!-- Brazil tracker -->
+    <div class="card bra">
+        <h3>🇧🇷 Brazil — Group C</h3>
+        <ul class="bra-sched">
+            <li>
+                <div class="t">19:00<span class="d">Sat 13 Jun</span></div>
+                <div>🇧🇷 Brazil <span style="color:var(--muted)">vs</span> 🇲🇦 Morocco</div>
+                <div style="color:var(--muted);font-size:0.72rem;text-align:right">MetLife<br>New Jersey</div>
+            </li>
+            <li>
+                <div class="t">22:00<span class="d">Fri 19 Jun</span></div>
+                <div>🇧🇷 Brazil <span style="color:var(--muted)">vs</span> 🇭🇹 Haiti</div>
+                <div style="color:var(--muted);font-size:0.72rem;text-align:right">TBD</div>
+            </li>
+            <li>
+                <div class="t">19:00<span class="d">Wed 24 Jun</span></div>
+                <div>🏴󠁧󠁢󠁳󠁣󠁴󠁿 Scotland <span style="color:var(--muted)">vs</span> 🇧🇷 Brazil</div>
+                <div style="color:var(--muted);font-size:0.72rem;text-align:right">TBD</div>
+            </li>
+        </ul>
+        <div class="legend">All times BRT (São Paulo). Group C: Brazil, Morocco, Haiti, Scotland. Top 2 advance automatically; best 8 third-placed teams also qualify.</div>
+    </div>
+
+    <!-- Today / Upcoming fixtures -->
+    <div class="card">
+        <h3>📅 Fixtures (BRT — Sao Paulo)</h3>
+        <ul class="fixtures">
+            <li class="done">
+                <div class="time">16:00<span class="day">Thu 11</span></div>
+                <div class="match">🇲🇽 Mexico <span class="grp">vs</span> 🇿🇦 South Africa<br><span class="grp">Group A · Estadio Azteca</span></div>
+                <div class="score">2–0</div>
+            </li>
+            <li>
+                <div class="time">23:00<span class="day">Thu 11</span></div>
+                <div class="match">🇰🇷 South Korea <span class="grp">vs</span> 🇨🇿 Czechia<br><span class="grp">Group A · Zapopan</span></div>
+                <div class="venue">tonight</div>
+            </li>
+            <li>
+                <div class="time">16:00<span class="day">Fri 12</span></div>
+                <div class="match">🇨🇦 Canada <span class="grp">vs</span> 🇧🇦 Bosnia &amp; H.<br><span class="grp">Group B · Toronto</span></div>
+                <div class="venue">Fri</div>
+            </li>
+            <li>
+                <div class="time">22:00<span class="day">Fri 12</span></div>
+                <div class="match">🇺🇸 USA <span class="grp">vs</span> 🇵🇾 Paraguay<br><span class="grp">Group D · Inglewood</span></div>
+                <div class="venue">Fri</div>
+            </li>
+            <li>
+                <div class="time">16:00<span class="day">Sat 13</span></div>
+                <div class="match">🇶🇦 Qatar <span class="grp">vs</span> 🇨🇭 Switzerland<br><span class="grp">Group B · Santa Clara</span></div>
+                <div class="venue">Sat</div>
+            </li>
+            <li>
+                <div class="time">19:00<span class="day">Sat 13</span></div>
+                <div class="match">🇧🇷 Brazil <span class="grp">vs</span> 🇲🇦 Morocco<br><span class="grp">Group C · MetLife, NJ</span></div>
+                <div class="venue">Sat</div>
+            </li>
+            <li>
+                <div class="time">22:00<span class="day">Sat 13</span></div>
+                <div class="match">🇭🇹 Haiti <span class="grp">vs</span> 🏴󠁧󠁢󠁳󠁣󠁴󠁿 Scotland<br><span class="grp">Group C · Foxborough</span></div>
+                <div class="venue">Sat</div>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<!-- Results so far -->
+<div class="card full">
+    <h3>✅ Results So Far</h3>
+    <ul class="fixtures">
+        <li class="done">
+            <div class="time">Jun 11</div>
+            <div class="match">🇲🇽 Mexico <span class="grp">2–0</span> 🇿🇦 South Africa <span class="grp">· Group A · Quiñones 9', + 1</span></div>
+            <div class="score">FT</div>
+        </li>
+    </ul>
+    <div class="legend">Tournament opened at Estadio Azteca, Mexico City. Standings update each morning.</div>
+</div>
+
+<!-- All 12 groups -->
+<div class="card full">
+    <h3>📊 Group Standings — All 12 Groups</h3>
+    <div class="groups" id="groups"></div>
+    <div class="legend"><span class="q">Green</span> = current top-2 (qualify). Bold yellow = Brazil. P = played, Pts = points, GD = goal difference. Updates daily.</div>
+</div>
+
+<!-- Storylines -->
+<div class="card full">
+    <h3>📰 Storylines — Opening Days</h3>
+    <ul class="stories">
+        <li><strong>Biggest World Cup ever kicks off.</strong> 48 teams, 104 matches, 16 cities across three countries, ending July 19. The new round-of-32 means the eight best third-placed teams survive the group stage — finishing third is no longer elimination.</li>
+        <li><strong>Mexico open with a statement.</strong> Hosts beat South Africa 2–0 at a roaring Azteca, Julián Quiñones with the tournament's first goal inside nine minutes. Group A looks Mexico's to lose.</li>
+        <li><strong>Brazil's path starts Saturday vs Morocco</strong> — a banana-skin opener. Morocco were 2022 semifinalists and remain organised and dangerous on the break. Haiti and Scotland complete Group C; Brazil are clear favourites to top it but the Morocco game sets the tone.</li>
+        <li><strong>Argentina, France, Spain, England headline the favourites.</strong> Holders Argentina are in Group J with Austria, Algeria and Jordan — a kind draw. England drew Croatia, Ghana and Panama in Group L.</li>
+        <li><strong>Group of death watch.</strong> Group H — Spain, Uruguay, Cape Verde, Saudi Arabia — and Group K — Portugal, Colombia, DR Congo, Uzbekistan — are the early picks for tightest sections.</li>
+        <li><strong>US, Canada, Mexico all chasing knockout football at home.</strong> Co-hosts get crowd and travel advantages; how far they go shapes the tournament's energy.</li>
+    </ul>
+</div>
+
+<div style="text-align:center;color:var(--muted);font-size:0.7rem;margin-top:16px;">
+    Built by Marshall 🔶 for Wilson · Data: FIFA.com, ESPN, NBC Sports · Updated June 11, 2026
+</div>
+
+<script>
+// Countdown to Brazil vs Morocco — Sat Jun 13, 18:00 ET = 22:00 UTC
+const target = new Date('2026-06-13T22:00:00Z');
+function tick() {
+    const now = new Date();
+    const diff = target - now;
+    const el = document.getElementById('countdown');
+    if (diff <= 0) { el.innerHTML = '🇧🇷 BRAZIL UNDERWAY<div class="label">Group C · vs Morocco</div>'; return; }
+    const d = Math.floor(diff / 86400000);
+    const h = Math.floor((diff % 86400000) / 3600000);
+    const m = Math.floor((diff % 3600000) / 60000);
+    el.innerHTML = d + 'd ' + h + 'h ' + m + 'm<div class="label">until 🇧🇷 Brazil kick off vs Morocco</div>';
+}
+tick(); setInterval(tick, 60000);
+
+// All 12 groups. teams: [name, flag, P, W, D, L, GD, Pts]
+const GROUPS = {
+  A: [["Mexico","🇲🇽",1,1,0,0,2,3],["South Korea","🇰🇷",0,0,0,0,0,0],["Czechia","🇨🇿",0,0,0,0,0,0],["South Africa","🇿🇦",1,0,0,1,-2,0]],
+  B: [["Switzerland","🇨🇭",0,0,0,0,0,0],["Canada","🇨🇦",0,0,0,0,0,0],["Qatar","🇶🇦",0,0,0,0,0,0],["Bosnia & H.","🇧🇦",0,0,0,0,0,0]],
+  C: [["Brazil","🇧🇷",0,0,0,0,0,0],["Morocco","🇲🇦",0,0,0,0,0,0],["Scotland","🏴󠁧󠁢󠁳󠁣󠁴󠁿",0,0,0,0,0,0],["Haiti","🇭🇹",0,0,0,0,0,0]],
+  D: [["USA","🇺🇸",0,0,0,0,0,0],["Paraguay","🇵🇾",0,0,0,0,0,0],["Australia","🇦🇺",0,0,0,0,0,0],["Türkiye","🇹🇷",0,0,0,0,0,0]],
+  E: [["Germany","🇩🇪",0,0,0,0,0,0],["Ecuador","🇪🇨",0,0,0,0,0,0],["Ivory Coast","🇨🇮",0,0,0,0,0,0],["Curaçao","🇨🇼",0,0,0,0,0,0]],
+  F: [["Netherlands","🇳🇱",0,0,0,0,0,0],["Japan","🇯🇵",0,0,0,0,0,0],["Sweden","🇸🇪",0,0,0,0,0,0],["Tunisia","🇹🇳",0,0,0,0,0,0]],
+  G: [["Belgium","🇧🇪",0,0,0,0,0,0],["Egypt","🇪🇬",0,0,0,0,0,0],["Iran","🇮🇷",0,0,0,0,0,0],["New Zealand","🇳🇿",0,0,0,0,0,0]],
+  H: [["Spain","🇪🇸",0,0,0,0,0,0],["Uruguay","🇺🇾",0,0,0,0,0,0],["Cape Verde","🇨🇻",0,0,0,0,0,0],["Saudi Arabia","🇸🇦",0,0,0,0,0,0]],
+  I: [["France","🇫🇷",0,0,0,0,0,0],["Senegal","🇸🇳",0,0,0,0,0,0],["Norway","🇳🇴",0,0,0,0,0,0],["Iraq","🇮🇶",0,0,0,0,0,0]],
+  J: [["Argentina","🇦🇷",0,0,0,0,0,0],["Austria","🇦🇹",0,0,0,0,0,0],["Algeria","🇩🇿",0,0,0,0,0,0],["Jordan","🇯🇴",0,0,0,0,0,0]],
+  K: [["Portugal","🇵🇹",0,0,0,0,0,0],["Colombia","🇨🇴",0,0,0,0,0,0],["DR Congo","🇨🇩",0,0,0,0,0,0],["Uzbekistan","🇺🇿",0,0,0,0,0,0]],
+  L: [["England","🏴󠁧󠁢󠁥󠁮󠁧󠁿",0,0,0,0,0,0],["Croatia","🇭🇷",0,0,0,0,0,0],["Ghana","🇬🇭",0,0,0,0,0,0],["Panama","🇵🇦",0,0,0,0,0,0]]
+};
+const wrap = document.getElementById('groups');
+for (const [g, rows] of Object.entries(GROUPS)) {
+    const div = document.createElement('div');
+    div.className = 'gtable';
+    let html = `<div class="gh">Group ${g}</div><table><tr><th class="team">Team</th><th>P</th><th>GD</th><th>Pts</th></tr>`;
+    rows.forEach((r, i) => {
+        const cls = r[0] === 'Brazil' ? 'bra' : (i < 2 ? 'qual' : '');
+        const gd = r[6] > 0 ? '+' + r[6] : r[6];
+        html += `<tr class="${cls}"><td class="team">${r[1]} ${r[0]}</td><td>${r[2]}</td><td>${gd}</td><td class="pts">${r[7]}</td></tr>`;
+    });
+    html += '</table>';
+    div.innerHTML = html;
+    wrap.appendChild(div);
+}
+</script>
+</body>
+</html>
