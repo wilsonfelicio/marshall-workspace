@@ -1,0 +1,16 @@
+# Secrets — real secrets live in ~/.openclaw (outside this repo); this is defense in depth
+*secret*.json
+*secrets*.json
+.env
+.env.*
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv-soccer/
+.venv/
+
+# macOS
+.DS_Store
+**/.DS_Store
