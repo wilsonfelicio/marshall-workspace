@@ -21,8 +21,9 @@ Commands:
 
 Output is plain text meant to be read by the briefing agent and woven in.
 """
-import sys, os, io, contextlib, difflib
+import sys, os, math, difflib
 from datetime import datetime
+import numpy as np
 
 SEASON = "2026"
 HIST_SEASONS = ["2022"]          # past editions for historical context (kept short = less scraping)
@@ -33,11 +34,11 @@ import logging
 logging.getLogger("soccerdata").setLevel(logging.ERROR)
 os.environ.setdefault("SOCCERDATA_LOGLEVEL", "ERROR")
 
-import soccerdata as sd  # noqa: E402
 import pandas as pd       # noqa: E402
 
 
 def _fb(seasons):
+    import soccerdata as sd  # lazy: keeps the `forecast` path free of selenium/scraper deps
     return sd.FBref(leagues="INT-World Cup", seasons=seasons)
 
 
@@ -193,6 +194,148 @@ def cmd_snapshot():
     print("\n".join(parts))
 
 
+# ─── FORECAST ENGINE ──────────────────────────────────────────────────────
+# Lessons borrowed from Nate Silver's PELE model:
+#  - negative-binomial (overdispersed) marginals instead of plain Poisson, which
+#    "understates variation" — under-counts both draws and blowouts;
+#  - a Dixon-Coles low-score correction (rho) to lift the draw mass Poisson misses;
+#  - an INDEPENDENT Elo-based estimate so we can trade the market-vs-model basis
+#    rather than just parroting the market.
+MAXG = 10
+
+
+def _nb_pmf(mean, r, kmax=MAXG):
+    """Negative-binomial pmf with a given mean and dispersion `size` r (r->inf = Poisson)."""
+    mean = max(float(mean), 1e-3)
+    ks = np.arange(0, kmax + 1)
+    p = r / (r + mean)
+    logc = np.array([math.lgamma(k + r) - math.lgamma(r) - math.lgamma(k + 1) for k in ks])
+    pmf = np.exp(logc + r * math.log(p) + ks * math.log(1.0 - p))
+    return pmf / pmf.sum()
+
+
+def _score_matrix(lh, la, r=10.0, rho=-0.08):
+    """Full score matrix M[i,j] = P(home i, away j), with Dixon-Coles low-score tweak."""
+    M = np.outer(_nb_pmf(lh, r), _nb_pmf(la, r))
+    M[0, 0] *= 1.0 - lh * la * rho
+    M[0, 1] *= 1.0 + lh * rho
+    M[1, 0] *= 1.0 + la * rho
+    M[1, 1] *= 1.0 - rho
+    M = np.clip(M, 0.0, None)
+    return M / M.sum()
+
+
+def _wdl(M):
+    return float(np.tril(M, -1).sum()), float(np.trace(M)), float(np.triu(M, 1).sum())
+
+
+def _fit_market(pH, pD, pA, total=None, r=10.0, rho=-0.08):
+    """Find expected goals (lh, la) whose score matrix best reproduces the market 1X2."""
+    best = None
+    if total:
+        for lh in np.linspace(0.12, total - 0.12, 90):
+            h, d, a = _wdl(_score_matrix(lh, total - lh, r, rho))
+            e = (h - pH) ** 2 + (d - pD) ** 2 + (a - pA) ** 2
+            if best is None or e < best[0]:
+                best = (e, float(lh), float(total - lh))
+    else:
+        for lh in np.linspace(0.2, 3.6, 60):
+            for la in np.linspace(0.2, 3.6, 60):
+                h, d, a = _wdl(_score_matrix(lh, la, r, rho))
+                e = (h - pH) ** 2 + (d - pD) ** 2 + (a - pA) ** 2
+                if best is None or e < best[0]:
+                    best = (e, float(lh), float(la))
+    return best[1], best[2]
+
+
+def _elo_lambdas(eh, ea, total=2.6, sup_per_elo=175.0, hfa=0.0):
+    """Map an Elo gap (+ optional home/altitude bump) to expected goals for each side."""
+    sup = ((eh + hfa) - ea) / sup_per_elo
+    return max(0.12, (total + sup) / 2), max(0.12, (total - sup) / 2)
+
+
+def _top_scores(M, n=5):
+    flat = np.dstack(np.unravel_index(np.argsort(-M, axis=None), M.shape))[0][:n]
+    return [(int(i), int(j), float(M[i, j])) for i, j in flat]
+
+
+def _summ(M):
+    btts = float(M[1:, 1:].sum())
+    ii, jj = np.indices(M.shape)
+    over25 = float(M[(ii + jj) >= 3].sum())
+    return btts, over25
+
+
+def _pct(x):
+    return f"{round(100 * x)}%"
+
+
+def cmd_forecast(argv):
+    import argparse
+    ap = argparse.ArgumentParser(prog="soccer_stats.py forecast", add_help=True)
+    ap.add_argument("--home", required=True)
+    ap.add_argument("--away", required=True)
+    ap.add_argument("--ph", type=float, required=True, help="de-vigged market P(home win)")
+    ap.add_argument("--pd", type=float, required=True, help="de-vigged market P(draw)")
+    ap.add_argument("--pa", type=float, required=True, help="de-vigged market P(away win)")
+    ap.add_argument("--total", type=float, default=None, help="market over/under total-goals line")
+    ap.add_argument("--home-elo", type=float, default=None, help="home team world-football Elo")
+    ap.add_argument("--away-elo", type=float, default=None, help="away team world-football Elo")
+    ap.add_argument("--hfa", type=float, default=0.0, help="Elo bump for home side: host/altitude/travel (0 if truly neutral)")
+    ap.add_argument("--mkt-weight", type=float, default=0.7, help="weight on market in the blend (0-1); lower for thin markets")
+    ap.add_argument("--r", type=float, default=10.0, help="neg-binomial dispersion (smaller = fatter tails)")
+    ap.add_argument("--rho", type=float, default=-0.08, help="Dixon-Coles draw correction")
+    a = ap.parse_args(argv)
+
+    s = a.ph + a.pd + a.pa
+    pH, pD, pA = a.ph / s, a.pd / s, a.pa / s
+    out = [f"=== FORECAST: {a.home} vs {a.away} ===",
+           f"MARKET (de-vigged): {a.home} {_pct(pH)} / Draw {_pct(pD)} / {a.away} {_pct(pA)}"
+           + (f"  | O/U {a.total}" if a.total else "")]
+
+    # Lesson #1 — market-consistent scoreline via negative binomial + Dixon-Coles
+    lh, la = _fit_market(pH, pD, pA, a.total, a.r, a.rho)
+    M = _score_matrix(lh, la, a.r, a.rho)
+    h, d, al = _wdl(M)
+    btts, o25 = _summ(M)
+    tops = _top_scores(M)
+    out += ["", "SCORELINE (neg-binomial + Dixon-Coles, fit to market):",
+            f"  expected goals {a.home} {lh:.2f} - {la:.2f} {a.away}  (check {_pct(h)}/{_pct(d)}/{_pct(al)})",
+            "  likeliest: " + ", ".join(f"{i}-{j} {_pct(p)}" for i, j, p in tops),
+            f"  both score {_pct(btts)} · over 2.5 {_pct(o25)}"]
+
+    final_M = M
+    blend = None
+    if a.home_elo is not None and a.away_elo is not None:
+        tot = a.total if a.total else (lh + la)
+        elh, ela = _elo_lambdas(a.home_elo, a.away_elo, total=tot, hfa=a.hfa)
+        mh, md, ma = _wdl(_score_matrix(elh, ela, a.r, a.rho))
+        out += ["", f"INDEPENDENT MODEL (Elo {a.home_elo:.0f} vs {a.away_elo:.0f}, HFA {a.hfa:+.0f}):",
+                f"  {a.home} {_pct(mh)} / Draw {_pct(md)} / {a.away} {_pct(ma)}  (xg {elh:.2f}-{ela:.2f})"]
+        dH, dD, dA = mh - pH, md - pD, ma - pA
+        out += ["", "DIVERGENCE (model − market):",
+                f"  {a.home} {dH*100:+.0f}pp · Draw {dD*100:+.0f}pp · {a.away} {dA*100:+.0f}pp"]
+        edge = max([(abs(dH), a.home, dH), (abs(dD), "Draw", dD), (abs(dA), a.away, dA)])
+        out.append(f"  >> Model {abs(edge[2])*100:.0f}pp {'higher' if edge[2] > 0 else 'lower'} than market on {edge[1]} — possible edge."
+                   if edge[0] >= 0.05 else "  >> Model and market agree (no gap > 5pp).")
+        w = min(max(a.mkt_weight, 0.0), 1.0)
+        bH, bD, bA = w * pH + (1 - w) * mh, w * pD + (1 - w) * md, w * pA + (1 - w) * ma
+        bs = bH + bD + bA
+        bH, bD, bA = bH / bs, bD / bs, bA / bs
+        blend = (bH, bD, bA)
+        lhb, lab = _fit_market(bH, bD, bA, a.total, a.r, a.rho)
+        final_M = _score_matrix(lhb, lab, a.r, a.rho)
+        out += ["", f"BLEND ({int(w*100)}% market / {int((1-w)*100)}% model):",
+                f"  {a.home} {_pct(bH)} / Draw {_pct(bD)} / {a.away} {_pct(bA)}"]
+
+    fin = blend if blend else (pH, pD, pA)
+    pick = max([(a.home, fin[0]), ("Draw", fin[1]), (a.away, fin[2])], key=lambda x: x[1])
+    ml = _top_scores(final_M, 1)[0]
+    out += ["", f"HEADLINE: {pick[0]} most likely ({_pct(pick[1])}); scoreline {ml[0]}-{ml[1]}.",
+            "(Analytical prediction; market-anchored with an independent Elo cross-check. Not a betting tip.)"]
+    print("\n".join(out))
+
+
 def main():
     if len(sys.argv) < 2:
         print(__doc__)
@@ -210,6 +353,8 @@ def main():
             print("usage: soccer_stats.py matchup \"Team A\" \"Team B\"")
             return
         cmd_matchup(sys.argv[2], sys.argv[3])
+    elif cmd == "forecast":
+        cmd_forecast(sys.argv[2:])
     else:
         print(f"unknown command: {cmd}")
         print(__doc__)
