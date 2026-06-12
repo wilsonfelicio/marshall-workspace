@@ -1,0 +1,19 @@
+{
+  "_note": "Seed Elo ratings (eloratings.net scale, approx June 2026). The daily digest refreshes these with live values and may pin completed results in wc_results.json. host=true gets a host bump in the sim; holder gets the winner's-slump penalty.",
+  "holder": "Argentina",
+  "hosts": ["Mexico", "United States", "Canada"],
+  "groups": {
+    "A": [["Mexico", 1860, true], ["Czechia", 1820, false], ["South Korea", 1790, false], ["South Africa", 1700, false]],
+    "B": [["Switzerland", 1900, false], ["Canada", 1820, true], ["Bosnia & Herzegovina", 1760, false], ["Qatar", 1700, false]],
+    "C": [["Brazil", 2030, false], ["Morocco", 1900, false], ["Scotland", 1800, false], ["Haiti", 1500, false]],
+    "D": [["United States", 1860, true], ["Türkiye", 1850, false], ["Paraguay", 1800, false], ["Australia", 1750, false]],
+    "E": [["Germany", 1960, false], ["Ecuador", 1880, false], ["Ivory Coast", 1820, false], ["Curacao", 1600, false]],
+    "F": [["Netherlands", 1980, false], ["Japan", 1880, false], ["Sweden", 1820, false], ["Tunisia", 1740, false]],
+    "G": [["Belgium", 1940, false], ["Iran", 1800, false], ["Egypt", 1750, false], ["New Zealand", 1600, false]],
+    "H": [["Spain", 2100, false], ["Uruguay", 1950, false], ["Saudi Arabia", 1700, false], ["Cape Verde", 1650, false]],
+    "I": [["France", 2070, false], ["Senegal", 1900, false], ["Norway", 1870, false], ["Iraq", 1650, false]],
+    "J": [["Argentina", 2050, false], ["Austria", 1850, false], ["Algeria", 1780, false], ["Jordan", 1650, false]],
+    "K": [["Portugal", 1990, false], ["Colombia", 1950, false], ["DR Congo", 1750, false], ["Uzbekistan", 1700, false]],
+    "L": [["England", 2000, false], ["Croatia", 1920, false], ["Ghana", 1750, false], ["Panama", 1680, false]]
+  }
+}
