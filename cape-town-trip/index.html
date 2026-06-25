@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cape Town 2026</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700&family=DM+Serif+Display&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#f8f7f4;color:#1a1a1a;font-family:'DM Sans',sans-serif;padding:0;max-width:480px;margin:0 auto;-webkit-font-smoothing:antialiased}
+
+/* Hero */
+.hero{background:linear-gradient(160deg,rgba(12,46,58,.82) 0%,rgba(15,75,89,.74) 42%,rgba(217,119,6,.55) 100%),url('family.jpg') center/cover;padding:52px 28px 44px;color:#fff;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-40%;right:-20%;width:300px;height:300px;border-radius:50%;background:rgba(255,255,255,.06)}
+.hero::after{content:'';position:absolute;bottom:0;left:0;right:0;height:32px;background:linear-gradient(to bottom,transparent,#f8f7f4)}
+.hero-label{font-size:.65rem;text-transform:uppercase;letter-spacing:3px;opacity:.65;margin-bottom:10px;font-weight:500}
+.hero h1{font-family:'DM Serif Display',serif;font-size:2.6rem;font-weight:400;margin-bottom:6px;letter-spacing:-.5px}
+.hero .sub{font-size:.82rem;opacity:.78;font-weight:400}
+
+/* Countdown */
+.countdown{display:flex;gap:24px;margin-top:24px}
+.countdown .unit{text-align:center}
+.countdown .num{font-size:2.4rem;font-weight:700;line-height:1;letter-spacing:-1px}
+.countdown .lbl{font-size:.58rem;text-transform:uppercase;letter-spacing:1.5px;opacity:.55;margin-top:4px;font-weight:500}
+
+/* Content */
+.content{padding:0 20px 48px}
+
+/* Section */
+.section{margin-top:32px}
+.section-title{font-family:'DM Serif Display',serif;font-size:1.15rem;color:#0c2e3a;margin-bottom:16px;padding-bottom:8px;border-bottom:1.5px solid #ebe8e3}
+
+/* Info grid */
+.info-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.info-box{background:#fff;border:none;border-radius:14px;padding:16px;box-shadow:0 1px 3px rgba(0,0,0,.04),0 4px 12px rgba(0,0,0,.02)}
+.info-box .label{font-size:.58rem;text-transform:uppercase;letter-spacing:1px;color:#a0a0a0;font-weight:600}
+.info-box .val{font-size:.85rem;font-weight:600;margin-top:5px;color:#1a1a1a}
+
+/* Bookings */
+.booking-card{background:#fff;border:none;border-radius:14px;padding:16px 18px;margin-bottom:10px;display:flex;justify-content:space-between;align-items:center;box-shadow:0 1px 3px rgba(0,0,0,.04),0 4px 12px rgba(0,0,0,.02)}
+.booking-card .name{font-weight:600;font-size:.88rem}
+.booking-card .detail{color:#a0a0a0;font-size:.7rem;margin-top:3px}
+.booking-card .status{font-size:.65rem;padding:5px 12px;border-radius:20px;font-weight:600;white-space:nowrap;margin-left:10px}
+.status-pending{background:#fef9e7;color:#b45309}
+.status-booked{background:#ecfdf5;color:#166534}
+
+/* Day cards */
+.day-card{background:#fff;border:none;border-radius:16px;margin-bottom:12px;overflow:hidden;cursor:pointer;transition:all .25s ease;box-shadow:0 1px 3px rgba(0,0,0,.04),0 4px 12px rgba(0,0,0,.02)}
+.day-card:active{transform:scale(.98)}
+.day-card.active{box-shadow:0 4px 20px rgba(14,124,123,.14);transform:none}
+.day-card.today{box-shadow:0 4px 20px rgba(22,163,74,.12)}
+.day-header{padding:16px 20px;display:flex;justify-content:space-between;align-items:center}
+.day-header .date{font-weight:600;font-size:.88rem;color:#1a1a1a}
+.day-header .chevron{color:#d0d0d0;transition:transform .25s ease;font-size:.75rem}
+.day-card.active .chevron{transform:rotate(90deg);color:#0e7c7b}
+.tag{font-size:.62rem;padding:4px 11px;border-radius:20px;font-weight:600;letter-spacing:.3px}
+.tag-travel{background:#e0ecff;color:#1d4ed8}
+.tag-explore{background:#fef9e7;color:#b45309}
+.tag-nature{background:#dcfce7;color:#15803d}
+.tag-daytrip{background:#cffafe;color:#0e7490}
+.tag-chill{background:#f1f5f9;color:#64748b}
+.tag-wine{background:#fae8ff;color:#a21caf}
+.day-body{padding:0 20px 18px;display:none;font-size:.8rem;line-height:1.8;color:#555}
+.day-card.active .day-body{display:block;animation:fadeIn .2s ease}
+@keyframes fadeIn{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}
+.activity{margin-bottom:8px;padding-left:16px;position:relative}
+.activity::before{content:'';position:absolute;left:0;top:10px;width:6px;height:6px;border-radius:50%;background:#0e7c7b}
+.time{color:#0e7c7b;font-weight:700;margin-right:5px;font-size:.78rem}
+.nap{color:#b0b0b0;font-style:italic;padding-left:16px;position:relative;margin-bottom:8px}
+.nap::before{content:'';position:absolute;left:0;top:10px;width:6px;height:6px;border-radius:50%;background:#e0ddd8}
+.highlight{color:#0c2e3a;font-weight:600}
+.flag{background:#fff7ed;border-left:3px solid #f59e0b;border-radius:0 8px 8px 0;padding:8px 12px;margin:8px 0 4px;font-size:.74rem;color:#92400e;line-height:1.5}
+
+/* Map */
+#map{height:420px;border-radius:16px;border:none;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.06)}
+.map-legend{margin-top:12px;display:flex;flex-wrap:wrap;gap:10px 14px}
+.map-legend span{font-size:.68rem;color:#888;display:flex;align-items:center;gap:5px;font-weight:500}
+.map-legend .dot{width:10px;height:10px;border-radius:50%;display:inline-block}
+
+/* Drive times */
+.walk-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.walk-item{background:#fff;border:none;border-radius:12px;padding:12px 14px;display:flex;justify-content:space-between;align-items:center;box-shadow:0 1px 3px rgba(0,0,0,.04),0 4px 12px rgba(0,0,0,.02)}
+.walk-item .place{font-size:.76rem;color:#555;font-weight:500}
+.walk-item .mins{font-size:.74rem;font-weight:700;color:#0e7c7b;white-space:nowrap}
+
+/* Weather */
+.weather-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:6px}
+.weather-day{background:#fff;border:none;border-radius:12px;padding:12px 6px;text-align:center;box-shadow:0 1px 3px rgba(0,0,0,.04),0 4px 12px rgba(0,0,0,.02)}
+.weather-day .wdate{font-size:.58rem;color:#a0a0a0;font-weight:600;letter-spacing:.3px}
+.weather-day .wicon{font-size:1.4rem;margin:6px 0}
+.weather-day .wtemp{font-size:.7rem;font-weight:600;color:#1a1a1a}
+.weather-note{font-size:.66rem;color:#b0b0b0;margin-top:10px;text-align:center}
+
+/* Worth Exploring */
+.explore-card{background:#fff;border:none;border-radius:14px;padding:16px 18px;margin-bottom:10px;box-shadow:0 1px 3px rgba(0,0,0,.04),0 4px 12px rgba(0,0,0,.02)}
+.explore-card .ename{font-weight:600;font-size:.85rem;color:#0c2e3a}
+.explore-card .edesc{font-size:.76rem;color:#777;margin-top:4px;line-height:1.5}
+.explore-card .ewalk{font-size:.66rem;color:#0e7c7b;font-weight:600;margin-top:6px}
+
+/* First Times */
+.badges{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.badge{background:#fff;border-radius:14px;padding:14px 16px;box-shadow:0 1px 3px rgba(0,0,0,.04),0 4px 12px rgba(0,0,0,.02);cursor:pointer;transition:all .25s ease;position:relative;overflow:hidden}
+.badge:active{transform:scale(.96)}
+.badge.unlocked{background:linear-gradient(135deg,#ecfdf5,#d1fae5)}
+.badge .bemoji{font-size:1.4rem;margin-bottom:6px}
+.badge .bname{font-size:.74rem;font-weight:600;color:#1a1a1a;line-height:1.3}
+.badge .btime{font-size:.6rem;color:#16a34a;font-weight:600;margin-top:4px;display:none}
+.badge.unlocked .btime{display:block}
+.badge.locked .bemoji{filter:grayscale(1);opacity:.4}
+.badge.locked .bname{color:#aaa}
+
+/* Restaurant Picks */
+.resto-card{background:#fff;border-radius:14px;padding:14px 18px;margin-bottom:10px;box-shadow:0 1px 3px rgba(0,0,0,.04),0 4px 12px rgba(0,0,0,.02)}
+.resto-card .rday{font-size:.6rem;text-transform:uppercase;letter-spacing:1px;color:#a0a0a0;font-weight:600}
+.resto-card .rname{font-weight:600;font-size:.85rem;color:#0c2e3a;margin-top:4px}
+.resto-card .rdesc{font-size:.74rem;color:#777;margin-top:3px;line-height:1.4}
+.resto-card .rlink{display:inline-block;margin-top:6px;font-size:.68rem;color:#0e7c7b;font-weight:600;text-decoration:none}
+
+/* Rainy */
+.rainy{background:linear-gradient(135deg,#f0f4f8,#e8eef4);border:none;border-radius:14px;padding:18px 20px}
+.rainy .opt{font-size:.8rem;color:#555;margin-bottom:8px;padding-left:18px;position:relative;line-height:1.5}
+.rainy .opt:last-child{margin-bottom:0}
+.rainy .opt::before{content:'';position:absolute;left:0;top:8px;width:8px;height:8px;border-radius:50%;background:#94a3b8}
+.rainy .opt .highlight{color:#0c2e3a;font-weight:600}
+
+/* Checklist */
+.checklist{list-style:none;padding:0}
+.checklist li{font-size:.8rem;padding:10px 0;border-bottom:1px solid #f0eeea;color:#555;display:flex;align-items:center;gap:12px}
+.checklist li:last-child{border-bottom:none}
+.checklist li::before{content:'';display:inline-block;width:18px;height:18px;min-width:18px;border:2px solid #d0d0d0;border-radius:6px}
+
+/* Footer */
+.footer{text-align:center;color:#ccc;font-size:.68rem;margin-top:48px;padding-bottom:36px;letter-spacing:.3px}
+
+/* Leaflet popup override */
+.leaflet-popup-content-wrapper{border-radius:12px;box-shadow:0 4px 20px rgba(0,0,0,.12)}
+.leaflet-popup-content{margin:12px 16px;font-family:'DM Sans',sans-serif;font-size:13px}
+
+html{scroll-behavior:smooth}
+</style></head><body>
+
+<div class="hero">
+<div class="hero-label">Family Trip</div>
+<h1>Cape Town</h1>
+<div class="sub">Wilson, Julia, Francisco &amp; Alice &middot; Sep 30 – Oct 10, 2026</div>
+<div class="countdown" id="countdown">
+<div class="unit"><div class="num" id="cd-days">--</div><div class="lbl">days</div></div>
+<div class="unit"><div class="num" id="cd-hrs">--</div><div class="lbl">hours</div></div>
+<div class="unit"><div class="num" id="cd-min">--</div><div class="lbl">min</div></div>
+</div>
+</div>
+
+<div class="content">
+
+<div class="section">
+<div class="section-title">Trip Details</div>
+<div class="info-grid">
+<div class="info-box"><div class="label">Flights</div><div class="val">GRU &rarr; CPT (via JNB)</div></div>
+<div class="info-box"><div class="label">Arrival</div><div class="val">Wed Sep 30</div></div>
+<div class="info-box"><div class="label">Departure</div><div class="val">Sat Oct 10</div></div>
+<div class="info-box"><div class="label">Stay</div><div class="val">V&amp;A Waterfront</div></div>
+<div class="info-box"><div class="label">Getting around</div><div class="val">Rental car (drives LEFT)</div></div>
+<div class="info-box"><div class="label">Weather</div><div class="val">20-25&deg;C, spring, windy</div></div>
+</div>
+</div>
+
+<div class="section">
+<div class="section-title">Drive Times from V&amp;A</div>
+<div class="walk-grid">
+<div class="walk-item"><span class="place">Two Oceans Aquarium</span><span class="mins">walk</span></div>
+<div class="walk-item"><span class="place">Green Point Park</span><span class="mins">5 min</span></div>
+<div class="walk-item"><span class="place">Sea Point Promenade</span><span class="mins">8 min</span></div>
+<div class="walk-item"><span class="place">Table Mountain Cableway</span><span class="mins">15 min</span></div>
+<div class="walk-item"><span class="place">Camps Bay</span><span class="mins">15 min</span></div>
+<div class="walk-item"><span class="place">Kirstenbosch</span><span class="mins">20 min</span></div>
+<div class="walk-item"><span class="place">Hout Bay</span><span class="mins">25 min</span></div>
+<div class="walk-item"><span class="place">Groot Constantia</span><span class="mins">25 min</span></div>
+<div class="walk-item"><span class="place">Muizenberg</span><span class="mins">30 min</span></div>
+<div class="walk-item"><span class="place">Boulders (penguins)</span><span class="mins">40 min</span></div>
+<div class="walk-item"><span class="place">Spier / Stellenbosch</span><span class="mins">40 min</span></div>
+<div class="walk-item"><span class="place">Cape Point</span><span class="mins">1h15</span></div>
+<div class="walk-item"><span class="place">Hermanus (whales)</span><span class="mins">1h45</span></div>
+<div class="walk-item"><span class="place">CPT Airport</span><span class="mins">20 min</span></div>
+</div>
+</div>
+
+<div class="section">
+<div class="section-title">Weather Forecast</div>
+<div class="weather-grid" id="weather-grid">
+<div class="weather-day"><div class="wdate">Loading...</div></div>
+</div>
+<div class="weather-note">Live forecast for Cape Town &middot; Populates ~14 days out. Watch the SE wind ("Cape Doctor") — it decides Table Mountain days.</div>
+</div>
+
+<div class="section">
+<div class="section-title">Book Ahead</div>
+<div class="booking-card"><div><div class="name">Rental Car + Child Seats</div><div class="detail">Reserve rear-facing infant seat (Alice) + toddler seat &middot; you install them yourself</div></div><div class="status status-pending">To book</div></div>
+<div class="booking-card"><div><div class="name">Table Mountain Cableway</div><div class="detail">Book online &middot; go first calm, clear morning &middot; tablemountain.net</div></div><div class="status status-pending">Weather-led</div></div>
+<div class="booking-card"><div><div class="name">Cape Point Entry</div><div class="detail">Buy online &middot; sanparks.org / capepoint.co.za</div></div><div class="status status-pending">To book</div></div>
+<div class="booking-card"><div><div class="name">Wine-farm lunch</div><div class="detail">Groot Constantia picnic basket (book ≥24h) or Spier &middot; lawns + play</div></div><div class="status status-pending">To book</div></div>
+</div>
+
+<div class="section">
+<div class="section-title">Day by Day</div>
+
+<div class="day-card" onclick="toggle(this)">
+<div class="day-header"><div class="date">Wed Sep 30 <span class="tag tag-travel">Arrival</span></div><div class="chevron">&#9654;</div></div>
+<div class="day-body">
+<div class="activity">Land at <span class="highlight">CPT</span>. Pick up rental car. Fit the car seats before you drive (rear-facing for Alice — it's the law under 9kg)</div>
+<div class="activity">~20 min easy drive to the <span class="highlight">V&amp;A Waterfront</span> Airbnb. Check in, unpack</div>
+<div class="activity">Groceries at <span class="highlight">Checkers / Woolworths</span> in the Waterfront — diapers, baby basics, water</div>
+<div class="nap">Decompress. 5-hour time jump (CPT is UTC+2) — go easy.</div>
+<div class="activity">Easy evening: stroll the harbour, watch the boats. Dinner at the <span class="highlight">V&amp;A Food Market</span>. Early night</div>
+</div></div>
+
+<div class="day-card" onclick="toggle(this)">
+<div class="day-header"><div class="date">Thu Oct 1 <span class="tag tag-explore">Waterfront</span></div><div class="chevron">&#9654;</div></div>
+<div class="day-body">
+<div class="activity"><span class="time">9:30</span> <span class="highlight">Two Oceans Aquarium</span> — right by the Airbnb. Penguins, kelp forest, touch pools, downstairs kids' play area. Under-4s free</div>
+<div class="activity"><span class="time">11:30</span> Al-fresco lunch on the Waterfront — harbour deck or the Food Market</div>
+<div class="nap">13:00-15:00 — Nap. No driving today, let everyone land.</div>
+<div class="activity"><span class="time">15:30</span> <span class="highlight">Green Point Urban Park</span> (5 min) — big playground, lawns, biodiversity garden. Francisco runs, Alice on a blanket</div>
+<div class="activity"><span class="time">17:00</span> Sunset walk along the <span class="highlight">Sea Point Promenade</span></div>
+</div></div>
+
+<div class="day-card" onclick="toggle(this)">
+<div class="day-header"><div class="date">Fri Oct 2 <span class="tag tag-nature">Table Mountain</span></div><div class="chevron">&#9654;</div></div>
+<div class="day-body">
+<div class="flag">⚑ Floating anchor — Table Mountain is wind-dependent. Check the cableway webcam/status that morning; if it's windy, swap this with any calm, clear day. Don't save it for the last day.</div>
+<div class="activity"><span class="time">8:30</span> Drive to the <span class="highlight">Lower Cableway</span> (15 min). Pre-booked tickets, go early — calmest wind, clearest views, smallest crowds, before nap</div>
+<div class="activity"><span class="time">9:00</span> Cable car up. Flat paved paths on top — use the carrier, not the stroller, and keep the kids well clear of the edges</div>
+<div class="activity"><span class="time">11:30</span> Down. Drive to <span class="highlight">Camps Bay</span> — beachfront lunch facing the Twelve Apostles (sea is cold, but the strip is lovely before the afternoon wind)</div>
+<div class="nap">13:30-15:00 — Nap back at the Airbnb</div>
+<div class="activity"><span class="time">16:00</span> Easy evening at the Waterfront</div>
+</div></div>
+
+<div class="day-card" onclick="toggle(this)">
+<div class="day-header"><div class="date">Sat Oct 3 <span class="tag tag-daytrip">Penguins</span></div><div class="chevron">&#9654;</div></div>
+<div class="day-body">
+<div class="activity"><span class="time">9:00</span> Drive to <span class="highlight">Boulders Beach, Simon's Town</span> (~40 min, False Bay side)</div>
+<div class="activity"><span class="time">9:45</span> <span class="highlight">Foxy Beach boardwalk</span> — stroller-accessible, penguins a metre away. Francisco will lose his mind</div>
+<div class="activity"><span class="time">12:00</span> Lunch in <span class="highlight">Kalk Bay</span> — Harbour House / Live Bait literally over the water. Browse the village shops</div>
+<div class="activity"><span class="time">13:30</span> Quick stop at <span class="highlight">Muizenberg</span> — the famous colourful beach huts, gentle warm-water beach for a paddle</div>
+<div class="nap">Kids nap in the car on the drive back</div>
+<div class="activity"><span class="time">16:30</span> Home, easy evening</div>
+</div></div>
+
+<div class="day-card" onclick="toggle(this)">
+<div class="day-header"><div class="date">Sun Oct 4 <span class="tag tag-nature">Kirstenbosch</span></div><div class="chevron">&#9654;</div></div>
+<div class="day-body">
+<div class="activity"><span class="time">9:30</span> Drive to <span class="highlight">Kirstenbosch Botanical Garden</span> (~20 min)</div>
+<div class="activity"><span class="time">10:00</span> The <span class="highlight">Boomslang canopy walkway</span> (stroller-friendly), then turn the kids loose on the huge safe lawns. Bring a picnic blanket</div>
+<div class="activity"><span class="time">12:00</span> Picnic on the lawns, or the garden tea-room/restaurant</div>
+<div class="nap">13:30-15:00 — Nap</div>
+<div class="activity"><span class="time">15:30</span> <span class="highlight">Blue Train Park</span> (Mouille Point) — mini train + jungle gym, perfect for Francisco. Or just the Sea Point promenade</div>
+</div></div>
+
+<div class="day-card" onclick="toggle(this)">
+<div class="day-header"><div class="date">Mon Oct 5 <span class="tag tag-daytrip">Cape Point</span></div><div class="chevron">&#9654;</div></div>
+<div class="day-body">
+<div class="flag">⚑ The most ambitious day — pick a calm one. Baboons at Cape Point are aggressive: windows up, no visible food, don't carry snacks openly.</div>
+<div class="activity"><span class="time">8:30</span> Drive the Atlantic side via <span class="highlight">Chapman's Peak Drive</span> (toll, check it's open — closes for wind/rockfall). One of the world's great coastal drives</div>
+<div class="activity"><span class="time">10:30</span> <span class="highlight">Cape of Good Hope / Cape Point</span> — the <span class="highlight">Flying Dutchman funicular</span> up to the lighthouse saves the steep climb. Photo at the sign</div>
+<div class="activity"><span class="time">12:30</span> Picnic, then on the way back stop at <span class="highlight">Imhoff Farm</span> (Kommetjie) — goats, alpacas, camel rides, relaxed. Great toddler decompress</div>
+<div class="nap">Kids nap in the car</div>
+<div class="activity"><span class="time">16:30</span> Home. Big day done — order in</div>
+</div></div>
+
+<div class="day-card" onclick="toggle(this)">
+<div class="day-header"><div class="date">Tue Oct 6 <span class="tag tag-chill">Slow day</span></div><div class="chevron">&#9654;</div></div>
+<div class="day-body">
+<div class="activity"><span class="time">10:00</span> Deliberate downtime after Cape Point. <span class="highlight">Hout Bay</span> (~25 min) — short <span class="highlight">seal-island boat trip</span> (~40 min, calm-water, kid-friendly) to see thousands of Cape fur seals</div>
+<div class="activity"><span class="time">12:00</span> Casual lunch at the Hout Bay harbour</div>
+<div class="nap">13:30-15:00 — Nap</div>
+<div class="activity"><span class="time">15:30</span> <span class="highlight">V&amp;A Waterfront</span> at your own pace — Cape Wheel, Scratch Patch, harbour seals, ice cream. Zero driving</div>
+</div></div>
+
+<div class="day-card" onclick="toggle(this)">
+<div class="day-header"><div class="date">Wed Oct 7 <span class="tag tag-wine">Winelands</span></div><div class="chevron">&#9654;</div></div>
+<div class="day-body">
+<div class="activity"><span class="time">10:00</span> Drive to <span class="highlight">Spier (Stellenbosch)</span> (~40 min) — the most kid-friendly wine farm: rolling lawns, the Elemental play garden, farm animals</div>
+<div class="activity"><span class="time">11:30</span> Long al-fresco lunch — wine for the grown-ups, room for Francisco to roam, Alice on a blanket. No rush</div>
+<div class="flag">⚑ Closer alternative if you want less car time: <span class="highlight">Groot Constantia</span> (25 min) — book a picnic basket on the lawn 24h ahead.</div>
+<div class="nap">Kids nap in the car on the way home</div>
+<div class="activity"><span class="time">16:00</span> Home, easy evening</div>
+</div></div>
+
+<div class="day-card" onclick="toggle(this)">
+<div class="day-header"><div class="date">Thu Oct 8 <span class="tag tag-daytrip">Whales</span></div><div class="chevron">&#9654;</div></div>
+<div class="day-body">
+<div class="flag">⚑ Peak southern-right whale season — your dates are prime. Land-based cliff path beats a boat with little ones (no seasickness, leave anytime).</div>
+<div class="activity"><span class="time">9:00</span> Drive to <span class="highlight">Hermanus</span> (~1h45, scenic Whale Coast). The world's best land-based whale watching</div>
+<div class="activity"><span class="time">11:00</span> Walk a stretch of the <span class="highlight">Cliff Path</span> — southern rights breach close to shore, sometimes within metres. Go at your own pace</div>
+<div class="activity"><span class="time">12:30</span> Lunch in Hermanus, then drive back</div>
+<div class="flag">⚑ If the round trip feels like too much: you'll likely already have spotted whales in <span class="highlight">False Bay</span> near Simon's Town/Cape Point — swap this for a beach/rest day.</div>
+<div class="activity"><span class="time">16:30</span> Home</div>
+</div></div>
+
+<div class="day-card" onclick="toggle(this)">
+<div class="day-header"><div class="date">Fri Oct 9 <span class="tag tag-chill">Flex + favourites</span></div><div class="chevron">&#9654;</div></div>
+<div class="day-body">
+<div class="activity"><span class="time">Morning</span> Buffer day. Catch <span class="highlight">Table Mountain</span> if wind stole it earlier, or redo a favourite — penguins, aquarium, Muizenberg beach</div>
+<div class="activity"><span class="time">Option</span> Grown-up bit: <span class="highlight">Bo-Kaap</span> colourful houses + <span class="highlight">Company's Garden</span> (squirrels, easy with the kids)</div>
+<div class="nap">13:00-15:00 — Nap</div>
+<div class="activity"><span class="time">15:30</span> Last <span class="highlight">V&amp;A / Sea Point</span> sunset. Pack once the kids are down</div>
+</div></div>
+
+<div class="day-card" onclick="toggle(this)">
+<div class="day-header"><div class="date">Sat Oct 10 <span class="tag tag-travel">Departure</span></div><div class="chevron">&#9654;</div></div>
+<div class="day-body">
+<div class="activity"><span class="time">Morning</span> Final breakfast at the Waterfront</div>
+<div class="activity">Return the rental car at CPT — leave buffer for refuel + pulling the car seats out</div>
+<div class="activity">Fly home. ✈️</div>
+</div></div>
+
+</div>
+
+<div class="section">
+<div class="section-title">First Times</div>
+<div class="badges" id="badges"></div>
+</div>
+
+<div class="section">
+<div class="section-title">Eat by the Water</div>
+<div style="font-size:.66rem;color:#a0a0a0;margin-bottom:12px;font-weight:500">Casual, al-fresco, kid-proof picks</div>
+<div class="resto-card"><div class="rday">V&amp;A &middot; Near Airbnb</div><div class="rname">V&amp;A Food Market</div><div class="rdesc">Indoor-outdoor food hall in your backyard. Stalls, craft beer, every cuisine — grab whatever, no booking, no pressure if Francisco only eats chips. The default tired-night dinner</div><a class="rlink" href="https://maps.google.com/?q=V%26A+Food+Market+Cape+Town" target="_blank">Open in Maps &rarr;</a></div>
+<div class="resto-card"><div class="rday">V&amp;A &middot; Pool day</div><div class="rname">Shimmy Beach Club</div><div class="rdesc">Surprisingly family-friendly — kids' play area, ball pit, childminders, pools, private beach and a kids' menu. A whole relaxed day in one spot. Call ahead on event days (kids' hours can be limited)</div><a class="rlink" href="https://maps.google.com/?q=Shimmy+Beach+Club+Cape+Town" target="_blank">Open in Maps &rarr;</a></div>
+<div class="resto-card"><div class="rday">Kalk Bay &middot; Penguin day</div><div class="rname">Harbour House Kalk Bay</div><div class="rdesc">Perched right over the False Bay water — waves under the deck. Pair it with Boulders penguins. Live Bait next door is the smaller, casual fish option</div><a class="rlink" href="https://maps.google.com/?q=Harbour+House+Kalk+Bay" target="_blank">Open in Maps &rarr;</a></div>
+<div class="resto-card"><div class="rday">Hout Bay &middot; Fri–Sun</div><div class="rname">Bay Harbour Market</div><div class="rdesc">Vibey harbour market, dozens of food stalls, live music, room for kids to wander. Runs weekends (some days expanded — check before you go). Pair with the seal trip</div><a class="rlink" href="https://maps.google.com/?q=Bay+Harbour+Market+Hout+Bay" target="_blank">Open in Maps &rarr;</a></div>
+<div class="resto-card"><div class="rday">Stellenbosch &middot; Wine day</div><div class="rname">Spier Farm</div><div class="rdesc">Wine, lawns and a proper play garden in one place. Eat outside, let Francisco roam, Alice on a blanket. The easiest winelands day with two littles</div><a class="rlink" href="https://maps.google.com/?q=Spier+Wine+Farm+Stellenbosch" target="_blank">Open in Maps &rarr;</a></div>
+<div class="resto-card"><div class="rday">V&amp;A &middot; With a toddler</div><div class="rname">Cape Town Fish Market (V&amp;A)</div><div class="rdesc">Has an indoor kids' play area + outdoor jungle gym — a lifesaver when Francisco needs to move mid-meal. Harbour views, easy menu</div><a class="rlink" href="https://maps.google.com/?q=Cape+Town+Fish+Market+V%26A+Waterfront" target="_blank">Open in Maps &rarr;</a></div>
+</div>
+
+<div class="section">
+<div class="section-title">Map</div>
+<div id="map"></div>
+<div class="map-legend">
+<span><span class="dot" style="background:#e65100"></span>Airbnb</span>
+<span><span class="dot" style="background:#16a34a"></span>Nature / Parks</span>
+<span><span class="dot" style="background:#0e7490"></span>Day trips</span>
+<span><span class="dot" style="background:#d97706"></span>Food / Beach</span>
+<span><span class="dot" style="background:#a21caf"></span>Winelands</span>
+<span><span class="dot" style="background:#2563eb"></span>City</span>
+<span><span class="dot" style="background:#94a3b8"></span>Windy-day backup</span>
+</div>
+</div>
+
+<div class="section">
+<div class="section-title">Worth Exploring</div>
+<div class="explore-card"><div class="ename">Imhoff Farm (Kommetjie)</div><div class="edesc">Farmyard animals, alpacas, camel rides, snake park. On the Cape Point route — a relaxed toddler stop</div><div class="ewalk">~50 min, near Cape Point</div></div>
+<div class="explore-card"><div class="ename">Blue Train Park (Mouille Point)</div><div class="edesc">Mini train, bike tracks, jungle gym on the promenade. Toddler heaven; baby along for the ride</div><div class="ewalk">8 min drive</div></div>
+<div class="explore-card"><div class="ename">Scratch Patch (V&amp;A / Sea Point)</div><div class="edesc">Kids scrabble for polished gemstones to take home. Cheap and oddly addictive for a 2-year-old</div><div class="ewalk">At the Waterfront</div></div>
+<div class="explore-card"><div class="ename">Hout Bay Seal Trip</div><div class="edesc">40-min boat to Duiker Island, thousands of Cape fur seals. Short enough for little kids</div><div class="ewalk">25 min drive</div></div>
+<div class="explore-card"><div class="ename">Bo-Kaap</div><div class="edesc">The candy-coloured houses and cobbled streets. Quick, photogenic, stroller-OK</div><div class="ewalk">10 min drive</div></div>
+<div class="explore-card"><div class="ename">Groot Constantia</div><div class="edesc">Closest wine farm to the Waterfront — picnic baskets on the lawn (book 24h ahead). Lower-effort winelands</div><div class="ewalk">25 min drive</div></div>
+</div>
+
+<div class="section">
+<div class="section-title">Windy / Rainy Day Backups</div>
+<div class="rainy">
+<div class="opt"><span class="highlight">Two Oceans Aquarium</span> — indoor, endless for kids (at the Waterfront)</div>
+<div class="opt"><span class="highlight">Cape Town Science Centre</span> — hands-on, good for Francisco (Observatory)</div>
+<div class="opt"><span class="highlight">Iziko SA Museum + Planetarium</span> — dinosaurs, whales (Company's Garden)</div>
+<div class="opt"><span class="highlight">V&amp;A Waterfront malls</span> — Shimmy / Fish Market indoor play, Scratch Patch</div>
+</div>
+</div>
+
+<div class="section">
+<div class="section-title">Packing Essentials</div>
+<ul class="checklist">
+<li>Passports (check 6-month validity + blank pages)</li>
+<li>Kids' birth certificates (SA may ask for minors)</li>
+<li>Health insurance cards (all 4)</li>
+<li>Confirm rental car seats — or bring your own (rear-facing for Alice)</li>
+<li>Layers + fleece (cool 9-14&deg;C mornings)</li>
+<li>Windbreaker + light rain shell</li>
+<li>Strong sun protection — hats + sunscreen (UV high even when cool)</li>
+<li>Closed shoes (Cape Point / Kirstenbosch paths)</li>
+<li>Swim gear + towels (sea cold, pools warm)</li>
+<li>Stroller + baby carrier (carrier for Table Mountain)</li>
+<li>Diapers Alice (~8/day = 90) + supplies</li>
+<li>Baby meds (antitérmico, soro, termômetro)</li>
+<li>Universal adapter (SA Type M/N plugs)</li>
+</ul>
+</div>
+
+<div class="section">
+<div class="section-title">Useful Info</div>
+<div class="info-grid">
+<div class="info-box"><div class="label">Emergency (mobile)</div><div class="val">112</div></div>
+<div class="info-box"><div class="label">Police / Ambulance</div><div class="val">10111 / 10177</div></div>
+<div class="info-box"><div class="label">Hospital</div><div class="val">Mediclinic Cape Town</div></div>
+<div class="info-box"><div class="label">Pharmacy</div><div class="val">Clicks / Dis-Chem</div></div>
+<div class="info-box"><div class="label">Currency</div><div class="val">Rand (ZAR)</div></div>
+<div class="info-box"><div class="label">Timezone</div><div class="val">SAST (UTC+2)</div></div>
+<div class="info-box"><div class="label">Drives on</div><div class="val">The LEFT</div></div>
+<div class="info-box"><div class="label">Baboons</div><div class="val">Windows up, hide food</div></div>
+</div>
+</div>
+
+<div class="footer">Cape Town 2026 &middot; Marshall</div>
+
+</div>
+
+<script>
+function toggle(el){
+const wasActive=el.classList.contains('active');
+document.querySelectorAll('.day-card').forEach(c=>c.classList.remove('active'));
+if(!wasActive)el.classList.add('active');
+}
+
+// Countdown
+function updateCountdown(){
+const target=new Date('2026-09-30T10:00:00Z');
+const now=new Date();
+const diff=target-now;
+if(diff<=0){document.getElementById('countdown').innerHTML='<div style="font-size:1.2rem;font-weight:700;color:#fff;opacity:.9">You\'re here! Enjoy Cape Town.</div>';return;}
+const d=Math.floor(diff/86400000);
+const h=Math.floor((diff%86400000)/3600000);
+const m=Math.floor((diff%3600000)/60000);
+document.getElementById('cd-days').textContent=d;
+document.getElementById('cd-hrs').textContent=h;
+document.getElementById('cd-min').textContent=m;
+}
+updateCountdown();setInterval(updateCountdown,60000);
+
+// Map
+const map=L.map('map',{zoomControl:false}).setView([-34.05,18.52],9);
+L.control.zoom({position:'bottomright'}).addTo(map);
+L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',{
+attribution:'&copy; OSM &copy; CARTO',maxZoom:18}).addTo(map);
+
+function pin(lat,lng,color,name,detail){
+const icon=L.divIcon({className:'',html:`<div style="background:${color};width:12px;height:12px;border-radius:50%;border:2px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,.25)"></div>`,iconSize:[12,12],iconAnchor:[6,6]});
+L.marker([lat,lng],{icon}).addTo(map).bindPopup(`<div style="font-size:13px;font-family:'DM Sans',sans-serif"><b>${name}</b><br><span style="color:#999;font-size:11px">${detail}</span></div>`);
+}
+
+// Airbnb
+const homeIcon=L.divIcon({className:'',html:`<div style="background:#e65100;width:22px;height:22px;border-radius:50%;border:3px solid #fff;box-shadow:0 2px 8px rgba(0,0,0,.3);display:flex;align-items:center;justify-content:center;font-size:11px">&#9751;</div>`,iconSize:[22,22],iconAnchor:[11,11]});
+L.marker([-33.9036,18.4208],{icon:homeIcon}).addTo(map).bindPopup('<div style="font-size:13px;font-family:\'DM Sans\',sans-serif"><b>Airbnb</b><br><span style="color:#999;font-size:11px">V&A Waterfront</span></div>').openPopup();
+
+// Nature / Parks
+pin(-33.9415,18.4030,'#16a34a','Table Mountain Cableway','Fri Oct 2 — wind-dependent, go early');
+pin(-33.9881,18.4326,'#16a34a','Kirstenbosch','Sun Oct 4 — canopy walk, lawns');
+pin(-33.9019,18.4101,'#16a34a','Green Point Urban Park','Playground, lawns — 5 min');
+
+// Day trips
+pin(-34.1976,18.4516,'#0e7490','Boulders Beach','Sat Oct 3 — penguins, 40 min');
+pin(-34.3568,18.4970,'#0e7490','Cape Point','Mon Oct 5 — funicular, baboons');
+pin(-34.0833,18.3580,'#0e7490','Chapman\'s Peak Drive','Scenic coastal toll road');
+pin(-34.4187,19.2345,'#0e7490','Hermanus','Thu Oct 8 — whale cliff path');
+
+// Food / Beach
+pin(-33.9508,18.3776,'#d97706','Camps Bay','Beachfront strip, windy PM');
+pin(-34.1278,18.4486,'#d97706','Kalk Bay','Harbour House over the water');
+pin(-34.1083,18.4699,'#d97706','Muizenberg','Colourful huts, warm-water beach');
+pin(-34.0470,18.3490,'#d97706','Hout Bay','Seal trip + Bay Harbour Market');
+
+// Winelands
+pin(-33.9728,18.7847,'#a21caf','Spier (Stellenbosch)','Wed Oct 7 — lawns + play garden');
+pin(-34.0277,18.4220,'#a21caf','Groot Constantia','Closest wine farm — picnics');
+
+// City
+pin(-33.9078,18.4173,'#2563eb','Two Oceans Aquarium','Thu Oct 1 — at the Waterfront');
+pin(-33.9210,18.4140,'#2563eb','Bo-Kaap','Colourful houses');
+pin(-33.8990,18.4030,'#2563eb','Blue Train Park','Toddler train + playground');
+pin(-34.1430,18.3590,'#2563eb','Imhoff Farm','Farm animals, camel rides');
+
+// Windy-day backup
+pin(-33.9285,18.4170,'#94a3b8','Iziko SA Museum','Dinosaurs + planetarium');
+pin(-33.9346,18.4760,'#94a3b8','Cape Town Science Centre','Hands-on, indoor');
+
+// Weather (Open-Meteo, no API key needed)
+(async()=>{
+try{
+const tripStart='2026-09-30',tripEnd='2026-10-10';
+const res=await fetch(`https://api.open-meteo.com/v1/forecast?latitude=-33.91&longitude=18.42&daily=temperature_2m_max,temperature_2m_min,weathercode&timezone=Africa/Johannesburg&start_date=${tripStart}&end_date=${tripEnd}`);
+const data=await res.json();
+if(!data.daily)throw new Error('No data');
+const codes={0:'☀️',1:'🌤',2:'⛅',3:'☁️',45:'🌫',48:'🌫',51:'🌦',53:'🌧',55:'🌧',61:'🌧',63:'🌧️',65:'🌧️',71:'❄️',73:'❄️',80:'🌦',81:'🌧',95:'⛈'};
+const days=data.daily.time;
+const grid=document.getElementById('weather-grid');
+grid.innerHTML=days.map((d,i)=>{
+const dt=new Date(d+'T12:00:00');
+const label=dt.toLocaleDateString('en',{weekday:'short',day:'numeric'});
+const icon=codes[data.daily.weathercode[i]]||'🌡';
+const hi=Math.round(data.daily.temperature_2m_max[i]);
+const lo=Math.round(data.daily.temperature_2m_min[i]);
+return `<div class="weather-day"><div class="wdate">${label}</div><div class="wicon">${icon}</div><div class="wtemp">${hi}° / ${lo}°</div></div>`;
+}).join('');
+}catch(e){
+document.getElementById('weather-grid').innerHTML='<div style="grid-column:1/-1;text-align:center;font-size:.75rem;color:#999;padding:12px">Weather populates ~14 days before the trip</div>';
+}
+})();
+
+// First Times Badges
+const badgeData=[
+{id:'penguin',emoji:'🐧',name:'First penguin (Boulders)'},
+{id:'whale',emoji:'🐋',name:'First whale sighting'},
+{id:'tablemtn',emoji:'🚠',name:'Up Table Mountain'},
+{id:'seal',emoji:'🦭',name:'Seals at Hout Bay'},
+{id:'wine',emoji:'🍷',name:'Mom & Dad\'s wine lunch'},
+{id:'baboon',emoji:'🐒',name:'Baboon spotting'},
+{id:'twooceans',emoji:'🐠',name:'Two Oceans Aquarium'},
+{id:'leftdrive',emoji:'🚗',name:'Driving on the left'},
+{id:'beachhuts',emoji:'🏖️',name:'Muizenberg beach huts'},
+{id:'sunset',emoji:'🌅',name:'Atlantic sunset together'},
+];
+const badgeStore=JSON.parse(localStorage.getItem('cpt-badges')||'{}');
+const badgesEl=document.getElementById('badges');
+badgesEl.innerHTML=badgeData.map(b=>{
+const unlocked=badgeStore[b.id];
+const cls=unlocked?'badge unlocked':'badge locked';
+const timeStr=unlocked?new Date(unlocked).toLocaleDateString('en',{month:'short',day:'numeric',hour:'2-digit',minute:'2-digit'}):'';
+return `<div class="${cls}" data-id="${b.id}"><div class="bemoji">${b.emoji}</div><div class="bname">${b.name}</div><div class="btime">${timeStr}</div></div>`;
+}).join('');
+badgesEl.addEventListener('click',e=>{
+const badge=e.target.closest('.badge');
+if(!badge)return;
+const id=badge.dataset.id;
+if(badgeStore[id]){delete badgeStore[id];}
+else{badgeStore[id]=Date.now();}
+localStorage.setItem('cpt-badges',JSON.stringify(badgeStore));
+const unlocked=!!badgeStore[id];
+badge.className=unlocked?'badge unlocked':'badge locked';
+const timeEl=badge.querySelector('.btime');
+timeEl.textContent=unlocked?new Date(badgeStore[id]).toLocaleDateString('en',{month:'short',day:'numeric',hour:'2-digit',minute:'2-digit'}):'';
+if(unlocked)badge.style.animation='none',badge.offsetHeight,badge.style.animation='fadeIn .3s ease';
+});
+
+// Highlight today
+const today=new Date().toISOString().slice(0,10);
+const dateMap={'2026-09-30':0,'2026-10-01':1,'2026-10-02':2,'2026-10-03':3,'2026-10-04':4,'2026-10-05':5,'2026-10-06':6,'2026-10-07':7,'2026-10-08':8,'2026-10-09':9,'2026-10-10':10};
+if(dateMap[today]!==undefined){
+const cards=document.querySelectorAll('.day-card');
+if(cards[dateMap[today]]){cards[dateMap[today]].classList.add('today');cards[dateMap[today]].classList.add('active');}
+}
+</script>
+</body></html>
