@@ -35,19 +35,6 @@ body { background:var(--bg); color:var(--text); font-family:-apple-system,BlinkM
 .fixtures li.live .time { color:#ef4444; }
 .fixtures .fc { color:var(--muted); font-size:0.72rem; display:block; margin-top:2px; }
 
-.groups { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:12px; }
-.gtable { background:#0f0f0f; border:1px solid var(--border); border-radius:8px; padding:10px; }
-.gtable .gh { font-size:0.78rem; font-weight:700; color:var(--gold); margin-bottom:6px; }
-.gtable table { width:100%; border-collapse:collapse; font-size:0.78rem; }
-.gtable th { color:var(--muted); font-weight:500; text-align:right; padding:2px 3px; font-size:0.66rem; }
-.gtable th.team { text-align:left; }
-.gtable td { padding:3px; text-align:right; border-top:1px solid #1c1c1c; }
-.gtable td.team { text-align:left; }
-.gtable tr.qual td.team { color:var(--accent); font-weight:600; }
-.gtable tr.bra td.team { color:var(--bra); font-weight:700; }
-.gtable td.pts { font-weight:700; }
-.gtable .done-tag { color:var(--muted); font-size:0.6rem; font-weight:400; }
-
 .odds { width:100%; border-collapse:collapse; font-size:0.82rem; }
 .odds th { color:var(--muted); font-weight:500; text-align:right; padding:4px 4px; font-size:0.68rem; text-transform:uppercase; }
 .odds th.team { text-align:left; }
@@ -85,12 +72,14 @@ body { background:var(--bg); color:var(--text); font-family:-apple-system,BlinkM
 .bra-sched .t .d { display:block; color:var(--muted); font-weight:400; font-size:0.7rem; }
 
 .bracket { list-style:none; }
-.bracket li { display:grid; grid-template-columns:84px 1fr auto; gap:8px; align-items:center; padding:8px 0; border-bottom:1px solid var(--border); font-size:0.9rem; }
-.bracket li:last-child { border:none; }
-.bracket li.bra { background:linear-gradient(90deg,rgba(250,204,21,0.06),transparent); }
-.bracket .t { color:var(--gold); font-weight:600; font-size:0.82rem; }
+.bracket .r16 { font-size:0.68rem; color:var(--muted); text-transform:uppercase; letter-spacing:0.5px; margin:14px 0 4px; border-top:1px dashed #2a2a2a; padding-top:8px; }
+.bracket .r16:first-child { border-top:none; margin-top:0; }
+.bracket li { display:grid; grid-template-columns:88px 1fr auto; gap:8px; align-items:center; padding:8px 0; border-bottom:1px solid var(--border); font-size:0.9rem; }
+.bracket li.bra { background:linear-gradient(90deg,rgba(250,204,21,0.08),transparent); }
+.bracket .t { color:var(--gold); font-weight:600; font-size:0.78rem; }
 .bracket .t .d { display:block; color:var(--muted); font-weight:400; font-size:0.7rem; }
-.bracket .seed { color:var(--muted); font-size:0.72rem; text-align:right; }
+.bracket .lean { color:var(--muted); font-size:0.72rem; text-align:right; max-width:150px; }
+.bracket li.bra .lean { color:var(--bra); }
 
 .legend { color:var(--muted); font-size:0.7rem; margin-top:8px; }
 .legend .q { color:var(--accent); }
@@ -100,14 +89,14 @@ body { background:var(--bg); color:var(--text); font-family:-apple-system,BlinkM
 <div class="header">
     <div class="flag">🇨🇦 🇲🇽 🇺🇸</div>
     <h1>FIFA World Cup 2026</h1>
-    <div class="meta"><span class="round">Group Stage — Final Day · Groups A–I decided · J, K &amp; L close TONIGHT · Round of 32 opens Sun Jun 28 · 🇧🇷 Brazil vs 🇯🇵 Japan Mon Jun 29</span> · 48 teams · 16 cities · June 11 – July 19, 2026</div>
+    <div class="meta"><span class="round">Round of 32 — underway · Group stage DONE · 🇿🇦 South Africa v 🇨🇦 Canada opens it TODAY · 🇧🇷 Brazil vs 🇯🇵 Japan tomorrow (Mon)</span> · 48 teams · 16 cities · June 11 – July 19, 2026</div>
     <div class="countdown" id="countdown"><div class="label">until 🇧🇷 Brazil vs 🇯🇵 Japan · R32 · Mon 29 Jun · 14:00 BRT · Houston</div></div>
 </div>
 
 <div class="grid">
     <!-- Brazil tracker -->
     <div class="card bra">
-        <h3>🇧🇷 Brazil — Group C WINNERS · R32 vs 🇯🇵 Japan (Mon)</h3>
+        <h3>🇧🇷 Brazil — Group C WINNERS · R32 vs 🇯🇵 Japan tomorrow</h3>
         <ul class="bra-sched">
             <li>
                 <div class="t">19:00<span class="d">Sat 13 Jun</span></div>
@@ -130,45 +119,35 @@ body { background:var(--bg); color:var(--text); font-family:-apple-system,BlinkM
                 <div style="color:var(--muted);font-size:0.72rem;text-align:right">NRG Stadium<br>Houston</div>
             </li>
         </ul>
-        <div class="legend">All times BRT (São Paulo). <strong style="color:var(--text)">Brazil WON Group C</strong> — 7 pts (2W 1D), +6 GD, on goal difference over Morocco (also 7, +3) after a clinical <strong style="color:var(--text)">3–0 over Scotland</strong>. Seven scored, one conceded across the group. R32 opponent: <strong style="color:var(--text)">Japan</strong> (Group F runner-up, 5 pts, +4, unbeaten) — sharp midfield, two clean sheets in three, and they beat Brazil 3–2 in an October friendly after going 2–0 down. Not a gimme. <strong style="color:var(--text)">Vinícius</strong> on 4 goals; <strong style="color:var(--text)">Neymar</strong> game-ready off the bench after the calf knock. Sim: <strong style="color:var(--text)">#4 to win it all (10.3%)</strong>, just behind Argentina · 20% to reach the final.</div>
+        <div class="legend">All times BRT (São Paulo). Brazil <strong style="color:var(--text)">won Group C</strong> — 7 pts (2W 1D), +6 GD, edging Morocco on goal difference. R32 opponent <strong style="color:var(--text)">Japan</strong> (Group F runner-up, unbeaten, +4): held the Netherlands 2–2, hammered Tunisia 4–0, two clean sheets in three. They beat Brazil 3–2 in an October friendly after going 2–0 down — not a gimme. Market: <strong style="color:var(--text)">Brazil ~55 / draw 25 / Japan 20</strong>, lean Brazil 2-1. <strong style="color:var(--text)">Vinícius</strong> the group's standout attacker (4 goals, 8 shots on target, xG 2.39); <strong style="color:var(--text)">Neymar</strong> game-ready off the bench. Sim: <strong style="color:var(--text)">#4 to win it (10.7%)</strong>, 20% to reach the final. Win and the R16 is Ivory Coast or Norway.</div>
     </div>
 
     <!-- Today / Upcoming fixtures -->
     <div class="card">
-        <h3>📅 Final Group Day — Today (BRT — São Paulo)</h3>
+        <h3>📅 Round of 32 — Today &amp; Tomorrow (BRT)</h3>
         <ul class="fixtures">
             <li>
-                <div class="time">18:00<span class="day">Sat 27</span></div>
-                <div class="match">🇵🇦 Panama <span class="grp">vs</span> 🏴󠁧󠁢󠁥󠁮󠁧󠁿 England<br><span class="grp">Group L · East Rutherford</span><span class="fc">ENG 80 / draw 14 / PAN 6 — England top L with a win; Panama already out; lean England 2-0</span></div>
+                <div class="time">16:00<span class="day">Sun 28</span></div>
+                <div class="match">🇿🇦 South Africa <span class="grp">vs</span> 🇨🇦 Canada<br><span class="grp">R32 · SoFi, Los Angeles</span><span class="fc">CAN 55 / draw 27 / RSA 18 — Canada's frontline (Davies in) vs a compact Bafana side; lean Canada 1-0, Under in play</span></div>
                 <div class="venue">today</div>
             </li>
             <li>
-                <div class="time">18:00<span class="day">Sat 27</span></div>
-                <div class="match">🇭🇷 Croatia <span class="grp">vs</span> 🇬🇭 Ghana<br><span class="grp">Group L · Philadelphia</span><span class="fc">CRO 55 / draw 16 / GHA 29 — Croatia must win for 2nd; Ghana through with a draw; lean Croatia 2-1</span></div>
-                <div class="venue">today</div>
+                <div class="time">14:00<span class="day">Mon 29</span></div>
+                <div class="match">🇧🇷 Brazil <span class="grp">vs</span> 🇯🇵 Japan<br><span class="grp">R32 · NRG, Houston</span><span class="fc">BRA 55 / draw 25 / JPN 20 — Japan press well and held the Dutch; lean Brazil 2-1</span></div>
+                <div class="venue">tmrw</div>
             </li>
             <li>
-                <div class="time">20:30<span class="day">Sat 27</span></div>
-                <div class="match">🇨🇴 Colombia <span class="grp">vs</span> 🇵🇹 Portugal<br><span class="grp">Group K · Miami</span><span class="fc">COL 23 / draw 51 / POR 26 — both through; Colombia top with a draw, Portugal likely 2nd either way; cagey, lean 1-1</span></div>
-                <div class="venue">today</div>
+                <div class="time">17:30<span class="day">Mon 29</span></div>
+                <div class="match">🇩🇪 Germany <span class="grp">vs</span> 🇵🇾 Paraguay<br><span class="grp">R32 · Gillette, Foxborough</span><span class="fc">GER 69 / draw 19 / PAR 11 — Germany class up front, Paraguay sit deep; lean Germany 2-0</span></div>
+                <div class="venue">tmrw</div>
             </li>
             <li>
-                <div class="time">20:30<span class="day">Sat 27</span></div>
-                <div class="match">🇨🇩 DR Congo <span class="grp">vs</span> 🇺🇿 Uzbekistan<br><span class="grp">Group K · Atlanta</span><span class="fc">Elo lean: COD 48 / draw 28 / UZB 24 — Uzbekistan out; DRC need a win to chase the best-third lane; lean DRC 2-1</span></div>
-                <div class="venue">today</div>
-            </li>
-            <li>
-                <div class="time">23:00<span class="day">Sat 27</span></div>
-                <div class="match">🇯🇴 Jordan <span class="grp">vs</span> 🇦🇷 Argentina<br><span class="grp">Group J · Arlington</span><span class="fc">ARG 82 / draw 13 / JOR 5 — Argentina already won the group, may rotate; Jordan eliminated; lean Argentina 2-0</span></div>
-                <div class="venue">tonight</div>
-            </li>
-            <li>
-                <div class="time">23:00<span class="day">Sat 27</span></div>
-                <div class="match">🇩🇿 Algeria <span class="grp">vs</span> 🇦🇹 Austria<br><span class="grp">Group J · Kansas City</span><span class="fc">AUT 44 / draw 33 / ALG 23 — straight winner-takes-2nd; a draw sends Austria through on GD; lean Austria 1-0</span></div>
-                <div class="venue">tonight</div>
+                <div class="time">22:00<span class="day">Mon 29</span></div>
+                <div class="match">🇳🇱 Netherlands <span class="grp">vs</span> 🇲🇦 Morocco<br><span class="grp">R32 · Estadio BBVA, Monterrey</span><span class="fc">NED 45 / draw 29 / MAR 26 — tie of the round; Morocco live, could go to extra time; lean Netherlands edge</span></div>
+                <div class="venue">tmrw</div>
             </li>
         </ul>
-        <div class="legend">Today's reads anchored on bookmaker odds (de-vigged to 100%) nudged for Elo/situational factors; lopsided ties are Elo-derived where lines were thin. Final-matchday games in a group kick off simultaneously. BRT = US Eastern + 1h. After tonight, the full Round-of-32 bracket locks.</div>
+        <div class="legend">Reads anchored on bookmaker 1X2 (de-vigged to 100%) nudged for Elo/situation. Today is a single-match day; the bracket fills out Mon–Fri (Jun 29 – Jul 3). BRT = US Eastern + 1h.</div>
     </div>
 </div>
 
@@ -179,7 +158,7 @@ body { background:var(--bg); color:var(--text); font-family:-apple-system,BlinkM
         <table class="odds" id="oddstable">
             <tr><th class="team">Team</th><th>Win</th><th>Final</th><th>Semi</th></tr>
         </table>
-        <div class="legend">Our simulation, conditioned on all 66 played group matches (A–I complete, J/K/L through 2 rounds). Win = lift the trophy. Brazil highlighted. Group-winner/runner-up paths exact; third-place slotting approximated; Elo-seeded. Spain &amp; France clear; <strong style="color:var(--text)">Argentina now edge Brazil for #3</strong> on a softer projected quarter-final path.</div>
+        <div class="legend">Our simulation, conditioned on the <strong style="color:var(--text)">full group stage (all 72 matches)</strong>. Win = lift the trophy. Brazil highlighted. R32 pairings exact; Elo-seeded. Spain &amp; France clear out front; <strong style="color:var(--text)">Argentina nose ahead of Brazil for #3</strong> — softer projected quarter (70% to reach the last eight vs Brazil's 52%).</div>
     </div>
 
     <!-- Forecast model scorecard -->
@@ -189,133 +168,95 @@ body { background:var(--bg); color:var(--text); font-family:-apple-system,BlinkM
             <div class="big">Market still ahead — no edge yet</div>
             <table>
                 <tr><th class="l">Source</th><th>Brier</th><th>RPS</th><th>Hit%</th></tr>
-                <tr><td class="l">Market</td><td>0.557</td><td>0.168</td><td>57%</td></tr>
-                <tr><td class="l">Blend</td><td>0.560</td><td>0.167</td><td>57%</td></tr>
-                <tr><td class="l">Model</td><td>0.575</td><td>0.171</td><td>54%</td></tr>
+                <tr><td class="l">Market</td><td>0.528</td><td>0.157</td><td>60%</td></tr>
+                <tr><td class="l">Blend</td><td>0.534</td><td>0.158</td><td>58%</td></tr>
+                <tr><td class="l">Model</td><td>0.556</td><td>0.165</td><td>55%</td></tr>
             </table>
-            <div class="sub">46 of 49 logged picks graded. Lower Brier/RPS is better. The blend trails the market by 0.003 on Brier but actually edges it on RPS (0.167 vs 0.168) with hit-rate tied at 57% — ordering is sound, calibration a hair off. Favourites have largely held through the group stage, so no claimable edge yet.</div>
+            <div class="sub">53 of 56 logged group-stage picks graded. Lower Brier/RPS is better. The blend trails the market by 0.006 on Brier and a hair on RPS, hit-rate 58% vs 60% — ordering is sound but favourites held all group stage, so no claimable edge. Knockouts (one-and-done, higher variance) are where a model can earn its keep.</div>
         </div>
     </div>
 </div>
 
-<!-- Round of 32 — forming -->
+<!-- Round of 32 bracket -->
 <div class="card full">
-    <h3>🎯 Round of 32 — Bracket Forming (opens Sun Jun 28)</h3>
-    <ul class="bracket">
-        <li>
-            <div class="t">Sun 28<span class="d">tbc BRT</span></div>
-            <div>First knockout matches kick off — winners &amp; runners-up from Groups A–I are locked; the eight best third-placed teams slot in once J/K/L finish tonight.</div>
-            <div class="seed">R32 begins</div>
-        </li>
-        <li class="bra">
-            <div class="t">Mon 29<span class="d">14:00</span></div>
-            <div>🇧🇷 Brazil <span style="color:var(--muted)">vs</span> 🇯🇵 Japan</div>
-            <div class="seed">1C v 2F · Houston</div>
-        </li>
-        <li>
-            <div class="t">Mon 29<span class="d">tbc</span></div>
-            <div>🇳🇱 Netherlands <span style="color:var(--muted)">vs</span> 🇲🇦 Morocco</div>
-            <div class="seed">1F v 2C</div>
-        </li>
-        <li>
-            <div class="t">Mon 29<span class="d">tbc</span></div>
-            <div>🇩🇪 Germany <span style="color:var(--muted)">vs</span> 🇵🇾 Paraguay <span style="color:var(--muted);font-size:0.72rem">(proj.)</span></div>
-            <div class="seed">1E v 3rd</div>
-        </li>
-        <li>
-            <div class="t">Tue 30<span class="d">tbc</span></div>
-            <div>🇫🇷 France <span style="color:var(--muted)">vs</span> 🇸🇪 Sweden <span style="color:var(--muted);font-size:0.72rem">(proj.)</span></div>
-            <div class="seed">1I v 3rd</div>
-        </li>
-        <li>
-            <div class="t">Tue 30<span class="d">tbc</span></div>
-            <div>🇨🇮 Ivory Coast <span style="color:var(--muted)">vs</span> 🇳🇴 Norway</div>
-            <div class="seed">2E v 2I</div>
-        </li>
-    </ul>
-    <div class="legend">Brazil's tie is locked. Other pairings are FIFA's projected slotting from the bracket table — winner-vs-runner-up ties firm up first; winner-vs-third ties (Germany, France) depend on which of the 12 third-placed teams make the cut, finalised after tonight's J/K/L games. Tomorrow's dashboard goes full 16-tie bracket.</div>
+    <h3>🎯 Round of 32 — Full Bracket (Jun 28 – Jul 3, BRT)</h3>
+    <ul class="bracket" id="bracket"></ul>
+    <div class="legend">Grouped by the Round-of-16 tie each pair feeds into. <span style="color:var(--bra)">Brazil</span> highlighted. Leans from bookmaker 1X2 where priced (today + Mon), Elo-derived elsewhere and marked. Brazil's path: beat Japan → R16 vs Ivory Coast/Norway → projected QF vs the Germany/Paraguay–France/Sweden winner (likely France). Times BRT.</div>
 </div>
 
 <!-- Top scorers -->
 <div class="card full">
-    <h3>👟 Golden Boot Race</h3>
+    <h3>👟 Golden Boot Race — After Group Stage</h3>
     <ul class="scorers">
-        <li><span class="g">5</span><span class="nm">🇦🇷 Lionel Messi <span class="tm">Argentina</span></span><span class="tm">all-time men's WC record holder; still carrying Argentina's attack</span></li>
+        <li><span class="g">6</span><span class="nm">🇦🇷 Lionel Messi <span class="tm">Argentina</span></span><span class="tm">extended the lead with a goal vs Jordan; all 6 of Argentina's group goals; passed Klose's WC record</span></li>
         <li><span class="g">4</span><span class="nm">🇧🇷 Vinícius Jr <span class="tm">Brazil</span></span><span class="tm">scored in every group game; brace vs Scotland</span></li>
-        <li><span class="g">4</span><span class="nm">🇫🇷 Kylian Mbappé <span class="tm">France</span></span><span class="tm">level on 4 — France through as Group I winners</span></li>
-        <li><span class="g">4</span><span class="nm">🇫🇷 Ousmane Dembélé <span class="tm">France</span></span><span class="tm">first-half hat-trick (7', 20', 32') in the 4–1 of Norway</span></li>
-        <li><span class="g">4</span><span class="nm">🇳🇴 Erling Haaland <span class="tm">Norway</span></span><span class="tm">unused sub as a rotated Norway lost but still advanced 2nd</span></li>
-        <li><span class="g">3</span><span class="nm">🇨🇦 Jonathan David <span class="tm">Canada</span></span><span class="tm">hat-trick in Canada's 6–0 of Qatar</span></li>
+        <li><span class="g">4</span><span class="nm">🇫🇷 Kylian Mbappé <span class="tm">France</span></span><span class="tm">also assisted two of Dembélé's three vs Norway</span></li>
+        <li><span class="g">4</span><span class="nm">🇫🇷 Ousmane Dembélé <span class="tm">France</span></span><span class="tm">first-half hat-trick (7', 20', 32') vs Norway — 2nd-fastest in WC history</span></li>
+        <li><span class="g">4</span><span class="nm">🇳🇴 Erling Haaland <span class="tm">Norway</span></span><span class="tm">Norway through 2nd; into the R32 vs Ivory Coast</span></li>
+        <li><span class="g">3</span><span class="nm">🇨🇦 Jonathan David <span class="tm">Canada</span></span><span class="tm">hat-trick in Canada's 6–0 of Qatar; in action today</span></li>
         <li><span class="g">2</span><span class="nm">🇵🇹 Cristiano Ronaldo <span class="tm">Portugal</span></span><span class="tm">brace in the 5–0 vs Uzbekistan</span></li>
-        <li><span class="g">2</span><span class="nm">🏴󠁧󠁢󠁥󠁮󠁧󠁿 Harry Kane <span class="tm">England</span></span><span class="tm">brace vs Croatia</span></li>
+        <li><span class="g">2</span><span class="nm">🏴󠁧󠁢󠁥󠁮󠁧󠁿 Harry Kane <span class="tm">England</span></span><span class="tm">on target vs Croatia and Panama</span></li>
     </ul>
-    <div class="legend">Web sources (FBref's scorer table hasn't posted for this WC yet). Messi leads by one; four players — Vinícius, Mbappé, Dembélé and Haaland — share second on 4 with the knockouts about to open.</div>
+    <div class="legend">Web sources (FBref's WC scorer table hasn't posted yet). Messi leads outright on 6; a four-man pack — Vinícius, Mbappé, Dembélé, Haaland — chase on 4 as the knockouts open.</div>
 </div>
 
 <!-- Results so far -->
 <div class="card full">
-    <h3>✅ Results So Far — Yesterday (Fri Jun 26, newest first)</h3>
+    <h3>✅ Results — Final Group Day (Sat Jun 27)</h3>
     <ul class="fixtures">
         <li class="done">
-            <div class="time">Jun 26</div>
-            <div class="match">🇺🇾 Uruguay <span class="grp">0–1</span> 🇪🇸 Spain <span class="grp">· Group H · Guadalajara · Spain top with a clean sweep of clean sheets; Uruguay (2× champions) crash OUT</span></div>
+            <div class="time">Jun 27</div>
+            <div class="match">🇦🇷 Argentina <span class="grp">3–1</span> 🇯🇴 Jordan <span class="grp">· Group J · Messi again — Argentina win the group with a perfect 9 pts; Jordan out winless</span></div>
             <div class="score">FT</div>
         </li>
         <li class="done">
-            <div class="time">Jun 26</div>
-            <div class="match">🇨🇻 Cape Verde <span class="grp">0–0</span> 🇸🇦 Saudi Arabia <span class="grp">· Group H · Houston · Debutants make HISTORY — Cape Verde reach the R32 on 3 pts; Saudi out</span></div>
+            <div class="time">Jun 27</div>
+            <div class="match">🇩🇿 Algeria <span class="grp">3–3</span> 🇦🇹 Austria <span class="grp">· Group J · Wild six-goal draw sends BOTH through (Austria 2nd, Algeria a best-third) and dumps Iran out</span></div>
             <div class="score">FT</div>
         </li>
         <li class="done">
-            <div class="time">Jun 26</div>
-            <div class="match">🇳🇴 Norway <span class="grp">1–4</span> 🇫🇷 France <span class="grp">· Group I · Foxborough · Dembélé first-half hat-trick; France top on 9 pts, Norway still 2nd</span></div>
+            <div class="time">Jun 27</div>
+            <div class="match">🇨🇴 Colombia <span class="grp">0–0</span> 🇵🇹 Portugal <span class="grp">· Group K · Colombia top the group; Portugal 2nd — both safely through</span></div>
             <div class="score">FT</div>
         </li>
         <li class="done">
-            <div class="time">Jun 26</div>
-            <div class="match">🇸🇳 Senegal <span class="grp">5–0</span> 🇮🇶 Iraq <span class="grp">· Group I · Toronto · Pape Gueye brace; rout came too late — Senegal eliminated on the day's other result</span></div>
+            <div class="time">Jun 27</div>
+            <div class="match">🇨🇩 DR Congo <span class="grp">3–1</span> 🇺🇿 Uzbekistan <span class="grp">· Group K · DRC comeback grabs a best-third place — they'll face England</span></div>
             <div class="score">FT</div>
         </li>
         <li class="done">
-            <div class="time">Jun 26</div>
-            <div class="match">🇳🇿 New Zealand <span class="grp">1–5</span> 🇧🇪 Belgium <span class="grp">· Group G · Vancouver · Belgium rout NZ to leapfrog Egypt and top Group G on GD</span></div>
+            <div class="time">Jun 27</div>
+            <div class="match">🏴󠁧󠁢󠁥󠁮󠁧󠁿 England <span class="grp">2–0</span> 🇵🇦 Panama <span class="grp">· Group L · Bellingham &amp; Kane; England win L and finally find their goals</span></div>
             <div class="score">FT</div>
         </li>
         <li class="done">
-            <div class="time">Jun 26</div>
-            <div class="match">🇪🇬 Egypt <span class="grp">1–1</span> 🇮🇷 Iran <span class="grp">· Group G · Seattle · Late VAR overturns an Iran winner; Egypt take 2nd, Iran a best-third hopeful</span></div>
+            <div class="time">Jun 27</div>
+            <div class="match">🇭🇷 Croatia <span class="grp">2–1</span> 🇬🇭 Ghana <span class="grp">· Group L · Late Vlašić winner; Croatia 2nd, Ghana sneak through 3rd to meet Colombia</span></div>
             <div class="score">FT</div>
         </li>
     </ul>
-    <div class="legend">66 of 72 group matches played — Groups A–I complete; J, K &amp; L finish tonight. The Round of 32 opens Sun Jun 28.</div>
-</div>
-
-<!-- All 12 groups -->
-<div class="card full">
-    <h3>📊 Group Standings — All 12 Groups</h3>
-    <div class="groups" id="groups"></div>
-    <div class="legend"><span class="q">Green</span> = top-2 (qualify). Bold yellow = Brazil. P = played, GD = goal difference, Pts = points. Groups A–I <strong>final</strong>; J, K &amp; L finish tonight. Third place still matters: the eight best third-placed teams also reach the R32.</div>
+    <div class="legend">Group stage complete — all 72 matches played. 32 teams advance: 12 winners, 12 runners-up, 8 best third-placed (Bosnia, Paraguay, Ecuador, Sweden, Senegal, Algeria, DR Congo, Ghana). The Round of 32 runs Jun 28 – Jul 3.</div>
 </div>
 
 <!-- Storylines -->
 <div class="card full">
-    <h3>📰 Storylines — Final Group Day</h3>
+    <h3>📰 Storylines — Knockouts Open</h3>
     <ul class="stories">
-        <li><strong>Brazil get Japan in the Round of 32 — Monday, Houston.</strong> Japan came through a brutal Group F unbeaten on 5 pts (+4): they held the Netherlands 2–2 and put four past Tunisia. Sharp midfield, two clean sheets in three — and they beat Brazil 3–2 in an October friendly after trailing 2–0. Vinícius enters on four goals; Neymar's been managed back from the calf and is game-ready off the bench. Sim has Brazil #4 to lift it (10.3%), 20% to reach the final.</li>
-        <li><strong>Cape Verde make history; Uruguay crash out.</strong> The 0–0 with Saudi Arabia was enough — Cape Verde, World Cup debutants and the second-smallest nation by land area ever to qualify, reach the knockouts on 3 pts. Uruguay, two-time champions and the group's heavyweight on paper (1950 Elo), finish third and go home after Spain beat them 1–0. The feel-good story of the tournament.</li>
-        <li><strong>Dembélé's hat-trick fires France clear.</strong> A first-half treble (7', 20', 32') in the 4–1 demolition of Norway sent France top of Group I on 9 points and into the second-place battle as favourites for an easy R32 draw. Haaland sat as an unused sub for a much-changed Norway that had already qualified second. The Golden Boot logjam tightens: Messi 5; Vinícius, Mbappé, Dembélé and Haaland all on 4.</li>
-        <li><strong>Belgium snatch Group G off Egypt.</strong> A 5–1 rout of New Zealand plus a late VAR call that wiped out Iran's winner against Egypt flipped the top of the group on goal difference — Belgium first (+4), Egypt second (+2), Iran into the best-third pool.</li>
-        <li><strong>Argentina edge Brazil for #3 in the title board.</strong> The 20k-run sim, conditioned on all 66 group results, has Spain 18.7% and France 15.2% out front, then Argentina 10.7% just ahead of Brazil 10.3% — the holders drawing a softer projected quarter-final lane (70% to reach the last eight). England (6.7%) and Portugal (5.3%) lead the chasers. Our forecast blend (Brier 0.560) still trails the market (0.557) on the group stage though it now edges it on RPS — ordering right, no edge to bank yet.</li>
-        <li><strong>Tonight decides the last three groups.</strong> England top L with a win over Panama; Croatia must beat Ghana to survive. Colombia and Portugal are both through and jostling for seeding in a likely cagey draw. Argentina have already won J — Algeria vs Austria is the real fight for second.</li>
+        <li><strong>Brazil draw Japan in the Round of 32 — Monday, 14:00 BRT, Houston.</strong> Japan came through a brutal Group F unbeaten (+4): 2–2 with the Netherlands, 4–0 over Tunisia, two clean sheets in three. They beat Brazil 3–2 in an October friendly after trailing 2–0, so the warning signs are there. Vinícius enters as the tournament's outstanding attacker (4 goals, xG 2.39); Neymar is managed back off the bench. Market has Brazil ~55%, the sim #4 to lift it (10.7%) and 20% to reach the final.</li>
+        <li><strong>Argentina nose ahead of Brazil for #3 in the title board.</strong> The 20k-run sim, now conditioned on the full group stage, has Spain 18.0% and France 14.9% clear, then Argentina 10.9% a whisker ahead of Brazil 10.7%. The split is the draw: Argentina project a 70% route to the quarters against a softer lane, Brazil 52% with Ivory Coast/Norway then likely France waiting. England 8.0% lead the chasers; Colombia (4.8%) the dark horse.</li>
+        <li><strong>Messi makes history, then drags Argentina to a perfect group.</strong> His goal against Jordan made it six for the tournament and a record 18 World Cup goals across men's and women's football, past Klose and Marta. Argentina finished Group J on 9 points; the night's other game was the chaos — Algeria 3–3 Austria sent both through on the wild final whistle and knocked Iran out.</li>
+        <li><strong>Today's lone tie: Canada favoured over South Africa, LA.</strong> Canada (-140, ~55% de-vigged) lean on a tournament-tested front line with Alphonso Davies set for his 2026 debut; South Africa's compact, low-scoring shape (Under 2.5 in all three group games) points to a tight one — lean Canada 1-0. Winner meets the Netherlands or Morocco in the last 16.</li>
+        <li><strong>The bracket's heavyweight collisions loom.</strong> Spain face Austria, France get Sweden, England draw DR Congo, and Argentina open against debutants Cape Verde (Jul 3, Miami) — the holders handed the kindest first-knockout draw of the top seeds. The tie of the round is Netherlands vs Morocco (45/29/26), genuinely live.</li>
+        <li><strong>Forecast model: ordering right, edge still to come.</strong> Across 53 graded group picks the blend (Brier 0.534) trails the market (0.528) with hit-rate 58% vs 60% — favourites held all group stage so there was little to exploit. One-and-done knockouts, with their higher variance, are where the model can finally separate from the chalk.</li>
     </ul>
 </div>
 
 <div style="text-align:center;color:var(--muted);font-size:0.7rem;margin-top:16px;">
-    Built by Marshall 🔶 for Wilson · Data: FIFA.com, ESPN, NBC, BBC, Sofascore, FBref · Sim: 20k Monte-Carlo · Updated June 27, 2026
+    Built by Marshall 🔶 for Wilson · Data: FIFA.com, ESPN, NBC, BBC, Sofascore, FBref · Sim: 20k Monte-Carlo · Updated June 28, 2026
 </div>
 
 <script>
-// Countdown to Brazil's R32 opener — Mon Jun 29, 13:00 ET = 17:00 UTC = 14:00 BRT
+// Countdown to Brazil's R32 opener — Mon Jun 29, 12:00 CT = 17:00 UTC = 14:00 BRT
 const target = new Date('2026-06-29T17:00:00Z');
 function tick() {
     const now = new Date();
@@ -329,19 +270,19 @@ function tick() {
 }
 tick(); setInterval(tick, 60000);
 
-// Title odds (our 20k Monte-Carlo, conditioned on results so far). [team, flag, win%, final%, semi%]
+// Title odds (our 20k Monte-Carlo, conditioned on the full group stage). [team, flag, win%, final%, semi%]
 const ODDS = [
-  ["Spain","🇪🇸",18.7,27,42],
-  ["France","🇫🇷",15.2,24,41],
-  ["Argentina","🇦🇷",10.7,23,42],
-  ["Brazil","🇧🇷",10.3,20,32],
-  ["England","🏴󠁧󠁢󠁥󠁮󠁧󠁿",6.7,13,23],
-  ["Portugal","🇵🇹",5.3,11,21],
-  ["Netherlands","🇳🇱",4.3,8,18],
-  ["Colombia","🇨🇴",4.1,9,18],
-  ["Germany","🇩🇪",3.5,7,17],
-  ["Mexico","🇲🇽",3.4,8,16],
-  ["United States","🇺🇸",2.8,6,13]
+  ["Spain","🇪🇸",18.0,26,41],
+  ["France","🇫🇷",14.9,23,40],
+  ["Argentina","🇦🇷",10.9,23,43],
+  ["Brazil","🇧🇷",10.7,20,31],
+  ["England","🏴󠁧󠁢󠁥󠁮󠁧󠁿",8.0,17,28],
+  ["Colombia","🇨🇴",4.8,12,25],
+  ["Netherlands","🇳🇱",4.6,9,19],
+  ["Germany","🇩🇪",3.6,7,17],
+  ["Portugal","🇵🇹",3.5,7,15],
+  ["United States","🇺🇸",3.4,7,15],
+  ["Mexico","🇲🇽",3.2,8,15]
 ];
 const ot = document.getElementById('oddstable');
 ODDS.forEach(r => {
@@ -351,37 +292,55 @@ ODDS.forEach(r => {
     ot.appendChild(tr);
 });
 
-// All 12 groups. teams: [name, flag, P, W, D, L, GD, Pts]. done=group complete.
-const GROUPS = {
-  A: [["Mexico","🇲🇽",3,3,0,0,6,9],["South Africa","🇿🇦",3,1,1,1,-1,4],["South Korea","🇰🇷",3,1,0,2,-1,3],["Czechia","🇨🇿",3,0,1,2,-4,1]],
-  B: [["Switzerland","🇨🇭",3,2,1,0,4,7],["Canada","🇨🇦",3,1,1,1,5,4],["Bosnia & H.","🇧🇦",3,1,1,1,-1,4],["Qatar","🇶🇦",3,0,1,2,-8,1]],
-  C: [["Brazil","🇧🇷",3,2,1,0,6,7],["Morocco","🇲🇦",3,2,1,0,3,7],["Scotland","🏴󠁧󠁢󠁳󠁣󠁴󠁿",3,1,0,2,-3,3],["Haiti","🇭🇹",3,0,0,3,-6,0]],
-  D: [["USA","🇺🇸",3,2,0,1,2,6],["Australia","🇦🇺",3,1,1,1,0,4],["Paraguay","🇵🇾",3,1,1,1,-2,4],["Türkiye","🇹🇷",3,1,0,2,-2,3]],
-  E: [["Germany","🇩🇪",3,2,0,1,5,6],["Ivory Coast","🇨🇮",3,2,0,1,2,6],["Ecuador","🇪🇨",3,1,1,1,0,4],["Curaçao","🇨🇼",3,0,1,2,-8,1]],
-  F: [["Netherlands","🇳🇱",3,2,1,0,6,7],["Japan","🇯🇵",3,1,2,0,4,5],["Sweden","🇸🇪",3,1,1,1,0,4],["Tunisia","🇹🇳",3,0,0,3,-10,0]],
-  G: [["Belgium","🇧🇪",3,1,2,0,4,5],["Egypt","🇪🇬",3,1,2,0,2,5],["Iran","🇮🇷",3,0,3,0,0,3],["New Zealand","🇳🇿",3,0,1,2,-6,1]],
-  H: [["Spain","🇪🇸",3,2,1,0,5,7],["Cape Verde","🇨🇻",3,0,3,0,0,3],["Uruguay","🇺🇾",3,0,2,1,-1,2],["Saudi Arabia","🇸🇦",3,0,2,1,-4,2]],
-  I: [["France","🇫🇷",3,3,0,0,8,9],["Norway","🇳🇴",3,2,0,1,1,6],["Senegal","🇸🇳",3,1,0,2,2,3],["Iraq","🇮🇶",3,0,0,3,-11,0]],
-  J: [["Argentina","🇦🇷",2,2,0,0,5,6],["Austria","🇦🇹",2,1,0,1,0,3],["Algeria","🇩🇿",2,1,0,1,-2,3],["Jordan","🇯🇴",2,0,0,2,-3,0]],
-  K: [["Colombia","🇨🇴",2,2,0,0,3,6],["Portugal","🇵🇹",2,1,1,0,5,4],["DR Congo","🇨🇩",2,0,1,1,-1,1],["Uzbekistan","🇺🇿",2,0,0,2,-7,0]],
-  L: [["England","🏴󠁧󠁢󠁥󠁮󠁧󠁿",2,1,1,0,2,4],["Ghana","🇬🇭",2,1,1,0,1,4],["Croatia","🇭🇷",2,1,0,1,-1,3],["Panama","🇵🇦",2,0,0,2,-2,0]]
-};
-const DONE = { A:true, B:true, C:true, D:true, E:true, F:true, G:true, H:true, I:true };
-const wrap = document.getElementById('groups');
-for (const [g, rows] of Object.entries(GROUPS)) {
-    const div = document.createElement('div');
-    div.className = 'gtable';
-    const tag = DONE[g] ? ' <span class="done-tag">FINAL</span>' : ' <span class="done-tag">tonight</span>';
-    let html = `<div class="gh">Group ${g}${tag}</div><table><tr><th class="team">Team</th><th>P</th><th>GD</th><th>Pts</th></tr>`;
-    rows.forEach((r, i) => {
-        const cls = r[0] === 'Brazil' ? 'bra' : (i < 2 ? 'qual' : '');
-        const gd = r[6] > 0 ? '+' + r[6] : r[6];
-        html += `<tr class="${cls}"><td class="team">${r[1]} ${r[0]}</td><td>${r[2]}</td><td>${gd}</td><td class="pts">${r[7]}</td></tr>`;
+// Round of 32 bracket, grouped by the R16 tie each pair feeds. {r16, ties:[{t,d,m,lean,bra}]}
+const BRACKET = [
+  { r16:"R16 ① — winners of these two meet", ties:[
+    { t:"Sun 28", d:"16:00", m:"🇿🇦 South Africa vs 🇨🇦 Canada", lean:"Canada 55/27/18 · lean CAN 1-0" },
+    { t:"Mon 29", d:"22:00", m:"🇳🇱 Netherlands vs 🇲🇦 Morocco", lean:"Ned 45/29/26 · tie of the round" }
+  ]},
+  { r16:"R16 ② — winners of these two meet", ties:[
+    { t:"Mon 29", d:"17:30", m:"🇩🇪 Germany vs 🇵🇾 Paraguay", lean:"Ger 69/19/11 · lean GER 2-0" },
+    { t:"Tue 30", d:"18:00", m:"🇫🇷 France vs 🇸🇪 Sweden", lean:"France big fav · lean FRA 2-0" }
+  ]},
+  { r16:"R16 ③ — winners of these two meet", ties:[
+    { t:"Mon 29", d:"14:00", m:"🇧🇷 Brazil vs 🇯🇵 Japan", lean:"Bra 55/25/20 · lean BRA 2-1", bra:true },
+    { t:"Tue 30", d:"14:00", m:"🇨🇮 Ivory Coast vs 🇳🇴 Norway", lean:"Elo ~even · slight Norway (Haaland)" }
+  ]},
+  { r16:"R16 ④ — winners of these two meet", ties:[
+    { t:"Tue 30", d:"22:00", m:"🇲🇽 Mexico vs 🇪🇨 Ecuador", lean:"Elo coin-flip · host edge Mexico" },
+    { t:"Wed 01", d:"13:00", m:"🏴󠁧󠁢󠁥󠁮󠁧󠁿 England vs 🇨🇩 DR Congo", lean:"England fav · lean ENG 2-0" }
+  ]},
+  { r16:"R16 ⑤ — winners of these two meet", ties:[
+    { t:"Thu 02", d:"20:00", m:"🇵🇹 Portugal vs 🇭🇷 Croatia", lean:"Elo slight Portugal · tight" },
+    { t:"Thu 02", d:"16:00", m:"🇪🇸 Spain vs 🇦🇹 Austria", lean:"Spain big fav · lean ESP 2-0" }
+  ]},
+  { r16:"R16 ⑥ — winners of these two meet", ties:[
+    { t:"Wed 01", d:"21:00", m:"🇺🇸 United States vs 🇧🇦 Bosnia &amp; H.", lean:"Host USA edge · lean USA" },
+    { t:"Wed 01", d:"17:00", m:"🇧🇪 Belgium vs 🇸🇳 Senegal", lean:"Elo tight · slight Belgium" }
+  ]},
+  { r16:"R16 ⑦ — winners of these two meet", ties:[
+    { t:"Fri 03", d:"19:00", m:"🇦🇷 Argentina vs 🇨🇻 Cape Verde", lean:"Argentina huge fav · lean ARG 3-0" },
+    { t:"Fri 03", d:"15:00", m:"🇦🇺 Australia vs 🇪🇬 Egypt", lean:"Elo coin-flip" }
+  ]},
+  { r16:"R16 ⑧ — winners of these two meet", ties:[
+    { t:"Fri 03", d:"00:00", m:"🇨🇭 Switzerland vs 🇩🇿 Algeria", lean:"Swiss edge · lean SUI" },
+    { t:"Fri 03", d:"22:30", m:"🇨🇴 Colombia vs 🇬🇭 Ghana", lean:"Colombia fav · lean COL 2-0" }
+  ]}
+];
+const bw = document.getElementById('bracket');
+BRACKET.forEach(grp => {
+    const h = document.createElement('li');
+    h.className = 'r16';
+    h.style.cssText = 'display:block;border-bottom:none;padding:0;';
+    h.innerHTML = grp.r16;
+    bw.appendChild(h);
+    grp.ties.forEach(t => {
+        const li = document.createElement('li');
+        if (t.bra) li.className = 'bra';
+        li.innerHTML = `<div class="t">${t.d}<span class="d">${t.t}</span></div><div>${t.m}</div><div class="lean">${t.lean}</div>`;
+        bw.appendChild(li);
     });
-    html += '</table>';
-    div.innerHTML = html;
-    wrap.appendChild(div);
-}
+});
 </script>
 </body>
 </html>
