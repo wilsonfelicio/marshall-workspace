@@ -1,0 +1,6 @@
+# Never commit proprietary source research or extracted text
+*.pdf
+extracted/
+trimmed/
+ledger_*.md
+index*.json

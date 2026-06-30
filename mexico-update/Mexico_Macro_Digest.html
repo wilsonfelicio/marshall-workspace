@@ -1,0 +1,898 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mexico Macro — Six-Month Digest</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#ffffff; --surface:#f6f6f4; --surface-2:#fbfbfa;
+    --ink:#1f2328; --body:#34383f; --muted:#6b7280; --line:#e3e3e0;
+    --accent:#1f4e79;        /* deep blue — links, rules, kickers */
+    --accent-warm:#c2632f;   /* burnt orange — cuts / emphasis */
+    --pos:#2f7d57; --neg:#c2632f;
+    --serif:'Lora',Georgia,'Times New Roman',serif;
+    --sans:'Inter',system-ui,'Segoe UI',Helvetica,Arial,sans-serif;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0; font-family:var(--sans); font-weight:400; color:var(--body);
+    background:var(--bg); line-height:1.65; -webkit-font-smoothing:antialiased; font-size:16px;
+  }
+  .wrap{max-width:920px; margin:0 auto; padding:0 32px;}
+  h1,h2,h3,h4{font-family:var(--serif); font-weight:600; color:var(--ink); letter-spacing:.002em; margin:0 0 .4em;}
+  h1{font-size:2.95rem; line-height:1.1; font-weight:600;}
+  h2{font-size:1.95rem; line-height:1.16; margin-top:0;}
+  h3{font-size:1.3rem; line-height:1.25; margin-top:2.2rem;}
+  h4{font-size:1.02rem; color:var(--muted); margin-top:1.4rem;}
+  p{margin:0 0 1rem;}
+  a{color:var(--accent); text-decoration:none;}
+  a:hover{text-decoration:underline;}
+  strong{font-weight:600; color:var(--ink);}
+  em{font-style:italic;}
+  .kicker{font-family:var(--sans); font-weight:600; text-transform:uppercase; letter-spacing:.16em; font-size:.72rem; color:var(--accent);}
+
+  /* Running header */
+  header.bar{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:13px 32px; border-bottom:1px solid var(--line); background:var(--bg);
+    position:sticky; top:0; z-index:10;
+  }
+  header.bar .name{font-family:var(--serif); font-size:1.05rem; color:var(--ink); letter-spacing:.01em;}
+  header.bar .tag{font-size:.7rem; letter-spacing:.18em; text-transform:uppercase; color:var(--muted);}
+
+  /* Cover */
+  .cover{padding:84px 0 56px; border-bottom:1px solid var(--line); text-align:center;}
+  .cover .kicker{margin-bottom:1.1rem; display:block;}
+  .cover h1{margin:.1em 0 .2em;}
+  .cover .sub{font-family:var(--serif); font-style:italic; font-size:1.45rem; color:var(--muted); margin-bottom:1.7rem; font-weight:400;}
+  .cover .meta{font-size:.86rem; color:var(--muted); letter-spacing:.02em;}
+  .cover .dot{color:var(--line); margin:0 .55em;}
+  .confidential{margin-top:1.8rem; font-size:.7rem; text-transform:uppercase; letter-spacing:.24em; color:var(--muted);}
+
+  /* Method / scope */
+  .scope{margin:36px 0 8px; background:var(--surface); border:1px solid var(--line); border-radius:5px; padding:22px 26px; font-size:.9rem; color:var(--body);}
+  .scope h4{margin:0 0 .55em; color:var(--accent); font-family:var(--sans); font-weight:700; text-transform:uppercase; letter-spacing:.1em; font-size:.72rem;}
+  .scope p{margin:0 0 .55rem;} .scope p:last-child{margin-bottom:0;}
+
+  /* TOC */
+  .toc{margin:42px 0;}
+  .toc ol{list-style:none; margin:0; padding:0; counter-reset:ch;}
+  .toc li{counter-increment:ch; display:flex; align-items:baseline; padding:11px 2px; border-bottom:1px solid var(--line);}
+  .toc li::before{content:counter(ch,decimal-leading-zero); font-family:var(--serif); font-size:1.02rem; color:var(--muted); width:2.4em; flex:none;}
+  .toc .t{font-size:1.04rem; color:var(--body);}
+  .toc .status{margin-left:auto; font-size:.68rem; text-transform:uppercase; letter-spacing:.14em; color:var(--muted);}
+  .toc li.active .t{color:var(--ink); font-weight:600;}
+  .toc li.active .status{color:var(--pos);}
+
+  /* Chapter */
+  .chapter{padding-top:18px;}
+  .lead{font-size:1.16rem; line-height:1.62; color:var(--ink); margin:1rem 0 1.5rem;}
+  .lead .em{font-family:var(--serif); font-style:italic;}
+  blockquote.arc{margin:0 0 1.8rem; padding:18px 24px; background:var(--surface); border-left:3px solid var(--accent); border-radius:0 5px 5px 0; font-size:1.0rem; color:var(--body);}
+
+  aside.callout{margin:1.4rem 0; padding:15px 22px; background:var(--surface); border:1px solid var(--line); border-left:3px solid var(--muted); border-radius:0 5px 5px 0;}
+  aside.callout .kicker{display:block; margin-bottom:.35em; color:var(--muted);}
+  aside.callout p{margin:0; font-size:.95rem;}
+
+  /* Tables */
+  .tablewrap{margin:1.4rem 0; background:var(--bg); border:1px solid var(--line); border-radius:5px; overflow:hidden;}
+  table{border-collapse:collapse; width:100%; font-size:.9rem;}
+  caption{caption-side:bottom; text-align:left; font-size:.77rem; color:var(--muted); padding:8px 14px; font-style:italic;}
+  th,td{padding:.6rem .85rem; text-align:left; border-bottom:1px solid var(--line); vertical-align:top;}
+  thead th{font-weight:600; color:var(--ink); text-transform:uppercase; letter-spacing:.07em; font-size:.68rem; background:var(--surface);}
+  tbody tr:last-child td{border-bottom:none;}
+  tbody tr:hover{background:var(--surface-2);}
+  td .rate{font-family:var(--serif); font-weight:600; color:var(--ink);}
+  .split{color:var(--accent-warm); font-weight:600;}
+
+  /* State of play */
+  .sop{margin:1.4rem 0; background:var(--bg); border:1px solid var(--line); border-radius:5px;}
+  .sop .row{display:grid; grid-template-columns:200px 1fr; border-bottom:1px solid var(--line);}
+  .sop .row:last-child{border-bottom:none;}
+  .sop .k{padding:.6rem .9rem; font-weight:600; color:var(--ink); font-size:.8rem; text-transform:uppercase; letter-spacing:.05em; background:var(--surface);}
+  .sop .v{padding:.6rem .9rem; font-size:.92rem;}
+
+  .cite{font-size:.78em; color:var(--muted); white-space:nowrap;}
+
+  /* Chart */
+  figure.chart{margin:1.6rem 0 2rem; background:var(--bg); border:1px solid var(--line); border-radius:5px; padding:18px 18px 12px;}
+  figure.chart svg{display:block; width:100%; height:auto;}
+  figure.chart figcaption{font-size:.78rem; color:var(--muted); margin-top:8px; line-height:1.45;}
+  .chart-legend{font-size:.74rem; color:var(--body); margin-top:4px;}
+
+  .caveats{margin-top:2rem; font-size:.86rem; color:var(--body);}
+  .caveats h3{font-size:1.02rem; color:var(--muted); font-family:var(--sans); font-weight:700; text-transform:uppercase; letter-spacing:.1em;}
+  .caveats li{margin-bottom:.5rem;}
+
+  hr.rule{border:none; border-top:1px solid var(--line); margin:2.4rem 0;}
+
+  footer.foot{margin-top:50px; padding:24px 32px 40px; border-top:1px solid var(--line); background:var(--surface-2);}
+  footer.foot .fine{font-size:.76rem; color:var(--muted);}
+
+  @media print{
+    header.bar{position:static;}
+    body{background:#fff; font-size:11.5px;}
+    .cover,.scope,figure.chart,.sop,.tablewrap,aside.callout,blockquote.arc{break-inside:avoid;}
+    h3{break-after:avoid;} a{color:var(--ink);}
+  }
+  @media (max-width:560px){
+    h1{font-size:2.1rem;} .wrap{padding:0 20px;}
+    .sop .row{grid-template-columns:1fr;} .sop .k{border-bottom:1px solid var(--line);}
+  }
+</style>
+</head>
+<body>
+
+<header class="bar">
+  <span class="name">Mexico Macro Digest</span>
+  <span class="tag">Strictly Confidential</span>
+</header>
+
+<!-- ============ COVER ============ -->
+<section class="cover">
+  <div class="wrap">
+    <span class="kicker">Macro Research Digest · México</span>
+    <h1>Mexico Macro: A Six-Month Digest</h1>
+    <div class="sub">December 2025 – June 2026</div>
+    <div class="meta">
+      <span>118 research notes</span><span class="dot">·</span>
+      <span>J.P. Morgan &amp; Citi</span><span class="dot">·</span>
+      <span>8 themes, each read chronologically</span>
+    </div>
+    <div class="confidential">Strictly Private &amp; Confidential</div>
+  </div>
+</section>
+
+<div class="wrap">
+
+  <!-- ============ SCOPE / METHOD ============ -->
+  <div class="scope">
+    <h4>About this digest</h4>
+    <p>A synthesis of <strong>118 unique sell-side research notes</strong> on the Mexican economy (94 J.P. Morgan, 24 Citi) published between <strong>18 December 2025 and 26 June 2026</strong>, clustered into eight themes and within each theme read in <strong>chronological order</strong>. Every claim derives <strong>solely from the source documents</strong> — no outside data or interpretation.</p>
+    <p>Citations appear inline as <span class="cite">[House DocID, date]</span>; page numbers are added on direct quotes and pivotal figures. DocIDs map to original files in the source index (appendix). Where the two houses disagreed or revised their views, the evolution is tracked in the text rather than smoothed over.</p>
+  </div>
+
+  <!-- ============ CONTENTS ============ -->
+  <nav class="toc">
+    <div class="kicker" style="margin-bottom:.6em;">Contents</div>
+    <ol>
+      <li class="active"><span class="t"><a href="#banxico">Banxico &amp; Monetary Policy</a></span><span class="status">Included</span></li>
+      <li class="active"><span class="t"><a href="#inflation">Inflation</a></span><span class="status">Included</span></li>
+      <li class="active"><span class="t"><a href="#growth">Growth &amp; Activity</a></span><span class="status">Included</span></li>
+      <li class="active"><span class="t"><a href="#trade">Trade, USMCA &amp; Tariffs</a></span><span class="status">Included</span></li>
+      <li class="active"><span class="t"><a href="#bop">Balance of Payments, FX &amp; External</a></span><span class="status">Included</span></li>
+      <li class="active"><span class="t"><a href="#fiscal">Fiscal &amp; Sovereign Ratings</a></span><span class="status">Included</span></li>
+      <li class="active"><span class="t"><a href="#politics">Politics, Security &amp; Institutions</a></span><span class="status">Included</span></li>
+      <li class="active"><span class="t"><a href="#pemex">Pemex &amp; Energy</a></span><span class="status">Included</span></li>
+    </ol>
+    <div style="margin-top:.7rem; font-size:.95rem;"><a href="#timeline">↗ The six months in one view</a> &nbsp;·&nbsp; <a href="#appendix">↗ Appendix: chronological source index</a></div>
+  </nav>
+
+  <hr class="rule">
+
+  <section id="timeline">
+    <div class="kicker">Overview</div>
+    <h2>The six months in one view</h2>
+    <p class="lead">One dated through-line linking the themes. The pivot was <strong>March</strong>: a non-core inflation spike, a growth collapse and a split rate cut all landed at once, and the narrative turned from "soft landing" to "stagflation scare" before swinging back to a benign-disinflation, fragile-recovery setup by June.</p>
+    <div class="sop">
+      <div class="row"><div class="k">Dec 2025</div><div class="v">Banxico cuts to <strong>7.00%</strong> and signals a pause; inflation benign (3.7%); 2025 closes weak (+0.6% GDP) but with 4Q momentum; the <strong>2025 fiscal deficit balloons to 4.8%</strong>; Mexico raises Asian tariffs to court Washington.</div></div>
+      <div class="row"><div class="k">Jan 2026</div><div class="v">January's tax hikes prove mild — <em>"taxes, not tariffs"</em>; the peso strengthens; statistical carryover lifts growth optimism; the USMCA review looms over investment.</div></div>
+      <div class="row"><div class="k">Feb 2026</div><div class="v">Banxico holds at 7.00%; <strong>JPM turns dovish</strong> (calls a 6.25% terminal); a <strong>security pivot</strong> (CJNG leader killed) lifts approval to 72%; growth optimism peaks (JPM 1.7%).</div></div>
+      <div class="row"><div class="k">Mar 2026</div><div class="v"><strong>The pivot month.</strong> Tomato + oil shocks spike inflation to <strong>4.59%</strong>; 1Q activity collapses (Jan IGAE −0.9%); Banxico cuts to <strong>6.75%</strong> on a 3-2 split; Sheinbaum's electoral reform is defeated (her first loss); the fiscal rule is softened.</div></div>
+      <div class="row"><div class="k">Apr 2026</div><div class="v">Flash 1Q GDP prints <strong>−3.0% saar</strong>; Gov. Rodríguez pre-announces a final cut; the US indicts Morena governors; Fitch affirms BBB−.</div></div>
+      <div class="row"><div class="k">May 2026</div><div class="v">Banxico's <strong>final cut to 6.50%</strong> ends the easing cycle (−475bp); <strong>S&amp;P → negative, Moody's downgrades to Baa3</strong>; 1Q GDP revised to −2.4%; a judicial/electoral package concentrates power.</div></div>
+      <div class="row"><div class="k">Jun 2026</div><div class="v">Inflation falls to <strong>3.55%</strong> (below target); April activity rebounds hard; Banxico <strong>holds unanimously</strong>; the USMCA deadline passes with no deal; the market prices a hike <em>both desks reject</em>; JPM upgrades growth (1.2%), Citi stays cautious.</div></div>
+    </div>
+    <p style="margin-top:1.2rem; font-size:.92rem; color:var(--muted);">The connective threads: a <strong>strong peso</strong> anchored core disinflation but squeezed oil revenue and remittances; <strong>Pemex</strong> support drove the downgrade; <strong>USMCA uncertainty</strong> froze investment; and economic <strong>slack</strong> underwrote the rate cuts even as inflation expectations drifted above target.</p>
+  </section>
+
+  <hr class="rule">
+
+  <!-- ============ CHAPTER 1 — BANXICO ============ -->
+  <article class="chapter" id="banxico">
+    <div class="kicker">Theme 01 · Monetary Policy</div>
+    <h2>Banxico &amp; Monetary Policy</h2>
+
+    <p class="lead">Over these six months Banxico did three things in sequence: <span class="em">paused</span>, delivered <span class="em">two more cuts</span>, then <span class="em">formally closed the easing cycle</span> and went on hold. The rate path itself was almost boring — 7.00% &rarr; 6.75% &rarr; 6.50%, ending exactly where both desks had pencilled in back in December. What was <em>not</em> boring was the road there.</p>
+
+    <blockquote class="arc">A genuine <strong>dovish detour</strong> in February (when JPM briefly called a 6.25% terminal via three back-to-back cuts), a <strong>hawkish reversal</strong> after a split March decision, and a <strong>late, externally-triggered convergence</strong> when the Governor pre-announced the final cut. By late June the rate sat at 6.50%, both houses saw it parked there, and the live debate had inverted — the <em>market</em> was pricing a year-end <strong>hike</strong> that neither desk believed in.</blockquote>
+
+    <!-- RATE PATH CHART -->
+    <figure class="chart">
+      <svg viewBox="0 0 780 320" role="img" aria-label="Banxico policy rate path from December 2025 to June 2026">
+        <g stroke="#e3e3e0" stroke-width="1">
+          <line x1="60" y1="48" x2="750" y2="48"></line>
+          <line x1="60" y1="141" x2="750" y2="141"></line>
+          <line x1="60" y1="233" x2="750" y2="233"></line>
+        </g>
+        <line x1="60" y1="30" x2="60" y2="270" stroke="#9a9a9a" stroke-width="1"></line>
+        <line x1="60" y1="270" x2="750" y2="270" stroke="#9a9a9a" stroke-width="1"></line>
+        <g font-family="Inter, Arial, sans-serif" font-size="12" fill="#6b7280" text-anchor="end">
+          <text x="50" y="52">7.00</text>
+          <text x="50" y="145">6.75</text>
+          <text x="50" y="237">6.50</text>
+        </g>
+        <!-- step line: rate after each decision -->
+        <path d="M60,48 L418,48 L418,141 L571,141 L571,233 L750,233"
+              fill="none" stroke="#1f4e79" stroke-width="2.5" stroke-linejoin="round"></path>
+        <!-- markers: filled = cut, hollow = hold -->
+        <g>
+          <circle cx="60"  cy="48"  r="5.5" fill="#c2632f"></circle>
+          <circle cx="219" cy="48"  r="5"   fill="#ffffff" stroke="#6b7280" stroke-width="2"></circle>
+          <circle cx="418" cy="141" r="5.5" fill="#c2632f"></circle>
+          <circle cx="571" cy="233" r="6.5" fill="#c2632f" stroke="#1f2328" stroke-width="1.5"></circle>
+          <circle cx="750" cy="233" r="5"   fill="#ffffff" stroke="#6b7280" stroke-width="2"></circle>
+        </g>
+        <g font-family="Inter, Arial, sans-serif" font-size="11" fill="#34383f">
+          <text x="66" y="38">-25bp · 4-1</text>
+          <text x="219" y="34" text-anchor="middle" fill="#6b7280">hold</text>
+          <text x="424" y="131">-25bp · 3-2</text>
+          <text x="571" y="258" text-anchor="middle" fill="#c2632f" font-weight="700">-25bp · 3-2 · cycle ends</text>
+          <text x="744" y="224" text-anchor="end" fill="#6b7280">hold (unan.)</text>
+        </g>
+        <g font-family="Inter, Arial, sans-serif" font-size="11.5" fill="#6b7280" text-anchor="middle">
+          <text x="60"  y="288">18 Dec</text>
+          <text x="219" y="288">5 Feb</text>
+          <text x="418" y="288">26 Mar</text>
+          <text x="571" y="288">7 May</text>
+          <text x="750" y="288">25 Jun</text>
+        </g>
+      </svg>
+      <div class="chart-legend">● cut&nbsp;&nbsp;○ hold</div>
+      <figcaption>Banxico overnight policy rate, decision dates spaced by calendar time. Two 25bp cuts (March, May) closed an easing cycle that began March 2024 (&minus;475bp cumulative); on hold at 6.50% since. Source: J.P. Morgan and Citi decision notes.</figcaption>
+    </figure>
+
+    <!-- PHASE 0 -->
+    <h3>Phase 0 — Starting point: the December cut and the signalled pause</h3>
+    <p>Banxico cut 25bp to <strong>7.00%</strong> at its final 2025 meeting on 18 December — the lowest since June 2022 — on a <strong>non-consensus 4-1 vote</strong>, and signalled a pause: <em>"the Board will evaluate the timing for additional reference rate adjustments"</em> <span class="cite">[Citi C023, 18 Dec 2025, p.2]</span>. The real ex-ante rate was <strong>3.1%</strong> and the Banxico–Fed differential <strong>325bp</strong> <span class="cite">[JPM J001, 19 Dec 2025, p.1]</span>.</p>
+    <p>Both desks framed the pause identically but set up different 2026 paths. <strong>Citi</strong> read it as time to assess January's tariff/excise-tax pass-through (11–25bp from tariffs, ~20bp from excise) and <strong>raised its end-2026 call to 6.50% (from 6.25%)</strong>, with cuts resuming in May and June <span class="cite">[Citi C023, 18 Dec 2025]</span>. <strong>JPM</strong> was more hawkish on quantity, seeing <em>"only one more cut to 6.75%"</em> <span class="cite">[JPM J001, 19 Dec 2025, p.1]</span>. Both ended the year near 6.50% — but via different routes.</p>
+
+    <!-- PHASE 1 -->
+    <h3>Phase 1 — Wait-and-see, then a dovish pivot (Jan – 5 Feb)</h3>
+    <p>The December minutes (8 Jan) confirmed the pause: most members cited slack, a strong peso and anchored expectations, but wanted to see the tax pass-through first; the lone hawk called Banxico's inflation path <em>"non-credible"</em> <span class="cite">[JPM J005, 8 Jan 2026, p.1]</span>. Then the data turned benign and the tone shifted fast:</p>
+    <ul>
+      <li>The <strong>2026 Monetary Program</strong> (~27 Jan) framed tax/tariff effects as limited and transitory, the Board "not done yet" <span class="cite">[JPM J012, 28 Jan 2026]</span>.</li>
+      <li><strong>JPM pivoted hard.</strong> On 28 Jan it flagged a <em>"meaningful risk of resuming cuts as soon as March"</em> and put <strong>25% odds on a 6.00% terminal</strong> this year <span class="cite">[JPM J012, 28 Jan 2026, p.2]</span>. A week later it made the dovish case its base: <strong>three back-to-back cuts (Mar/May/Jun) to a 6.25% terminal</strong> — its most aggressive call of the period, and below Citi <span class="cite">[JPM J016, 5 Feb 2026, p.1]</span>.</li>
+      <li><strong>Citi</strong> moved the same way but less far, carrying a <em>"bias toward front-loading to March"</em> without yet changing its two-cut, 6.50% base case <span class="cite">[Citi C014, 11 Feb 2026, p.3]</span>.</li>
+    </ul>
+    <p>The <strong>5 February decision: unanimous hold at 7.00%</strong>, with the door reopened to a cut "as soon as" the next meeting. Banxico staff saw inflation peaking ~4% in 1Q, easing to 3.5% by year-end <span class="cite">[JPM J016, 5 Feb 2026, p.1]</span>.</p>
+    <aside class="callout">
+      <span class="kicker">Divergence · early February</span>
+      <p>JPM = three cuts to <strong>6.25%</strong>; Citi = two cuts to <strong>6.50%</strong>. Counter to the usual stereotype, <strong>JPM was the dove.</strong> This gap drove the next two months.</p>
+    </aside>
+
+    <!-- PHASE 2 -->
+    <h3>Phase 2 — The March cut and the terminal-rate reversal (13 Feb – 9 Apr)</h3>
+    <p>The February minutes (19 Feb) hardened the "March is live" view: the pause <em>"could be shorter than originally expected"</em> — a line JPM attributed to Governor Victoria Rodríguez <span class="cite">[JPM J021, 19 Feb 2026, p.1]</span>. <strong>Citi formally changed its call</strong> the same day: <em>"We recently changed our monetary policy call by front-loading the rate cuts to March… reaching a level of 6.50%"</em> <span class="cite">[Citi C007, 19 Feb 2026, p.1]</span>, and pulled USDMXN to 18.00 (from 18.87). The 26 Feb Quarterly Inflation Report added a dovish growth tilt — 2026 GDP raised to <strong>1.6% (from 1.1%)</strong> <span class="cite">[Citi C017, 27 Feb 2026]</span>.</p>
+    <p>But a March <strong>geopolitical oil shock</strong> eroded JPM's aggressive call. By 20 March it warned: <em>"what is at risk is our call for a terminal rate of 6.25%, not next week's decision"</em> <span class="cite">[JPM J031, 20 Mar 2026, p.1]</span>, lifting year-end inflation to 4.3% on ~US$90/bbl oil. Citi, by contrast, held its 6.50% terminal and treated 26 March as a <em>"close call"</em> it expected to resolve in a cut <span class="cite">[Citi C003, 18 Mar 2026]</span>.</p>
+    <p>The <strong>26 March decision: cut 25bp to 6.75% on a <span class="split">3-2 split</span></strong> (deputies Borja and Heath dissenting) <span class="cite">[JPM J034, 26 Mar 2026, p.1]</span>. Both desks read the split plus more conditional guidance as more <strong>data-dependent / hawkish-leaning</strong> than the cut implied <span class="cite">[Citi C012, 27 Mar 2026]</span>. Their reactions diverged then re-converged:</p>
+    <ul>
+      <li><strong>JPM capitulated</strong> on its dovish call — abandoned 6.25%, moved to <em>"a final cut to 6.50% in June after a pause in May,"</em> converging up to Citi <span class="cite">[JPM J034, 26 Mar 2026, p.1]</span>.</li>
+      <li><strong>Citi pushed its final cut out</strong> — <em>"delaying the last 25-bps cut… to at least June (previously May)"</em> <span class="cite">[Citi C012, 27 Mar 2026]</span>.</li>
+    </ul>
+    <aside class="callout">
+      <span class="kicker">Note for the cross-theme read</span>
+      <p>By late March JPM's growth call was deteriorating fast (2026 GDP cut 1.5% &rarr; 1.3%, <em>"second downward revision in two weeks"</em>), feeding directly into the rate debate. Picked up in the Growth chapter.</p>
+    </aside>
+
+    <!-- PHASE 3 -->
+    <h3>Phase 3 — The final cut: an externally-triggered convergence (28 Apr – 7 May)</h3>
+    <p>The cleanest case in the whole corpus of <strong>one official communication moving both desks at once.</strong> On 28 April, Governor Rodríguez told the Senate she expected the Board to <em>"consider a final cut to our benchmark rate in our next decision"</em> and that <em>"we are near the end of the easing cycle we began in May 2024"</em> <span class="cite">[Citi C015, 30 Apr 2026, p.2]</span>. Within 48 hours both houses moved their final cut <strong>forward from June to 7 May</strong>: JPM <span class="cite">[JPM J050, 30 Apr 2026]</span> and Citi (<em>"We changed our call to a 25-bps rate cut in the May 7 meeting from a pause"</em>) <span class="cite">[Citi C015, 30 Apr 2026, p.1]</span>. Both also absorbed a grim <strong>flash 1Q26 GDP of &minus;3.0% saar.</strong></p>
+    <p>The <strong>7 May decision: cut 25bp to 6.50% on another <span class="split">3-2 split</span></strong>, with an explicit close: <em>"…maintain the reference rate at its current level… thereby conclude the cycle that began in March 2024"</em> <span class="cite">[Citi C010, 8 May 2026, p.1]</span>. JPM judged the statement <em>"slightly hawkish"</em> and set its forward call: <em>"on hold for the foreseeable future at 6.5% after the longest easing cycle on record (475bps)"</em> <span class="cite">[JPM J057, 7 May 2026, p.2]</span>.</p>
+
+    <!-- PHASE 4 -->
+    <h3>Phase 4 — On hold, and the "neutral narrative" (8 May – 26 Jun)</h3>
+    <p>With the cycle closed, the debate flipped from <em>when's the next cut</em> to <em>how long is the hold — and could the next move be a hike.</em> Three threads ran through it:</p>
+    <p><strong>1. The Board entrenched the pause.</strong> The May minutes (21 May) had <em>all</em> members — including dissenters — agreeing <strong>6.50% is the terminal rate</strong>, no signal in either direction; Heath the most hawkish on core-services stickiness <span class="cite">[JPM J068, 21 May 2026, p.1]</span>. The 27 May QIR <em>cut Banxico's own 2026 growth forecast to 1.1% (from 1.6%)</em> while leaving inflation broadly unchanged <span class="cite">[JPM J076, 27 May 2026]</span>; JPM extended its on-hold horizon to <strong>end-2027</strong>. The <strong>25 June decision was a unanimous hold at 6.50%</strong>, guidance reaffirmed; Banxico also introduced a <strong>new, fully-sterilised liquidity tool</strong> (auction purchases of government securities) that JPM stressed is <em>not</em> QE <span class="cite">[JPM J092, 25 Jun 2026, p.2]</span>.</p>
+    <p><strong>2. Fiscal/ratings noise pressed in</strong> (detailed in the Fiscal chapter). S&amp;P moved its BBB outlook to <strong>negative</strong> (12 May) and <strong>Moody's downgraded Mexico to Baa3</strong> on 21–22 May <span class="cite">[Citi C016, 13 May 2026; JPM J065, 22 May 2026, p.1]</span> — JPM had pre-called the Moody's move. It sharpened the "fiscal dominance" watch but did not change the rate calls.</p>
+    <p><strong>3. The hike the market priced and the desks rejected.</strong> By mid-June the market was pricing close to a <strong>full 25bp hike by year-end.</strong> Both pushed back: Citi — <em>"the bar for a rate hike remains high,"</em> risk in fact <em>"tilted more toward lower rates"</em> <span class="cite">[Citi C021, 18 Jun 2026, p.1]</span>; JPM — on hold, any move dictated chiefly by the Fed <span class="cite">[JPM J088, 18 Jun 2026]</span>. The period closed dovish-leaning: 1H-June headline CPI fell to <strong>3.55% oya</strong> (inside target), prompting JPM to trim year-end inflation to 4.1% and, on a strong April activity print, <em>raise</em> 2026 growth to 1.2% <span class="cite">[JPM J094, 26 Jun 2026]</span>. Citi held year-end inflation at 4.4% to absorb a newly-elevated <strong>El Niño</strong> risk <span class="cite">[Citi C022, 25 Jun 2026]</span>.</p>
+
+    <!-- DIVERGENCE SYNTHESIS -->
+    <h3>How the two desks differed</h3>
+    <p>They agreed on the destination (6.50%) and the end-of-cycle timing; the differences were in conviction, sequencing and risk-skew:</p>
+    <ul>
+      <li><strong>Who was the dove, and when.</strong> JPM was the more aggressive easer in Feb–Mar (6.25% via three cuts) while Citi never left 6.50%. The "consensus" that formed by April was really JPM abandoning a lonely dovish call.</li>
+      <li><strong>Reading the statements.</strong> Citi consistently labelled the March and May statements as carrying a <em>"hawkish bias"</em>; JPM agreed on the wording but framed the <em>decisions</em> as net-dovish relative to a strict reaction function (inflation was &gt;4.5% when they cut).</li>
+      <li><strong>Post-cycle risk skew.</strong> After 7 May, Citi saw risk skewed to the <em>downside</em> (more cuts); JPM was more symmetric, leaning on the Fed / relative-conditions channel and sticky core-services as the swing factors.</li>
+      <li><strong>Growth in the home stretch.</strong> By late June JPM's growth view recovered faster (1.2%) than Citi's, which kept trimming its GDP median to 1.1% even as activity firmed.</li>
+    </ul>
+
+    <!-- STATE OF PLAY -->
+    <h3>State of play as of 26 June 2026</h3>
+    <div class="sop">
+      <div class="row"><div class="k">Policy rate</div><div class="v"><span class="rate">6.50%</span>, held unanimously 25 Jun. Easing cycle (begun Mar 2024, &minus;475bp) officially closed 7 May.</div></div>
+      <div class="row"><div class="k">JPM call</div><div class="v">On hold "for the foreseeable future" — explicitly through <strong>end-2027</strong>; next move, if any, dictated by the Fed.</div></div>
+      <div class="row"><div class="k">Citi call</div><div class="v">On hold at 6.50% <strong>through year-end 2026</strong>; risk skewed to <em>lower</em> rates, not higher.</div></div>
+      <div class="row"><div class="k">Both reject</div><div class="v">The market's pricing of a ~25bp <strong>hike</strong> by year-end ("the bar for a hike remains high").</div></div>
+      <div class="row"><div class="k">Swing risks</div><div class="v">Upside inflation: El Niño (Citi), core-services stickiness, a hawkish Fed compressing the spread. Downside: weak activity, strong peso.</div></div>
+      <div class="row"><div class="k">Year-end '26 CPI</div><div class="v">JPM <strong>4.1%</strong> · Citi <strong>4.4%</strong> — both above Banxico's ~3.5% staff path.</div></div>
+    </div>
+
+    <!-- DECISIONS TABLE -->
+    <h3>Reference: Banxico decisions &amp; official guidance</h3>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Date</th><th>Action</th><th>Vote</th><th>Rate</th><th>Guidance / note</th></tr></thead>
+        <tbody>
+          <tr><td>18 Dec 2025</td><td>Cut 25bp</td><td>4-1</td><td><span class="rate">7.00%</span></td><td>Pause signalled</td></tr>
+          <tr><td>5 Feb 2026</td><td>Hold</td><td>Unanimous</td><td><span class="rate">7.00%</span></td><td>Door reopened to a March cut</td></tr>
+          <tr><td>26 Mar 2026</td><td>Cut 25bp</td><td><span class="split">3-2</span> (Borja, Heath)</td><td><span class="rate">6.75%</span></td><td>More conditional, data-dependent guidance</td></tr>
+          <tr><td>7 May 2026</td><td>Cut 25bp</td><td><span class="split">3-2</span></td><td><span class="rate">6.50%</span></td><td>Explicit <strong>end of the easing cycle</strong></td></tr>
+          <tr><td>25 Jun 2026</td><td>Hold</td><td>Unanimous</td><td><span class="rate">6.50%</span></td><td>"Maintain at current level"; new sterilised liquidity tool</td></tr>
+        </tbody>
+        <caption>Minutes / QIRs in between (8 Jan, 19 Feb, 26 Feb, 9 Apr, 21 May, 27 May) are woven into the narrative above.</caption>
+      </table>
+    </div>
+
+    <!-- CAVEATS -->
+    <div class="caveats">
+      <h3>Caveats &amp; gaps</h3>
+      <ul>
+        <li><strong>Neutral-range figures drift slightly across notes</strong> (real neutral cited as 1.8–3.6% vs 1.8–3.4%; 6.50% described as both "high-end" and "midpoint" of the corridor). These are JPM's renderings of Banxico's published range; the ~0.2pp wobble is left unresolved rather than papered over.</li>
+        <li><strong>The Banxico–Fed differential</strong> is given as a hard number only early (325bp, 19 Dec 2025); later notes describe it qualitatively as "compressing / record-low," so no precise end-June spread can be quoted from these documents.</li>
+        <li>JPM "daily" and "weekly" notes on adjacent dates are <strong>overlapping companion pieces</strong>; treated as corroborating, not independent, data points. No internal contradictions were found.</li>
+      </ul>
+    </div>
+
+  </article>
+
+  <article class="chapter" id="inflation">
+    <div class="kicker">Theme 02 · Prices</div>
+    <h2>Inflation</h2>
+
+    <p class="lead">Headline inflation spent the half-year as a story about <span class="em">non-core food</span> and <span class="em">energy</span>, not underlying price pressure. It entered 2026 at 3.7%, was dragged up to a <strong>4.59% peak in March</strong> almost entirely by tomatoes and a Middle-East oil scare, and then fell back to <strong>3.55% by mid-June</strong> — inside Banxico's target band — as those shocks reversed. Underneath, <strong>core</strong> did something much calmer: it rose to ~4.5% on January's tax hikes, then glided steadily down to 4.1%, anchored by a strong peso. The market's January fear — that tariffs would feed through to prices — never really materialised; the recurring villain was the weather.</p>
+
+    <!-- HEADLINE vs CORE CHART -->
+    <figure class="chart">
+      <svg viewBox="0 0 780 320" role="img" aria-label="Headline vs core CPI, December 2025 to June 2026">
+        <!-- gridlines -->
+        <g stroke="#e3e3e0" stroke-width="1">
+          <line x1="50" y1="63" x2="760" y2="63"></line>
+          <line x1="50" y1="256" x2="760" y2="256"></line>
+        </g>
+        <!-- Banxico 4% ceiling -->
+        <line x1="50" y1="160" x2="760" y2="160" stroke="#9a9a9a" stroke-width="1" stroke-dasharray="5 4"></line>
+        <text x="754" y="153" text-anchor="end" font-family="Inter, Arial, sans-serif" font-size="10.5" fill="#9a9a9a">Banxico target ceiling 4.0%</text>
+        <!-- axes -->
+        <line x1="50" y1="25" x2="50" y2="275" stroke="#9a9a9a" stroke-width="1"></line>
+        <line x1="50" y1="275" x2="760" y2="275" stroke="#9a9a9a" stroke-width="1"></line>
+        <g font-family="Inter, Arial, sans-serif" font-size="11.5" fill="#6b7280" text-anchor="end">
+          <text x="44" y="67">4.5</text>
+          <text x="44" y="164">4.0</text>
+          <text x="44" y="260">3.5</text>
+        </g>
+        <!-- core line (orange) -->
+        <polyline points="50,96 168,60 287,63 405,73 523,110 642,123 760,137" fill="none" stroke="#c2632f" stroke-width="2.5"></polyline>
+        <!-- headline line (blue) -->
+        <polyline points="50,219 168,200 287,156 405,46 523,73 642,171 760,246" fill="none" stroke="#1f4e79" stroke-width="2.5"></polyline>
+        <!-- markers -->
+        <g fill="#c2632f"><circle cx="50" cy="96" r="3.2"/><circle cx="168" cy="60" r="3.2"/><circle cx="287" cy="63" r="3.2"/><circle cx="405" cy="73" r="3.2"/><circle cx="523" cy="110" r="3.2"/><circle cx="642" cy="123" r="3.2"/><circle cx="760" cy="137" r="3.2"/></g>
+        <g fill="#1f4e79"><circle cx="50" cy="219" r="3.2"/><circle cx="168" cy="200" r="3.2"/><circle cx="287" cy="156" r="3.2"/><circle cx="405" cy="46" r="3.6"/><circle cx="523" cy="73" r="3.2"/><circle cx="642" cy="171" r="3.2"/><circle cx="760" cy="246" r="3.6"/></g>
+        <!-- annotations -->
+        <g font-family="Inter, Arial, sans-serif" font-size="11">
+          <text x="405" y="38" text-anchor="middle" fill="#1f4e79" font-weight="700">4.59% (Mar)</text>
+          <text x="756" y="258" text-anchor="end" fill="#1f4e79" font-weight="700">3.55%</text>
+          <text x="724" y="133" text-anchor="end" fill="#c2632f">core 4.12%</text>
+        </g>
+        <!-- x labels -->
+        <g font-family="Inter, Arial, sans-serif" font-size="11.5" fill="#6b7280" text-anchor="middle">
+          <text x="50" y="293">Dec</text><text x="168" y="293">Jan</text><text x="287" y="293">Feb</text>
+          <text x="405" y="293">Mar</text><text x="523" y="293">Apr</text><text x="642" y="293">May</text><text x="760" y="293">Jun</text>
+        </g>
+        <!-- legend -->
+        <g font-family="Inter, Arial, sans-serif" font-size="11.5">
+          <rect x="92" y="20" width="14" height="3" fill="#1f4e79"></rect><text x="112" y="24" fill="#34383f">Headline</text>
+          <rect x="190" y="20" width="14" height="3" fill="#c2632f"></rect><text x="210" y="24" fill="#34383f">Core</text>
+        </g>
+      </svg>
+      <figcaption>Annual CPI (%oya), monthly through May and 1H June. Headline (blue) spikes on non-core food/energy and falls back below the 4% ceiling; core (orange) rises on January tax hikes then glides down. Source: J.P. Morgan and Citi, citing INEGI prints.</figcaption>
+    </figure>
+
+    <!-- PHASE 0 -->
+    <h3>Phase 0 — A benign close to 2025 (Dec)</h3>
+    <p>Mexico ended 2025 with inflation looking tame: headline at <strong>3.69% oya</strong> in December (the 1H-Dec print of +0.17% was the lowest since 2019), core at <strong>4.33%</strong> <span class="cite">[JPM J004, 8 Jan 2026; Citi C027, 9 Jan 2026, p11]</span>. Non-core was extraordinarily soft — raw food running −5.6% oya, non-core just 1.8% vs a ~5.9% historical mean <span class="cite">[JPM J004, 8 Jan 2026]</span>. The worry was all forward-looking: January would bring <strong>excise-tax hikes</strong> (sugary drinks, tobacco, processed food), new <strong>tariffs on non-FTA imports</strong>, and a <strong>13% minimum-wage increase</strong> <span class="cite">[Citi C023, 18 Dec 2025, p3]</span>. JPM initially feared core could approach 5% by March; Citi sized the tax hit at ~20bp and tariffs at 11–25bp.</p>
+
+    <!-- PHASE 1 -->
+    <h3>Phase 1 — "Taxes, not tariffs (yet)" (Jan – Feb)</h3>
+    <p>The January pass-through proved <strong>milder than feared.</strong> Headline came in at 3.79% oya (0.38% m/m) and core at 4.52% <span class="cite">[JPM J017, 13 Feb 2026]</span>. The excise-tax effect was a one-off ~13bp (below the ~20bp expected), and crucially the <strong>tariff effect barely showed</strong> — core non-food goods ran below their historical median, which Citi titled bluntly: <em>"Inflation: taxes, not tariffs (yet)"</em> <span class="cite">[Citi C013, 22 Jan 2026]</span>. Both desks credited the <strong>strong peso</strong> for limiting goods pass-through <span class="cite">[JPM J019, 13 Feb 2026]</span>. JPM trimmed its year-end headline call to 3.7–3.8% <span class="cite">[JPM J012, 28 Jan 2026]</span>. Banxico's own February survey nudged 2026 expectations only marginally higher (~3.95–4.0%).</p>
+
+    <!-- PHASE 2 -->
+    <h3>Phase 2 — The non-core scare: tomatoes and oil (late Feb – Mar)</h3>
+    <p>Then headline tore higher — but for reasons that had little to do with the economy. February reached 4.02% oya, and <strong>1H March hit 0.62% 2w/2w (4.63% oya)</strong>, a print JPM filed under <em>"stagflation risk unlocked"</em> <span class="cite">[JPM J032, 24 Mar 2026]</span>. Two shocks:</p>
+    <ul>
+      <li><strong>Tomatoes.</strong> JPM devoted a whole note to it: the US withdrawal from the 2019 tomato suspension agreement plus a <strong>Florida winter freeze (~80% production loss)</strong> shifted US demand onto Mexican supply, creating domestic scarcity even though Mexico is a net exporter. Tomatoes alone added ~22bp to the 1H-March headline <span class="cite">[JPM J036, 1 Apr 2026]</span>.</li>
+      <li><strong>A Middle-East oil shock</strong> pushed up airfares (jet fuel), electricity (natural gas) and gasoline risk. Citi modelled a bull case (Brent to $130) lifting core toward ~5% and headline to 4.5% <span class="cite">[Citi C012, 27 Mar 2026]</span>; JPM raised its year-end call to <strong>4.3%</strong> on a ~US$90/bbl Mexican mix <span class="cite">[JPM J031, 20 Mar 2026]</span>.</li>
+    </ul>
+    <p>Critically, <strong>core stayed contained</strong> (~4.45–4.50%) throughout the scare — cooler demand and the strong peso held core goods down. And gasoline was shielded: the government used its <strong>excise-tax mechanism to keep regular gasoline under Sheinbaum's MXN 24/litre cap</strong>, and capped diesel at MXN 27 <span class="cite">[Citi C003, 18 Mar 2026; Citi C015, 30 Apr 2026, p2]</span>. March monthly headline of 4.59% oya was the highest since July 2024, but JPM called the underlying message <em>"constructive"</em> given the raw-food driver was set to reverse <span class="cite">[JPM J038, 10 Apr 2026]</span>.</p>
+
+    <!-- PHASE 3 -->
+    <h3>Phase 3 — Disinflation resumes; core is the anchor (Apr – May)</h3>
+    <p>The reversal came fast. Late-April delivered a big downside surprise (2H-April +0.04% 2w/2w vs a 0.24% forecast) <span class="cite">[JPM J056, 7 May 2026]</span>, and by May headline fell to <strong>3.94% oya — below Banxico's 4% ceiling for the first time since January</strong> <span class="cite">[JPM J084, 9 Jun 2026]</span>. The real signal was <strong>core</strong>: it decelerated from 4.45% (March) to 4.26% (April) to 4.19% (May), with seasonally-adjusted momentum down to ~4.1% 3m/3m saar — its lowest since December — as core goods dropped toward 4.1% on peso strength and discounting <span class="cite">[JPM J056, 7 May 2026; JPM J069, 22 May 2026]</span>. JPM flagged core as <em>"an important anchor for monetary policy purposes"</em> <span class="cite">[JPM J043, 17 Apr 2026]</span>. The one laggard: <strong>services</strong>, sticky near 4.5%, with "other services" (airfares/jet fuel) running above 5%.</p>
+
+    <!-- PHASE 4 -->
+    <h3>Phase 4 — Below the ceiling, with El Niño on the horizon (Jun)</h3>
+    <p>1H June sealed the disinflation: headline <strong>3.55% oya</strong>, the lowest since October 2025, as tomato prices collapsed (−24% 2w/2w, with "room to fall a further 30%") <span class="cite">[JPM J091, 24 Jun 2026]</span>. Core eased to 4.12%, though SA services stayed <em>"stubborn"</em> at 4.74% 3m/3m saar, now also carrying <strong>World Cup</strong> pressure on airfares, hotels and travel <span class="cite">[JPM J091, 24 Jun 2026; Citi C021, 18 Jun 2026]</span>. On the back of the faster food reversal, <strong>JPM cut its year-end headline forecast to 4.1% (from 4.3%)</strong> — its first downgrade of the period — keeping core at 4.0% <span class="cite">[JPM J091, 24 Jun 2026]</span>. Banxico nudged its own 2Q path down to 4.0% while raising core slightly <span class="cite">[Citi C022, 25 Jun 2026, p2]</span>.</p>
+
+    <!-- DIVERGENCE -->
+    <aside class="callout">
+      <span class="kicker">Divergence · year-end 2026 headline</span>
+      <p><strong>JPM 4.1%</strong> (cut in June on the food reversal) vs <strong>Citi 4.4%</strong> (held). The gap is almost entirely <strong>El Niño</strong>: with NOAA putting ~80% odds on El Niño by 3Q, Citi kept its forecast elevated to pre-absorb a 29–59bp cumulative hit to non-core food, while JPM treated the agri reversal as the dominant near-term force <span class="cite">[Citi C009, 28 May 2026]</span>.</p>
+    </aside>
+
+    <h3>The three moving parts — and the one that crept up</h3>
+    <ul>
+      <li><strong>Non-core (food + energy) = all the volatility.</strong> Tomatoes/limes and the oil scare drove the entire round-trip from 3.7% to 4.6% and back to 3.5%. Gasoline was deliberately neutralised by the excise-tax cap mechanism.</li>
+      <li><strong>Core goods = the disinflation engine.</strong> The strong peso (USDMXN appreciating, investors flagging a possible break below 17.00) kept imported-goods prices falling — the single most cited reason core behaved <span class="cite">[Citi C014, 11 Feb 2026; JPM J056, 7 May 2026]</span>.</li>
+      <li><strong>Services = the stubborn laggard.</strong> Sticky at ~4.5–5%, lifted by the 13% minimum-wage hike feeding restaurants, and late in the period by World Cup tourism.</li>
+      <li><strong>Expectations drifted up.</strong> Banxico's survey 2026 median rose from 3.9% (Dec) to ~4.35% (May–Jun), with long-term expectations edging to ~3.75% — what Citi called <em>"a plateau above target"</em> <span class="cite">[Citi C018, 4 Jun 2026, p5]</span>. This quiet de-anchoring risk is the thread connecting inflation to the Banxico chapter's hawkish dissents.</li>
+    </ul>
+
+    <h3>State of play as of 26 June 2026</h3>
+    <div class="sop">
+      <div class="row"><div class="k">Headline (latest)</div><div class="v"><span class="rate">3.55%</span> oya (1H June) — within the 2–4% band; SA momentum still warm at ~4.4% 3m/3m saar.</div></div>
+      <div class="row"><div class="k">Core (latest)</div><div class="v">4.12% oya; SA 3.80% 3m/3m saar (goods benign ~2.8%, services stubborn ~4.7%).</div></div>
+      <div class="row"><div class="k">Year-end '26 (head)</div><div class="v">JPM <strong>4.1%</strong> (cut from 4.3%) · Citi <strong>4.4%</strong> (held for El Niño) · Banxico staff ~<strong>3.5%</strong>.</div></div>
+      <div class="row"><div class="k">Core year-end</div><div class="v">Both houses ~<strong>4.0%</strong>; Banxico 3.4%.</div></div>
+      <div class="row"><div class="k">Convergence to 3%</div><div class="v">Banxico still says 2Q27; JPM calls it <em>"far-fetched"</em>, sees ~4.0% in 2027.</div></div>
+      <div class="row"><div class="k">Risks</div><div class="v">Up: El Niño food, World Cup services, sticky core services, energy. Down: strong peso, ongoing tomato/agri reversal.</div></div>
+    </div>
+
+    <div class="caveats">
+      <h3>Caveats &amp; gaps</h3>
+      <ul>
+        <li>The source notes carry occasional <strong>internal inconsistencies between biweekly and monthly annual figures</strong> (e.g. March headline shown as both 4.55% and 4.59% oya across tables in the same note) — minor rounding/vintage differences, left as-is rather than reconciled.</li>
+        <li>April headline is variously cited at 4.37% (Citi, 2H) and 4.45% (JPM, monthly) on slightly different bases; the chart uses JPM's monthly figures for a consistent series.</li>
+      </ul>
+    </div>
+  </article>
+  <article class="chapter" id="growth">
+    <div class="kicker">Theme 03 · Real economy</div>
+    <h2>Growth &amp; Activity</h2>
+
+    <p class="lead">Mexico limped out of 2025 (full-year GDP just <strong>+0.6%</strong>) but with enough end-year momentum that both desks spent January–February <span class="em">raising</span> their 2026 calls. Then the first quarter fell apart — a broad-based <strong>−2.4% saar contraction</strong> in 1Q26 — and the calls came back down. By June the question was whether the spring data marked a genuine rebound: <strong>JPM said yes</strong> (upgrading 2Q to a 5.5% saar bounce) while <strong>Citi stayed cautious</strong>, cutting consumption and investment on a delayed USMCA. Through it all, the structural picture barely moved: <strong>investment was the persistent weak spot</strong>, consumption resilient but slowing, and the output gap firmly negative — the slack that underwrote Banxico's cuts.</p>
+
+    <!-- QUARTERLY GDP CHART -->
+    <figure class="chart">
+      <svg viewBox="0 0 780 300" role="img" aria-label="Quarterly GDP, percent quarter-on-quarter annualized">
+        <!-- gridlines -->
+        <g stroke="#e3e3e0" stroke-width="1">
+          <line x1="50" y1="97" x2="760" y2="97"></line>
+          <line x1="50" y1="250" x2="760" y2="250"></line>
+        </g>
+        <!-- zero line -->
+        <line x1="50" y1="173" x2="760" y2="173" stroke="#9a9a9a" stroke-width="1.2"></line>
+        <g font-family="Inter, Arial, sans-serif" font-size="11.5" fill="#6b7280" text-anchor="end">
+          <text x="44" y="24">+6</text><text x="44" y="101">+3</text><text x="44" y="177">0</text><text x="44" y="254">-3</text>
+        </g>
+        <!-- bars -->
+        <rect x="89"  y="122" width="64" height="51"  fill="#1f4e79"></rect>
+        <rect x="231" y="166" width="64" height="7"   fill="#1f4e79"></rect>
+        <rect x="373" y="84"  width="64" height="89"  fill="#1f4e79"></rect>
+        <rect x="515" y="173" width="64" height="62"  fill="#c2632f"></rect>
+        <rect x="657" y="33"  width="64" height="140" fill="#ffffff" stroke="#1f4e79" stroke-width="1.6" stroke-dasharray="4 3"></rect>
+        <!-- value labels -->
+        <g font-family="Inter, Arial, sans-serif" font-size="11.5" fill="#34383f" text-anchor="middle">
+          <text x="121" y="114">+2.0</text>
+          <text x="263" y="158">+0.3</text>
+          <text x="405" y="76">+3.5</text>
+          <text x="547" y="249" fill="#c2632f" font-weight="700">-2.4</text>
+          <text x="689" y="25" fill="#1f4e79" font-weight="700">+5.5</text>
+        </g>
+        <!-- x labels -->
+        <g font-family="Inter, Arial, sans-serif" font-size="11.5" fill="#6b7280" text-anchor="middle">
+          <text x="121" y="268">2Q25</text><text x="263" y="268">3Q25</text><text x="405" y="268">4Q25</text>
+          <text x="547" y="268">1Q26</text><text x="689" y="268">2Q26F</text>
+        </g>
+        <text x="689" y="284" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="10" fill="#9a9a9a">JPM forecast</text>
+      </svg>
+      <figcaption>Quarterly GDP, % q/q saar. A 4Q25 rebound (+3.5%) gave way to a broad-based 1Q26 contraction (−2.4% saar final). 2Q26 is a forecast: JPM sees a sharp +5.5% bounce on strong April data and the World Cup; Citi a milder ~3% (≈+0.8% q/q) and remains cautious. Source: J.P. Morgan, Citi (INEGI).</figcaption>
+    </figure>
+
+    <h3>Phase 0 — 2025 ends weak, but with momentum (Dec – Jan)</h3>
+    <p>Full-year 2025 growth landed at just <strong>+0.6% y/y</strong>, with investment down ~7% and industrial production −1.3% <span class="cite">[JPM J018, 11 Feb 2026; JPM J022, 23 Feb 2026]</span>. But 4Q25 rebounded <strong>+0.9% q/q (≈3.5% saar)</strong> on construction and services, leaving a healthy <strong>statistical carryover of ~0.6–0.8%</strong> into 2026 <span class="cite">[JPM J013, 30 Jan 2026; Citi C017, 27 Feb 2026]</span>. That carryover, plus a resilient US economy, is what drove the early-year optimism.</p>
+
+    <h3>Phase 1 — Carryover optimism (late Jan – Feb)</h3>
+    <p>Both desks marked their 2026 calls <strong>up</strong>: Citi to 1.4% (from 1.0%) and JPM all the way to <strong>1.7%</strong> by late February, citing "green shoots" and the strong handoff <span class="cite">[Citi C020, 30 Jan 2026; JPM J022, 23 Feb 2026]</span>. But the leading indicators never confirmed it — manufacturing PMIs sat below 50, business confidence was contractionary, and gross fixed investment kept shrinking (machinery &amp; equipment had been falling since 2024) <span class="cite">[JPM J015, 6 Feb 2026; Citi C011, 5 Feb 2026]</span>. The optimism rested on carryover and consumption, not on a genuine acceleration.</p>
+
+    <h3>Phase 2 — The 1Q26 collapse (Mar – Apr)</h3>
+    <p>The cracks opened in March. The January GDP proxy contracted <strong>−0.9% samr</strong> (versus a −0.2% expectation), and JPM cut its 2026 call from 1.7% to 1.3% in a note titled <em>"Stagflation risk unlocked"</em> — its "second downward revision in two weeks" <span class="cite">[JPM J032, 24 Mar 2026]</span>. Activity then deteriorated through April (a near-flat February, sharp retail-sales drop), pushing JPM to −2.5% then to the <strong>flash 1Q26 reading of −3.0% saar</strong> (30 Apr), with the full-year call down to <strong>1.0%</strong> <span class="cite">[JPM J051, 30 Apr 2026]</span>. Citi tracked the same path down to <strong>1.1%</strong> <span class="cite">[Citi C015, 30 Apr 2026]</span>. The final 1Q print was revised to <strong>−2.4% saar</strong>, and it was broad-based — services −1.5%, industry −4.0%, agriculture −6.6%, with private investment cratering (−13% annualised) and only a public-capex surge cushioning the fall <span class="cite">[JPM J070, 22 May 2026; Citi C021, 18 Jun 2026]</span>.</p>
+
+    <h3>Phase 3 — The rebound debate (May – Jun)</h3>
+    <p>Spring data then turned up. The March IGAE rose +0.4% samr and <strong>April surprised strongly — IGAE +1.2% samr and IP +2.1% samr (construction +7.6%)</strong> <span class="cite">[JPM J090, 23 Jun 2026; JPM J086, 11 Jun 2026]</span>. Here the desks split:</p>
+    <ul>
+      <li><strong>JPM turned bullish</strong>, upgrading 2Q26 to <strong>5.5% saar (from 3.3%)</strong> and the full year to <strong>1.2%</strong>, citing the April beat, the May trade surplus and a World Cup consumption tailwind <span class="cite">[JPM J094, 26 Jun 2026]</span>.</li>
+      <li><strong>Citi stayed cautious</strong>, <em>cutting</em> its 2026 consumption forecast to 1.7% (from 2.6%) and investment to −1.7% (from +1%) on the <em>"likely delay in USMCA negotiations into next year,"</em> and keeping GDP at 1.1% — pointing to consumer confidence at a post-2022 low (43.5) and softening formal employment <span class="cite">[Citi C021, 18 Jun 2026; Citi C008, 11 Jun 2026]</span>.</li>
+    </ul>
+    <aside class="callout">
+      <span class="kicker">Divergence · the 2Q bounce</span>
+      <p>By end-June JPM read the April data as the start of a real rebound (2Q +5.5% saar, FY 1.2%); Citi read it as fragile and demand-led-by-services-only, holding FY at 1.1% and trimming the demand components. Same data, opposite conviction — the growth-side mirror of the rates chapter, where JPM's view recovered faster.</p>
+    </aside>
+
+    <h3>The structural picture (barely changed all period)</h3>
+    <ul>
+      <li><strong>Investment = the weak spot.</strong> Machinery &amp; equipment contracted throughout (falling since 2024); construction was the only support and a volatile, public-spending-driven one that JPM suspected was <em>"a fad"</em> <span class="cite">[JPM J037, 6 Apr 2026]</span>. Hope rests on Plan Mexico (a MXN 5.6tn 2026–30 infrastructure plan) and a USMCA deal — both largely 2027 stories <span class="cite">[Citi C011, 5 Feb 2026; JPM J058, 8 May 2026]</span>.</li>
+      <li><strong>Consumption = resilient but fading.</strong> Supported by the 13% minimum-wage hike and the real wage bill, but dragged by deteriorating consumer confidence (44 → 43.5, lowest since 2022), soft remittances and slowing consumer credit <span class="cite">[Citi C008, 11 Jun 2026; JPM J055, 6 May 2026]</span>.</li>
+      <li><strong>Labour = tight but softening.</strong> Unemployment drifted 2.6% → 2.8% (still below the 3.4% 10-yr average), but formal job growth was flattered by digital-platform reclassification — ex-platform creation ran near zero <span class="cite">[Citi C001, 16 Apr 2026; Citi C008, 11 Jun 2026]</span>.</li>
+      <li><strong>The forecast outlier.</strong> The Finance Ministry's 2026 growth assumption of <strong>2.3%</strong> towered over JPM (1.2%), Citi (1.1%), Banxico (1.1%) and consensus (~1.3%) — a gap that fed scepticism about the government's fiscal targets <span class="cite">[JPM J061, 13 May 2026; JPM J077, 29 May 2026]</span>.</li>
+    </ul>
+
+    <h3>State of play as of 26 June 2026</h3>
+    <div class="sop">
+      <div class="row"><div class="k">2025 GDP</div><div class="v"><span class="rate">+0.6%</span> y/y — a stall year (investment −7%, IP −1.3%).</div></div>
+      <div class="row"><div class="k">1Q26 GDP</div><div class="v"><span class="rate">−2.4%</span> saar (final), +0.2% oya — broad-based; private investment −13% annualised.</div></div>
+      <div class="row"><div class="k">2Q26 (in progress)</div><div class="v">Rebound underway — April IGAE +1.2% samr. JPM <strong>+5.5% saar</strong>; Citi milder (~+0.8% q/q) and fragile.</div></div>
+      <div class="row"><div class="k">Full-year '26</div><div class="v">JPM <strong>1.2%</strong> · Citi <strong>1.1%</strong> · Banxico 1.1% · consensus ~1.3% · MoF <strong>2.3%</strong> (outlier).</div></div>
+      <div class="row"><div class="k">Below potential</div><div class="v">Potential ~1.5%; the shortfall reflects USMCA uncertainty and weak private investment.</div></div>
+      <div class="row"><div class="k">Swing factors</div><div class="v">Up: World Cup spending, Plan Mexico construction, US resilience. Down: USMCA delay, soft confidence/jobs, fading consumption.</div></div>
+    </div>
+
+    <div class="caveats">
+      <h3>Caveats &amp; gaps</h3>
+      <ul>
+        <li>The two houses quote 1Q26 on <strong>different conventions</strong> — JPM in q/q saar (−2.4%), Citi in q/q sa (−0.6%, ≈ −2.4% annualised); the chart uses the saar basis throughout.</li>
+        <li>Late-period <strong>construction</strong> data is volatile and base-effect-driven (e.g. April +7.6% samr after a −3% 1Q); JPM explicitly cautions on reading too much into a single strong month given limited public-investment space.</li>
+      </ul>
+    </div>
+  </article>
+  <article class="chapter" id="trade">
+    <div class="kicker">Theme 04 · External policy</div>
+    <h2>Trade, USMCA &amp; Tariffs</h2>
+
+    <p class="lead">This was the single biggest <span class="em">overhang</span> of the half-year — and, paradoxically, a story where Mexico kept coming out ahead on the actual numbers while the <em>uncertainty</em> did the damage. On tariffs, Mexico ended up a relative <strong>winner</strong>: most exports are USMCA-compliant, so successive US tariff waves left its effective rate around <strong>3–4½%</strong>, low versus peers. But the <strong>USMCA review</strong> — legally due 1 July 2026 — slid into an open-ended renegotiation that, by both desks' reckoning, <strong>will not conclude in 2026</strong>, and that lingering question mark is what kept investment frozen all period.</p>
+
+    <h3>Phase 0 — Mexico plays nice (Dec – Jan)</h3>
+    <p>Mexico opened by aligning with Washington: it raised tariffs on <strong>1,400+ non-FTA (mostly Asian) products</strong> and lifted Asian-vehicle duties from 20% to 50% — Economy Minister Ebrard's <em>"produce here to sell here"</em> — a move the US welcomed as positive for the 2026 review because it curbs Chinese transshipment <span class="cite">[Citi C023, 18 Dec 2025]</span>. A December Water-Treaty deal also defused a threatened 5% Trump tariff. The flip side: those same tariffs were a (modest) source of January's inflation worry (covered in the Inflation chapter).</p>
+
+    <h3>Phase 1 — Tariff waves wash out in Mexico's favour (Feb)</h3>
+    <p>A messy US tariff sequence ended up benign for Mexico. The US Supreme Court struck down the IEEPA "fentanyl" tariffs; Trump then announced a generalised 10%→15% import duty — but <strong>USMCA-compliant exports (~85% of the total) were exempt</strong>, making the net effect <em>"arguably positive"</em> <span class="cite">[Citi C017, 27 Feb 2026]</span>. JPM put Mexico's effective US tariff at <em>"nearly 3%, from around 5% before"</em> and called Mexico <em>"one of the global winners"</em> <span class="cite">[JPM J022, 23 Feb 2026]</span>; Citi's estimate was a bit higher at 4.4%. Section 232 tariffs (autos 25%, steel &amp; aluminium 50%) stayed in place — the persistent exception.</p>
+
+    <aside class="callout">
+      <span class="kicker">Divergence · the effective tariff</span>
+      <p>JPM ~3% ("tariff winner") vs Citi ~4.4% ("positive but limited") — same IEEPA/Section-122 facts, more conservative Citi framing. Both agreed the direction was favourable and that some tariff would <em>always</em> remain.</p>
+    </aside>
+
+    <h3>Phase 2 — The review starts early, then stretches out (Mar – Apr)</h3>
+    <p>Rather than wait for 1 July, Mexico and the US launched the review early (formal start 5 March; first Ebrard–Greer round mid-March), with Mexico the <em>"lead channel"</em> ahead of Canada <span class="cite">[JPM J030, 20 Mar 2026; JPM J043, 17 Apr 2026]</span>. The agenda: <strong>stricter rules of origin, transshipment, critical minerals, and energy</strong> (a recurring "bottleneck"). Ebrard's priority was rolling back the sectoral auto/steel/aluminium tariffs — but the US conditioned even a partial steel/aluminium cut (50%→25%) on strict US-content requirements, and Ebrard conceded the sectoral tariffs <em>"won't disappear"</em> with a deal <span class="cite">[Citi C015, 30 Apr 2026]</span>. By April, USTR Greer was openly saying the review <em>"may extend beyond the July 1 deadline."</em> JPM reframed its base case as a <em>"renegotiation, not a revision."</em></p>
+
+    <h3>Phase 3 — No deal by July; near-term termination ruled out (May – Jun)</h3>
+    <p>Negotiating rounds were scheduled into Washington (mid-June) and back to Mexico (July), <strong>confirming the deadline would pass</strong> with the existing framework simply rolling on <span class="cite">[Citi C009, 28 May 2026]</span>. JPM called a 1-July rubber-stamp <em>"far-fetched,"</em> and flagged the process could run to <strong>end-2027 or beyond 2028</strong> <span class="cite">[JPM J074, 29 May 2026]</span>. The noise peaked in June: Mexico and Canada announced intent to extend the pact 16 years, while Trump said he was <em>"not looking to renew"</em> and would <em>"rather not have"</em> USMCA — read by Citi as a negotiating tactic that nonetheless raised the odds of the review spilling past 2026 <span class="cite">[Citi C008, 11 Jun 2026]</span>. The period closed with Ebrard clarifying the <strong>"worst case" is a 10-year extension, not cancellation</strong> — effectively ruling out near-term termination <span class="cite">[Citi C022, 25 Jun 2026]</span>. A new wrinkle: a US Section 301 <strong>forced-labour 10% tariff (effective 2 June)</strong>, and reports Mexican autos could face a ~19% average tariff vs ~15% for Korea/Japan — a hint Mexico's tariff edge may be eroding <span class="cite">[Citi C008, 11 Jun 2026]</span>.</p>
+
+    <h3>The tariff stack (JPM, early June)</h3>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Measure</th><th>Headline rate</th><th>Weighted effective</th></tr></thead>
+        <tbody>
+          <tr><td>Steel &amp; aluminium (S232)</td><td>50%</td><td>0.05%</td></tr>
+          <tr><td>Autos &amp; auto parts (S232)</td><td>25%</td><td>0.67%</td></tr>
+          <tr><td>Manufactured goods</td><td>25–100%</td><td>0.23%</td></tr>
+          <tr><td>Section 122 (global)</td><td>10%</td><td>1.12%</td></tr>
+          <tr><td>Section 301 (forced labour, eff. 2 Jun)</td><td>10%</td><td>1.12%</td></tr>
+          <tr><td>Tomato / copper / other</td><td>17–50%</td><td>~0.02%</td></tr>
+          <tr><td><strong>Total weighted effective</strong></td><td></td><td><strong>3.21%</strong></td></tr>
+        </tbody>
+        <caption>Assumes ~85% USMCA compliance. Source: J.P. Morgan [JPM J083, 5 Jun 2026, Table 1].</caption>
+      </table>
+    </div>
+
+    <h3>The real economic cost: frozen investment</h3>
+    <p>Both desks were emphatic that the damage ran not through the tariff <em>level</em> but through <strong>uncertainty</strong>. Capital-goods imports stayed weak all period (<em>"structural hurdles to investment"</em>), and Banxico's own business survey ranked rule-of-law and trade uncertainty as the top disincentives to relocating to Mexico <span class="cite">[JPM J029, 13 Mar 2026; JPM J093, 26 Jun 2026]</span>. Citi tied its June consumption/investment downgrades directly to the <em>"likely delay in USMCA negotiations into next year"</em> <span class="cite">[Citi C021, 18 Jun 2026]</span>. There were green shoots — GM said it would shift Chevrolet Aveo assembly to Coahuila from 2027 — but the investment revival is, on both desks' telling, a <strong>2027 story contingent on a deal</strong>. JPM's late-June structural note also cautioned that 2025's export strength was partly a tech-price illusion: import growth was driven by Asian tech <em>prices</em>, not volumes, offering <em>"limited support for growth"</em> <span class="cite">[JPM J075, 26 Jun 2026]</span>.</p>
+
+    <h3>State of play as of 26 June 2026</h3>
+    <div class="sop">
+      <div class="row"><div class="k">Review status</div><div class="v">Deadline (1 Jul) to pass with framework intact; renegotiation continuing into 2H26 and likely beyond — JPM eyes confirmation as late as end-2027.</div></div>
+      <div class="row"><div class="k">Termination risk</div><div class="v">Effectively ruled out near-term: "worst case" is a 10-year extension (Ebrard). Trump rhetoric read as tactical.</div></div>
+      <div class="row"><div class="k">Effective US tariff</div><div class="v">~<strong>3.2%</strong> (JPM) / ~4.4% (Citi) — still low vs peers, but autos may be losing their edge (~19% vs ~15% Korea/Japan).</div></div>
+      <div class="row"><div class="k">Persistent tariffs</div><div class="v">Section 232 (autos 25%, steel/aluminium 50%) and new Section 301 (10%) stay regardless of a deal.</div></div>
+      <div class="row"><div class="k">Macro impact</div><div class="v">Uncertainty — not tariff level — is the binding constraint; it suppressed investment all period and is a 2027 swing factor.</div></div>
+    </div>
+  </article>
+  <article class="chapter" id="bop">
+    <div class="kicker">Theme 05 · External accounts</div>
+    <h2>Balance of Payments, FX &amp; External</h2>
+
+    <p class="lead">The external accounts were, quietly, a <span class="em">source of strength</span> — and the peso was the half-year's understated hero. <strong>USDMXN appreciated ~17% from the start of 2025</strong>, and both desks spent the period revising their year-end forecasts <em>stronger</em>, not weaker. The trade balance swung to surplus, the current-account deficit stayed small (~0.5–1.0% of GDP), and foreigners returned to Mexican government debt. The two soft spots: <strong>remittances</strong> (shrinking in peso terms and pressured by US immigration policy) and <strong>new FDI</strong> (frozen by the USMCA overhang).</p>
+
+    <h3>The peso: a one-way appreciation</h3>
+    <p>The dominant FX story was relentless peso strength, which both houses attributed mostly to generalised USD weakness plus an attractive carry. Citi's year-end-2026 USDMXN forecast was marked stronger again and again — from <strong>19.4 (Dec) → 18.9 (Jan) → 18.0 (Feb) → ~17.6–17.9 (May–Jun)</strong> — while JPM ran even stronger at <strong>17.30 eop</strong> <span class="cite">[Citi C007, 19 Feb 2026; JPM J059, 8 May 2026]</span>. On a marketing trip in February, investors floated the peso breaking <strong>below 17.00</strong> <span class="cite">[Citi C014, 11 Feb 2026]</span>. The March oil shock dented it only ~2.6% intra-quarter, and it stayed stronger YTD throughout <span class="cite">[JPM J030, 20 Mar 2026]</span>. A strong peso was the connective tissue across themes — it anchored core-goods disinflation, but it also crimped peso oil revenue (Fiscal) and remittance purchasing power.</p>
+
+    <h3>Trade balance: swung to surplus on a tech-led export boom</h3>
+    <p>2025 closed with a small trade surplus (~US$0.8bn, from a US$18.5bn deficit in 2024), as a <strong>non-energy surplus of ~US$26bn</strong> offset a widening energy deficit <span class="cite">[Citi C020, 30 Jan 2026]</span>. Into 2026 the monthly path was choppy — a January import-surge deficit gave way to growing surpluses in March–May. Exports were powered by <strong>non-auto manufacturing tied to the US tech/AI boom</strong> and a metals-price surge in mining; autos lagged on tariffs <span class="cite">[JPM J072, 25 May 2026]</span>. By late June the YTD surplus was ~US$5.8bn and <strong>oil exports hit their highest since 2024</strong> (price and volume both up) <span class="cite">[JPM J093, 26 Jun 2026]</span>. The caveat (per JPM's structural note): much of the tech trade is <em>price</em>-driven, so the growth dividend is smaller than the headline export numbers suggest.</p>
+
+    <h3>Current account, FDI and portfolio flows</h3>
+    <p>The current-account deficit stayed comfortably financed: just <strong>0.4% of GDP in 2025</strong>, widening modestly to ~0.6% in 1Q26 (US$15.9bn that quarter) <span class="cite">[Citi C017, 27 Feb 2026; JPM J073, 27 May 2026]</span>. Beneath it:</p>
+    <ul>
+      <li><strong>FDI ~2.0% of GDP but stagnant</strong> — 1Q26 inflows were the lowest for a first quarter since 2022, with <em>new</em> investment weak and the USMCA overhang the cited culprit <span class="cite">[JPM J073, 27 May 2026]</span>.</li>
+      <li><strong>Portfolio flows turned friendlier</strong> — net inflows of ~0.4% of GDP, with foreigners piling into government debt at the fastest pace since 4Q23, even through the rating actions <span class="cite">[JPM J073, 27 May 2026]</span>.</li>
+      <li><strong>Reserves</strong> sat around US$250–280bn; Citi sees ~US$257bn by end-2026 <span class="cite">[Citi C022, 25 Jun 2026]</span>.</li>
+    </ul>
+
+    <h3>Remittances: the soft spot</h3>
+    <p>Remittances were the one external line under genuine pressure. After falling ~3.9% in 2025 (linked to US immigration/deportation policy), 2026 saw a tepid USD recovery (~+2–4% oya) but an outright <strong>decline in peso terms (−10% to −13% oya)</strong> as the strong currency eroded purchasing power <span class="cite">[Citi C010, 8 May 2026; JPM J079, 1 Jun 2026]</span>. The composition told the story: <em>"fewer but larger deposits"</em> — transaction counts falling while average transfers rose, which JPM linked to tougher US enforcement (ICE activity, new customer-ID/due-diligence rules) <span class="cite">[JPM J079, 1 Jun 2026]</span>. Remittances held at ~3.1–3.2% of GDP, still above the pre-pandemic ~2.9%.</p>
+
+    <aside class="callout">
+      <span class="kicker">Divergence · current-account &amp; FX</span>
+      <p>JPM was the more constructive: a <strong>0.5%-of-GDP</strong> 2026 CAD (on World Cup tourism, solid exports, a remittance rebound) and a stronger peso (17.30). Citi saw a wider <strong>1.0%-of-GDP</strong> deficit (weaker remittances, recovering import demand) and a slightly softer peso (~17.9). Modest gap, same benign direction.</p>
+    </aside>
+
+    <h3>State of play as of 26 June 2026</h3>
+    <div class="sop">
+      <div class="row"><div class="k">Peso (USDMXN)</div><div class="v">~17% stronger since start-2025; year-end forecasts JPM <strong>17.30</strong> · Citi <strong>~17.9</strong>. Investors flag sub-17.00 as plausible.</div></div>
+      <div class="row"><div class="k">Trade balance</div><div class="v">Swung positive — YTD surplus ~US$5.8bn; tech-led non-auto exports + record oil exports; autos the laggard.</div></div>
+      <div class="row"><div class="k">Current account</div><div class="v">~0.5% (JPM) to 1.0% (Citi) of GDP for 2026 — comfortably financed.</div></div>
+      <div class="row"><div class="k">FDI</div><div class="v">~2.0% of GDP but <em>new</em> investment weak; USMCA uncertainty the binding constraint.</div></div>
+      <div class="row"><div class="k">Portfolio</div><div class="v">Net inflows improving; foreigners into government debt at the strongest since 4Q23 despite downgrades.</div></div>
+      <div class="row"><div class="k">Remittances</div><div class="v">~3.2% of GDP; recovering in USD, falling in MXN; downside risk from US immigration/ID rules.</div></div>
+    </div>
+
+    <div class="caveats">
+      <h3>Caveats &amp; gaps</h3>
+      <ul>
+        <li>The corpus quotes USDMXN almost entirely via <strong>forecasts and survey medians</strong>, not a continuous spot series — the "~17% appreciation" anchor is from Citi [C021, 18 Jun 2026]; a precise end-June spot is not restated.</li>
+        <li>FDI is reported on multiple methodologies (directional-bias vs BPM6) that differ in sign of the year-on-year change; figures here use JPM's directional-bias read.</li>
+      </ul>
+    </div>
+  </article>
+  <article class="chapter" id="fiscal">
+    <div class="kicker">Theme 06 · Public finances</div>
+    <h2>Fiscal &amp; Sovereign Ratings</h2>
+
+    <p class="lead">The fiscal story built steadily to the half-year's clearest negative event: a <span class="em">sovereign downgrade</span>. Mexico entered 2026 having run a <strong>4.8%-of-GDP deficit in 2025</strong> — far above the 3.9% approved — dragged by weak oil revenue and ongoing <strong>Pemex support</strong>. A loosened fiscal rule, optimistic official growth assumptions and rigid social spending then convinced the agencies that consolidation was slipping: <strong>S&amp;P moved to a negative outlook (12 May)</strong> and <strong>Moody's downgraded Mexico to Baa3 (20 May)</strong>, leaving it one notch above high-yield at two of the three agencies. Both desks see the deficit stuck near <strong>4.3–4.8% of GDP in 2026</strong>, with debt grinding toward ~55% and Pemex the recurring culprit.</p>
+
+    <h3>Phase 0 — A wider-than-billed 2025 (Dec – Feb)</h3>
+    <p>The headline shock came early: the full-year 2025 deficit landed at <strong>4.8% of GDP</strong> versus an approved 3.9% (and Citi's own 4.5% call), on end-year spending normalisation, weak oil revenue and sovereign support to Pemex <span class="cite">[Citi C011, 5 Feb 2026]</span>. Public debt rose to ~52.6% of GDP. The Finance Ministry preferred to frame it as a 4.3% deficit excluding a Pemex financial operation — but the broadest measure (PSBR) was later pegged at <strong>5.9% of GDP for 2025</strong> in the 2027 pre-criterios <span class="cite">[Citi C002, 9 Apr 2026]</span>. Fitch and S&amp;P were already warning that fiscal strength had <em>"ceased to be a strength."</em></p>
+
+    <h3>Phase 1 — The fiscal rule gets softer (Mar – Apr)</h3>
+    <p>In March the executive moved to <strong>weaken the fiscal-responsibility rule</strong> by excluding social programs from the capped "structural expenditure" measure — easing compliance with a rule already breached in recent years (subsidies had risen from 1.7% of GDP in 2018 to ~2.8% by 2025) <span class="cite">[Citi C012, 27 Mar 2026]</span>. Citi's read: it <em>"increases the odds of fiscal slippage… probably not enough to trigger a rating action"</em> on its own. The 2027 pre-criterios then set PSBR targets of <strong>4.1% (2026) and 3.7% (2027)</strong> — implying programmable-spending cuts both desks doubted, given a Finance-Ministry growth assumption (2.3%) far above everyone else's. <strong>Fitch reaffirmed BBB− (stable)</strong> on 16 April, comfortable with its headroom, even as it flagged consolidation risk <span class="cite">[Citi C001, 16 Apr 2026]</span>.</p>
+
+    <h3>Phase 2 — The downgrade cascade (May)</h3>
+    <p>Three weeks in May delivered the event the period had been building toward:</p>
+    <ul>
+      <li><strong>S&amp;P → negative outlook</strong> on its BBB rating (12 May), citing slow consolidation, faster-than-expected debt buildup, a higher interest burden and Pemex; S&amp;P projected a <strong>4.8%-of-GDP 2026 deficit</strong> <span class="cite">[JPM J061, 13 May 2026]</span>.</li>
+      <li><strong>Moody's → downgrade to Baa3</strong> from Baa2 (stable outlook, 20 May) — front-loaded ahead of USMCA clarity, citing rigid spending, a narrow revenue base and continued Pemex support. JPM had pre-called it: <em>"only a matter of time"</em> <span class="cite">[JPM J066, 21 May 2026]</span>.</li>
+    </ul>
+    <p>Moody's was explicit on the mechanism: a ~1%-of-GDP federal primary adjustment in 2025 was halved by <strong>~US$35bn (1.9% of GDP) of direct Pemex support</strong>, with another US$14bn (0.7%) budgeted for 2026 and <em>"further support… expected absent a material improvement"</em> <span class="cite">[JPM J066, 21 May 2026]</span>. The silver lining both desks floated: a downgrade could finally pressure the government into <em>"full-fledged, credible fiscal consolidation."</em></p>
+
+    <h3>Where the ratings stand</h3>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Agency</th><th>Sovereign</th><th>Notches above HY</th><th>Outlook</th><th>Pemex</th></tr></thead>
+        <tbody>
+          <tr><td>Fitch</td><td>BBB−</td><td>1</td><td>Stable (affirmed 16 Apr)</td><td>BB+</td></tr>
+          <tr><td>Moody's</td><td>Baa3</td><td>1</td><td>Stable (downgraded 20 May)</td><td>B1</td></tr>
+          <tr><td>S&amp;P</td><td>BBB</td><td>2</td><td><span class="split">Negative</span> (12 May)</td><td>BBB</td></tr>
+        </tbody>
+        <caption>Post-May positions. Mexico remains investment grade at all three, but the medium-term risk of losing it has risen. Source: J.P. Morgan, Citi [JPM J066, 21 May 2026; Citi C024, 22 May 2026].</caption>
+      </table>
+    </div>
+
+    <h3>Phase 3 — A strained budget after the downgrade (Jun)</h3>
+    <p>Post-downgrade data underlined the strain: the April fiscal deficit barely narrowed in nominal terms and the <strong>primary balance fell 41.7% YTD</strong>, with revenue down 6.4% y/y as oil inflows lagged despite higher prices — <em>"pressured by a strong peso and policies aimed at limiting exports"</em> <span class="cite">[JPM J081, 5 Jun 2026]</span>. JPM captured the structural trap crisply: <em>"rigid mandatory social spending leaves less room to adjust when revenues disappoint, pushing the burden of deficit control to lower capex — undermining growth and risking a negative loop."</em> Public fixed investment was down ~18% YTD even as social transfers and pensions rose ~7%.</p>
+
+    <aside class="callout">
+      <span class="kicker">Divergence · the 2026 deficit</span>
+      <p>MoF target <strong>4.1%</strong> of GDP; <strong>Citi 4.4%</strong> (weaker growth, conservative oil); <strong>S&amp;P 4.8%</strong>; <strong>JPM 4.3%</strong> in its forecast table but <strong>4.8%</strong> in a June note — an inconsistency JPM itself flagged. The common thread: everyone but the government expects slippage, and Pemex is the swing factor.</p>
+    </aside>
+
+    <h3>State of play as of 26 June 2026</h3>
+    <div class="sop">
+      <div class="row"><div class="k">2025 deficit</div><div class="v"><span class="rate">4.8%</span> of GDP (approved 3.9%); broadest PSBR 5.9%.</div></div>
+      <div class="row"><div class="k">2026 deficit</div><div class="v">MoF <strong>4.1%</strong> · Citi <strong>4.4%</strong> · S&amp;P/JPM up to <strong>4.8%</strong>.</div></div>
+      <div class="row"><div class="k">Public debt</div><div class="v">~<strong>54.7–55%</strong> of GDP in 2026 (from 52.6%); JPM sees ~58% by 2030.</div></div>
+      <div class="row"><div class="k">Ratings</div><div class="v">Fitch BBB− stable · Moody's Baa3 stable (downgraded) · S&amp;P BBB <strong>negative</strong>. IG intact; downside risk elevated.</div></div>
+      <div class="row"><div class="k">Pemex burden</div><div class="v">~US$35bn (1.9% GDP) support in 2025, US$14bn (0.7%) budgeted 2026 — the agencies' central concern.</div></div>
+      <div class="row"><div class="k">Structural trap</div><div class="v">Rigid social spending + weak oil revenue + strong peso → capex squeezed → growth/​"negative loop." Full reform not yet on the table.</div></div>
+    </div>
+  </article>
+  <article class="chapter" id="politics">
+    <div class="kicker">Theme 07 · Institutions</div>
+    <h2>Politics, Security &amp; Institutions</h2>
+
+    <p class="lead">President Sheinbaum stayed <span class="em">popular but increasingly cornered</span>. Her approval held in the high-60s/low-70s — propped up by social programs — even as it slid ~16pp from its early-2025 peak, with security the soft underbelly. Three threads ran through the half-year: a <strong>security-policy pivot</strong> toward confronting cartels (welcomed by Washington), a <strong>US-indictment crisis</strong> that put ruling-party figures in the dock and forced her to choose between the US and her own party, and a steady <strong>erosion of institutional checks</strong> (judicial/electoral reforms) that both desks flagged as a drag on investment and the USMCA narrative.</p>
+
+    <h3>The security pivot (Feb)</h3>
+    <p>The turning point was the <strong>22 February military killing of the CJNG cartel leader</strong>, which triggered clashes but signalled Sheinbaum <em>"distancing herself from the complacent 'hugs, not bullets' approach"</em> of her predecessors — and was expected to play well with the US ahead of the USMCA review <span class="cite">[JPM J024, 27 Feb 2026; Citi C017, 27 Feb 2026]</span>. Mexico also handed 37+ alleged cartel members to US authorities and arrested senior CJNG figures. Her approval actually <em>rose</em> to 72% in February on the back of it <span class="cite">[Citi C004, 5 Mar 2026]</span>. The backdrop was constant US pressure — Trump's Venezuela operation, an offer of military help (which she declined on sovereignty grounds), and warnings of US action on cartels.</p>
+
+    <h3>The "Achilles' heel": US indictments of ruling-party figures (Apr – Jun)</h3>
+    <p>The defining political crisis arrived in late April, when the US indicted prominent <strong>Morena politicians on cartel-conspiracy charges</strong> — Sinaloa Governor Rubén Rocha and Senator Enrique Inzunza (<em>"the most prominent Mexican official charged in the US since 2020"</em>), with governors of Sonora and Tamaulipas reportedly under investigation by June <span class="cite">[Citi C015, 30 Apr 2026; Citi C018, 4 Jun 2026]</span>. This put Sheinbaum <em>"in a difficult position: confront the US or confront her own party."</em> She refused to hand over a governor, hardened her anti-US rhetoric (raising alleged CIA activity and sovereignty violations), and leaned on the defence that 77% of the public already rated her crime-handling poorly — a vulnerability heading into the <strong>6 June 2027 midterms</strong> (lower chamber + 17 governorships) <span class="cite">[Citi C018, 4 Jun 2026]</span>.</p>
+
+    <h3>Institutional erosion: electoral and judicial reform</h3>
+    <p>The thread most relevant to markets was the steady weakening of autonomous institutions:</p>
+    <ul>
+      <li><strong>Sheinbaum's first legislative defeat</strong> — her constitutional electoral reform (cutting proportional-representation seats and party financing) was <strong>rejected on 11 March</strong> when coalition allies PT/PVEM withheld support, exposing a coalition fracture <span class="cite">[JPM J027, 13 Mar 2026]</span>. She fell back to a watered-down "Plan B," passed by the Senate 87-41.</li>
+      <li><strong>The judicial/electoral package (late May)</strong> — postponed judicial elections from 2027 to 2028, introduced <em>"foreign interference"</em> as grounds to annul elections (a direct response to the US indictments), and — most controversially — let some pro-Morena electoral magistrates seek re-election to 2034. JPM called the foreign-interference clause <em>"the most politically sensitive element"</em> and the package <em>"too little too late"</em> for rule-of-law perceptions <span class="cite">[JPM J074, 29 May 2026; Citi C018, 4 Jun 2026]</span>.</li>
+    </ul>
+    <p>Both desks repeatedly linked this <em>"erosion of autonomous entities"</em> and weakened rule of law to <strong>depressed investment sentiment and added friction in the USMCA talks</strong> <span class="cite">[JPM J043, 17 Apr 2026; JPM J058, 8 May 2026]</span>. A partial counterweight: Sheinbaum's willingness to break with Morena's doctrinaire wing on growth (e.g. reopening the fracking debate, an investment-streamlining plan) suggested pragmatism where it served the economy <span class="cite">[JPM J042, 17 Apr 2026]</span>. Separately, a <strong>40-hour workweek law</strong> (phased 2027–2030) passed — a coalition priority that business groups warned on for labour costs.</p>
+
+    <aside class="callout">
+      <span class="kicker">The political bind in one line</span>
+      <p>Social programs (subsidies up from 1.7% to ~2.9% of GDP since 2018) keep approval high but worsen the fiscal trap; security failures and US indictments erode that approval; and the institutional reforms used to lock in power are exactly what deter the investment Mexico needs. Politics, fiscal and growth are knotted together.</p>
+    </aside>
+
+    <h3>State of play as of 26 June 2026</h3>
+    <div class="sop">
+      <div class="row"><div class="k">Approval</div><div class="v">~<strong>68–69%</strong> (down ~16pp from early-2025 peak); strong on social programs (~70%), weak on security/crime (~24–25%) and corruption.</div></div>
+      <div class="row"><div class="k">Security</div><div class="v">Pivot toward confronting cartels (welcomed by US), but public perception deteriorating sharply.</div></div>
+      <div class="row"><div class="k">US indictments</div><div class="v">Ruling-party governors/senators charged or investigated; Sheinbaum caught between US cooperation and protecting Morena.</div></div>
+      <div class="row"><div class="k">Institutions</div><div class="v">Judicial/electoral reforms concentrate power and weaken checks — flagged by both desks as an investment and USMCA drag.</div></div>
+      <div class="row"><div class="k">Next catalyst</div><div class="v">6 June 2027 midterms (lower chamber + 17 governorships); security is the vulnerability, social spending the buffer.</div></div>
+    </div>
+  </article>
+  <article class="chapter" id="pemex">
+    <div class="kicker">Theme 08 · Energy</div>
+    <h2>Pemex &amp; Energy</h2>
+
+    <p class="lead">Energy was where Mexico's <span class="em">fiscal, inflation and growth</span> stories converged. <strong>Pemex</strong> remained the fiscal millstone the rating agencies fixated on — soaking up ~US$35bn in 2025 support against a depleted production base. The March oil shock tested the system, but the government's <strong>gasoline excise-tax cap</strong> absorbed the blow at the consumer level (at a fiscal cost). And in the period's most notable policy shift, the Sheinbaum administration quietly <strong>reopened the fracking debate</strong> — reframing unconventional gas as "energy sovereignty."</p>
+
+    <h3>Pemex: the fiscal millstone</h3>
+    <p>Mexico's oil production has fallen from ~2.5 mbd to under 1.7 mbd, turning the country into a <strong>net energy importer</strong> with an energy trade deficit of ~US$25.6bn in 2025 (widening to ~US$27bn on the oil shock) <span class="cite">[Citi C004, 5 Mar 2026; Citi C009, 28 May 2026]</span>. Propping up Pemex required a large, multi-channel rescue in 2025 — a MXN 254bn transfer, a US$11.3bn sovereign-guaranteed "P-cap" structure, and a MXN 250bn vehicle to clear contractor debt <span class="cite">[Citi C011, 5 Feb 2026]</span>. Moody's quantified it bluntly: <strong>~US$35bn (1.9% of GDP) of direct support in 2025, US$14bn (0.7%) budgeted for 2026</strong>, and more expected absent operational improvement — the explicit trigger for its downgrade <span class="cite">[JPM J066, 21 May 2026]</span>. Pemex's own ratings sit deep in high-yield (Moody's B1, Fitch BB+).</p>
+
+    <h3>The oil shock and the gasoline cap (Mar – May)</h3>
+    <p>The Middle East conflict pushed Citi's oil scenarios to a base of Brent ~$80–90 (de-escalating to ~$62) and a bull case near $120; JPM ran the Mexican mix at ~$90/bbl <span class="cite">[Citi C004, 5 Mar 2026; JPM J031, 20 Mar 2026]</span>. The shock fed inflation only at the margin (airfares, electricity) because the government used its <strong>excise-tax mechanism to keep regular gasoline under Sheinbaum's MXN 24/litre cap</strong> — applying a 24% excise discount from late March, the first cut since the full tax took effect in March 2025 — and capped diesel at MXN 27, with Pemex absorbing part of the cost <span class="cite">[Citi C012, 27 Mar 2026; Citi C015, 30 Apr 2026]</span>. The cap worked for consumers but came at a <strong>fiscal price</strong>: forgone excise revenue, made worse because the strong peso muted the offsetting oil-revenue windfall. By late May the caps were straining supply — <strong>gasoline shortages</strong> appeared in several states as controlled prices lagged import costs <span class="cite">[Citi C009, 28 May 2026]</span>.</p>
+
+    <h3>The policy pivot: "energy sovereignty" and fracking (Apr – May)</h3>
+    <p>The period's structural surprise was a softening of Mexico's long-standing anti-fracking stance. Pemex's 2025–35 plan embedded <strong>113bn boe of prospective resources (57% unconventional)</strong>, and the administration began using language like <em>"complex geology"</em> rather than "fracking" — which JPM judged <em>"more than semantics,"</em> reflecting a pivot toward reducing dependence on US gas imports (Mexico consumes ~9.1 Bcf/d but produces only ~2.3) <span class="cite">[JPM J045, 23 Apr 2026]</span>. The framing — <strong>energy sovereignty</strong> — lets fracking double as security-of-supply, industrial policy and an upstream-investment story. JPM was careful to temper the upside, citing <em>"execution risk, water-use concerns, regulatory credibility, social opposition, and Pemex's financial and operating limitations."</em> On power, an investment plan targets +22,000 MW via mixed public-private capital, but the legally-mandated <strong>46% cap on private participation in electricity remains</strong> <span class="cite">[JPM J058, 8 May 2026]</span>.</p>
+
+    <h3>A late glimmer (Jun)</h3>
+    <p>The period closed on a modestly better note for the oil balance: <strong>May oil exports hit their highest since 2024</strong>, with Pemex data showing both higher prices and higher export volumes <span class="cite">[JPM J093, 26 Jun 2026]</span> — though fiscal oil inflows still lagged, held back by the strong peso and a deliberate policy of limiting exports to support domestic self-sufficiency.</p>
+
+    <aside class="callout">
+      <span class="kicker">Why energy matters across the digest</span>
+      <p>Pemex support is the agencies' core downgrade rationale (Fiscal); the gasoline cap is what kept the oil shock out of headline inflation (Inflation) — at a fiscal cost amplified by the strong peso (BoP); and the fracking pivot is part of the same pragmatic, growth-over-ideology turn seen in the politics chapter.</p>
+    </aside>
+
+    <h3>State of play as of 26 June 2026</h3>
+    <div class="sop">
+      <div class="row"><div class="k">Pemex support</div><div class="v">~US$35bn (1.9% GDP) in 2025; US$14bn (0.7%) budgeted 2026 — the central sovereign-rating concern.</div></div>
+      <div class="row"><div class="k">Production</div><div class="v">Depleted (~&lt;1.7 mbd); Mexico a net energy importer; energy trade deficit ~US$27bn.</div></div>
+      <div class="row"><div class="k">Gasoline policy</div><div class="v">Capped at MXN 24/litre via excise-tax mechanism (diesel MXN 27); shielded CPI but cost revenue and strained supply.</div></div>
+      <div class="row"><div class="k">Policy pivot</div><div class="v">Fracking debate reopened under "energy sovereignty"; near-term upside limited by execution/financial constraints.</div></div>
+      <div class="row"><div class="k">Electricity</div><div class="v">+22,000 MW investment plan, but 46% private-participation cap retained.</div></div>
+    </div>
+  </article>
+
+  <section id="appendix">
+    <div class="kicker">Appendix</div>
+    <h2>Chronological source index</h2>
+    <p>All <strong>118 unique notes</strong> (94 J.P. Morgan, 24 Citi) underlying this digest, in date order. Theme tags are a keyword-based coverage map (BANX·INFL·GROW·TRADE·FX·FISC·POL·PEM); each note's content was routed to chapters by reading, not by these tags. Source PDFs are held privately and are not distributed with this report.</p>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Date</th><th>ID</th><th>Src</th><th>Themes</th><th>Title</th></tr></thead>
+        <tbody>
+          <tr><td>2025-12-18</td><td>C023</td><td>Citi</td><td style="font-size:.8rem;color:var(--muted)">INFL BANX GROW TRADE FX POL PEM FISC</td><td>Wait and see mode</td></tr>
+          <tr><td>2025-12-19</td><td>J001</td><td>JPM</td><td style="font-size:.8rem;color:var(--muted)">INFL BANX</td><td>Mexico daily — Inflation/Banxico/Monetary</td></tr>
+          <tr><td>2025-12-23</td><td>J002</td><td>JPM</td><td style="font-size:.8rem;color:var(--muted)">INFL</td><td>Mexico: Inflation relief in early December</td></tr>
+          <tr><td>2026-01-08</td><td>J004</td><td>JPM</td><td style="font-size:.8rem;color:var(--muted)">INFL</td><td>Mexico: Inflation ends 2025 at 3.7% with mixed core news</td></tr>
+          <tr><td>2026-01-08</td><td>J005</td><td>JPM</td><td style="font-size:.8rem;color:var(--muted)">BANX INFL</td><td>Mexico: Banxico - Entering wait-and-see mode; cuts to resume in 2Q</td></tr>
+          <tr><td>2026-01-09</td><td>J003</td><td>JPM</td><td style="font-size:.8rem;color:var(--muted)">BANX INFL GROW</td><td>Mexico daily — Banxico/Monetary/Inflation</td></tr>
+          <tr><td>2026-01-09</td><td>J006</td><td>JPM</td><td style="font-size:.8rem;color:var(--muted)">GROW</td><td>Mexico: Solid industrial activity in November</td></tr>
+          <tr><td>2026-01-09</td><td>C027</td><td>Citi</td><td style="font-size:.8rem;color:var(--muted)">BANX GROW INFL TRADE FISC FX PEM POL</td><td>While you were away</td></tr>
+          <tr><td>2026-01-15</td><td>J008</td><td>JPM</td><td style="font-size:.8rem;color:var(--muted)">GROW</td><td>Mexico: Domestic demand cross-currents linger in early 4Q25</td></tr>
+          <tr><td>2026-01-15</td><td>C005</td><td>Citi</td><td style="font-size:.8rem;color:var(--muted)">INFL GROW BANX TRADE FX FISC POL PEM</td><td>A key CPI release ahead</td></tr>
+          <tr><td>2026-01-16</td><td>J007</td><td>JPM</td><td style="font-size:.8rem;color:var(--muted)">INFL GROW TRADE</td><td>Mexico daily — Inflation/Growth/Activity</td></tr>
+          <tr><td>2026-01-22</td><td>J010</td><td>JPM</td><td style="font-size:.8rem;color:var(--muted)">INFL TRADE</td><td>Mexico: Tax pass-through in January points to milder inflation</td></tr>
+          <tr><td>2026-01-22</td><td>C013</td><td>Citi</td><td style="font-size:.8rem;color:var(--muted)">INFL TRADE GROW BANX FX POL FISC PEM</td><td>Inflation taxes not tariffs yet</td></tr>
+          <tr><td>2026-01-23</td><td>J009</td><td>JPM</td><td style="font-size:.8rem;color:var(--muted)">INFL TRADE BANX</td><td>Mexico daily — Inflation/Trade/USMCA/Tariffs</td></tr>
+          <tr><td>2026-01-23</td><td>J011</td><td>JPM</td><td style="font-size:.8rem;color:var(--muted)">GROW</td><td>Mexico: November GDP modestly disappoints</td></tr>
+          <tr><td>2026-01-28</td><td>J012</td><td>JPM</td><td style="font-size:.8rem;color:var(--muted)">INFL BANX</td><td>Mexico: Banxico preview - Won&#x27;t wait that long</td></tr>
+          <tr><td>2026-01-30</td><td>J013</td><td>JPM</td><td style="font-size:.8rem;color:var(--muted)">BANX INFL GROW TRADE</td><td>Mexico daily — Banxico/Monetary/Inflation</td></tr>
+          <tr><td>2026-01-30</td><td>J014</td><td>JPM</td><td style="font-size:.8rem;color:var(--muted)">GROW</td><td>Mexico: 2025 GDP growth - Better late than never</td></tr>
+          <tr><td>2026-01-30</td><td>C020</td><td>Citi</td><td style="font-size:.8rem;color:var(--muted)">GROW BANX TRADE INFL FX FISC PEM POL</td><td>Some help from last year</td></tr>
+          <tr><td>2026-02-05</td><td>J016</td><td>JPM</td><td style="font-size:.8rem;color:var(--muted)">BANX INFL</td><td>Mexico: Banxico - Brief pause calls for easing cycle back in March</td></tr>
+          <tr><td>2026-02-05</td><td>C011</td><td>Citi</td><td style="font-size:.8rem;color:var(--muted)">INFL GROW FISC BANX FX PEM TRADE POL</td><td>Fiscal consolidation remains challenging</td></tr>
+          <tr><td>2026-02-06</td><td>J015</td><td>JPM</td><td style="font-size:.8rem;color:var(--muted)">INFL BANX GROW FISC</td><td>Mexico daily — Inflation/Banxico/Monetary</td></tr>
+          <tr><td>2026-02-11</td><td>J018</td><td>JPM</td><td style="font-size:.8rem;color:var(--muted)">GROW</td><td>Mexico: Industrial production was the bitter story for 2025</td></tr>
+          <tr><td>2026-02-11</td><td>C014</td><td>Citi</td><td style="font-size:.8rem;color:var(--muted)">BANX GROW INFL TRADE FISC FX</td><td>Notes from our local marketing trip</td></tr>
+          <tr><td>2026-02-13</td><td>J017</td><td>JPM</td><td style="font-size:.8rem;color:var(--muted)">INFL BANX</td><td>Mexico: Banxico - Minutes to confirm March is live</td></tr>
+          <tr><td>2026-02-13</td><td>J019</td><td>JPM</td><td style="font-size:.8rem;color:var(--muted)">INFL BANX GROW</td><td>Mexico daily — Inflation/Banxico/Monetary</td></tr>
+          <tr><td>2026-02-19</td><td>J021</td><td>JPM</td><td style="font-size:.8rem;color:var(--muted)">BANX INFL TRADE</td><td>Mexico: Banxico minutes - Brief pause guidance gains traction</td></tr>
+          <tr><td>2026-02-19</td><td>C007</td><td>Citi</td><td style="font-size:.8rem;color:var(--muted)">BANX INFL GROW FX TRADE FISC PEM POL</td><td>A short pause</td></tr>
+          <tr><td>2026-02-20</td><td>J020</td><td>JPM</td><td style="font-size:.8rem;color:var(--muted)">BANX INFL TRADE GROW</td><td>Mexico daily — Banxico/Monetary/Inflation</td></tr>
+          <tr><td>2026-02-23</td><td>J022</td><td>JPM</td><td style="font-size:.8rem;color:var(--muted)">GROW TRADE</td><td>Mexico: 2025 GDP – Green shoots emerge, challenges remain</td></tr>
+          <tr><td>2026-02-24</td><td>J023</td><td>JPM</td><td style="font-size:.8rem;color:var(--muted)">INFL</td><td>Mexico: Mixed print in 1H Feb CPI, no signs of indirect effects</td></tr>
+          <tr><td>2026-02-27</td><td>J024</td><td>JPM</td><td style="font-size:.8rem;color:var(--muted)">GROW INFL TRADE POL</td><td>Mexico daily — Growth/Activity/Inflation</td></tr>
+          <tr><td>2026-02-27</td><td>C017</td><td>Citi</td><td style="font-size:.8rem;color:var(--muted)">GROW BANX INFL TRADE POL FX FISC</td><td>Security policy pivot</td></tr>
+          <tr><td>2026-03-05</td><td>C004</td><td>Citi</td><td style="font-size:.8rem;color:var(--muted)">INFL PEM GROW FISC BANX FX TRADE POL</td><td>A geopolitical shock</td></tr>
+          <tr><td>2026-03-06</td><td>J025</td><td>JPM</td><td style="font-size:.8rem;color:var(--muted)">GROW POL TRADE</td><td>Mexico daily — Growth/Activity/Politics/Security</td></tr>
+          <tr><td>2026-03-09</td><td>J026</td><td>JPM</td><td style="font-size:.8rem;color:var(--muted)">INFL PEM</td><td>Mexico: February inflation - In between raw-food spikes and energy risks</td></tr>
+          <tr><td>2026-03-13</td><td>J027</td><td>JPM</td><td style="font-size:.8rem;color:var(--muted)">INFL BANX PEM GROW</td><td>Mexico daily — Inflation/Banxico/Monetary</td></tr>
+          <tr><td>2026-03-13</td><td>J028</td><td>JPM</td><td style="font-size:.8rem;color:var(--muted)">GROW</td><td>Mexico: Industrial production delivers sobering news in January</td></tr>
+          <tr><td>2026-03-13</td><td>J029</td><td>JPM</td><td style="font-size:.8rem;color:var(--muted)">TRADE</td><td>Mexico: Economic policy commentary - USMCA review gains traction</td></tr>
+          <tr><td>2026-03-18</td><td>C003</td><td>Citi</td><td style="font-size:.8rem;color:var(--muted)">INFL GROW BANX FX PEM POL TRADE FISC</td><td>A difficult rate cut</td></tr>
+          <tr><td>2026-03-20</td><td>J030</td><td>JPM</td><td style="font-size:.8rem;color:var(--muted)">INFL BANX PEM TRADE FX</td><td>Mexico daily — Inflation/Banxico/Monetary</td></tr>
+          <tr><td>2026-03-20</td><td>J031</td><td>JPM</td><td style="font-size:.8rem;color:var(--muted)">BANX INFL</td><td>Mexico: Banxico preview - Between a cut and a hard place</td></tr>
+          <tr><td>2026-03-24</td><td>J032</td><td>JPM</td><td style="font-size:.8rem;color:var(--muted)">INFL GROW</td><td>Mexico: Stagflation risk unlocked</td></tr>
+          <tr><td>2026-03-26</td><td>J034</td><td>JPM</td><td style="font-size:.8rem;color:var(--muted)">BANX INFL</td><td>Mexico: Banxico - The end is nigh</td></tr>
+          <tr><td>2026-03-27</td><td>J033</td><td>JPM</td><td style="font-size:.8rem;color:var(--muted)">INFL BANX PEM GROW</td><td>Mexico daily — Inflation/Banxico/Monetary</td></tr>
+          <tr><td>2026-03-27</td><td>C012</td><td>Citi</td><td style="font-size:.8rem;color:var(--muted)">INFL BANX GROW FISC FX PEM POL TRADE</td><td>Higer data dependent sensitivity</td></tr>
+          <tr><td>2026-04-01</td><td>J036</td><td>JPM</td><td style="font-size:.8rem;color:var(--muted)">INFL</td><td>Mexico Focus: Slicing tomato inflation</td></tr>
+          <tr><td>2026-04-02</td><td>J035</td><td>JPM</td><td style="font-size:.8rem;color:var(--muted)">BANX INFL GROW PEM</td><td>Mexico daily — Banxico/Monetary/Inflation</td></tr>
+          <tr><td>2026-04-06</td><td>J037</td><td>JPM</td><td style="font-size:.8rem;color:var(--muted)">GROW</td><td>Mexico: Disappointing domestic demand in January</td></tr>
+          <tr><td>2026-04-09</td><td>J039</td><td>JPM</td><td style="font-size:.8rem;color:var(--muted)">INFL PEM</td><td>Mexico: March inflation - Food for thought</td></tr>
+          <tr><td>2026-04-09</td><td>J041</td><td>JPM</td><td style="font-size:.8rem;color:var(--muted)">BANX INFL</td><td>Mexico: Banxico Minutes - The Ides of March</td></tr>
+          <tr><td>2026-04-09</td><td>C002</td><td>Citi</td><td style="font-size:.8rem;color:var(--muted)">INFL BANX GROW FISC FX PEM TRADE POL</td><td>A cut needs more time</td></tr>
+          <tr><td>2026-04-10</td><td>J038</td><td>JPM</td><td style="font-size:.8rem;color:var(--muted)">INFL BANX GROW FISC</td><td>Mexico daily — Inflation/Banxico/Monetary</td></tr>
+          <tr><td>2026-04-10</td><td>J040</td><td>JPM</td><td style="font-size:.8rem;color:var(--muted)">GROW</td><td>Mexico: February industrial production - Stuck in low gear</td></tr>
+          <tr><td>2026-04-16</td><td>C001</td><td>Citi</td><td style="font-size:.8rem;color:var(--muted)">FISC INFL GROW BANX FX TRADE PEM POL</td><td>A challenging rating outlook</td></tr>
+          <tr><td>2026-04-17</td><td>J042</td><td>JPM</td><td style="font-size:.8rem;color:var(--muted)">INFL GROW PEM POL</td><td>Mexico daily — Inflation/Growth/Activity</td></tr>
+          <tr><td>2026-04-17</td><td>J043</td><td>JPM</td><td style="font-size:.8rem;color:var(--muted)">INFL PEM</td><td>Mexico weekly: Crosscurrents at a glance</td></tr>
+          <tr><td>2026-04-23</td><td>J045</td><td>JPM</td><td style="font-size:.8rem;color:var(--muted)">PEM POL GROW</td><td>Mexico Focus: Rethinking fracking</td></tr>
+          <tr><td>2026-04-23</td><td>J046</td><td>JPM</td><td style="font-size:.8rem;color:var(--muted)">INFL PEM BANX</td><td>Mexico: Some uncomfortable inflation details in early April</td></tr>
+          <tr><td>2026-04-24</td><td>J044</td><td>JPM</td><td style="font-size:.8rem;color:var(--muted)">INFL GROW BANX PEM FISC TRADE</td><td>Mexico daily — Inflation/Growth/Activity</td></tr>
+          <tr><td>2026-04-24</td><td>J047</td><td>JPM</td><td style="font-size:.8rem;color:var(--muted)">INFL GROW BANX FISC</td><td>Mexico weekly: First-quarter growth in focus</td></tr>
+          <tr><td>2026-04-24</td><td>J048</td><td>JPM</td><td style="font-size:.8rem;color:var(--muted)">GROW</td><td>Mexico: Growth sluggishness confirmed in February</td></tr>
+          <tr><td>2026-04-24</td><td>C026</td><td>Citi</td><td style="font-size:.8rem;color:var(--muted)">INFL GROW BANX TRADE FX FISC POL PEM</td><td>Weak kickoff in activity</td></tr>
+          <tr><td>2026-04-27</td><td>J049</td><td>JPM</td><td style="font-size:.8rem;color:var(--muted)">PEM TRADE GROW FX</td><td>Mexico: External demand resiliency to partially offset a bad 1Q</td></tr>
+          <tr><td>2026-04-30</td><td>J050</td><td>JPM</td><td style="font-size:.8rem;color:var(--muted)">BANX INFL</td><td>Mexico: Banxico preview - The final cut</td></tr>
+          <tr><td>2026-04-30</td><td>J051</td><td>JPM</td><td style="font-size:.8rem;color:var(--muted)">GROW</td><td>Mexico: Stuttering growth lingers in 1Q26</td></tr>
+          <tr><td>2026-04-30</td><td>C015</td><td>Citi</td><td style="font-size:.8rem;color:var(--muted)">INFL BANX GROW POL TRADE FX FISC PEM</td><td>One more cut to go</td></tr>
+          <tr><td>2026-05-01</td><td>J052</td><td>JPM</td><td style="font-size:.8rem;color:var(--muted)">BANX INFL GROW</td><td>Mexico daily — Banxico/Monetary/Inflation</td></tr>
+          <tr><td>2026-05-01</td><td>J053</td><td>JPM</td><td style="font-size:.8rem;color:var(--muted)">BANX INFL GROW</td><td>Mexico weekly: Swan song</td></tr>
+          <tr><td>2026-05-06</td><td>J055</td><td>JPM</td><td style="font-size:.8rem;color:var(--muted)">GROW</td><td>Mexico: Lingering softness from the demand side as well</td></tr>
+          <tr><td>2026-05-07</td><td>J056</td><td>JPM</td><td style="font-size:.8rem;color:var(--muted)">INFL PEM</td><td>Mexico: April inflation delivers welcome news</td></tr>
+          <tr><td>2026-05-07</td><td>J057</td><td>JPM</td><td style="font-size:.8rem;color:var(--muted)">INFL BANX</td><td>Mexico: Banxico - When the doves land</td></tr>
+          <tr><td>2026-05-08</td><td>J054</td><td>JPM</td><td style="font-size:.8rem;color:var(--muted)">INFL BANX PEM FX</td><td>Mexico daily — Inflation/Banxico/Monetary</td></tr>
+          <tr><td>2026-05-08</td><td>J058</td><td>JPM</td><td style="font-size:.8rem;color:var(--muted)">GROW</td><td>Mexico: Economic policy commentary - Unlocking investment</td></tr>
+          <tr><td>2026-05-08</td><td>J059</td><td>JPM</td><td style="font-size:.8rem;color:var(--muted)">BANX INFL</td><td>Mexico weekly: Industrial and micro-policing back in the spotlight</td></tr>
+          <tr><td>2026-05-08</td><td>C010</td><td>Citi</td><td style="font-size:.8rem;color:var(--muted)">INFL BANX GROW FISC FX PEM POL</td><td>End of the easing cycle uneven risks</td></tr>
+          <tr><td>2026-05-12</td><td>J060</td><td>JPM</td><td style="font-size:.8rem;color:var(--muted)">GROW</td><td>Mexico: No blossom in March industrial production</td></tr>
+          <tr><td>2026-05-13</td><td>J061</td><td>JPM</td><td style="font-size:.8rem;color:var(--muted)">FISC PEM GROW</td><td>Mexico: Unpleasant credit rating warning</td></tr>
+          <tr><td>2026-05-13</td><td>C016</td><td>Citi</td><td style="font-size:.8rem;color:var(--muted)">FISC GROW INFL BANX TRADE PEM FX</td><td>Running out of patience</td></tr>
+          <tr><td>2026-05-15</td><td>J062</td><td>JPM</td><td style="font-size:.8rem;color:var(--muted)">INFL BANX FISC GROW</td><td>Mexico daily — Inflation/Banxico/Monetary</td></tr>
+          <tr><td>2026-05-15</td><td>J063</td><td>JPM</td><td style="font-size:.8rem;color:var(--muted)">BANX INFL FISC GROW</td><td>Mexico weekly: Reality Check</td></tr>
+          <tr><td>2026-05-21</td><td>J066</td><td>JPM</td><td style="font-size:.8rem;color:var(--muted)">FISC GROW PEM</td><td>Mexico: Moody’s delivers and downgrades Mexico</td></tr>
+          <tr><td>2026-05-21</td><td>J067</td><td>JPM</td><td style="font-size:.8rem;color:var(--muted)">GROW FISC PEM</td><td>Mexico: March retail sales losing steam</td></tr>
+          <tr><td>2026-05-21</td><td>J068</td><td>JPM</td><td style="font-size:.8rem;color:var(--muted)">BANX INFL</td><td>Mexico: Banxico minutes signal on-hold for long</td></tr>
+          <tr><td>2026-05-22</td><td>J065</td><td>JPM</td><td style="font-size:.8rem;color:var(--muted)">FISC BANX INFL GROW</td><td>Mexico daily — Fiscal/Ratings/Banxico/Monetary</td></tr>
+          <tr><td>2026-05-22</td><td>J069</td><td>JPM</td><td style="font-size:.8rem;color:var(--muted)">INFL PEM</td><td>Mexico: A welcome start for inflation in May</td></tr>
+          <tr><td>2026-05-22</td><td>J070</td><td>JPM</td><td style="font-size:.8rem;color:var(--muted)">GROW</td><td>Mexico: Some encouraging growth news at the end of 1Q26</td></tr>
+          <tr><td>2026-05-22</td><td>J071</td><td>JPM</td><td style="font-size:.8rem;color:var(--muted)">BANX INFL FISC</td><td>Mexico weekly: Growth up, rating down</td></tr>
+          <tr><td>2026-05-22</td><td>C024</td><td>Citi</td><td style="font-size:.8rem;color:var(--muted)">INFL GROW FISC BANX FX POL TRADE PEM</td><td>Weak activity shapes the narrative</td></tr>
+          <tr><td>2026-05-25</td><td>J072</td><td>JPM</td><td style="font-size:.8rem;color:var(--muted)">TRADE</td><td>Mexico: Positive trade momentum extends into April</td></tr>
+          <tr><td>2026-05-27</td><td>J073</td><td>JPM</td><td style="font-size:.8rem;color:var(--muted)">FX TRADE GROW FISC</td><td>Mexico: Balance of Payments 1Q26 review - Trade tensions playing a pivotal role</td></tr>
+          <tr><td>2026-05-27</td><td>J076</td><td>JPM</td><td style="font-size:.8rem;color:var(--muted)">BANX INFL</td><td>Mexico: Quarterly Inflation Report - Banxico closes ranks on economic slack</td></tr>
+          <tr><td>2026-05-28</td><td>C009</td><td>Citi</td><td style="font-size:.8rem;color:var(--muted)">GROW TRADE INFL BANX FX PEM FISC POL</td><td>El Nio</td></tr>
+          <tr><td>2026-05-29</td><td>J074</td><td>JPM</td><td style="font-size:.8rem;color:var(--muted)">BANX INFL FX GROW TRADE FISC</td><td>Mexico daily — Banxico/Monetary/Inflation</td></tr>
+          <tr><td>2026-05-29</td><td>J077</td><td>JPM</td><td style="font-size:.8rem;color:var(--muted)">BANX INFL GROW</td><td>Mexico weekly: Slack lingers despite external demand resilience</td></tr>
+          <tr><td>2026-06-01</td><td>J078</td><td>JPM</td><td style="font-size:.8rem;color:var(--muted)">INFL</td><td>Mexico: False start for credit in 2026</td></tr>
+          <tr><td>2026-06-01</td><td>J079</td><td>JPM</td><td style="font-size:.8rem;color:var(--muted)">FX INFL</td><td>Mexico: Fewer transactions and larger tickets on April remittances</td></tr>
+          <tr><td>2026-06-02</td><td>J080</td><td>JPM</td><td style="font-size:.8rem;color:var(--muted)">GROW</td><td>Mexico: May Surveys - Economic woes continue</td></tr>
+          <tr><td>2026-06-04</td><td>J082</td><td>JPM</td><td style="font-size:.8rem;color:var(--muted)">GROW</td><td>Mexico: Domestic demand springs in March</td></tr>
+          <tr><td>2026-06-04</td><td>C018</td><td>Citi</td><td style="font-size:.8rem;color:var(--muted)">POL INFL GROW FISC BANX FX TRADE PEM</td><td>Sheinbaums Achilles Heel</td></tr>
+          <tr><td>2026-06-05</td><td>J081</td><td>JPM</td><td style="font-size:.8rem;color:var(--muted)">INFL FISC GROW TRADE PEM FX</td><td>Mexico daily — Inflation/Fiscal/Ratings</td></tr>
+          <tr><td>2026-06-05</td><td>J083</td><td>JPM</td><td style="font-size:.8rem;color:var(--muted)">FISC GROW TRADE FX PEM</td><td>Mexico weekly: Positive demand data amidst fiscal and trade concerns</td></tr>
+          <tr><td>2026-06-09</td><td>J064</td><td>JPM</td><td style="font-size:.8rem;color:var(--muted)">GROW INFL</td><td>Mexico Focus: World Cup – Tourism takes center stage</td></tr>
+          <tr><td>2026-06-09</td><td>J084</td><td>JPM</td><td style="font-size:.8rem;color:var(--muted)">INFL</td><td>Mexico: May CPI - Welcome downside surprise</td></tr>
+          <tr><td>2026-06-11</td><td>J086</td><td>JPM</td><td style="font-size:.8rem;color:var(--muted)">GROW</td><td>Mexico: April IP - Construction leads upwards surprise</td></tr>
+          <tr><td>2026-06-11</td><td>C008</td><td>Citi</td><td style="font-size:.8rem;color:var(--muted)">INFL GROW BANX TRADE FX FISC POL</td><td>Activity rebound with caveats</td></tr>
+          <tr><td>2026-06-12</td><td>J085</td><td>JPM</td><td style="font-size:.8rem;color:var(--muted)">INFL GROW BANX PEM</td><td>Mexico daily — Inflation/Growth/Activity</td></tr>
+          <tr><td>2026-06-12</td><td>J087</td><td>JPM</td><td style="font-size:.8rem;color:var(--muted)">INFL</td><td>Mexico weekly: Good CPI and IP data and a World Cup win wrap a positive week</td></tr>
+          <tr><td>2026-06-18</td><td>J088</td><td>JPM</td><td style="font-size:.8rem;color:var(--muted)">INFL BANX GROW</td><td>Mexico daily — Inflation/Banxico/Monetary</td></tr>
+          <tr><td>2026-06-18</td><td>J089</td><td>JPM</td><td style="font-size:.8rem;color:var(--muted)">BANX INFL GROW</td><td>Mexico weekly: Banxico to hold in busy data week</td></tr>
+          <tr><td>2026-06-18</td><td>C021</td><td>Citi</td><td style="font-size:.8rem;color:var(--muted)">INFL GROW BANX TRADE FX POL FISC</td><td>Stable rate ahead</td></tr>
+          <tr><td>2026-06-23</td><td>J090</td><td>JPM</td><td style="font-size:.8rem;color:var(--muted)">GROW</td><td>Mexico: Strong April GDP brings upside risks to the fore</td></tr>
+          <tr><td>2026-06-24</td><td>J091</td><td>JPM</td><td style="font-size:.8rem;color:var(--muted)">INFL</td><td>Mexico: Non-core loses momentum in early June</td></tr>
+          <tr><td>2026-06-25</td><td>J092</td><td>JPM</td><td style="font-size:.8rem;color:var(--muted)">INFL BANX</td><td>Mexico: Banxico - New chapter with a neutral narrative</td></tr>
+          <tr><td>2026-06-25</td><td>C022</td><td>Citi</td><td style="font-size:.8rem;color:var(--muted)">INFL BANX GROW FX TRADE FISC</td><td>Unchanged Monetary Stance</td></tr>
+          <tr><td>2026-06-26</td><td>J075</td><td>JPM</td><td style="font-size:.8rem;color:var(--muted)">PEM BANX TRADE</td><td>Mexico Focus: Pricey tech imports on the rise</td></tr>
+          <tr><td>2026-06-26</td><td>J093</td><td>JPM</td><td style="font-size:.8rem;color:var(--muted)">TRADE</td><td>Mexico: May brings another trade surplus</td></tr>
+          <tr><td>2026-06-26</td><td>J094</td><td>JPM</td><td style="font-size:.8rem;color:var(--muted)">INFL BANX GROW</td><td>Mexico weekly: An upbeat week for economic activity</td></tr>
+        </tbody>
+        <caption>JPM titles from document metadata; Citi titles from the "Mexico Economics Weekly" subtitle. 3 duplicate Citi copies removed.</caption>
+      </table>
+    </div>
+  </section>
+</div>
+
+<footer class="foot">
+  <div class="wrap">
+    <div class="fine">Strictly Private &amp; Confidential · Synthesised from source research notes (J.P. Morgan, Citi); not investment advice.</div>
+  </div>
+</footer>
+
+</body>
+</html>
