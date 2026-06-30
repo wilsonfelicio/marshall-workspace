@@ -9,6 +9,7 @@ A thematic, chronological synthesis of sell-side research on the Mexican economy
 
 ## Contents
 - **`Mexico_Macro_Digest.html`** — the report. Open in any browser; *Print → Save as PDF* for a shareable PDF. Eight themes, each read in chronological order, with a custom rate-path chart and inline citations.
+- **`Mexico_Macro_Chartbook.html`** — a visual companion: the 30 most relevant charts reproduced from the reports, grouped into the same eight themes (images in `charts/`).
 - **`00_Chronological_Index.md`** — index of all 118 source notes (date · source · themes · title).
 - **`01_Banxico_Monetary_Policy.md`** — Banxico chapter (markdown source).
 
