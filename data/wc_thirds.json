@@ -1,0 +1,11 @@
+{
+  "_note": "Actual FIFA 2026 third-place allocation (slot -> group of the 3rd-placed team) once R32 pairings are known. Overrides the sim's approximate matching so the knockout bracket matches reality and played-result pins fire. Slots: 74 W-E opp, 77 W-I opp, 79 W-A opp, 80 W-L opp, 81 W-D opp, 82 W-G opp, 85 W-B opp, 87 W-K opp.",
+  "74": "D",
+  "77": "F",
+  "79": "E",
+  "80": "K",
+  "81": "B",
+  "82": "I",
+  "85": "J",
+  "87": "L"
+}
