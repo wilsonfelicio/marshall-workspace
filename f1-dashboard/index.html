@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>🏎️ F1 Austrian GP — Race Weekend Dashboard</title>
+<title>🏎️ F1 British GP — Race Weekend Dashboard</title>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
 <style>
 :root { --bg:#0a0a0a; --surface:#141414; --border:#2a2a2a; --text:#e0e0e0; --muted:#888; --accent:#DC0000; }
@@ -51,9 +51,9 @@ body { background:var(--bg); color:var(--text); font-family:-apple-system,BlinkM
 </head>
 <body>
 <div class="header">
-    <div class="flag">🇦🇹</div>
-    <h1>Austrian Grand Prix — Red Bull Ring</h1>
-    <div class="meta"><span class="round">Round 8</span> · Spielberg, Styria · June 26–28, 2026</div>
+    <div class="flag">🇬🇧</div>
+    <h1>British Grand Prix — Silverstone</h1>
+    <div class="meta"><span class="round">Round 9</span> · Silverstone, Northamptonshire · July 3–5, 2026 <span class="sprint-badge">SPRINT</span></div>
     <div class="countdown" id="countdown"><div class="label">until lights out</div></div>
 </div>
 
@@ -63,121 +63,121 @@ body { background:var(--bg); color:var(--text); font-family:-apple-system,BlinkM
         <h3>📅 Schedule (BRT — Sao Paulo)</h3>
         <ul class="schedule">
 <li>
-    <div><span class="session">FP1</span><br><span class="note">Fri midday · 60 min</span></div>
-    <div style="text-align:right"><span class="time">08:30</span><br><span class="note">Fri 26 Jun</span></div>
-    <div style="text-align:right"><span style="font-size:0.85rem">☀️ 24°C</span><br><span class="note">Sunny · Dry</span></div>
+    <div><span class="session">FP1</span><br><span class="note">Fri · 60 min · only practice</span></div>
+    <div style="text-align:right"><span class="time">08:30</span><br><span class="note">Fri 3 Jul</span></div>
+    <div style="text-align:right"><span style="font-size:0.85rem">☀️ 25°C</span><br><span class="note">Sunny · Dry (4% rain)</span></div>
 </li>
 <li>
-    <div><span class="session">FP2</span><br><span class="note">Fri afternoon · 60 min</span></div>
-    <div style="text-align:right"><span class="time">12:00</span><br><span class="note">Fri 26 Jun</span></div>
-    <div style="text-align:right"><span style="font-size:0.85rem">⛅ 26°C</span><br><span class="note">Warm · Cloud building</span></div>
+    <div><span class="session sprint">Sprint Quali</span><br><span class="note">Fri · SQ1/SQ2/SQ3</span></div>
+    <div style="text-align:right"><span class="time">12:30</span><br><span class="note">Fri 3 Jul</span></div>
+    <div style="text-align:right"><span style="font-size:0.85rem">☀️ 26°C</span><br><span class="note">Warm · Dry</span></div>
 </li>
 <li>
-    <div><span class="session">FP3</span><br><span class="note">Sat morning · 60 min</span></div>
-    <div style="text-align:right"><span class="time">07:30</span><br><span class="note">Sat 27 Jun</span></div>
-    <div style="text-align:right"><span style="font-size:0.85rem">⛅ 22°C</span><br><span class="note">Mixed cloud</span></div>
+    <div><span class="session sprint">SPRINT</span><br><span class="note">Sat · 17 laps · 8 pts to win</span></div>
+    <div style="text-align:right"><span class="time">08:00</span><br><span class="note">Sat 4 Jul</span></div>
+    <div style="text-align:right"><span style="font-size:0.85rem">🌦️ 22°C</span><br><span class="note">Shower risk (48% AM)</span></div>
 </li>
 <li>
     <div><span class="session">Qualifying</span><br><span class="note">Sat — Q1/Q2/Q3</span></div>
-    <div style="text-align:right"><span class="time">11:00</span><br><span class="note">Sat 27 Jun</span></div>
-    <div style="text-align:right"><span style="font-size:0.85rem">🌦️ 23°C</span><br><span class="note">Shower risk</span></div>
+    <div style="text-align:right"><span class="time">12:00</span><br><span class="note">Sat 4 Jul</span></div>
+    <div style="text-align:right"><span style="font-size:0.85rem">⛅ 23°C</span><br><span class="note">Drying · Cloud clearing</span></div>
 </li>
 <li>
-    <div><span class="session race">RACE</span><br><span class="note">Sun afternoon — 71 laps</span></div>
-    <div style="text-align:right"><span class="time">10:00</span><br><span class="note">Sun 28 Jun</span></div>
-    <div style="text-align:right"><span style="font-size:0.85rem">⛈️ 25°C</span><br><span class="note">Thunderstorm risk · Hot</span></div>
+    <div><span class="session race">RACE</span><br><span class="note">Sun afternoon — 52 laps</span></div>
+    <div style="text-align:right"><span class="time">11:00</span><br><span class="note">Sun 5 Jul</span></div>
+    <div style="text-align:right"><span style="font-size:0.85rem">☀️ 28°C</span><br><span class="note">Hot · Dry (5% rain)</span></div>
 </li>
         </ul>
-        <div class="note" style="margin-top:8px">⚠️ Standard weekend (FP1/FP2/FP3 + Quali + Race). Shortest lap on the calendar (~65 sec) means traffic chaos in qualifying — a clean lap is everything. Spielberg sits in the Styrian Alps, where weather flips in minutes: afternoon thunderstorms are a genuine wildcard every year. No mandatory two-stop rule this season, so a one-stop is on the table if tyres hold. Track limits at T9/T10 are the classic Red Bull Ring lap-deleter.</div>
+        <div class="note" style="margin-top:8px">⚠️ Sprint weekend — Silverstone's first since 2021. Just ONE practice session before it all counts: a scrappy Friday and your whole weekend can unravel before Sunday. Points on offer both days (8 for the Sprint win). Weather is the classic British variable — warm and dry Friday/Sunday, but a ~48% shower risk hangs over Saturday morning's Sprint. Fastest average-speed circuit on the calendar: Copse and the Maggotts-Becketts-Chapel esses are flat-out tests of nerve, not overtaking spots — the passing happens under DRS into Brooklands and Stowe.</div>
     </div>
 
     <!-- Circuit Info -->
     <div class="card">
         <h3>🏁 Circuit</h3>
-        <div style="font-size:1.1rem;font-weight:600;margin-bottom:12px;">Red Bull Ring</div>
+        <div style="font-size:1.1rem;font-weight:600;margin-bottom:12px;">Silverstone Circuit</div>
         <div class="circuit-info">
-            <div class="circuit-stat"><div class="val">4.318</div><div class="label">km length</div></div>
-            <div class="circuit-stat"><div class="val">71</div><div class="label">laps</div></div>
-            <div class="circuit-stat"><div class="val">10</div><div class="label">turns</div></div>
-            <div class="circuit-stat"><div class="val">3</div><div class="label">DRS zones</div></div>
-            <div class="circuit-stat"><div class="val">307</div><div class="label">km total</div></div>
+            <div class="circuit-stat"><div class="val">5.891</div><div class="label">km length</div></div>
+            <div class="circuit-stat"><div class="val">52</div><div class="label">laps</div></div>
+            <div class="circuit-stat"><div class="val">18</div><div class="label">turns</div></div>
+            <div class="circuit-stat"><div class="val">2</div><div class="label">DRS zones</div></div>
+            <div class="circuit-stat"><div class="val">306</div><div class="label">km total</div></div>
         </div>
-        <div style="margin-top:12px;color:var(--muted);font-size:0.8rem;">Short, sharp, and brutal on brakes. Just ten corners but a ~70m elevation climb from the start line up to Turn 3, the highest point of the lap. Two long uphill straights feed heavy braking zones — Turn 1, Turn 3 (Remus) and Turn 4 are all genuine overtaking spots, rare for a modern track. Three DRS zones make it one of the easiest places to pass on the calendar. Kerb-riding and traction off the slow corners decide lap time; the rest is raw downforce and bravery over the crests.</div>
+        <div style="margin-top:12px;color:var(--muted);font-size:0.8rem;">The original home of Formula 1 — it hosted the first-ever World Championship race in 1950. Fast, flowing and physical: Copse (Turn 9) is taken near 290 km/h, and the legendary Maggotts-Becketts-Chapel esses are a left-right-left-right blur above 280 km/h that pull g-forces at the edge of what the neck can take. Only two DRS zones and few real braking points, so overtaking is hard-won — under DRS on the Wellington Straight into Brooklands, and down the Hangar Straight into Stowe. High-speed aero balance and driver commitment decide everything here.</div>
         <div style="margin-top:8px;"><a href="circuit.html" style="color:#f59e0b;font-size:0.8rem;">→ View circuit diagram</a></div>
     </div>
 
     <!-- Drivers Standings -->
     <div class="card">
-        <h3>🏆 Drivers Championship — After Round 7 (Spain)</h3>
+        <h3>🏆 Drivers Championship — After Round 8 (Austria)</h3>
         <ul class="standings">
 <li>
     <span class="pos">1</span>
     <span class="team-dot" style="background:#00D2BE"></span>
     <span class="name">Kimi Antonelli</span>
-    <span class="pts">156</span>
+    <span class="pts">171</span>
     <div class="bar" style="width:100%;background:#00D2BE"></div>
 </li>
 <li>
     <span class="pos">2</span>
-    <span class="team-dot" style="background:#DC0000"></span>
-    <span class="name">Lewis Hamilton</span>
-    <span class="pts">115</span>
-    <div class="bar" style="width:74%;background:#DC0000"></div>
+    <span class="team-dot" style="background:#00D2BE"></span>
+    <span class="name">George Russell</span>
+    <span class="pts">131</span>
+    <div class="bar" style="width:77%;background:#00D2BE"></div>
 </li>
 <li>
     <span class="pos">3</span>
-    <span class="team-dot" style="background:#00D2BE"></span>
-    <span class="name">George Russell</span>
-    <span class="pts">106</span>
-    <div class="bar" style="width:68%;background:#00D2BE"></div>
+    <span class="team-dot" style="background:#DC0000"></span>
+    <span class="name">Lewis Hamilton</span>
+    <span class="pts">125</span>
+    <div class="bar" style="width:73%;background:#DC0000"></div>
 </li>
 <li>
     <span class="pos">4</span>
-    <span class="team-dot" style="background:#DC0000"></span>
-    <span class="name">Charles Leclerc</span>
-    <span class="pts">75</span>
-    <div class="bar" style="width:48%;background:#DC0000"></div>
+    <span class="team-dot" style="background:#FF8700"></span>
+    <span class="name">Oscar Piastri</span>
+    <span class="pts">80</span>
+    <div class="bar" style="width:47%;background:#FF8700"></div>
 </li>
 <li>
     <span class="pos">5</span>
     <span class="team-dot" style="background:#FF8700"></span>
     <span class="name">Lando Norris</span>
-    <span class="pts">73</span>
-    <div class="bar" style="width:47%;background:#FF8700"></div>
+    <span class="pts">79</span>
+    <div class="bar" style="width:46%;background:#FF8700"></div>
 </li>
 <li>
     <span class="pos">6</span>
-    <span class="team-dot" style="background:#FF8700"></span>
-    <span class="name">Oscar Piastri</span>
-    <span class="pts">68</span>
-    <div class="bar" style="width:44%;background:#FF8700"></div>
+    <span class="team-dot" style="background:#DC0000"></span>
+    <span class="name">Charles Leclerc</span>
+    <span class="pts">79</span>
+    <div class="bar" style="width:46%;background:#DC0000"></div>
 </li>
 <li>
     <span class="pos">7</span>
     <span class="team-dot" style="background:#3671C6"></span>
     <span class="name">Max Verstappen</span>
-    <span class="pts">55</span>
-    <div class="bar" style="width:35%;background:#3671C6"></div>
+    <span class="pts">73</span>
+    <div class="bar" style="width:43%;background:#3671C6"></div>
 </li>
 <li>
     <span class="pos">8</span>
-    <span class="team-dot" style="background:#0090FF"></span>
-    <span class="name">Pierre Gasly</span>
-    <span class="pts">41</span>
-    <div class="bar" style="width:26%;background:#0090FF"></div>
+    <span class="team-dot" style="background:#3671C6"></span>
+    <span class="name">Isack Hadjar</span>
+    <span class="pts">42</span>
+    <div class="bar" style="width:25%;background:#3671C6"></div>
 </li>
 <li>
     <span class="pos">9</span>
-    <span class="team-dot" style="background:#3671C6"></span>
-    <span class="name">Isack Hadjar</span>
-    <span class="pts">34</span>
-    <div class="bar" style="width:22%;background:#3671C6"></div>
+    <span class="team-dot" style="background:#0090FF"></span>
+    <span class="name">Pierre Gasly</span>
+    <span class="pts">41</span>
+    <div class="bar" style="width:24%;background:#0090FF"></div>
 </li>
 <li>
     <span class="pos">10</span>
     <span class="team-dot" style="background:#6692FF"></span>
     <span class="name">Liam Lawson</span>
-    <span class="pts">28</span>
+    <span class="pts">30</span>
     <div class="bar" style="width:18%;background:#6692FF"></div>
 </li>
 <li>
@@ -185,20 +185,20 @@ body { background:var(--bg); color:var(--text); font-family:-apple-system,BlinkM
     <span class="team-dot" style="background:#B6BABD"></span>
     <span class="name">Oliver Bearman</span>
     <span class="pts">18</span>
-    <div class="bar" style="width:12%;background:#B6BABD"></div>
+    <div class="bar" style="width:11%;background:#B6BABD"></div>
 </li>
 <li>
     <span class="pos">12</span>
     <span class="team-dot" style="background:#0090FF"></span>
     <span class="name">Franco Colapinto</span>
     <span class="pts">16</span>
-    <div class="bar" style="width:10%;background:#0090FF"></div>
+    <div class="bar" style="width:9%;background:#0090FF"></div>
 </li>
 <li>
     <span class="pos">13</span>
     <span class="team-dot" style="background:#6692FF"></span>
     <span class="name">Arvid Lindblad</span>
-    <span class="pts">13</span>
+    <span class="pts">14</span>
     <div class="bar" style="width:8%;background:#6692FF"></div>
 </li>
 <li>
@@ -227,7 +227,7 @@ body { background:var(--bg); color:var(--text); font-family:-apple-system,BlinkM
     <span class="team-dot" style="background:#00594F"></span>
     <span class="name">Gabriel Bortoleto</span>
     <span class="pts">2</span>
-    <div class="bar" style="width:1%;background:#00594F"></div>
+    <div class="bar" style="width:1.5%;background:#00594F"></div>
 </li>
 <li>
     <span class="pos">18</span>
@@ -235,6 +235,34 @@ body { background:var(--bg); color:var(--text); font-family:-apple-system,BlinkM
     <span class="name">Fernando Alonso</span>
     <span class="pts">1</span>
     <div class="bar" style="width:1%;background:#006F62"></div>
+</li>
+<li>
+    <span class="pos">19</span>
+    <span class="team-dot" style="background:#00594F"></span>
+    <span class="name">Nico Hülkenberg</span>
+    <span class="pts">0</span>
+    <div class="bar" style="width:0.5%;background:#00594F"></div>
+</li>
+<li>
+    <span class="pos">20</span>
+    <span class="team-dot" style="background:#888888"></span>
+    <span class="name">Valtteri Bottas</span>
+    <span class="pts">0</span>
+    <div class="bar" style="width:0.5%;background:#888888"></div>
+</li>
+<li>
+    <span class="pos">21</span>
+    <span class="team-dot" style="background:#888888"></span>
+    <span class="name">Sergio Pérez</span>
+    <span class="pts">0</span>
+    <div class="bar" style="width:0.5%;background:#888888"></div>
+</li>
+<li>
+    <span class="pos">22</span>
+    <span class="team-dot" style="background:#006F62"></span>
+    <span class="name">Lance Stroll</span>
+    <span class="pts">0</span>
+    <div class="bar" style="width:0.5%;background:#006F62"></div>
 </li>
         </ul>
     </div>
@@ -247,57 +275,57 @@ body { background:var(--bg); color:var(--text); font-family:-apple-system,BlinkM
 
     <!-- Track History -->
     <div class="card full">
-        <h3>📜 Red Bull Ring — Track History & Iconic Moments</h3>
+        <h3>📜 Silverstone — Track History & Iconic Moments</h3>
         <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:12px;margin-bottom:16px;">
-            <div class="circuit-stat"><div class="val">1970</div><div class="label">First F1 GP (site)</div></div>
-            <div class="circuit-stat"><div class="val">~65s</div><div class="label">Shortest lap on calendar</div></div>
-            <div class="circuit-stat"><div class="val">1:05.619</div><div class="label">Race lap record</div></div>
-            <div class="circuit-stat"><div class="val">70m</div><div class="label">Elevation change</div></div>
-            <div class="circuit-stat"><div class="val">5</div><div class="label">Verstappen wins</div></div>
+            <div class="circuit-stat"><div class="val">1950</div><div class="label">First-ever F1 WC race</div></div>
+            <div class="circuit-stat"><div class="val">1:27.097</div><div class="label">Race lap record</div></div>
+            <div class="circuit-stat"><div class="val">9</div><div class="label">Hamilton wins (record)</div></div>
+            <div class="circuit-stat"><div class="val">~290</div><div class="label">km/h through Copse</div></div>
+            <div class="circuit-stat"><div class="val">18</div><div class="label">corners</div></div>
         </div>
         <div style="font-size:0.82rem;line-height:1.6;">
-            <div style="margin-bottom:10px;"><strong style="color:#f59e0b;">Most wins (this venue):</strong> Verstappen (5) · Prost (3) · Hamilton (2) · Rosberg (2)</div>
-            <div style="margin-bottom:10px;"><strong style="color:#f59e0b;">Most constructor wins:</strong> Mercedes (7) · Red Bull · McLaren · Ferrari · Lotus</div>
-            <div style="margin-bottom:10px;"><strong style="color:#f59e0b;">Lap record:</strong> 1:05.619 — Carlos Sainz (McLaren, 2020) · A blistering lap for a circuit you can drive in barely over a minute.</div>
-            <div style="margin-bottom:10px;"><strong style="color:#f59e0b;">The real overtake spots:</strong> Turn 1 (uphill braking), Turn 3 / Remus (the prime move, into a tightening right at the top of the hill), and Turn 4. Three DRS zones make this one of the easiest tracks to pass on.</div>
+            <div style="margin-bottom:10px;"><strong style="color:#f59e0b;">Most wins (driver):</strong> Hamilton (9) · Clark, Prost & Schumacher (3 each) — Hamilton is comfortably the most successful driver in British GP history.</div>
+            <div style="margin-bottom:10px;"><strong style="color:#f59e0b;">Most constructor wins:</strong> Ferrari (most) · McLaren · Williams · Mercedes — the winners' board reads like a history of the sport.</div>
+            <div style="margin-bottom:10px;"><strong style="color:#f59e0b;">Lap record:</strong> 1:27.097 — Max Verstappen (Red Bull, 2020) on the current layout.</div>
+            <div style="margin-bottom:10px;"><strong style="color:#f59e0b;">The real overtake spots:</strong> Under DRS on the Wellington Straight into Brooklands, and down the Hangar Straight into Stowe. Copse and the Maggotts-Becketts esses are commitment corners, not passing places — the speed there is the show.</div>
         </div>
         <div style="margin-top:14px;border-top:1px solid var(--border);padding-top:14px;">
             <div style="font-size:0.8rem;color:var(--muted);margin-bottom:8px;text-transform:uppercase;letter-spacing:0.5px;">Iconic Moments</div>
             <ul style="list-style:none;font-size:0.82rem;line-height:1.6;">
-                <li style="padding:6px 0;border-bottom:1px solid var(--border);">🤬 <strong>2002 — Barrichello hands Schumacher the win:</strong> On the final lap Ferrari ordered Rubens to move aside and gift Michael the victory. The crowd booed, Schumacher pushed Rubens onto the top step on the podium, and the FIA banned team orders for years afterward. The most infamous Austrian GP of all.</li>
-                <li style="padding:6px 0;border-bottom:1px solid var(--border);">🟠 <strong>2018 — Verstappen's first home win, Mercedes double DNF:</strong> Red Bull won in their own backyard as both Mercedes retired with reliability failures. The Dutch fans painted the hills orange and a Spielberg tradition was born.</li>
-                <li style="padding:6px 0;border-bottom:1px solid var(--border);">⚔️ <strong>2019 — Verstappen v Leclerc, the last-lap pass at Turn 3:</strong> Max barged past Charles with a few laps to go in a move investigated for hours. The stewards eventually let it stand — "let them race" — one of the great modern wheel-to-wheel duels.</li>
-                <li style="padding:6px 0;border-bottom:1px solid var(--border);">💥 <strong>2024 — Verstappen and Norris collide for the lead:</strong> A race-long fight between the title rivals ended in contact, punctures, and a deflated Verstappen limping home. George Russell inherited a shock Mercedes win. The flashpoint that defined the championship.</li>
-                <li style="padding:6px 0;border-bottom:1px solid var(--border);">🏔️ <strong>The Österreichring era (1970–87):</strong> Before it was tamed, this was a terrifyingly fast Alpine rollercoaster — flat-out sweepers with no run-off. Vittorio Brambilla famously won the rain-shortened 1975 race and crashed celebrating on the slowdown lap.</li>
-                <li style="padding:6px 0;">🚧 <strong>The track-limits saga:</strong> The modern Red Bull Ring is notorious for deleted lap times at Turns 9 and 10. In 2023 well over 1,200 laps were monitored and dozens of times scrubbed — the white line at the exit kerbs is the real enemy here.</li>
+                <li style="padding:6px 0;border-bottom:1px solid var(--border);">🏁 <strong>1950 — where it all began:</strong> Silverstone hosted the very first race of the Formula 1 World Championship, won by Giuseppe Farina's Alfa Romeo in front of the King. This is the birthplace of the sport as we know it.</li>
+                <li style="padding:6px 0;border-bottom:1px solid var(--border);">🦁 <strong>1987 — Mansell mania:</strong> Nigel Mansell hunted down teammate Nelson Piquet, sold him a dummy at Stowe and swept past to a home win that sent the crowd onto the track. One of the greatest British GP finishes ever.</li>
+                <li style="padding:6px 0;border-bottom:1px solid var(--border);">🌧️ <strong>2008 — Hamilton's wet masterclass:</strong> In treacherous conditions Lewis won his home race by over a minute — a drive still cited as one of the finest wet-weather performances in F1 history.</li>
+                <li style="padding:6px 0;border-bottom:1px solid var(--border);">😱 <strong>2020 — Hamilton wins on three wheels:</strong> His front-left tyre exploded on the final lap and he nursed the car home to victory anyway, crossing the line with sparks flying. Pure theatre.</li>
+                <li style="padding:6px 0;border-bottom:1px solid var(--border);">💥 <strong>2021 — the Copse crash:</strong> Hamilton and Verstappen collided at 290 km/h on lap 1; Max hit the barriers at 51G. Lewis took a penalty, recovered to win, and the title fight turned toxic. The most controversial moment of the modern era.</li>
+                <li style="padding:6px 0;">🎉 <strong>2024 — Hamilton's record 9th, ending a drought:</strong> A wet-dry thriller delivered Lewis his first win in 945 days — and a record-extending ninth British GP victory — in front of a home crowd in tears. Now he returns in Ferrari red.</li>
             </ul>
         </div>
     </div>
 
     <!-- Key Stories -->
     <div class="card full">
-        <h3>📰 Key Stories Heading Into Austria</h3>
+        <h3>📰 Key Stories Heading Into Silverstone</h3>
         <ul class="stories">
-<li><strong>Antonelli's lead is suddenly fragile — 41 points after a Barcelona DNF</strong> — The 19-year-old's run of dominance broke in Spain: an electrical failure forced a late retirement and handed the momentum to Ferrari. He still has the fastest car on raw pace and history says wounded championship leaders bounce back hard. The Red Bull Ring has no obvious weakness for the Mercedes — if the spell is real, this is where he re-asserts it. Another zero, though, and the title race cracks wide open.</li>
-<li><strong>Hamilton's Ferrari surge — first win, P2, and the gap closing</strong> — Lewis pounced on a virtual safety car at Barcelona for an emotional maiden Ferrari victory, vaulting to P2 on 115 points. He's a two-time winner at the Red Bull Ring (2016, 2020) and the short, power-and-traction layout could suit the SF-26. A repeat win paired with another Antonelli problem would pull the gap toward single digits with the season barely half-run.</li>
-<li><strong>Verstappen's home race — but is the car good enough?</strong> — Spielberg is Red Bull's backyard and a sea of orange will fill the hills for Max, a five-time winner here. The problem: he's only P7 on 55 points and the 2026 Red Bull hasn't been a front-runner. The Red Bull Ring rewards raw downforce and kerb-riding confidence — his kind of track — so if there's a weekend to drag this car onto the podium, it's this one. Expect him to throw everything at it.</li>
-<li><strong>Russell needs to stop the bleeding</strong> — P3 on 106, now behind a Ferrari driver in a Mercedes year, after penalties wrecked his Monaco and Barcelona was only a damage-limitation second. He won here in 2024 and the W17 should be strong at a track with no specific weakness. This is where Russell reminds the garage he's meant to be the senior partner — and that 50-point gap to Antonelli is still closable.</li>
-<li><strong>McLaren's quiet slide — and a track that should suit them</strong> — Norris (73) edges Piastri (68) but both have drifted to P5/P6 after a rough run. The MCL40's efficient aero and strong traction should click at the Red Bull Ring. The ghost of 2024 — Norris and Verstappen colliding for the lead here — adds spice if the papaya car is quick enough to fight at the front again.</li>
-<li><strong>Leclerc under pressure inside Ferrari</strong> — Charles sits P4 on 75, now clearly behind teammate Hamilton after Lewis's Barcelona breakthrough. The Red Bull Ring has never been a Leclerc stronghold and he badly needs a clean, statement weekend to halt the narrative that the momentum inside Maranello has swung to the other side of the garage.</li>
-<li><strong>Qualifying roulette on the shortest lap of the year</strong> — A ~65-second lap means 22 cars are forever tripping over each other. One car in the wrong place in Q1 or Q3 can cost a frontrunner three grid slots. With three DRS zones making the race itself pass-friendly, Saturday track position matters less than usual — but a botched lap still ruins a weekend.</li>
-<li><strong>Spielberg weather — the eternal wildcard</strong> — Mountain weather flips in minutes here and a thunderstorm sits in the Sunday forecast. With the mandatory two-stop scrapped, a well-timed shower could blow strategy wide open — Austria has produced more than its share of chaos races, and a wet Red Bull Ring is one of the best shows in the sport.</li>
-<li><strong>Bortoleto's slow build at Audi</strong> — Brazil's Gabriel Bortoleto is P17 on 2 points in a midfield Audi, but he's quietly outperforming the car on weekends it gives him anything. Not a points threat at a track that punishes any pace deficit, but one to watch as the rookie keeps banking experience.</li>
-</ul>
+<li><strong>The title fight is now a Mercedes civil war — 40 points and closing</strong> — George Russell converted pole into victory in Austria, holding off Verstappen while Antonelli could only manage third. That trims the rookie's lead to 40 (171 vs 131). Antonelli still has the raw pace, but he's never contested an F1 Silverstone Sprint, and a home-charged Russell smells blood. Two Mercedes, one crown — and the team car ahead is no longer the young one.</li>
+<li><strong>Russell's home race — the one win missing from his CV</strong> — He has never won his home Grand Prix. He arrives on a high (two 2026 wins, the latest at the Red Bull Ring), in the fastest car on the grid, at a circuit whose high-speed corners flatter the Mercedes. Clean starts and lights-out qualifying are his strengths — exactly what a Sprint weekend rewards. If it's going to happen, it happens here.</li>
+<li><strong>Hamilton comes home in Ferrari red</strong> — Nine-time British GP winner, the most successful driver ever at Silverstone, and the emotional 2024 champion of this race — now in scarlet for the first time. He's P3 on 125, just six behind Russell, but slipped to fifth in Austria. A podium keeps him in the fight; a win in front of his home crowd, in a Ferrari, would tear the season open.</li>
+<li><strong>Mercedes are running away with it</strong> — A Silver Arrows 1-2 in the drivers' table and a 98-point lead in the constructors (302 to Ferrari's 204). Silverstone's flat-out Copse and Maggotts-Becketts sequence plays straight into the car's aero strength. Barring rain or a Sprint pile-up, this looks like Mercedes territory — the only real question is which one wins.</li>
+<li><strong>McLaren's muddle — Piastri edges Norris by a single point</strong> — P4 Piastri (80) and P5 Norris (79) are separated by nothing, with Leclerc level on 79 right behind. McLaren sit third but a distant 143 behind Mercedes. It's Norris's home race and he needs a statement; the MCL40's high-speed balance should finally suit a track like this. Fix qualifying and the papaya cars can fight at the front.</li>
+<li><strong>Verstappen and the ghost of 2021</strong> — Max is best-of-the-rest in P7 (73) but a long way off the Mercedes, and Red Bull are only fourth in the constructors. He shoved Austria to the wire chasing Russell, and Silverstone — scene of *that* Copse crash with Hamilton — always brings the intensity out of him. Rookie teammate Isack Hadjar (P8) has quietly been the surprise of the season.</li>
+<li><strong>Leclerc needs to stop the Ferrari narrative</strong> — Charles sits sixth on 79, now behind Hamilton and level with Norris, watching his teammate soak up the Silverstone spotlight. The high-speed layout has never been a Leclerc happy hunting ground. A clean, quick weekend would go a long way to steadying his side of the garage.</li>
+<li><strong>Sprint format = double points, double the trap</strong> — The fourth Sprint of 2026 and Silverstone's first since 2021. One hour of practice, then everything counts: eight points on Saturday plus grid consequences that bleed into Sunday. A poor Friday launch can wreck a title bid before the main event even starts — pressure that lands hardest on the least experienced leader, Antonelli.</li>
+<li><strong>Weather: warm, dry — except when it isn't</strong> — Friday and Sunday look sunny and hot (up to 28°C on race day), but a ~48% rain chance hangs over Saturday morning's Sprint. A wet Sprint could scramble the grid for qualifying and hand a wildcard to anyone brave in the mixed conditions. British weather, doing what it does.</li>
+        </ul>
     </div>
 </div>
 
 <div style="text-align:center;color:var(--muted);font-size:0.7rem;margin-top:16px;">
-    Built by Marshall 🔶 for Wilson · Data: formula1.com, FIA, racingnews365.com, total-motorsport.com, gpfans.com, skysports.com · Updated June 24, 2026
+    Built by Marshall 🔶 for Wilson · Data: formula1.com, FIA, racingnews365.com, skysports.com, total-motorsport.com, gpfans.com · Updated July 1, 2026
 </div>
 
 <script>
-// Countdown to race: Sun Jun 28, 15:00 CEST = 13:00 UTC
-const raceTime = new Date('2026-06-28T13:00:00Z');
+// Countdown to race: Sun Jul 5, 15:00 BST = 14:00 UTC
+const raceTime = new Date('2026-07-05T14:00:00Z');
 function updateCountdown() {
     const now = new Date();
     const diff = raceTime - now;
@@ -313,8 +341,8 @@ setInterval(updateCountdown, 60000);
 
 // Constructors chart
 const teams = ["Mercedes", "Ferrari", "McLaren", "Red Bull", "Alpine", "Racing Bulls", "Haas", "Williams", "Audi", "Aston Martin", "Cadillac"];
-const pts = [262, 190, 141, 89, 57, 41, 21, 11, 2, 1, 0];
-const colors = ["#00D2BE", "#DC0000", "#FF8700", "#3671C6", "#0090FF", "#6692FF", "#B6BABD", "#64C4FF", "#00594F", "#006F62", "#1E1E1E"];
+const pts = [302, 204, 159, 115, 57, 44, 21, 11, 2, 1, 0];
+const colors = ["#00D2BE", "#DC0000", "#FF8700", "#3671C6", "#0090FF", "#6692FF", "#B6BABD", "#64C4FF", "#00594F", "#006F62", "#888888"];
 
 new Chart(document.getElementById('constChart').getContext('2d'), {
     type: 'bar',

@@ -1,161 +1,129 @@
 <!DOCTYPE html>
-<html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width"><title>Red Bull Ring — Spielberg</title>
-<style>body{margin:0;background:#0a0a0a;display:flex;justify-content:center;align-items:center;min-height:100vh;}</style>
-</head><body><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 650" style="background:#0a0a0a;max-width:1000px;width:100%;">
-  <defs>
-    <filter id="glow">
-      <feGaussianBlur stdDeviation="3" result="blur"/>
-      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
-    </filter>
-    <filter id="glow2">
-      <feGaussianBlur stdDeviation="2" result="blur"/>
-      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
-    </filter>
-  </defs>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🏁 Silverstone — Circuit Diagram</title>
+<style>
+:root { --bg:#0a0a0a; --surface:#141414; --border:#2a2a2a; --text:#e0e0e0; --muted:#888; --accent:#DC0000; }
+* { margin:0; padding:0; box-sizing:border-box; }
+body { background:var(--bg); color:var(--text); font-family:-apple-system,BlinkMacSystemFont,'Inter',sans-serif; padding:16px; }
+.header { text-align:center; margin-bottom:16px; }
+.header h1 { font-size:1.4rem; font-weight:700; }
+.header .flag { font-size:2rem; }
+.header .meta { color:var(--muted); font-size:0.8rem; margin-top:4px; }
+.wrap { max-width:900px; margin:0 auto; }
+.card { background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:16px; }
+.diagram { width:100%; height:auto; display:block; }
+.legend { display:flex; flex-wrap:wrap; gap:16px; justify-content:center; margin-top:14px; font-size:0.8rem; }
+.legend div { display:flex; align-items:center; gap:6px; color:var(--muted); }
+.swatch { width:22px; height:0; border-top-width:3px; border-top-style:solid; }
+.dot { width:12px; height:12px; border-radius:50%; }
+.back { display:inline-block; margin-top:14px; color:#f59e0b; font-size:0.8rem; text-decoration:none; }
+.corner-label { fill:#e0e0e0; font-size:13px; font-weight:600; font-family:-apple-system,sans-serif; }
+.speed-label { fill:#f59e0b; font-size:11px; font-family:-apple-system,sans-serif; }
+.zone-label { fill:#4ade80; font-size:11px; font-weight:600; font-family:-apple-system,sans-serif; }
+</style>
+</head>
+<body>
+<div class="wrap">
+<div class="header">
+    <div class="flag">🇬🇧</div>
+    <h1>Silverstone Circuit</h1>
+    <div class="meta">5.891 km · 18 turns · 52 laps · 2 DRS zones · Clockwise</div>
+</div>
 
-  <!-- Title -->
-  <text x="500" y="35" text-anchor="middle" fill="#e0e0e0" font-family="Inter,system-ui,sans-serif" font-size="22" font-weight="700">Red Bull Ring — Spielberg</text>
-  <text x="500" y="55" text-anchor="middle" fill="#888" font-family="Inter,system-ui,sans-serif" font-size="12">4.318 km | 10 Turns | Clockwise | 3 DRS Zones | Styria, Austria | ~70m elevation</text>
+<div class="card">
+<svg class="diagram" viewBox="0 0 860 600" xmlns="http://www.w3.org/2000/svg">
+    <!-- Track outline (stylized) -->
+    <path d="M 175 415
+             C 150 360 165 300 220 285
+             C 275 270 300 300 335 275
+             C 372 248 405 258 450 235
+             C 510 208 575 213 625 248
+             C 690 292 715 345 700 395
+             C 688 435 650 458 605 458
+             C 552 458 530 428 485 440
+             C 435 453 415 495 360 498
+             C 300 501 285 468 250 478
+             C 210 490 190 468 200 430
+             C 205 405 195 400 175 415 Z"
+          fill="none" stroke="#3a3a3a" stroke-width="20" stroke-linejoin="round" stroke-linecap="round"/>
+    <path d="M 175 415
+             C 150 360 165 300 220 285
+             C 275 270 300 300 335 275
+             C 372 248 405 258 450 235
+             C 510 208 575 213 625 248
+             C 690 292 715 345 700 395
+             C 688 435 650 458 605 458
+             C 552 458 530 428 485 440
+             C 435 453 415 495 360 498
+             C 300 501 285 468 250 478
+             C 210 490 190 468 200 430
+             C 205 405 195 400 175 415 Z"
+          fill="none" stroke="#e0e0e0" stroke-width="3" stroke-linejoin="round"/>
 
-  <!-- Track outline — Red Bull Ring simplified, clockwise -->
-  <!-- Uphill main straight S→N to T1; long Niki Lauda straight across the top to T3 (Remus) hairpin; -->
-  <!-- descend the right side through T4-T6 (Würth); flowing lower section T7-T8; fast T9 (Rindt) + T10 back to start. -->
+    <!-- DRS zone 1: Wellington Straight (bottom, into Brooklands) -->
+    <line x1="360" y1="498" x2="250" y2="478" stroke="#4ade80" stroke-width="5" stroke-dasharray="8 5" stroke-linecap="round"/>
+    <text class="zone-label" x="300" y="527" text-anchor="middle">DRS · Wellington Str.</text>
 
-  <path id="trk" d="
-    M 300,520
-    L 250,180
-    Q 245,158 270,150
-    L 745,150
-    Q 790,148 788,195
-    L 790,280
-    Q 788,320 750,335
-    L 700,358
-    Q 668,372 650,400
-    Q 636,422 610,425
-    L 560,428
-    Q 520,430 500,452
-    Q 478,475 478,505
-    L 470,545
-    Q 468,572 435,572
-    L 360,548
-    Q 320,535 300,520
-    Z
-  " fill="none" stroke="#333" stroke-width="22" stroke-linejoin="round" stroke-linecap="round"/>
+    <!-- DRS zone 2: Hangar Straight (right side, into Stowe) -->
+    <line x1="702" y1="345" x2="702" y2="405" stroke="#4ade80" stroke-width="5" stroke-dasharray="8 5" stroke-linecap="round"/>
+    <text class="zone-label" x="724" y="372" text-anchor="start">DRS</text>
+    <text class="zone-label" x="724" y="386" text-anchor="start">Hangar</text>
 
-  <!-- Track surface -->
-  <use href="#trk" stroke="#555" stroke-width="12"/>
+    <!-- Start/finish line -->
+    <line x1="166" y1="428" x2="190" y2="404" stroke="#fff" stroke-width="6"/>
+    <text class="corner-label" x="118" y="414" text-anchor="middle" style="fill:#DC0000;">START /</text>
+    <text class="corner-label" x="118" y="431" text-anchor="middle" style="fill:#DC0000;">FINISH</text>
 
-  <!-- DRS Zone 1 — main pit straight, exit of last corner up to T1 -->
-  <line x1="297" y1="490" x2="252" y2="210" stroke="#22c55e" stroke-width="4" stroke-dasharray="14,7" filter="url(#glow2)"/>
-  <text x="200" y="360" fill="#22c55e" font-family="Inter,system-ui,sans-serif" font-size="11" font-weight="600" transform="rotate(-81 200 360)">DRS 1 — Pit straight</text>
+    <!-- Overtake zones (orange dots) -->
+    <circle cx="255" cy="479" r="7" fill="#f59e0b"/>
+    <circle cx="700" cy="403" r="7" fill="#f59e0b"/>
+    <circle cx="487" cy="440" r="7" fill="#f59e0b"/>
 
-  <!-- DRS Zone 2 — long Niki Lauda straight, T1 to T3 (the big one) -->
-  <line x1="300" y1="150" x2="730" y2="150" stroke="#22c55e" stroke-width="4" stroke-dasharray="14,7" filter="url(#glow2)"/>
-  <text x="515" y="138" text-anchor="middle" fill="#22c55e" font-family="Inter,system-ui,sans-serif" font-size="11" font-weight="600">DRS 2 — Niki Lauda straight (longest)</text>
+    <!-- Corner labels + speeds -->
+    <text class="corner-label" x="205" y="463" text-anchor="end">Abbey (T1)</text>
+    <text class="speed-label"  x="205" y="477" text-anchor="end">~290 km/h</text>
 
-  <!-- DRS Zone 3 — T3 down to T4 -->
-  <line x1="789" y1="205" x2="789" y2="275" stroke="#22c55e" stroke-width="4" stroke-dasharray="14,7" filter="url(#glow2)"/>
-  <text x="800" y="245" fill="#22c55e" font-family="Inter,system-ui,sans-serif" font-size="11" font-weight="600">DRS 3</text>
+    <text class="corner-label" x="360" y="533" text-anchor="middle">Village / Loop (T3-4)</text>
+    <text class="speed-label"  x="360" y="547" text-anchor="middle">~90 km/h · slowest</text>
 
-  <!-- Start/Finish line -->
-  <line x1="262" y1="290" x2="286" y2="294" stroke="#fff" stroke-width="3"/>
-  <text x="232" y="285" text-anchor="middle" fill="#fff" font-family="Inter,system-ui,sans-serif" font-size="10" font-weight="700">START/FINISH</text>
+    <text class="corner-label" x="232" y="503" text-anchor="end">Brooklands (T6)</text>
 
-  <!-- T1 Niki Lauda — uphill braking, lap-1 overtake -->
-  <circle cx="258" cy="162" r="13" fill="none" stroke="#DC0000" stroke-width="2.5" filter="url(#glow)"/>
-  <text x="258" y="166" text-anchor="middle" fill="#DC0000" font-family="Inter,system-ui,sans-serif" font-size="9" font-weight="700">1</text>
-  <text x="278" y="120" fill="#DC0000" font-family="Inter,system-ui,sans-serif" font-size="10" font-weight="600">NIKI LAUDA</text>
-  <text x="278" y="132" fill="#888" font-family="Inter,system-ui,sans-serif" font-size="9">310→130 km/h · uphill</text>
-  <text x="278" y="144" fill="#f59e0b" font-family="Inter,system-ui,sans-serif" font-size="8" font-weight="600">OVERTAKE</text>
+    <text class="corner-label" x="145" y="298" text-anchor="start">Luffield /</text>
+    <text class="corner-label" x="145" y="314" text-anchor="start">Woodcote (T7-8)</text>
 
-  <!-- T2 kink -->
-  <circle cx="470" cy="150" r="6" fill="none" stroke="#888" stroke-width="1.5"/>
-  <text x="470" y="154" text-anchor="middle" fill="#888" font-family="Inter,system-ui,sans-serif" font-size="8" font-weight="700">2</text>
-  <text x="470" y="172" text-anchor="middle" fill="#888" font-family="Inter,system-ui,sans-serif" font-size="8">flat kink</text>
+    <text class="corner-label" x="300" y="258" text-anchor="middle">Copse (T9)</text>
+    <text class="speed-label"  x="300" y="272" text-anchor="middle">~290 km/h</text>
 
-  <!-- T3 Remus — right hairpin at the top, prime overtake -->
-  <circle cx="788" cy="178" r="13" fill="none" stroke="#DC0000" stroke-width="2.5" filter="url(#glow)"/>
-  <text x="788" y="182" text-anchor="middle" fill="#DC0000" font-family="Inter,system-ui,sans-serif" font-size="9" font-weight="700">3</text>
-  <text x="700" y="100" fill="#DC0000" font-family="Inter,system-ui,sans-serif" font-size="11" font-weight="600">REMUS</text>
-  <text x="700" y="113" fill="#888" font-family="Inter,system-ui,sans-serif" font-size="9">~310→120 km/h · hairpin</text>
-  <text x="700" y="125" fill="#f59e0b" font-family="Inter,system-ui,sans-serif" font-size="9" font-weight="600">PRIME OVERTAKE</text>
+    <text class="corner-label" x="470" y="216" text-anchor="middle">Maggotts-Becketts-Chapel</text>
+    <text class="speed-label"  x="470" y="230" text-anchor="middle">~280 km/h esses (T10-14)</text>
 
-  <!-- T4 Schlossgold — right, down the hill -->
-  <circle cx="788" cy="300" r="12" fill="none" stroke="#DC0000" stroke-width="2.5" filter="url(#glow)"/>
-  <text x="788" y="304" text-anchor="middle" fill="#DC0000" font-family="Inter,system-ui,sans-serif" font-size="9" font-weight="700">4</text>
-  <text x="812" y="296" fill="#DC0000" font-family="Inter,system-ui,sans-serif" font-size="10" font-weight="600">SCHLOSSGOLD</text>
-  <text x="812" y="308" fill="#888" font-family="Inter,system-ui,sans-serif" font-size="9">~250 km/h · right</text>
-  <text x="812" y="320" fill="#f59e0b" font-family="Inter,system-ui,sans-serif" font-size="8" font-weight="600">OVERTAKE</text>
+    <text class="corner-label" x="648" y="252" text-anchor="start">Hangar Str.</text>
 
-  <!-- T5 -->
-  <circle cx="678" cy="368" r="6" fill="none" stroke="#888" stroke-width="1.5"/>
-  <text x="678" y="372" text-anchor="middle" fill="#888" font-family="Inter,system-ui,sans-serif" font-size="8" font-weight="700">5</text>
+    <text class="corner-label" x="658" y="452" text-anchor="start">Stowe (T15)</text>
+    <text class="speed-label"  x="658" y="466" text-anchor="start">~250 km/h</text>
 
-  <!-- T6 Würth — right, medium-speed -->
-  <circle cx="628" cy="418" r="8" fill="none" stroke="#f59e0b" stroke-width="1.5"/>
-  <text x="628" y="422" text-anchor="middle" fill="#f59e0b" font-family="Inter,system-ui,sans-serif" font-size="8" font-weight="700">6</text>
-  <text x="628" y="445" text-anchor="middle" fill="#f59e0b" font-family="Inter,system-ui,sans-serif" font-size="9" font-weight="600">WÜRTH</text>
-  <text x="628" y="457" text-anchor="middle" fill="#888" font-family="Inter,system-ui,sans-serif" font-size="9">~190 km/h</text>
+    <text class="corner-label" x="487" y="422" text-anchor="middle">Vale / Club (T16-18)</text>
+    <text class="speed-label"  x="487" y="478" text-anchor="middle">~130 km/h</text>
 
-  <!-- T7 -->
-  <circle cx="500" cy="452" r="6" fill="none" stroke="#888" stroke-width="1.5"/>
-  <text x="500" y="456" text-anchor="middle" fill="#888" font-family="Inter,system-ui,sans-serif" font-size="8" font-weight="700">7</text>
+    <!-- Direction arrow -->
+    <g transform="translate(255,315)">
+        <path d="M 0 0 L 26 0 M 18 -6 L 26 0 L 18 6" stroke="#888" stroke-width="2" fill="none"/>
+        <text x="-4" y="4" text-anchor="end" style="fill:#888;font-size:11px;font-family:-apple-system,sans-serif;">lap direction</text>
+    </g>
+</svg>
 
-  <!-- T8 -->
-  <circle cx="478" cy="505" r="6" fill="none" stroke="#888" stroke-width="1.5"/>
-  <text x="478" y="509" text-anchor="middle" fill="#888" font-family="Inter,system-ui,sans-serif" font-size="8" font-weight="700">8</text>
-  <text x="430" y="492" fill="#888" font-family="Inter,system-ui,sans-serif" font-size="9" text-anchor="end">T7–T8 esses</text>
+<div class="legend">
+    <div><span class="swatch" style="border-top-color:#e0e0e0;"></span> Track</div>
+    <div><span class="swatch" style="border-top-color:#4ade80; border-top-style:dashed;"></span> DRS zone</div>
+    <div><span class="dot" style="background:#f59e0b;"></span> Overtake spot</div>
+    <div><span class="swatch" style="border-top-color:#fff;"></span> Start / finish</div>
+</div>
+</div>
 
-  <!-- T9 Rindt — fast right -->
-  <circle cx="472" cy="545" r="12" fill="none" stroke="#DC0000" stroke-width="2.5" filter="url(#glow)"/>
-  <text x="472" y="549" text-anchor="middle" fill="#DC0000" font-family="Inter,system-ui,sans-serif" font-size="9" font-weight="700">9</text>
-  <text x="498" y="540" fill="#DC0000" font-family="Inter,system-ui,sans-serif" font-size="10" font-weight="600">RINDT</text>
-  <text x="498" y="552" fill="#888" font-family="Inter,system-ui,sans-serif" font-size="9">~290 km/h · fast right</text>
-  <text x="498" y="564" fill="#f59e0b" font-family="Inter,system-ui,sans-serif" font-size="8" font-weight="600">⚠ track-limits trap</text>
-
-  <!-- T10 Red Bull Mobile — final right onto the straight -->
-  <circle cx="430" cy="572" r="12" fill="none" stroke="#DC0000" stroke-width="2.5" filter="url(#glow)"/>
-  <text x="430" y="576" text-anchor="middle" fill="#DC0000" font-family="Inter,system-ui,sans-serif" font-size="9" font-weight="700">10</text>
-  <text x="430" y="600" text-anchor="middle" fill="#DC0000" font-family="Inter,system-ui,sans-serif" font-size="10" font-weight="600">RED BULL MOBILE</text>
-  <text x="430" y="612" text-anchor="middle" fill="#888" font-family="Inter,system-ui,sans-serif" font-size="9">final right · launch onto S/F</text>
-
-  <!-- Overtake zone markers (orange dots) -->
-  <circle cx="258" cy="162" r="6" fill="#f59e0b" opacity="0.85" filter="url(#glow)"/>
-  <circle cx="788" cy="178" r="6" fill="#f59e0b" opacity="0.85" filter="url(#glow)"/>
-  <circle cx="788" cy="300" r="5" fill="#f59e0b" opacity="0.7" filter="url(#glow)"/>
-
-  <!-- Direction arrow (clockwise) along main straight -->
-  <path d="M 268,330 L 258,344 L 273,342 Z" fill="#f59e0b" opacity="0.7"/>
-  <text x="318" y="420" fill="#f59e0b" font-family="Inter,system-ui,sans-serif" font-size="9" opacity="0.7">↑ clockwise · uphill</text>
-
-  <!-- Sector labels -->
-  <text x="430" y="195" fill="#64C4FF" font-family="Inter,system-ui,sans-serif" font-size="10" font-weight="600" opacity="0.6" text-anchor="middle">SECTOR 1: S/F + T1 climb — power &amp; braking</text>
-  <text x="845" y="370" fill="#64C4FF" font-family="Inter,system-ui,sans-serif" font-size="10" font-weight="600" opacity="0.6">SECTOR 2:</text>
-  <text x="845" y="384" fill="#64C4FF" font-family="Inter,system-ui,sans-serif" font-size="9" opacity="0.55">T3–T6 descent,</text>
-  <text x="845" y="396" fill="#64C4FF" font-family="Inter,system-ui,sans-serif" font-size="9" opacity="0.55">braking &amp; traction</text>
-  <text x="600" y="520" fill="#64C4FF" font-family="Inter,system-ui,sans-serif" font-size="10" font-weight="600" opacity="0.6">SECTOR 3:</text>
-  <text x="600" y="534" fill="#64C4FF" font-family="Inter,system-ui,sans-serif" font-size="9" opacity="0.55">flowing T7–T10,</text>
-  <text x="600" y="546" fill="#64C4FF" font-family="Inter,system-ui,sans-serif" font-size="9" opacity="0.55">commitment &amp; kerbs</text>
-
-  <!-- Legend -->
-  <rect x="30" y="560" width="300" height="80" rx="6" fill="#141414" stroke="#2a2a2a" stroke-width="1"/>
-  <text x="45" y="578" fill="#e0e0e0" font-family="Inter,system-ui,sans-serif" font-size="11" font-weight="600">Legend</text>
-
-  <line x1="45" y1="595" x2="75" y2="595" stroke="#22c55e" stroke-width="3" stroke-dasharray="8,4"/>
-  <text x="82" y="599" fill="#888" font-family="Inter,system-ui,sans-serif" font-size="10">DRS Zone (×3)</text>
-
-  <circle cx="55" cy="615" r="5" fill="#f59e0b" opacity="0.8"/>
-  <text x="82" y="619" fill="#888" font-family="Inter,system-ui,sans-serif" font-size="10">Overtake Zone</text>
-
-  <circle cx="200" cy="615" r="6" fill="none" stroke="#DC0000" stroke-width="2"/>
-  <text x="215" y="619" fill="#888" font-family="Inter,system-ui,sans-serif" font-size="10">Key / High-Stress Corner</text>
-
-  <line x1="200" y1="594" x2="215" y2="596" stroke="#fff" stroke-width="3"/>
-  <text x="222" y="599" fill="#888" font-family="Inter,system-ui,sans-serif" font-size="10">Start/Finish</text>
-
-  <text x="45" y="636" fill="#888" font-family="Inter,system-ui,sans-serif" font-size="10">Speeds in km/h · shortest lap on the F1 calendar</text>
-
-  <!-- Lap record -->
-  <text x="660" y="632" text-anchor="middle" fill="#555" font-family="Inter,system-ui,sans-serif" font-size="10">Lap record: 1:05.619 — Sainz (McLaren, 2020)</text>
-
-</svg></body></html>
+<a class="back" href="index.html">← Back to dashboard</a>
+</div>
+</body>
+</html>
