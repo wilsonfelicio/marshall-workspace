@@ -8,9 +8,10 @@ Run with the dedicated venv:
 Two roles:
   STATS (soccerdata / FBref) — advanced + historical numbers (xG, scorers, past-WC
   form). FBref lags live scores by hours, so web_search stays primary for live data.
-  FORECAST — market-anchored prediction with an INDEPENDENT Elo cross-check, inspired
-  by Nate Silver's PELE model (negative-binomial + Dixon-Coles scoreline; market-vs-
-  model divergence; blend; stage variance; injury market-value haircut; xG form).
+  FORECAST — market-anchored prediction with an INDEPENDENT, xG-first cross-check,
+  inspired by Nate Silver's PELE model (negative-binomial + Dixon-Coles scoreline;
+  shot-based xG drives each side's goal expectation, Elo/market anchor it; market-vs-
+  model divergence; blend; stage variance; injury market-value haircut).
 
 Commands:
   snapshot                 -> /tmp/wc_stats.txt: 2026 results + top scorers (when posted)
@@ -30,6 +31,10 @@ forecast options:
   --stage group|knockout   variance scaler on the Elo gap (group 0.9x upset-prone, knockout 1.1x chalky)
   --home-out-pct / --away-out-pct   share (0-1) of squad market value unavailable (injuries/bans) -> Elo haircut
   --home-form / --away-form         Elo nudge from recent xG over/under-performance (use `form`)
+  --home-xgf/--away-xgf --home-xga/--away-xga  shot-based expected goals for/against per game
+                           -> xG-FIRST: sets the model's goal expectation via opponent-adjusted
+                              xG (sqrt(homeXGF*awayXGA)); get the numbers from `form` (or web).
+  --xg-weight <0-1>        weight on xG vs Elo/market for the model's goals (default 0.6)
   --mkt-weight <0-1>       weight on market in the blend (lower for thin markets)
   --r / --rho             scoreline dispersion + Dixon-Coles draw correction (see `calibrate`)
   --log                   append the forecast to data/wc_forecasts.jsonl for later scoring
@@ -183,11 +188,13 @@ def team_2026_form(team_query):
         return f"2026 form for '{team_query}': no matches found yet."
     rows = ts[ts[tcol] == name]
     gf, xg = _col(rows, "GF", "Gls"), _col(rows, "xG")
+    xga = _col(rows, "xGA", "xG_against")
     n = len(rows)
     if n == 0:
         return f"2026 form for {name}: no matches yet."
     g = pd.to_numeric(rows[gf], errors="coerce").sum() if gf is not None else float("nan")
     x = pd.to_numeric(rows[xg], errors="coerce").sum() if xg is not None else float("nan")
+    xa = pd.to_numeric(rows[xga], errors="coerce").sum() if xga is not None else float("nan")
     msg = [f"2026 form for {name}: {n} match(es), goals {g:.0f}, xG {x:.2f}" if not math.isnan(x)
            else f"2026 form for {name}: {n} match(es), goals {g:.0f}"]
     if xg is not None and not math.isnan(x) and n:
@@ -195,6 +202,11 @@ def team_2026_form(team_query):
         # form nudge: reward strong underlying xG, small magnitude
         nudge = max(-40, min(40, round(25 * (x / n - 1.1))))  # vs ~1.1 baseline xG/game
         msg.append(f"  suggested --form nudge ~ {nudge:+d} Elo (xG/game {x/n:.2f}); finishing delta {xgd:+.2f}/game")
+        # xG-first forecast inputs (feed straight into `forecast`)
+        if not math.isnan(xa):
+            msg.append(f"  xG-first: xGF/game {x/n:.2f}, xGA/game {xa/n:.2f}  ->  --home-xgf {x/n:.2f} --home-xga {xa/n:.2f}")
+        else:
+            msg.append(f"  xG-first: xGF/game {x/n:.2f} (xGA n/a in feed)  ->  --home-xgf {x/n:.2f}")
     return "\n".join(msg)
 
 
@@ -296,6 +308,12 @@ def cmd_forecast(argv):
     ap.add_argument("--away-out-pct", type=float, default=0.0)
     ap.add_argument("--home-form", type=float, default=0.0)
     ap.add_argument("--away-form", type=float, default=0.0)
+    # xG-first: shot-based expected goals for/against per game (from `form`, FBref, Understat...)
+    ap.add_argument("--home-xgf", type=float, default=None, help="home expected goals FOR / game")
+    ap.add_argument("--away-xgf", type=float, default=None, help="away expected goals FOR / game")
+    ap.add_argument("--home-xga", type=float, default=None, help="home expected goals AGAINST / game")
+    ap.add_argument("--away-xga", type=float, default=None, help="away expected goals AGAINST / game")
+    ap.add_argument("--xg-weight", type=float, default=0.6, help="weight on xG vs Elo/market for the model's goal expectation")
     ap.add_argument("--mkt-weight", type=float, default=0.7)
     ap.add_argument("--r", type=float, default=DEF_R)
     ap.add_argument("--rho", type=float, default=DEF_RHO)
@@ -324,13 +342,33 @@ def cmd_forecast(argv):
         mult = STAGE_MULT[a.stage]
         eh = a.home_elo + a.hfa + a.home_form - ELO_PER_OUT * a.home_out_pct
         ea = a.away_elo + a.away_form - ELO_PER_OUT * a.away_out_pct
-        dr = (eh - ea) * mult
-        tot = a.total if a.total else (lh + la)
-        sup = dr / SUP_PER_ELO
-        elh, ela = max(0.12, (tot + sup) / 2), max(0.12, (tot - sup) / 2)
+        # Split supremacy into pure ratings vs situational (HFA/injuries/form).
+        # Situational effects aren't in shot xG, so they're applied at FULL strength;
+        # xG only replaces the ratings/market view of core attack-vs-defence.
+        ratings_sup = (a.home_elo - a.away_elo) * mult / SUP_PER_ELO
+        situ_sup = (a.hfa + a.home_form - a.away_form
+                    - ELO_PER_OUT * (a.home_out_pct - a.away_out_pct)) * mult / SUP_PER_ELO
+        mkt_tot = a.total if a.total else (lh + la)
+        adj = []
+        have_xg = a.home_xgf is not None and a.away_xgf is not None
+        if have_xg:
+            wx = min(max(a.xg_weight, 0.0), 1.0)
+            if a.home_xga is not None and a.away_xga is not None:
+                # opponent-adjusted: what home creates × what away concedes (geometric mean)
+                lxh = math.sqrt(max(a.home_xgf, 0.05) * max(a.away_xga, 0.05))
+                lxa = math.sqrt(max(a.away_xgf, 0.05) * max(a.home_xga, 0.05))
+                adj.append(f"xG {lxh:.2f}-{lxa:.2f} opp-adj wt{int(wx*100)}%")
+            else:
+                lxh, lxa = a.home_xgf, a.away_xgf
+                adj.append(f"xG {lxh:.2f}-{lxa:.2f} raw wt{int(wx*100)}%")
+            core_sup = wx * (lxh - lxa) + (1 - wx) * ratings_sup
+            core_tot = wx * (lxh + lxa) + (1 - wx) * mkt_tot
+        else:
+            core_sup, core_tot = ratings_sup, mkt_tot
+        model_sup = core_sup + situ_sup
+        elh, ela = max(0.12, (core_tot + model_sup) / 2), max(0.12, (core_tot - model_sup) / 2)
         mh, md, ma = _wdl(_score_matrix(elh, ela, a.r, a.rho))
         model = (mh, md, ma)
-        adj = []
         if a.hfa:
             adj.append(f"HFA {a.hfa:+.0f}")
         if a.home_out_pct or a.away_out_pct:
@@ -339,7 +377,7 @@ def cmd_forecast(argv):
             adj.append(f"form {a.home_form:+.0f}/{a.away_form:+.0f}")
         if a.stage != "auto":
             adj.append(f"{a.stage} x{mult}")
-        out += ["", f"INDEPENDENT MODEL (Elo {eh:.0f} vs {ea:.0f}{'; ' + ', '.join(adj) if adj else ''}):",
+        out += ["", f"INDEPENDENT MODEL ({'xG+Elo' if have_xg else 'Elo'} {eh:.0f} vs {ea:.0f}{'; ' + ', '.join(adj) if adj else ''}):",
                 f"  {a.home} {_pct(mh)} / Draw {_pct(md)} / {a.away} {_pct(ma)}  (xg {elh:.2f}-{ela:.2f})"]
         dH, dD, dA = mh - pH, md - pD, ma - pA
         out += ["", "DIVERGENCE (model − market):",
