@@ -78,6 +78,7 @@ body { background:var(--bg); color:var(--text); font-family:-apple-system,BlinkM
 .bracket li.bra { background:linear-gradient(90deg,rgba(239,68,68,0.08),transparent); }
 .bracket li.done .t, .bracket li.done div { color:var(--muted); }
 .bracket li.sf { background:linear-gradient(90deg,rgba(34,197,94,0.07),transparent); }
+.bracket li.live { background:linear-gradient(90deg,rgba(234,179,8,0.10),transparent); }
 .bracket .t { color:var(--gold); font-weight:600; font-size:0.78rem; }
 .bracket .t .d { display:block; color:var(--muted); font-weight:400; font-size:0.7rem; }
 .bracket .lean { color:var(--muted); font-size:0.72rem; text-align:right; max-width:150px; }
@@ -92,8 +93,8 @@ body { background:var(--bg); color:var(--text); font-family:-apple-system,BlinkM
 <div class="header">
     <div class="flag">🇨🇦 🇲🇽 🇺🇸</div>
     <h1>FIFA World Cup 2026</h1>
-    <div class="meta"><span class="round">Semi-finals eve · last rest day</span> · The last four: 🇫🇷 <strong style="color:var(--bra)">France vs Spain</strong> (tomorrow, Tue 14 Jul, Dallas) &amp; 🏴󠁧󠁢󠁥󠁮󠁧󠁿 <strong style="color:var(--bra)">England vs Argentina</strong> (Wed 15 Jul, Atlanta) · 🏴󠁧󠁢󠁥󠁮󠁧󠁿 England edged 🇳🇴 Norway 2–1 aet (Bellingham ×2) &amp; 🇦🇷 Argentina beat 🇨🇭 Switzerland 3–1 aet · 🇧🇷 <strong style="color:var(--red)">Brazil out</strong> (R16); Norway now out too — the draw's last Brazil thread is gone · Mbappé &amp; Messi lead the Boot on 8 · 48 teams · June 11 – July 19, 2026</div>
-    <div class="countdown" id="countdown"><div class="label">until 🇫🇷 France vs 🇪🇸 Spain · Semi-final · Tue 14 Jul · 16:00 BRT · AT&amp;T Stadium, Dallas</div></div>
+    <div class="meta"><span class="round">Semi-final day — the last four begins</span> · 🇫🇷 <strong style="color:var(--bra)">France vs Spain 🇪🇸 TODAY</strong> (Tue 14 Jul · 16:00 BRT · AT&amp;T Stadium, Dallas) &amp; 🏴󠁧󠁢󠁥󠁮󠁧󠁿 <strong style="color:var(--bra)">England vs Argentina 🇦🇷</strong> tomorrow (Wed 15 Jul · Atlanta) · Mbappé fit after an ankle scare; Deschamps confirms he starts · 🇧🇷 <strong style="color:var(--red)">Brazil out</strong> (R16) — no Brazilian interest left in the last four · Mbappé &amp; Messi lead the Boot on 8 · 48 teams · June 11 – July 19, 2026</div>
+    <div class="countdown" id="countdown"><div class="label">until 🇫🇷 France vs 🇪🇸 Spain · Semi-final · Today · 16:00 BRT · AT&amp;T Stadium, Dallas</div></div>
 </div>
 
 <div class="grid">
@@ -108,29 +109,29 @@ body { background:var(--bg); color:var(--text); font-family:-apple-system,BlinkM
             </li>
             <li>
                 <div class="t">18:00<span class="d">Sat 11 Jul</span></div>
-                <div>🇳🇴 Norway <span style="color:var(--muted);font-weight:700">1–2</span> 🏴󠁧󠁢󠁥󠁮󠁧󠁿 England <span style="color:var(--muted);font-size:0.72rem">QF aet · the side that ended Brazil is OUT too — Haaland's tournament over</span></div>
+                <div>🇳🇴 Norway <span style="color:var(--muted);font-weight:700">1–2</span> 🏴󠁧󠁢󠁥󠁮󠁧󠁿 England <span style="color:var(--muted);font-size:0.72rem">QF aet · the side that ended Brazil is OUT too — Haaland's tournament over on 7</span></div>
                 <div style="color:var(--muted);font-size:0.72rem;text-align:right">Hard Rock<br>Miami</div>
             </li>
         </ul>
-        <div class="legend">All times BRT (São Paulo). <strong style="color:var(--red)">Out in the last 16</strong> — Brazil's earliest exit since 1990. The only remaining Brazilian thread — <strong style="color:var(--text)">Haaland's Norway</strong>, the team that beat them — died last night in Miami: England came from behind to win 2–1 in extra time, so the entire bottom-quarter of the draw that knocked Brazil out is gone. Everything now is post-mortem: Ancelotti's front-line rebuild toward 2030, and what's reported as Neymar's final World Cup ending on a stoppage-time consolation penalty. No Brazilian interest left in the last four.</div>
+        <div class="legend">All times BRT (São Paulo). <strong style="color:var(--red)">Out in the last 16</strong> — Brazil's earliest exit since 1990. The team that eliminated them (Haaland's Norway) is gone too, beaten by England in the quarters, so the whole bottom-quarter of the draw that knocked Brazil out has cleared. Everything from here is post-mortem: Ancelotti's front-line rebuild toward 2030, and what's reported as Neymar's final World Cup ending on a stoppage-time consolation penalty. Nothing Brazilian left in the last four.</div>
     </div>
 
-    <!-- Fixtures: rest day + semis -->
+    <!-- Fixtures: the two semis -->
     <div class="card">
-        <h3>📅 Today is a rest day — the two semi-finals (BRT)</h3>
+        <h3>📅 Semi-finals (BRT) — France vs Spain TODAY</h3>
         <ul class="fixtures">
-            <li>
+            <li class="live">
                 <div class="time">16:00<span class="day">Tue 14</span></div>
-                <div class="match">🇫🇷 France <span class="grp">vs</span> 🇪🇸 Spain<br><span class="grp">SF① · AT&amp;T Stadium, Dallas · top half</span><span class="fc">FRA 41 / draw 30 / SPA 29 (de-vigged 90-min; FanDuel FRA +130 / draw +220 / SPA +230; France to advance ≈57%). Opta ~42/32/26 incl. ET. Mbappé (8) vs Yamal &amp; Oyarzabal; Spain's clean-sheet spine cracked late vs Belgium but Merino keeps scoring. Market's tournament favourite (France ≈+155) against our model's favourite (Spain, 54% to reach the final). Lean France 1-1 into extra time — a coin-flip tie</span></div>
+                <div class="match">🇫🇷 France <span class="grp">vs</span> 🇪🇸 Spain<br><span class="grp">SF① · AT&amp;T Stadium, Dallas · top half · TODAY</span><span class="fc">FRA 41 / draw 30 / SPA 29 (de-vigged 90-min, Polymarket; Kalshi/FanDuel have France ~59% to advance, Spain ~41%). Mbappé (8) passed fit after his Morocco ankle knock — Deschamps confirms he starts; Deschamps builds from defensive solidity and the counter. Spain answer with Yamal (MOTM vs Belgium) and Merino, scorer of late knockout winners vs Portugal and Belgium. Market's outright favourite (France) meets our model's favourite (Spain, higher seed, 54% to reach the final). Lean France 1-1 into extra time — a genuine coin-flip.</span></div>
                 <div class="venue">SF ①</div>
             </li>
             <li>
                 <div class="time">16:00<span class="day">Wed 15</span></div>
-                <div class="match">🏴󠁧󠁢󠁥󠁮󠁧󠁿 England <span class="grp">vs</span> 🇦🇷 Argentina<br><span class="grp">SF② · Mercedes-Benz Stadium, Atlanta · bottom half</span><span class="fc">ENG 36 / draw 32 / ARG 32 (de-vigged; advance near 50/50, Kalshi ENG 52 / ARG 50). First WC meeting since 2002 — Falklands subtext, Bellingham (6) vs Messi (8), holders vs England's 60-yr wait. Lean pick 'em, 1-1 into ET</span></div>
+                <div class="match">🏴󠁧󠁢󠁥󠁮󠁧󠁿 England <span class="grp">vs</span> 🇦🇷 Argentina<br><span class="grp">SF② · Mercedes-Benz Stadium, Atlanta · bottom half</span><span class="fc">ENG 37 / draw 32 / ARG 31 (de-vigged; Kalshi England 54% to advance, Argentina 46%; FanDuel England -126). First WC meeting since 2002 — Falklands/Malvinas subtext, Bellingham (6) vs a 38-year-old Messi (8) leading the Boot, holders vs England's 60-year wait. Lean England by a nose, 1-1 into ET.</span></div>
                 <div class="venue">SF ②</div>
             </li>
         </ul>
-        <div class="legend">No matches today (Mon 13) — the last eight is done; the semis begin tomorrow (Tue 14). Reads from our calibrated goal model (de-vigged 1X2), nudged for Elo &amp; team news; anchored on real market prices. Both winners meet in the Final, Sun 19 Jul, MetLife (New Jersey). BRT = US Eastern + 1h.</div>
+        <div class="legend">Reads from our calibrated goal model (de-vigged 1X2), nudged for Elo &amp; team news, anchored on real market prices. Both winners meet in the Final, Sun 19 Jul, MetLife (New Jersey). BRT = US Eastern + 1h.</div>
     </div>
 </div>
 
@@ -141,7 +142,7 @@ body { background:var(--bg); color:var(--text); font-family:-apple-system,BlinkM
         <table class="odds" id="oddstable">
             <tr><th class="team">Team</th><th>Win</th><th>Final</th></tr>
         </table>
-        <div class="legend">Our simulation, conditioned on the <strong style="color:var(--text)">full group stage plus all 28 knockout ties played (R32 + R16 + all four quarter-finals)</strong>. Win = lift the trophy; Final = reach it. Top-half semi France–Spain and bottom-half semi England–Argentina each send exactly one team through. Our Elo-driven model makes <strong style="color:var(--accent)">Spain (35%)</strong> narrow title favourite over France (27%), with England (19%) and Argentina (18%) close behind on the softer bottom half. Note the divergence: the <strong style="color:var(--text)">betting market makes France the outright favourite</strong> (≈+155) — our model prefers Spain's higher seed. <strong style="color:var(--red)">Brazil eliminated — win 0%.</strong></div>
+        <div class="legend">Our simulation, conditioned on the <strong style="color:var(--text)">full group stage plus all 28 knockout ties played (R32 + R16 + all four quarter-finals)</strong>. Win = lift the trophy; Final = reach it. Top-half semi France–Spain and bottom-half semi England–Argentina each send exactly one team through. Our Elo-driven model makes <strong style="color:var(--accent)">Spain (35%)</strong> narrow title favourite over France (28%), with England (19%) and Argentina (18%) close behind on the softer bottom half. Note the divergence: the <strong style="color:var(--text)">betting market makes France the outright favourite</strong> (Polymarket France 12% / Spain 16% outright, but France the shorter price to advance today) — our model prefers Spain's higher seed. <strong style="color:var(--red)">Brazil eliminated — win 0%.</strong></div>
     </div>
 
     <!-- Forecast model scorecard -->
@@ -155,7 +156,7 @@ body { background:var(--bg); color:var(--text); font-family:-apple-system,BlinkM
                 <tr><td class="l">Blend</td><td>0.538</td><td>0.157</td><td>58%</td></tr>
                 <tr><td class="l">Model</td><td>0.555</td><td>0.161</td><td>54%</td></tr>
             </table>
-            <div class="sub">57 of 84 logged picks graded. Lower Brier/RPS is better. The blend trails the market by 0.004 on Brier, level on RPS, hit-rate 58% vs 60% — ordering is sound but chalk keeps holding. The knockout coin-flips (three straight matches into extra time last night, the shootouts, the Egypt comeback) are where the model's edge leaks. Still warming up — the two semis are the next grades.</div>
+            <div class="sub">57 of 84 logged picks graded. Lower Brier/RPS is better. The blend trails the market by 0.004 on Brier, level on RPS, hit-rate 58% vs 60% — ordering is sound but chalk keeps holding. The knockout coin-flips (three straight quarter-finals into extra time, the shootouts, the Egypt comeback) are where the model's edge leaks. Two grades left — today's France–Spain and tomorrow's England–Argentina decide whether the blend closes the gap.</div>
         </div>
     </div>
 </div>
@@ -164,61 +165,71 @@ body { background:var(--bg); color:var(--text); font-family:-apple-system,BlinkM
 <div class="card full">
     <h3>🎯 Semi-Final Bracket — Last 4 (BRT)</h3>
     <ul class="bracket" id="bracket"></ul>
-    <div class="legend">Leans from our calibrated model (de-vigged 1X2 where priced, Elo-derived otherwise). <strong style="color:var(--text)">Top-half semi:</strong> France 2–0 Morocco &amp; Spain 2–1 Belgium → France vs Spain, Tue 14 Jul, AT&amp;T Stadium, Dallas. <strong style="color:var(--text)">Bottom-half semi:</strong> England 2–1 Norway (aet) &amp; Argentina 3–1 Switzerland (aet) → England vs Argentina, Wed 15 Jul, Mercedes-Benz, Atlanta. Final Sun 19 Jul, MetLife. Times BRT.</div>
+    <div class="legend">Leans from our calibrated model (de-vigged 1X2 where priced, Elo-derived otherwise). <strong style="color:var(--text)">Top-half semi:</strong> France 2–0 Morocco &amp; Spain 2–1 Belgium → France vs Spain, TODAY (Tue 14 Jul), AT&amp;T Stadium, Dallas. <strong style="color:var(--text)">Bottom-half semi:</strong> England 2–1 Norway (aet) &amp; Argentina 3–1 Switzerland (aet) → England vs Argentina, Wed 15 Jul, Mercedes-Benz, Atlanta. Final Sun 19 Jul, MetLife. Times BRT.</div>
 </div>
 
 <!-- Top scorers -->
 <div class="card full">
     <h3>👟 Golden Boot Race — Mbappé &amp; Messi Lead on 8</h3>
     <ul class="scorers">
-        <li><span class="g">8</span><span class="nm">🇫🇷 Kylian Mbappé <span class="tm">France</span></span><span class="tm">top on the assist tiebreak (3–0 over Messi); into Tuesday's semi vs Spain</span></li>
+        <li><span class="g">8</span><span class="nm">🇫🇷 Kylian Mbappé <span class="tm">France</span></span><span class="tm">top on the assist tiebreak (3–0 over Messi); passed fit, starts today's semi vs Spain</span></li>
         <li><span class="g">8</span><span class="nm">🇦🇷 Lionel Messi <span class="tm">Argentina</span></span><span class="tm">the corner that set up Mac Allister's opener vs Switzerland; level on goals, trails on assists. Semi vs England Wed</span></li>
         <li><span class="g">7</span><span class="nm">🇳🇴 Erling Haaland <span class="tm">Norway</span></span><span class="tm">frozen — Norway knocked out by England, his tournament over on 7</span></li>
         <li><span class="g">6</span><span class="nm">🏴󠁧󠁢󠁥󠁮󠁧󠁿 Jude Bellingham <span class="tm">England</span></span><span class="tm">the brace that beat Norway — equaliser in first-half stoppage, extra-time winner. Semi vs Messi's Argentina Wed</span></li>
         <li><span class="g">6</span><span class="nm">🏴󠁧󠁢󠁥󠁮󠁧󠁿 Harry Kane <span class="tm">England</span></span><span class="tm">2018 Golden Boot winner; quiet vs Norway but England found a way through Bellingham</span></li>
         <li><span class="g">5</span><span class="nm">🇫🇷 Ousmane Dembélé <span class="tm">France</span></span><span class="tm">France's other spearhead into the last four</span></li>
-        <li><span class="g">4</span><span class="nm">🇪🇸 Mikel Merino <span class="tm">Spain</span></span><span class="tm">two late knockout winners (Portugal, then Belgium 88'); Spain's clutch man</span></li>
-        <li><span class="g">4</span><span class="nm">🇪🇸 Mikel Oyarzabal <span class="tm">Spain</span></span><span class="tm">Spain's focal point into a France semi</span></li>
+        <li><span class="g">4</span><span class="nm">🇪🇸 Mikel Merino <span class="tm">Spain</span></span><span class="tm">two late knockout winners (Portugal, then Belgium 88'); Spain's clutch man into a France semi</span></li>
+        <li><span class="g">4</span><span class="nm">🇪🇸 Mikel Oyarzabal <span class="tm">Spain</span></span><span class="tm">Spain's focal point alongside Yamal</span></li>
     </ul>
-    <div class="legend">Web-sourced, unofficial (FBref's WC scorer table hasn't posted yet). Mbappé's eighth keeps him top on the assist tiebreak (3–0 over Messi). Both leaders are alive — Mbappé plays Tuesday, Messi Wednesday — while Haaland's 7 is now frozen after Norway's exit. Bellingham's brace lifted him level with Kane on 6.</div>
+    <div class="legend">Web-sourced, unofficial (FBref's WC scorer table hasn't posted yet). Mbappé's eighth keeps him top on the assist tiebreak (3–0 over Messi). Both leaders are alive — Mbappé plays today, Messi Wednesday — while Haaland's 7 is now frozen after Norway's exit. Bellingham's brace lifted him level with Kane on 6.</div>
 </div>
 
 <!-- Results so far -->
 <div class="card full">
-    <h3>✅ Results — Quarter-finals completed · Sat 11 Jul</h3>
+    <h3>✅ Last results — Quarter-finals · Thu 9 – Sat 11 Jul (no matches since; Sun 12–Mon 13 rest days)</h3>
     <ul class="fixtures">
         <li class="done">
-            <div class="time">Sat 11</div>
-            <div class="match">🇳🇴 Norway <span class="grp">1–2 aet</span> 🏴󠁧󠁢󠁥󠁮󠁧󠁿 England <span class="grp">· QF③ · Hard Rock Stadium, Miami · Andreas Schjelderup put Norway ahead on 36'. Jude Bellingham levelled in first-half stoppage time, then struck again in the first period of extra time to win it. Norway — the side that knocked Brazil out — bow out at their first-ever quarter-final; Haaland's tournament ends on 7 goals. England reach the semis.</span></div>
+            <div class="time">Thu 9</div>
+            <div class="match">🇫🇷 France <span class="grp">2–0</span> 🇲🇦 Morocco <span class="grp">· QF① · Mbappé 60', Dembélé 66' — France into the top-half semi. Mbappé took a knock to the ankle and was withdrawn on 77'; scans cleared him to face Spain.</span></div>
+            <div class="score">FT</div>
+        </li>
+        <li class="done">
+            <div class="time">Fri 10</div>
+            <div class="match">🇪🇸 Spain <span class="grp">2–1</span> 🇧🇪 Belgium <span class="grp">· QF② · Fabián Ruiz 30', Merino 88' — Spain's clean-sheet run ended but Merino's late winner sent the top seed through. Yamal named man of the match.</span></div>
             <div class="score">FT</div>
         </li>
         <li class="done">
             <div class="time">Sat 11</div>
-            <div class="match">🇦🇷 Argentina <span class="grp">3–1 aet</span> 🇨🇭 Switzerland <span class="grp">· QF④ · Arrowhead Stadium, Kansas City · Alexis Mac Allister headed the holders ahead from a Messi corner; Dan Ndoye equalised after the break. Switzerland then lost Breel Embolo to a red card, and Argentina punished the extra man in extra time — Julián Álvarez restored the lead, Lautaro Martínez sealed it late. Third straight knockout Argentina have taken past 90 minutes.</span></div>
+            <div class="match">🇳🇴 Norway <span class="grp">1–2 aet</span> 🏴󠁧󠁢󠁥󠁮󠁧󠁿 England <span class="grp">· QF③ · Schjelderup 36'; Bellingham levelled in first-half stoppage, then won it in the first period of extra time. Norway — the side that ended Brazil — out; Haaland's tournament closes on 7.</span></div>
+            <div class="score">FT</div>
+        </li>
+        <li class="done">
+            <div class="time">Sat 11</div>
+            <div class="match">🇦🇷 Argentina <span class="grp">3–1 aet</span> 🇨🇭 Switzerland <span class="grp">· QF④ · Mac Allister (Messi corner), Ndoye equalised, Embolo sent off, then Álvarez &amp; Lautaro in extra time. Third straight knockout Argentina have taken past 90.</span></div>
             <div class="score">FT</div>
         </li>
     </ul>
-    <div class="legend"><strong style="color:var(--accent)">The bottom-half semi is set: England vs Argentina, Wed 15 Jul, Atlanta.</strong> Both quarter-finals went to extra time — England came from behind through Bellingham, Argentina ground down 10-man Switzerland. That completes the last four alongside France and Spain, who meet Tuesday in Dallas.</div>
+    <div class="legend"><strong style="color:var(--accent)">Last four set:</strong> France vs Spain (today, Dallas) and England vs Argentina (Wed, Atlanta). Three of the four quarter-finals went to extra time — only France won inside 90. Sun 12 and Mon 13 Jul were rest days; the semis restart the schedule today.</div>
 </div>
 
 <!-- Storylines -->
 <div class="card full">
-    <h3>📰 Storylines — The Last Four Set, and a Grudge Match in Atlanta</h3>
+    <h3>📰 Storylines — France vs Spain Tonight, and a Grudge Match Looming in Atlanta</h3>
     <ul class="stories">
-        <li><strong>England vs Argentina is the tie of the tournament.</strong> First World Cup meeting since 2002, and it carries all the freight: Maradona's Hand of God and the '86 quarter-final, the Falklands/Malvinas subtext (Argentine players reportedly already singing about it), holders against a nation chasing its first trophy since 1966. On the pitch it's Bellingham — fresh off a match-winning brace vs Norway — against a 38-year-old Messi leading the Golden Boot. Opening lines have it a near coin-flip, England a shade favoured (Kalshi ENG 52 / ARG 50 to reach the final). Wed 15 Jul, Atlanta.</li>
-        <li><strong>France vs Spain is the heavyweight the bracket promised.</strong> Two of the three highest-rated teams left collide in the top-half semi (Tue 14 Jul, Dallas). The market makes France the shorter price — and its overall tournament favourite (≈+155) — off Mbappé's eight goals; our Elo sim leans the other way, giving Spain the narrow edge (36% to France's 27% for the title) on the highest seed in the field. Spain's six-clean-sheet run finally broke vs Belgium, but Merino keeps scoring late. One of these two exits in the semis.</li>
-        <li><strong>Bellingham dragged England through — and ended Brazil's last echo in the draw.</strong> Norway, the team that beat Brazil in the last 16, led in Miami until Bellingham equalised in first-half stoppage time and won it in extra time. Haaland's tournament is over on 7; the entire bottom-quarter that eliminated Brazil is now gone. England are into a first semi on foreign soil in this format, riding a 23-year-old who's now on 6 goals.</li>
-        <li><strong>Argentina keep winning the hard way.</strong> A Messi-created opener, a Swiss equaliser, an Embolo red card, then Álvarez and Lautaro in extra time — 3–1, but the holders needed the extra 30 minutes for a third straight knockout. Scaloni's side haven't been fluent, yet they're one win from a second consecutive final. The draw was kind: France and Spain are both on the other side of the bracket.</li>
-        <li><strong>Golden Boot: Mbappé and Messi lead on 8, and both are still standing.</strong> Mbappé tops the tiebreak on assists and plays Tuesday; Messi plays Wednesday. Haaland (7) is frozen out, Bellingham and Kane sit on 6. With three matches left, this race likely settles between the two greats of the era — on opposite sides of a bracket that could yet deliver Mbappé vs Messi in the final.</li>
+        <li><strong>France vs Spain is the heavyweight the bracket promised — and it's today.</strong> Two of the three highest-rated teams left collide in the top-half semi (Tue 14 Jul, 16:00 BRT, Dallas). The market makes France the shorter price to advance (~59%, off Mbappé's eight goals); our Elo sim leans the other way, giving Spain the narrow title edge (35% to France's 28%) on the highest seed in the field. Deschamps will sit deep and counter; Spain will try to drown them in possession through Rodri, Pedri and Yamal. One of these two is out by tonight.</li>
+        <li><strong>Mbappé is fit.</strong> France's captain took an ankle knock in the Morocco quarter-final and was withdrawn on 77 minutes, but scans cleared him, he trained Monday, and Deschamps has confirmed he starts. He and Messi share the Golden Boot lead on 8 — Mbappé ahead on the assist tiebreak — and both are still in the tournament, on opposite sides of a bracket that could yet stage Mbappé vs Messi in the final.</li>
+        <li><strong>Merino is Spain's late-winner specialist.</strong> The Arsenal midfielder has scored the decisive goal in both knockout rounds — an 88th-minute winner past Belgium after one against Portugal in the last 16 — and de la Fuente calls him a complete No. 8. With Yamal (man of the match vs Belgium) providing the spark, Spain don't need to lead early; they've made a habit of finishing late.</li>
+        <li><strong>England vs Argentina is the tie of the tournament — tomorrow.</strong> First World Cup meeting since 2002, and it carries the freight: Maradona's Hand of God and '86, the Falklands/Malvinas subtext, holders against a nation chasing its first trophy since 1966. Bellingham (6, fresh off a match-winning brace vs Norway) against a 38-year-old Messi. The market has firmed to England as a slight favourite to advance (Kalshi 54/46, FanDuel England -126) after opening a coin-flip. Wed 15 Jul, Atlanta.</li>
+        <li><strong>Argentina keep winning the hard way.</strong> A Messi-created opener, a Swiss equaliser, an Embolo red card, then Álvarez and Lautaro in extra time — 3–1, but the holders needed the extra 30 for a third straight knockout. Scaloni's side haven't been fluent, yet they're one win from a second consecutive final, on the softer half of the draw with France and Spain both across the bracket.</li>
     </ul>
 </div>
 
 <div style="text-align:center;color:var(--muted);font-size:0.7rem;margin-top:16px;">
-    Built by Marshall 🔶 for Wilson · Data: FIFA.com, ESPN, Fox Sports, NBC Sports, Al Jazeera, CBS, Sofascore, FBref · Sim: 20k Monte-Carlo · Updated July 13, 2026
+    Built by Marshall 🔶 for Wilson · Data: FIFA.com, ESPN, Fox Sports, NBC Sports, Al Jazeera, CBS, Sofascore, FBref, Kalshi, Polymarket · Sim: 20k Monte-Carlo · Updated July 14, 2026
 </div>
 
 <script>
-// Countdown to France vs Spain — Tue 14 Jul, AT&T Stadium Dallas (3pm ET = 19:00 UTC = 16:00 BRT). Next fixture; today is a rest day, Brazil out.
+// Countdown to France vs Spain — Tue 14 Jul, AT&T Stadium Dallas (3pm ET = 19:00 UTC = 16:00 BRT). Today's semi; Brazil out.
 const target = new Date('2026-07-14T19:00:00Z');
 function tick() {
     const now = new Date();
@@ -228,16 +239,16 @@ function tick() {
     const d = Math.floor(diff / 86400000);
     const h = Math.floor((diff % 86400000) / 3600000);
     const m = Math.floor((diff % 3600000) / 60000);
-    el.innerHTML = d + 'd ' + h + 'h ' + m + 'm<div class="label">until 🇫🇷 France vs 🇪🇸 Spain · Semi-final · Tue 14 Jul · 16:00 BRT · AT&T Stadium, Dallas</div>';
+    el.innerHTML = d + 'd ' + h + 'h ' + m + 'm<div class="label">until 🇫🇷 France vs 🇪🇸 Spain · Semi-final · Today · 16:00 BRT · AT&T Stadium, Dallas</div>';
 }
 tick(); setInterval(tick, 60000);
 
 // Title odds (our 20k Monte-Carlo, conditioned on group stage + all 28 knockout ties played). [team, flag, win%, final%]
 const ODDS = [
-  ["Spain","🇪🇸",35.3,54],
-  ["France","🇫🇷",27.3,46],
-  ["England","🏴󠁧󠁢󠁥󠁮󠁧󠁿",19.6,52],
-  ["Argentina","🇦🇷",17.8,48]
+  ["Spain","🇪🇸",34.9,54],
+  ["France","🇫🇷",27.8,46],
+  ["England","🏴󠁧󠁢󠁥󠁮󠁧󠁿",19.0,51],
+  ["Argentina","🇦🇷",18.2,49]
 ];
 const ot = document.getElementById('oddstable');
 ODDS.forEach(r => {
@@ -246,17 +257,17 @@ ODDS.forEach(r => {
     ot.appendChild(tr);
 });
 
-// Bracket: each SF with the two QF ties that fed it. {header, ties:[{t,d,m,lean,bra,done,sf}]}
+// Bracket: each SF with the two QF ties that fed it. {header, ties:[{t,d,m,lean,bra,done,sf,live}]}
 const BRACKET = [
-  { r16:"SF ① — France vs Spain · Tue 14 Jul · 16:00 · Dallas · (top half)", ties:[
+  { r16:"SF ① — France vs Spain · TODAY (Tue 14 Jul) · 16:00 · Dallas · (top half)", ties:[
     { t:"Thu 09", d:"2–0", m:"🇫🇷 France 2–0 🇲🇦 Morocco", lean:"Mbappé 60', Dembélé 66' — France to SF", done:true },
     { t:"Fri 10", d:"2–1", m:"🇪🇸 Spain 2–1 🇧🇪 Belgium", lean:"Ruiz 30', Merino 88' — Spain to SF", done:true },
-    { t:"Tue 14", d:"16:00", m:"🇫🇷 France vs 🇪🇸 Spain", lean:"41/30/29 · market fav FRA vs model fav SPA · lean 1-1 into ET", sf:true }
+    { t:"Tue 14", d:"16:00", m:"🇫🇷 France vs 🇪🇸 Spain", lean:"41/30/29 · market fav FRA vs model fav SPA · lean 1-1 into ET", live:true }
   ]},
   { r16:"SF ② — England vs Argentina · Wed 15 Jul · 16:00 · Atlanta · (bottom half)", ties:[
     { t:"Sat 11", d:"2–1 aet", m:"🇳🇴 Norway 1–2 🏴󠁧󠁢󠁥󠁮󠁧󠁿 England", lean:"Bellingham ×2 (equaliser + ET winner) — England through", done:true },
     { t:"Sat 11", d:"3–1 aet", m:"🇦🇷 Argentina 3–1 🇨🇭 Switzerland", lean:"Mac Allister, Álvarez, Lautaro; Embolo red — ARG through", done:true },
-    { t:"Wed 15", d:"16:00", m:"🏴󠁧󠁢󠁥󠁮󠁧󠁿 England vs 🇦🇷 Argentina", lean:"36/32/32 · first WC meeting since 2002 · pick 'em", sf:true }
+    { t:"Wed 15", d:"16:00", m:"🏴󠁧󠁢󠁥󠁮󠁧󠁿 England vs 🇦🇷 Argentina", lean:"37/32/31 · Kalshi ENG 54 / ARG 46 to advance · lean England by a nose", sf:true }
   ]}
 ];
 const bw = document.getElementById('bracket');
@@ -272,6 +283,7 @@ BRACKET.forEach(grp => {
         if (t.bra) cls.push('bra');
         if (t.done) cls.push('done');
         if (t.sf) cls.push('sf');
+        if (t.live) cls.push('live');
         li.className = cls.join(' ');
         li.innerHTML = `<div class="t">${t.d}<span class="d">${t.t}</span></div><div>${t.m}</div><div class="lean">${t.lean}</div>`;
         bw.appendChild(li);
