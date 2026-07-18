@@ -94,7 +94,7 @@ body { background:var(--bg); color:var(--text); font-family:-apple-system,BlinkM
 <div class="header">
     <div class="flag">🇨🇦 🇲🇽 🇺🇸</div>
     <h1>FIFA World Cup 2026</h1>
-    <div class="meta"><span class="round">The Final is set</span> · 🏆 <strong style="color:var(--bra)">🇪🇸 Spain vs Argentina 🇦🇷</strong> — Sun 19 Jul · 16:00 BRT · MetLife, New Jersey · Spain beat 🇫🇷 France 2–0, Argentina came from behind to beat 🏴󠁧󠁢󠁥󠁮󠁧󠁿 England 2–1 (Messi two assists) · Third place 🇫🇷 France vs England 🏴󠁧󠁢󠁥󠁮󠁧󠁿 Sat 18 Jul · 18:00 BRT · Miami · 🇧🇷 <strong style="color:var(--red)">Brazil out</strong> (R16) · Boot: Messi &amp; Mbappé level on 8, both still alive · 48 teams · June 11 – July 19, 2026</div>
+    <div class="meta"><span class="round">The Final is set</span> · 🏆 <strong style="color:var(--bra)">🇪🇸 Spain vs Argentina 🇦🇷</strong> — Sun 19 Jul · 16:00 BRT · MetLife, New Jersey · Spain beat 🇫🇷 France 2–0, Argentina came from behind to beat 🏴󠁧󠁢󠁥󠁮󠁧󠁿 England 2–1 (Messi two assists) · <strong style="color:var(--gold)">TONIGHT</strong> 🥉 Third place 🇫🇷 France vs England 🏴󠁧󠁢󠁥󠁮󠁧󠁿 Sat 18 Jul · 18:00 BRT · Miami · 🇧🇷 <strong style="color:var(--red)">Brazil out</strong> (R16) · Boot: Messi &amp; Mbappé level on 8, both still alive · 48 teams · June 11 – July 19, 2026</div>
     <div class="countdown" id="countdown"><div class="label">until 🏆 THE FINAL · 🇪🇸 Spain vs Argentina 🇦🇷 · Sun 19 Jul · 16:00 BRT · MetLife, New Jersey</div></div>
 </div>
 
@@ -121,18 +121,18 @@ body { background:var(--bg); color:var(--text); font-family:-apple-system,BlinkM
     <div class="card final">
         <h3>📅 The Run-In (BRT) — Third Place Sat, Final Sun</h3>
         <ul class="fixtures">
-            <li>
+            <li class="live">
                 <div class="time">18:00<span class="day">Sat 18</span></div>
-                <div class="match">🇫🇷 France <span class="grp">vs</span> 🏴󠁧󠁢󠁥󠁮󠁧󠁿 England<br><span class="grp">3rd-place play-off · Hard Rock Stadium, Miami</span><span class="fc">FRA 40 / draw 27 / ENG 33 — the losers' final. France a shade sharper on paper (Mbappé chasing the Boot, 8), England off the Atlanta gut-punch. Low-stakes, high-quality dead rubber; lean France 2-1, but motivation is the coin-flip. Mbappé needs a goal to keep pace with Messi.</span></div>
+                <div class="match">🇫🇷 France <span class="grp">vs</span> 🏴󠁧󠁢󠁥󠁮󠁧󠁿 England<br><span class="grp">3rd-place play-off · Hard Rock Stadium, Miami</span><span class="fc">TONIGHT · France 50 / draw 25 / England 25 (market, de-vigged from FRA −112 / draw +282 / ENG +275). The losers' final: France a shade sharper on paper (Mbappé chasing the Boot, 8), England off the Atlanta gut-punch. Low-stakes, high-quality dead rubber; lean France 2-1, but motivation is the coin-flip. Mbappé needs a goal to keep pace with Messi.</span></div>
                 <div class="venue">🥉</div>
             </li>
-            <li class="live">
+            <li>
                 <div class="time">16:00<span class="day">Sun 19</span></div>
                 <div class="match">🇪🇸 Spain <span class="grp">vs</span> 🇦🇷 Argentina<br><span class="grp">THE FINAL · MetLife Stadium, New Jersey</span><span class="fc">Lift the trophy: 🇪🇸 Spain 58 / Argentina 🇦🇷 42 (market, de-vigged incl. ET). 90-min 1X2: Spain 44 / draw 28 / Argentina 28. Spain's 37-game unbeaten run, the Rodri–Pedri–Yamal spine, and the tournament's tightest defence vs the holders' knack for winning ugly and a 38-year-old Messi who's assisted his way to the Boot lead. Lean Spain, but tight — 1-1 into extra time is very live. Europe's champions vs the world's.</span></div>
                 <div class="venue">🏆</div>
             </li>
         </ul>
-        <div class="legend">Reads from our calibrated goal model (de-vigged 1X2), nudged for Elo &amp; team news, anchored on real market prices. No matches today (Fri 17) — one rest day left before the final weekend; third place Sat 18, the Final Sun 19. BRT = US Eastern + 1h.</div>
+        <div class="legend">Reads from our calibrated goal model (de-vigged 1X2), nudged for Elo &amp; team news, anchored on real market prices. Third-place play-off is tonight (Sat 18, 18:00 BRT, Hard Rock, Miami); the Final is tomorrow (Sun 19, 16:00 BRT, MetLife). BRT = US Eastern + 1h.</div>
     </div>
 </div>
 
@@ -216,7 +216,7 @@ body { background:var(--bg); color:var(--text); font-family:-apple-system,BlinkM
 </div>
 
 <div style="text-align:center;color:var(--muted);font-size:0.7rem;margin-top:16px;">
-    Built by Marshall 🔶 for Wilson · Data: FIFA.com, ESPN, Fox Sports, NBC Sports, Al Jazeera, The Guardian, Sofascore, FBref, Kalshi, Polymarket · Updated July 17, 2026
+    Built by Marshall 🔶 for Wilson · Data: FIFA.com, ESPN, Fox Sports, NBC Sports, Al Jazeera, The Guardian, Sofascore, FBref, Kalshi, Polymarket · Updated July 18, 2026
 </div>
 
 <script>
@@ -254,7 +254,7 @@ const BRACKET = [
     { t:"Sun 19", d:"16:00", m:"🇪🇸 Spain vs 🇦🇷 Argentina", lean:"Lift: Spain 58 / Argentina 42 · lean Spain, 1-1 into ET very live", live:true }
   ]},
   { r16:"THIRD-PLACE PLAY-OFF — Sat 18 Jul · 18:00 · Hard Rock, Miami", ties:[
-    { t:"Sat 18", d:"18:00", m:"🇫🇷 France vs 🏴󠁧󠁢󠁥󠁮󠁧󠁿 England", lean:"40/27/33 · lean France 2-1 · Mbappé (8) chasing the Boot", sf:true }
+    { t:"Sat 18", d:"18:00", m:"🇫🇷 France vs 🏴󠁧󠁢󠁥󠁮󠁧󠁿 England", lean:"France 50 / draw 25 / England 25 · lean France 2-1 · Mbappé (8) chasing the Boot · TONIGHT", live:true }
   ]}
 ];
 const bw = document.getElementById('bracket');
