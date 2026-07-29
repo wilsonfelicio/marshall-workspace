@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>🏎️ F1 Hungarian GP — Race Weekend Dashboard</title>
+<title>🏎️ F1 Dutch GP — Race Weekend Dashboard</title>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
 <style>
 :root { --bg:#0a0a0a; --surface:#141414; --border:#2a2a2a; --text:#e0e0e0; --muted:#888; --accent:#DC0000; }
@@ -51,9 +51,9 @@ body { background:var(--bg); color:var(--text); font-family:-apple-system,BlinkM
 </head>
 <body>
 <div class="header">
-    <div class="flag">🇭🇺</div>
-    <h1>Hungarian Grand Prix — Hungaroring</h1>
-    <div class="meta"><span class="round">Round 11</span> · Mogyoród, Budapest · July 24–26, 2026</div>
+    <div class="flag">🇳🇱</div>
+    <h1>Dutch Grand Prix — Circuit Zandvoort</h1>
+    <div class="meta"><span class="round">Round 12</span> · Zandvoort, Netherlands · August 21–23, 2026 <span class="sprint-badge">SPRINT</span></div>
     <div class="countdown" id="countdown"><div class="label">until lights out</div></div>
 </div>
 
@@ -64,127 +64,127 @@ body { background:var(--bg); color:var(--text); font-family:-apple-system,BlinkM
         <ul class="schedule">
 <li>
     <div><span class="session">FP1</span><br><span class="note">Fri · 60 min</span></div>
-    <div style="text-align:right"><span class="time">08:30</span><br><span class="note">Fri 24 Jul</span></div>
-    <div style="text-align:right"><span style="font-size:0.85rem">☀️ ~28°C</span><br><span class="note">13:30 local · sunny, dry</span></div>
+    <div style="text-align:right"><span class="time">07:30</span><br><span class="note">Fri 21 Aug</span></div>
+    <div style="text-align:right"><span style="font-size:0.85rem">🌥️ ~19°C</span><br><span class="note">12:30 CEST · only practice hour</span></div>
 </li>
 <li>
-    <div><span class="session">FP2</span><br><span class="note">Fri · 60 min</span></div>
-    <div style="text-align:right"><span class="time">12:00</span><br><span class="note">Fri 24 Jul</span></div>
-    <div style="text-align:right"><span style="font-size:0.85rem">☀️ ~30°C</span><br><span class="note">17:00 local · hot, dry (~0% rain)</span></div>
+    <div><span class="session sprint">Sprint Quali</span><br><span class="note">Fri · SQ1/SQ2/SQ3</span></div>
+    <div style="text-align:right"><span class="time">11:30</span><br><span class="note">Fri 21 Aug</span></div>
+    <div style="text-align:right"><span style="font-size:0.85rem">🌬️ ~20°C</span><br><span class="note">16:30 CEST · sets Sprint grid</span></div>
 </li>
 <li>
-    <div><span class="session">FP3</span><br><span class="note">Sat · 60 min</span></div>
-    <div style="text-align:right"><span class="time">07:30</span><br><span class="note">Sat 25 Jul</span></div>
-    <div style="text-align:right"><span style="font-size:0.85rem">☀️ ~26°C</span><br><span class="note">12:30 local · sunny</span></div>
+    <div><span class="session sprint">SPRINT</span><br><span class="note">Sat · 24 laps</span></div>
+    <div style="text-align:right"><span class="time">07:00</span><br><span class="note">Sat 22 Aug</span></div>
+    <div style="text-align:right"><span style="font-size:0.85rem">🌥️ ~18°C</span><br><span class="note">12:00 CEST · 8 pts to winner</span></div>
 </li>
 <li>
     <div><span class="session">Qualifying</span><br><span class="note">Sat — Q1/Q2/Q3</span></div>
-    <div style="text-align:right"><span class="time">11:00</span><br><span class="note">Sat 25 Jul</span></div>
-    <div style="text-align:right"><span style="font-size:0.85rem">☀️ ~27°C</span><br><span class="note">16:00 local · dry (~0% rain)</span></div>
+    <div style="text-align:right"><span class="time">11:00</span><br><span class="note">Sat 22 Aug</span></div>
+    <div style="text-align:right"><span style="font-size:0.85rem">🌤️ ~20°C</span><br><span class="note">16:00 CEST · sets race grid</span></div>
 </li>
 <li>
-    <div><span class="session race">RACE</span><br><span class="note">Sun afternoon — 70 laps</span></div>
-    <div style="text-align:right"><span class="time">10:00</span><br><span class="note">Sun 26 Jul</span></div>
-    <div style="text-align:right"><span style="font-size:0.85rem">☀️ ~30°C</span><br><span class="note">15:00 local · hot · isolated late storm risk</span></div>
+    <div><span class="session race">RACE</span><br><span class="note">Sun afternoon — 72 laps</span></div>
+    <div style="text-align:right"><span class="time">10:00</span><br><span class="note">Sun 23 Aug</span></div>
+    <div style="text-align:right"><span style="font-size:0.85rem">🌥️ ~20°C</span><br><span class="note">15:00 CEST · coastal, rain always a risk</span></div>
 </li>
         </ul>
-        <div class="note" style="margin-top:8px">⚠️ Standard weekend — no Sprint. This is the last race before the three-week summer break, so it's a "get it right or stew on it for a month" weekend. The forecast is the opposite of Spa's: hot, sunny and bone-dry Friday through Sunday (~27–31°C, virtually no rain), with only a stray late-Sunday thunderstorm cell that most models keep away from the race. Heat, not water, is the variable here — tyre degradation and driver cooling do the sorting. And the track itself is the great equaliser: the Hungaroring is a narrow, twisting downforce circuit — "Monaco without walls" — where overtaking is genuinely hard and Saturday's grid usually writes Sunday's result. Qualifying position is the whole game.</div>
+        <div class="note" style="margin-top:8px">⚠️ Sprint weekend — the first ever F1 Sprint on Dutch soil, and the <strong>last-ever</strong> F1 race at Zandvoort. Only <em>one</em> hour of practice before it starts counting: FP1 Friday morning, then straight into Sprint Qualifying that afternoon. Get the setup wrong and there's no time to fix it. Weather this far out isn't locked — but Zandvoort sits right on the North Sea, so treat every forecast as provisional: sea breeze, fast-moving cloud and a genuine rain risk are the norm here (2020–23 all had wet or damp running). Mild, ~18–21°C. On a narrow, banked, track-position circuit, one damp session can flip the whole order — and with two qualifying sessions (Sprint + GP), Friday and Saturday both matter.</div>
     </div>
 
     <!-- Circuit Info -->
     <div class="card">
         <h3>🏁 Circuit</h3>
-        <div style="font-size:1.1rem;font-weight:600;margin-bottom:12px;">Hungaroring</div>
+        <div style="font-size:1.1rem;font-weight:600;margin-bottom:12px;">Circuit Zandvoort</div>
         <div class="circuit-info">
-            <div class="circuit-stat"><div class="val">4.381</div><div class="label">km length</div></div>
-            <div class="circuit-stat"><div class="val">70</div><div class="label">laps</div></div>
+            <div class="circuit-stat"><div class="val">4.259</div><div class="label">km length</div></div>
+            <div class="circuit-stat"><div class="val">72</div><div class="label">laps</div></div>
             <div class="circuit-stat"><div class="val">14</div><div class="label">turns</div></div>
             <div class="circuit-stat"><div class="val">2</div><div class="label">DRS zones</div></div>
             <div class="circuit-stat"><div class="val">307</div><div class="label">km total</div></div>
         </div>
-        <div style="margin-top:12px;color:var(--muted);font-size:0.8rem;">Built in 1986 as the first F1 venue behind the Iron Curtain, the Hungaroring is a tight, dusty, twisting ribbon in the hills northeast of Budapest — often called "Monaco without the walls." Almost no straights, no high-speed corners, and a low-grip surface that only rubbers in as the weekend goes. Downforce is maxed out, the lap is relentless, and passing is brutally hard: the heavy braking into the downhill Turn 1 is essentially the only real overtaking spot, so track position and a clean qualifying lap are worth more here than almost anywhere on the calendar. In the heat, tyre and driver cooling become the deciding battle.</div>
+        <div style="margin-top:12px;color:var(--muted);font-size:0.8rem;">A 1948 dune-side classic in the seaside town of Zandvoort, reborn for F1 in 2021 after 36 years away. It's the <strong>only track on the calendar with banked corners</strong> — the Hugenholtzbocht (Turn 3) and the flat-out final Arie Luyendyk bend (Turn 14) are banked at ~18°, letting cars carry huge speed onto the main straight. The lap is a fast, flowing, roller-coaster ribbon threaded through the dunes with almost no run-off and barely a moment to breathe. Overtaking is genuinely hard: the heavy braking into the Tarzan hairpin (Turn 1) off the DRS main straight is the one real passing spot, so grid position and clean qualifying laps are gold. Coastal wind and shifting grip make it a driver's track.</div>
         <div style="margin-top:8px;"><a href="circuit.html" style="color:#f59e0b;font-size:0.8rem;">→ View circuit diagram</a></div>
     </div>
 
     <!-- Drivers Standings -->
     <div class="card">
-        <h3>🏆 Drivers Championship — After Round 10 (Belgium)</h3>
+        <h3>🏆 Drivers Championship — After Round 11 (Hungary)</h3>
         <ul class="standings">
 <li>
     <span class="pos">1</span>
     <span class="team-dot" style="background:#00D2BE"></span>
     <span class="name">Kimi Antonelli</span>
-    <span class="pts">204</span>
+    <span class="pts">219</span>
     <div class="bar" style="width:100%;background:#00D2BE"></div>
 </li>
 <li>
     <span class="pos">2</span>
     <span class="team-dot" style="background:#DC0000"></span>
     <span class="name">Lewis Hamilton</span>
-    <span class="pts">159</span>
-    <div class="bar" style="width:78%;background:#DC0000"></div>
+    <span class="pts">169</span>
+    <div class="bar" style="width:77%;background:#DC0000"></div>
 </li>
 <li>
     <span class="pos">3</span>
     <span class="team-dot" style="background:#00D2BE"></span>
     <span class="name">George Russell</span>
-    <span class="pts">154</span>
-    <div class="bar" style="width:75%;background:#00D2BE"></div>
+    <span class="pts">160</span>
+    <div class="bar" style="width:73%;background:#00D2BE"></div>
 </li>
 <li>
     <span class="pos">4</span>
     <span class="team-dot" style="background:#DC0000"></span>
     <span class="name">Charles Leclerc</span>
-    <span class="pts">126</span>
-    <div class="bar" style="width:62%;background:#DC0000"></div>
+    <span class="pts">138</span>
+    <div class="bar" style="width:63%;background:#DC0000"></div>
 </li>
 <li>
     <span class="pos">5</span>
     <span class="team-dot" style="background:#FF8700"></span>
     <span class="name">Lando Norris</span>
-    <span class="pts">103</span>
-    <div class="bar" style="width:50%;background:#FF8700"></div>
+    <span class="pts">128</span>
+    <div class="bar" style="width:58%;background:#FF8700"></div>
 </li>
 <li>
     <span class="pos">6</span>
-    <span class="team-dot" style="background:#FF8700"></span>
-    <span class="name">Oscar Piastri</span>
-    <span class="pts">92</span>
-    <div class="bar" style="width:45%;background:#FF8700"></div>
+    <span class="team-dot" style="background:#3671C6"></span>
+    <span class="name">Max Verstappen</span>
+    <span class="pts">109</span>
+    <div class="bar" style="width:50%;background:#3671C6"></div>
 </li>
 <li>
     <span class="pos">7</span>
-    <span class="team-dot" style="background:#3671C6"></span>
-    <span class="name">Max Verstappen</span>
-    <span class="pts">91</span>
-    <div class="bar" style="width:45%;background:#3671C6"></div>
+    <span class="team-dot" style="background:#FF8700"></span>
+    <span class="name">Oscar Piastri</span>
+    <span class="pts">92</span>
+    <div class="bar" style="width:42%;background:#FF8700"></div>
 </li>
 <li>
     <span class="pos">8</span>
     <span class="team-dot" style="background:#3671C6"></span>
     <span class="name">Isack Hadjar</span>
-    <span class="pts">60</span>
-    <div class="bar" style="width:29%;background:#3671C6"></div>
+    <span class="pts">68</span>
+    <div class="bar" style="width:31%;background:#3671C6"></div>
 </li>
 <li>
     <span class="pos">9</span>
-    <span class="team-dot" style="background:#0090FF"></span>
-    <span class="name">Pierre Gasly</span>
-    <span class="pts">42</span>
-    <div class="bar" style="width:21%;background:#0090FF"></div>
+    <span class="team-dot" style="background:#6692FF"></span>
+    <span class="name">Liam Lawson</span>
+    <span class="pts">43</span>
+    <div class="bar" style="width:20%;background:#6692FF"></div>
 </li>
 <li>
     <span class="pos">10</span>
-    <span class="team-dot" style="background:#6692FF"></span>
-    <span class="name">Liam Lawson</span>
-    <span class="pts">39</span>
-    <div class="bar" style="width:19%;background:#6692FF"></div>
+    <span class="team-dot" style="background:#0090FF"></span>
+    <span class="name">Pierre Gasly</span>
+    <span class="pts">42</span>
+    <div class="bar" style="width:19%;background:#0090FF"></div>
 </li>
 <li>
     <span class="pos">11</span>
     <span class="team-dot" style="background:#6692FF"></span>
     <span class="name">Arvid Lindblad</span>
-    <span class="pts">22</span>
+    <span class="pts">23</span>
     <div class="bar" style="width:11%;background:#6692FF"></div>
 </li>
 <li>
@@ -199,7 +199,7 @@ body { background:var(--bg); color:var(--text); font-family:-apple-system,BlinkM
     <span class="team-dot" style="background:#B6BABD"></span>
     <span class="name">Oliver Bearman</span>
     <span class="pts">18</span>
-    <div class="bar" style="width:9%;background:#B6BABD"></div>
+    <div class="bar" style="width:8%;background:#B6BABD"></div>
 </li>
 <li>
     <span class="pos">14</span>
@@ -231,38 +231,38 @@ body { background:var(--bg); color:var(--text); font-family:-apple-system,BlinkM
 </li>
 <li>
     <span class="pos">18</span>
-    <span class="team-dot" style="background:#006F62"></span>
-    <span class="name">Fernando Alonso</span>
-    <span class="pts">1</span>
-    <div class="bar" style="width:1%;background:#006F62"></div>
+    <span class="team-dot" style="background:#00594F"></span>
+    <span class="name">Nico Hülkenberg</span>
+    <span class="pts">2</span>
+    <div class="bar" style="width:1%;background:#00594F"></div>
 </li>
 <li>
     <span class="pos">19</span>
-    <span class="team-dot" style="background:#00594F"></span>
-    <span class="name">Nico Hülkenberg</span>
-    <span class="pts">0</span>
-    <div class="bar" style="width:0.5%;background:#00594F"></div>
+    <span class="team-dot" style="background:#006F62"></span>
+    <span class="name">Fernando Alonso</span>
+    <span class="pts">1</span>
+    <div class="bar" style="width:0.5%;background:#006F62"></div>
 </li>
 <li>
     <span class="pos">20</span>
+    <span class="team-dot" style="background:#006F62"></span>
+    <span class="name">Lance Stroll</span>
+    <span class="pts">0</span>
+    <div class="bar" style="width:0.5%;background:#006F62"></div>
+</li>
+<li>
+    <span class="pos">21</span>
     <span class="team-dot" style="background:#888888"></span>
     <span class="name">Valtteri Bottas</span>
     <span class="pts">0</span>
     <div class="bar" style="width:0.5%;background:#888888"></div>
 </li>
 <li>
-    <span class="pos">21</span>
+    <span class="pos">22</span>
     <span class="team-dot" style="background:#888888"></span>
     <span class="name">Sergio Pérez</span>
     <span class="pts">0</span>
     <div class="bar" style="width:0.5%;background:#888888"></div>
-</li>
-<li>
-    <span class="pos">22</span>
-    <span class="team-dot" style="background:#006F62"></span>
-    <span class="name">Lance Stroll</span>
-    <span class="pts">0</span>
-    <div class="bar" style="width:0.5%;background:#006F62"></div>
 </li>
         </ul>
     </div>
@@ -275,56 +275,56 @@ body { background:var(--bg); color:var(--text); font-family:-apple-system,BlinkM
 
     <!-- Track History -->
     <div class="card full">
-        <h3>📜 Hungaroring — Track History & Iconic Moments</h3>
+        <h3>📜 Zandvoort — Track History & Iconic Moments</h3>
         <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:12px;margin-bottom:16px;">
-            <div class="circuit-stat"><div class="val">1986</div><div class="label">First Hungarian GP</div></div>
-            <div class="circuit-stat"><div class="val">1:16.627</div><div class="label">Race lap record</div></div>
-            <div class="circuit-stat"><div class="val">8</div><div class="label">Hamilton wins (record)</div></div>
-            <div class="circuit-stat"><div class="val">13</div><div class="label">McLaren wins (record)</div></div>
-            <div class="circuit-stat"><div class="val">14</div><div class="label">corners</div></div>
+            <div class="circuit-stat"><div class="val">1952</div><div class="label">First Dutch GP</div></div>
+            <div class="circuit-stat"><div class="val">1:11.097</div><div class="label">Race lap record</div></div>
+            <div class="circuit-stat"><div class="val">4</div><div class="label">Clark wins (record)</div></div>
+            <div class="circuit-stat"><div class="val">8</div><div class="label">Ferrari wins (record)</div></div>
+            <div class="circuit-stat"><div class="val">18°</div><div class="label">banking (T3 & T14)</div></div>
         </div>
         <div style="font-size:0.82rem;line-height:1.6;">
-            <div style="margin-bottom:10px;"><strong style="color:#f59e0b;">Most wins (driver):</strong> Lewis Hamilton owns this place — a record 8 victories, and he arrives one race removed from Ferrari red still chasing a first win in scarlet. Schumacher won here 4 times; Senna and Prost 3 apiece.</div>
-            <div style="margin-bottom:10px;"><strong style="color:#f59e0b;">Most constructor wins:</strong> McLaren lead the all-time Hungaroring count with 13 wins, from Prost and Senna through to the modern era — Ferrari and Mercedes trail close behind.</div>
-            <div style="margin-bottom:10px;"><strong style="color:#f59e0b;">Lap record:</strong> 1:16.627 — Lewis Hamilton (Mercedes W11, 2020). His 1:13.447 in 2020 qualifying remains the outright track record, an era-defining lap in a dominant car.</div>
-            <div style="margin-bottom:10px;"><strong style="color:#f59e0b;">The real overtake spot:</strong> the downhill braking zone into Turn 1 at the end of the pit straight is the one genuine passing place — DRS helps, but a defended inside line usually holds. Turn 2 punishes anyone who over-commits. Everywhere else it's a qualifying track: pole here converts to wins more often than almost any circuit on the calendar.</div>
+            <div style="margin-bottom:10px;"><strong style="color:#f59e0b;">Most wins (driver):</strong> Jim Clark holds the all-time record with 4 Dutch GP victories in the 1960s. In the modern era Max Verstappen is king of his home race, winning three in a row (2021–2023) before McLaren broke the streak.</div>
+            <div style="margin-bottom:10px;"><strong style="color:#f59e0b;">Most constructor wins:</strong> Ferrari lead the all-time Zandvoort count with 8 wins, stretching back to Alberto Ascari's win in the very first World Championship Dutch GP in 1952.</div>
+            <div style="margin-bottom:10px;"><strong style="color:#f59e0b;">Lap record:</strong> 1:11.097 — Lewis Hamilton (Mercedes, 2021). The outright fastest lap ever seen here is Oscar Piastri's 1:08.662 in 2025 qualifying, on the reprofiled, banked modern layout.</div>
+            <div style="margin-bottom:10px;"><strong style="color:#f59e0b;">The real overtake spot:</strong> the heavy braking into the banked Tarzan hairpin (Turn 1) at the end of the DRS main straight is the one genuine passing place. The banked final corner (Arie Luyendyk) is taken almost flat, firing cars onto that straight — carry speed through it and you get a run. Everywhere else the narrow dune ribbon makes passing brutal: it's a qualifying and track-position circuit, and this weekend there are <em>two</em> grids to nail (Sprint + GP).</div>
         </div>
         <div style="margin-top:14px;border-top:1px solid var(--border);padding-top:14px;">
             <div style="font-size:0.8rem;color:var(--muted);margin-bottom:8px;text-transform:uppercase;letter-spacing:0.5px;">Iconic Moments</div>
             <ul style="list-style:none;font-size:0.82rem;line-height:1.6;">
-                <li style="padding:6px 0;border-bottom:1px solid var(--border);">🧱 <strong>1986 — behind the Iron Curtain:</strong> F1's first race in a Communist-bloc country drew a vast crowd and became an instant fixture. Nelson Piquet won the inaugural Hungarian GP; the event has run every year since.</li>
-                <li style="padding:6px 0;border-bottom:1px solid var(--border);">⚔️ <strong>1989 — Mansell's miracle:</strong> Nigel Mansell charged from 12th on the grid and pulled off a stunning move on Ayrton Senna by using a backmarker as a pick — one of the greatest passes on a track where passing is meant to be impossible.</li>
-                <li style="padding:6px 0;border-bottom:1px solid var(--border);">💔 <strong>1997 — Hill's heartbreak:</strong> Damon Hill dragged an uncompetitive Arrows to the front and led with three laps to go before a hydraulic failure dropped him to second — the closest a genuine minnow ever came to a modern F1 win.</li>
-                <li style="padding:6px 0;border-bottom:1px solid var(--border);">🌟 <strong>2003 — Alonso arrives:</strong> Fernando Alonso took his maiden F1 victory here for Renault, becoming the sport's youngest winner at the time and announcing a future two-time champion. Twenty-three years on, he's still on the grid.</li>
-                <li style="padding:6px 0;border-bottom:1px solid var(--border);">🏆 <strong>2021 — Ocon's day:</strong> First-lap chaos triggered by a wet start wiped out half the front-runners; Esteban Ocon kept his head to score a shock maiden win for Alpine, holding off Vettel across 70 tense laps.</li>
-                <li style="padding:6px 0;">🧡 <strong>2024 — Piastri's first, papaya drama:</strong> Oscar Piastri claimed his maiden F1 win, but only after McLaren issued repeated team orders for Lando Norris to hand the lead back — a saga that dominated the headlines and foreshadowed an intra-team rivalry.</li>
+                <li style="padding:6px 0;border-bottom:1px solid var(--border);">🏁 <strong>1952 — the beginning:</strong> Alberto Ascari won the first World Championship Dutch GP at Zandvoort for Ferrari, on his way to the title. The dune circuit became an instant classic.</li>
+                <li style="padding:6px 0;border-bottom:1px solid var(--border);">🕊️ <strong>1973 — tragedy and change:</strong> Roger Williamson's fatal accident shocked the sport and became a landmark moment in the push for better marshalling and trackside safety.</li>
+                <li style="padding:6px 0;border-bottom:1px solid var(--border);">⚔️ <strong>1985 — Lauda's last win:</strong> In his final season, Niki Lauda held off McLaren teammate Alain Prost by barely two tenths for the 25th and last victory of his career — then Zandvoort fell off the calendar for 36 years.</li>
+                <li style="padding:6px 0;border-bottom:1px solid var(--border);">🧡 <strong>2021 — the orange homecoming:</strong> F1 returned after 36 years and Max Verstappen won in front of a sea of orange, taking the championship lead from Hamilton in a title year that ended in Abu Dhabi drama.</li>
+                <li style="padding:6px 0;border-bottom:1px solid var(--border);">👑 <strong>2021–2023 — Verstappen's hat-trick:</strong> Three straight home wins from pole, each in front of 300,000+ fans. For three years, Zandvoort belonged to Max.</li>
+                <li style="padding:6px 0;">🧡 <strong>2024–2025 — papaya takes over:</strong> Lando Norris ended the streak with a dominant 2024 win, then Oscar Piastri won in 2025 and set the fastest lap ever seen at the track — back-to-back home defeats for Verstappen heading into the farewell.</li>
             </ul>
         </div>
     </div>
 
     <!-- Key Stories -->
     <div class="card full">
-        <h3>📰 Key Stories Heading Into Hungary</h3>
+        <h3>📰 Key Stories Heading Into the Netherlands</h3>
         <ul class="stories">
-<li><strong>Summer-break framing — Antonelli heads for the beach in the lead</strong> — Spa was a statement: his sixth win in ten rounds, and he did it as title rival Russell was spearing into the Turn-1 gravel. The rookie leaves Belgium 45 up on Hamilton and 50 clear of Russell. Win or podium here and he spends the three-week shutdown as a runaway leader with the psychological whip hand; a wobble at a track that punishes mistakes would let the chasers breathe over August.</li>
-<li><strong>Russell in freefall — two DNFs and counting</strong> — A lap-one collision with Hamilton ended George's Spa before it began — his second retirement of the season — and dropped him behind his old teammate to P3. He's now 50 off Antonelli in a car capable of winning. The Hungaroring is historically kind to him, but he needs to stop the bleeding fast; another zero and the intra-Mercedes fight is effectively over before the break.</li>
-<li><strong>Hamilton is the King of the Hungaroring — and he's angry</strong> — Nobody has won here more: eight times. Lewis is up to P2 in the standings and arrives at his single best circuit still hunting a first victory in Ferrari red. The baggage: a Spa unsafe-release penalty that saw him clip a Ferrari mechanic, plus the lap-one clash with Russell. If Ferrari have the downforce, this is the weekend the record books and the narrative line up.</li>
-<li><strong>Ferrari carry the momentum</strong> — Leclerc's second at Spa keeps the Scuderia the clear best-of-the-rest behind Mercedes (285 to 358). The tight, high-downforce Hungaroring has historically suited the red cars, and with both drivers scoring big they're the likeliest team to break the Mercedes lock — if they can out-qualify the Silver Arrows on a track where Saturday is everything.</li>
-<li><strong>Qualifying is the whole race</strong> — "Monaco without walls" isn't a cliché here: pole position converts to victory at the Hungaroring more reliably than at almost any track on the calendar. With one real overtaking spot into Turn 1 and a narrow, low-grip ribbon everywhere else, whoever nails the Saturday lap controls Sunday. Expect the title picture to be shaped in qualifying, not the race.</li>
-<li><strong>McLaren need a track that fits — and this might be it</strong> — Norris (P5) and Piastri (P6) have quietly fallen off the title pace, but Piastri won here in 2024 and the Hungaroring's downforce demands historically flatter the papaya cars. A weak qualifying anywhere else has hurt them; a strong one here, on a track where grid position sticks, is their best shot at a statement result before the break.</li>
-<li><strong>Verstappen and Red Bull adrift</strong> — Max sits P7 on 91, still chasing form in a Red Bull that's only fourth in the constructors. He's a past Hungaroring winner (2023) and never to be discounted, but the RB struggles in slow-corner downforce trim — exactly what this track demands. Anything near the podium would be a genuine overachievement.</li>
-<li><strong>Heat, not water, is the variable</strong> — Unlike Spa's storm lottery, Budapest is forecast hot and dry all weekend (~27–31°C). That flips the challenge to tyre degradation, brake and driver cooling, and getting the high-downforce setup to survive long stints without cooking the rears. Only an isolated late-Sunday thunderstorm cell offers any chance of a curveball — and most models keep it away.</li>
+<li><strong>Farewell, Zandvoort — the last dance in the dunes</strong> — This is the final F1 race ever at Circuit Zandvoort, closing a six-year chapter that reopened in 2021. When the flag falls Sunday, F1 leaves the Dutch coast indefinitely. Expect a full-throated orange send-off — and every driver wanting their name on the last-ever winners' list.</li>
+<li><strong>First Sprint on Dutch soil — chaos multiplier</strong> — Zandvoort has never run the Sprint format before, and it lands with only one hour of practice before things count. A narrow, banked, low-run-off track plus a compressed schedule and 8 bonus points on Saturday is a recipe for a shaken-up order. Two qualifying sessions mean Friday afternoon matters almost as much as Saturday.</li>
+<li><strong>Antonelli heads in as runaway leader</strong> — The rookie leaves the summer break 50 clear of Hamilton and 59 up on teammate Russell after a P3 in Hungary. Zandvoort's precision-and-banking demands suit a planted car, and the Mercedes has been the class of the field. A clean weekend here and the title is increasingly his to lose.</li>
+<li><strong>Norris arrives with momentum — and history here</strong> — Lando took his first win of 2026 at the Hungaroring and comes to a track he dominated in 2024. McLaren's upgraded car finally looks like a race-winner again. He's P5 and 91 back, but if the papaya form is real, Zandvoort is where he starts eating into the Mercedes lead.</li>
+<li><strong>Verstappen's last shot at home — and he hasn't won here since 2023</strong> — Max was beaten at Zandvoort by Norris (2024) and Piastri (2025), and now gets one final chance in front of the orange army, coming off a strong P2 in Hungary. Red Bull's form in banked, high-load corners is the question mark. If he delivers, it's the send-off script the whole grandstand is praying for.</li>
+<li><strong>Mercedes intra-team tension simmers</strong> — Russell (P3) needs to stop the bleeding to teammate Antonelli, now 59 points up the road. Zandvoort's flowing layout and banking have historically suited the Silver Arrows, so both should be near the front — which is exactly when the team-order questions get awkward.</li>
+<li><strong>Ferrari's downforce test — and Hamilton still chasing that first red win</strong> — Hamilton (P2) and Leclerc (P4) keep the Scuderia best-of-the-rest behind Mercedes. The high-downforce, banked Zandvoort could flatter the red cars, but they've been out-qualified all year. Lewis owns the lap record here (2021) and is still hunting a maiden victory in Ferrari colours.</li>
+<li><strong>Track position is everything — twice</strong> — Overtaking at Zandvoort is limited to the braking zone into Tarzan; the rest is a qualifying track. With a Sprint grid <em>and</em> a race grid to set, whoever masters the banked, low-grip ribbon on Friday and Saturday controls the weekend. Saturdays win championships here.</li>
         </ul>
     </div>
 </div>
 
 <div style="text-align:center;color:var(--muted);font-size:0.7rem;margin-top:16px;">
-    Built by Marshall 🔶 for Wilson · Data: formula1.com, FIA, racingnews365.com, forbes.com, f1-fansite.com, wikipedia.org · Updated July 22, 2026
+    Built by Marshall 🔶 for Wilson · Data: formula1.com, FIA, racingnews365.com, the-race.com, f1-fansite.com, wikipedia.org · Updated July 29, 2026
 </div>
 
 <script>
-// Countdown to race: Sun Jul 26, 15:00 CEST = 13:00 UTC
-const raceTime = new Date('2026-07-26T13:00:00Z');
+// Countdown to race: Sun Aug 23, 15:00 CEST = 13:00 UTC
+const raceTime = new Date('2026-08-23T13:00:00Z');
 function updateCountdown() {
     const now = new Date();
     const diff = raceTime - now;
@@ -339,9 +339,9 @@ updateCountdown();
 setInterval(updateCountdown, 60000);
 
 // Constructors chart
-const teams = ["Mercedes", "Ferrari", "McLaren", "Red Bull", "Alpine", "Racing Bulls", "Haas", "Williams", "Audi", "Aston Martin", "Cadillac"];
-const pts = [358, 285, 195, 151, 61, 61, 21, 11, 10, 1, 0];
-const colors = ["#00D2BE", "#DC0000", "#FF8700", "#3671C6", "#0090FF", "#6692FF", "#B6BABD", "#64C4FF", "#00594F", "#006F62", "#888888"];
+const teams = ["Mercedes", "Ferrari", "McLaren", "Red Bull", "Racing Bulls", "Alpine", "Haas", "Audi", "Williams", "Aston Martin", "Cadillac"];
+const pts = [379, 307, 220, 177, 66, 61, 21, 12, 11, 1, 0];
+const colors = ["#00D2BE", "#DC0000", "#FF8700", "#3671C6", "#6692FF", "#0090FF", "#B6BABD", "#00594F", "#64C4FF", "#006F62", "#888888"];
 
 new Chart(document.getElementById('constChart').getContext('2d'), {
     type: 'bar',

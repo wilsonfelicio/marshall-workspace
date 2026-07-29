@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>🏁 Hungaroring — Circuit Diagram</title>
+<title>🏁 Circuit Zandvoort — Diagram</title>
 <style>
 :root { --bg:#0a0a0a; --surface:#141414; --border:#2a2a2a; --text:#e0e0e0; --muted:#888; --accent:#DC0000; }
 * { margin:0; padding:0; box-sizing:border-box; }
@@ -23,96 +23,110 @@ body { background:var(--bg); color:var(--text); font-family:-apple-system,BlinkM
 .corner-label { fill:#e0e0e0; font-size:13px; font-weight:600; font-family:-apple-system,sans-serif; }
 .speed-label { fill:#f59e0b; font-size:11px; font-family:-apple-system,sans-serif; }
 .zone-label { fill:#4ade80; font-size:11px; font-weight:600; font-family:-apple-system,sans-serif; }
+.bank-label { fill:#c084fc; font-size:11px; font-weight:600; font-family:-apple-system,sans-serif; }
 </style>
 </head>
 <body>
 <div class="wrap">
 <div class="header">
-    <div class="flag">🇭🇺</div>
-    <h1>Hungaroring</h1>
-    <div class="meta">4.381 km · 14 turns · 70 laps · 2 DRS zones · Clockwise</div>
+    <div class="flag">🇳🇱</div>
+    <h1>Circuit Zandvoort</h1>
+    <div class="meta">4.259 km · 14 turns · 72 laps · 2 DRS zones · Clockwise · 2 banked corners (~18°)</div>
 </div>
 
 <div class="card">
 <svg class="diagram" viewBox="0 0 860 600" xmlns="http://www.w3.org/2000/svg">
     <!-- Track outline (stylized) -->
-    <path d="M 175 508
-             L 560 512
-             C 612 514 650 496 650 452
-             C 650 420 626 405 596 408
-             C 548 412 536 448 500 452
-             C 470 455 458 436 462 408
-             C 466 372 512 356 548 366
-             C 588 377 596 350 578 320
-             C 556 286 500 286 470 296
-             C 420 312 410 268 372 258
-             C 330 247 322 285 288 292
-             C 250 300 232 268 214 258
-             C 180 240 150 268 156 306
-             C 160 340 190 344 206 366
-             C 226 392 206 410 218 436
-             C 228 458 262 452 278 466
-             C 300 483 292 498 268 506
-             C 240 516 200 512 175 508 Z"
+    <path d="M 190 512
+             L 548 512
+             C 600 512 634 492 632 450
+             C 630 414 596 404 566 414
+             C 522 428 520 452 484 452
+             C 452 452 442 424 456 398
+             C 470 372 510 372 540 360
+             C 584 342 588 308 552 292
+             C 516 276 486 300 452 298
+             C 410 296 402 262 364 254
+             C 326 246 306 276 272 282
+             C 234 288 214 262 194 254
+             C 156 238 128 268 136 306
+             C 142 342 176 350 190 372
+             C 212 404 186 420 200 448
+             C 212 470 240 462 258 456
+             C 298 442 300 486 270 500
+             C 246 512 216 512 190 512 Z"
           fill="none" stroke="#3a3a3a" stroke-width="20" stroke-linejoin="round" stroke-linecap="round"/>
-    <path d="M 175 508
-             L 560 512
-             C 612 514 650 496 650 452
-             C 650 420 626 405 596 408
-             C 548 412 536 448 500 452
-             C 470 455 458 436 462 408
-             C 466 372 512 356 548 366
-             C 588 377 596 350 578 320
-             C 556 286 500 286 470 296
-             C 420 312 410 268 372 258
-             C 330 247 322 285 288 292
-             C 250 300 232 268 214 258
-             C 180 240 150 268 156 306
-             C 160 340 190 344 206 366
-             C 226 392 206 410 218 436
-             C 228 458 262 452 278 466
-             C 300 483 292 498 268 506
-             C 240 516 200 512 175 508 Z"
+    <path d="M 190 512
+             L 548 512
+             C 600 512 634 492 632 450
+             C 630 414 596 404 566 414
+             C 522 428 520 452 484 452
+             C 452 452 442 424 456 398
+             C 470 372 510 372 540 360
+             C 584 342 588 308 552 292
+             C 516 276 486 300 452 298
+             C 410 296 402 262 364 254
+             C 326 246 306 276 272 282
+             C 234 288 214 262 194 254
+             C 156 238 128 268 136 306
+             C 142 342 176 350 190 372
+             C 212 404 186 420 200 448
+             C 212 470 240 462 258 456
+             C 298 442 300 486 270 500
+             C 246 512 216 512 190 512 Z"
           fill="none" stroke="#e0e0e0" stroke-width="3" stroke-linejoin="round"/>
 
-    <!-- DRS zone 1: main straight (start/finish) into Turn 1 -->
-    <line x1="300" y1="510" x2="548" y2="512" stroke="#4ade80" stroke-width="5" stroke-dasharray="8 5" stroke-linecap="round"/>
-    <text class="zone-label" x="410" y="530" text-anchor="middle">DRS · Main Straight</text>
+    <!-- Banked-corner highlights (purple) -->
+    <path d="M 456 398 C 470 372 510 372 540 360"
+          fill="none" stroke="#c084fc" stroke-width="7" stroke-linecap="round" opacity="0.9"/>
+    <path d="M 258 456 C 298 442 300 486 270 500"
+          fill="none" stroke="#c084fc" stroke-width="7" stroke-linecap="round" opacity="0.9"/>
 
-    <!-- DRS zone 2: short chute between Turn 1 and Turn 2 -->
-    <line x1="648" y1="450" x2="606" y2="412" stroke="#4ade80" stroke-width="5" stroke-dasharray="8 5" stroke-linecap="round"/>
-    <text class="zone-label" x="672" y="440" text-anchor="start">DRS · T1–T2</text>
+    <!-- DRS zone 1: main straight (start/finish) into Tarzan -->
+    <line x1="250" y1="514" x2="540" y2="514" stroke="#4ade80" stroke-width="5" stroke-dasharray="8 5" stroke-linecap="round"/>
+    <text class="zone-label" x="395" y="534" text-anchor="middle">DRS · Main Straight → Tarzan</text>
+
+    <!-- DRS zone 2: exit of Hugenholtz up the Hunzerug -->
+    <line x1="470" y1="372" x2="536" y2="360" stroke="#4ade80" stroke-width="5" stroke-dasharray="8 5" stroke-linecap="round"/>
+    <text class="zone-label" x="548" y="352" text-anchor="start">DRS 2</text>
 
     <!-- Start/finish line -->
-    <line x1="205" y1="500" x2="209" y2="518" stroke="#fff" stroke-width="6"/>
-    <text class="corner-label" x="205" y="490" text-anchor="middle" style="fill:#DC0000;">START /</text>
-    <text class="corner-label" x="205" y="475" text-anchor="middle" style="fill:#DC0000;">FINISH</text>
+    <line x1="360" y1="504" x2="360" y2="522" stroke="#fff" stroke-width="6"/>
+    <text class="corner-label" x="360" y="556" text-anchor="middle" style="fill:#DC0000;">START /</text>
+    <text class="corner-label" x="360" y="571" text-anchor="middle" style="fill:#DC0000;">FINISH</text>
 
     <!-- Overtake zones (orange dots) -->
-    <circle cx="596" cy="510" r="7" fill="#f59e0b"/>
-    <circle cx="560" cy="440" r="7" fill="#f59e0b"/>
+    <circle cx="624" cy="470" r="8" fill="#f59e0b"/>
+    <circle cx="205" cy="460" r="7" fill="#f59e0b"/>
 
     <!-- Corner labels + speeds -->
-    <text class="corner-label" x="690" y="486" text-anchor="start">Turn 1</text>
-    <text class="speed-label"  x="690" y="500" text-anchor="start">~120 km/h · main overtake</text>
+    <text class="corner-label" x="648" y="452" text-anchor="start">T1 Tarzan</text>
+    <text class="speed-label"  x="648" y="466" text-anchor="start">~130 km/h · banked hairpin</text>
+    <text class="speed-label"  x="648" y="480" text-anchor="start">MAIN overtake</text>
 
-    <text class="corner-label" x="470" y="486" text-anchor="middle">Turn 2</text>
-    <text class="speed-label"  x="470" y="500" text-anchor="middle">~180 km/h · long left</text>
+    <text class="corner-label" x="500" y="470" text-anchor="middle">T2 Gerlach</text>
+    <text class="speed-label"  x="500" y="484" text-anchor="middle">~150 km/h</text>
 
-    <text class="corner-label" x="602" y="348" text-anchor="start">Turn 4</text>
-    <text class="speed-label"  x="602" y="362" text-anchor="start">~230 km/h · fast right</text>
+    <text class="bank-label"   x="428" y="392" text-anchor="end">T3 Hugenholtz</text>
+    <text class="speed-label"  x="428" y="406" text-anchor="end">~140 km/h · 18° banked</text>
 
-    <text class="corner-label" x="360" y="236" text-anchor="middle">Turns 6–7 (esses)</text>
-    <text class="speed-label"  x="360" y="250" text-anchor="middle">~250 km/h · flowing</text>
+    <text class="corner-label" x="560" y="286" text-anchor="start">T4–7 Hunzerug</text>
+    <text class="speed-label"  x="560" y="300" text-anchor="start">~250 km/h · fast climb</text>
 
-    <text class="corner-label" x="120" y="300" text-anchor="end">Turns 10–11</text>
-    <text class="speed-label"  x="120" y="314" text-anchor="end">~110 km/h · slow left</text>
+    <text class="corner-label" x="360" y="238" text-anchor="middle">T8–9</text>
+    <text class="speed-label"  x="360" y="252" text-anchor="middle">~180 km/h · flowing</text>
 
-    <text class="corner-label" x="250" y="492" text-anchor="middle">Turns 13–14</text>
-    <text class="speed-label"  x="250" y="506" text-anchor="middle">~150 km/h · final complex</text>
+    <text class="corner-label" x="118" y="300" text-anchor="end">T10–11</text>
+    <text class="speed-label"  x="118" y="314" text-anchor="end">~90 km/h · slowest</text>
+
+    <text class="corner-label" x="150" y="448" text-anchor="end">T12–13</text>
+    <text class="speed-label"  x="150" y="462" text-anchor="end">~120 km/h</text>
+
+    <text class="bank-label"   x="300" y="500" text-anchor="start">T14 Arie Luyendyk</text>
+    <text class="speed-label"  x="300" y="514" text-anchor="start">flat-out · 18° banked → DRS</text>
 
     <!-- Direction arrow -->
-    <g transform="translate(360,512)">
+    <g transform="translate(430,512)">
         <path d="M 0 0 L 26 2 M 18 -4 L 28 2 L 18 8" stroke="#888" stroke-width="2" fill="none"/>
         <text x="-6" y="4" text-anchor="end" style="fill:#888;font-size:11px;font-family:-apple-system,sans-serif;">lap direction</text>
     </g>
@@ -120,13 +134,14 @@ body { background:var(--bg); color:var(--text); font-family:-apple-system,BlinkM
 
 <div class="legend">
     <div><span class="swatch" style="border-top-color:#e0e0e0;"></span> Track</div>
+    <div><span class="swatch" style="border-top-color:#c084fc;"></span> Banked corner (~18°)</div>
     <div><span class="swatch" style="border-top-color:#4ade80; border-top-style:dashed;"></span> DRS zone</div>
     <div><span class="dot" style="background:#f59e0b;"></span> Overtake spot</div>
     <div><span class="swatch" style="border-top-color:#fff;"></span> Start / finish</div>
 </div>
 
 <div style="margin-top:14px;color:var(--muted);font-size:0.78rem;line-height:1.5;">
-    The Hungaroring packs 14 corners into 4.38 km with barely a straight to breathe. Turn 1 — a downhill right at the end of the main straight — is the one place a pass really sticks; the twisting middle sector (the flowing esses through Turns 6–8 and the slow left of Turns 10–11) rewards a planted, high-downforce car and punishes the smallest error. It's often called "Monaco without walls": qualifying position is worth its weight in gold.
+    Zandvoort threads 14 corners through the North Sea dunes with barely a flat moment — a genuine roller-coaster. It's the only F1 track with banked corners: the Hugenholtzbocht (Turn 3) and the flat-out final Arie Luyendyk bend (Turn 14) are banked at ~18°, and that last one is the key — carrying speed through it fires cars down the DRS main straight and sets up the one real passing move, into the banked Tarzan hairpin (Turn 1). Everywhere else the narrow ribbon makes overtaking brutal, so qualifying position is worth its weight in gold — and this Sprint weekend, there are two grids to nail.
 </div>
 </div>
 
