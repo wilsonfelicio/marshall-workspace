@@ -1,0 +1,96 @@
+# ---------------------------------------------------------------------------
+# SNIIM price collection - configuration
+# Every knob you are likely to touch lives here. No need to edit Python.
+# ---------------------------------------------------------------------------
+
+paths:
+  data: data                     # relative to project root
+  logs: logs
+  duckdb: data/sniim.duckdb
+  mapping: config/mapping_inpc.csv
+
+http:
+  base_url: "https://www.economia-sniim.gob.mx/nuevo/Consultas/MercadosNacionales/PreciosDeMercado/Agricolas/"
+  user_agent: "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36"
+  # The SNIIM server is IIS 6.0 / .NET 2.0 and returns 503 when pushed.
+  # min_interval_seconds is the floor between two requests (single-threaded).
+  min_interval_seconds: 1.5
+  timeout_seconds: 300
+  max_retries: 5
+  backoff_base_seconds: 5.0      # exponential: base * 2**attempt, plus jitter
+  # If the server starts throwing 5xx repeatedly, the session self-throttles
+  # by multiplying min_interval_seconds by this factor (up to cool_off_max).
+  cool_off_factor: 2.0
+  cool_off_max_seconds: 30.0
+  registros_por_pagina: 20000    # >1000 defeats the server-side pagination
+
+query:
+  # 1 = "Presentacion Comercial (encuestado)"  -> price per surveyed package
+  # 2 = "Kilogramo (calculado)"                -> price per kilogram  <-- use this
+  precios_por_id: 2
+  origen_id: -1                  # -1 = Todos (all origin states)
+  destino_id: -1                 # -1 = Todos (all 49 destination markets)
+
+frutas:
+  enabled: true
+  # Earliest year with data on the site is 1998. Keeping the full history: the
+  # 2008-09 food price crisis and the 2011 spike are the two best natural
+  # experiments for identifying wholesale-to-retail pass-through, and ~23% of
+  # what has already been collected is pre-2007.
+  start_year: 1998
+  # Products to collect. "all" = every product in the catalog (222).
+  # Recommended: keep "all" so the residual INPC buckets
+  # (Otras frutas / Otras verduras y legumbres / Otros chiles frescos)
+  # stay computable without re-scraping.
+  products: all
+  # A product-year is fetched in one request. Very heavy products can exceed
+  # registros_por_pagina; if a response looks truncated the collector
+  # automatically splits that product-year into quarters.
+  chunk: year
+
+granos:
+  # Frijol only exists in the Granos Basicos module: weekly slices, separate
+  # endpoint, params are Semana/Mes/Anio instead of a date range.
+  enabled: true
+  start_year: 1998
+  # All 24 frijol varieties in the granos catalog - the same 24 that
+  # config/mapping_inpc.csv maps to the INPC frijol generic (068), so the
+  # generic is built from the full variety set rather than a subset.
+  # The first 12 are already on disk; the remaining 12 are ~18k requests.
+  products: all_frijol
+
+update:
+  # Incremental run: re-fetch a trailing window so late-arriving revisions and
+  # the current partial week are picked up. SNIIM does revise recent rows.
+  lookback_days: 14
+  granos_lookback_weeks: 3
+
+aggregate:
+  # Which price column feeds the category series.
+  price_column: precio_frec      # precio_frec | precio_min | precio_max
+
+  # Market weighting is NOT a switch: both the INPC-city-weighted and the
+  # equal-weighted figures are computed and stored side by side, so you can
+  # compare rather than wonder which one produced a number.
+  #   precio_geo / indice_jevons        -> INPC city weights (recommended)
+  #   precio_geo_equal / ..._equal      -> every market counts once
+  #   indice_jevons_var                 -> the pre-crosswalk behaviour
+  # Weights come from config/crosswalk_mercados.csv + config/inpc_ciudades.csv.
+
+  # Drop market-days built from fewer than this many raw observations.
+  min_obs_per_market_day: 1
+
+  # Restrict the analysis window, independently of what is on disk. Collection
+  # history is messy - the products collected before the start_year was changed
+  # still carry data back to 1998, which would leave an unbalanced panel and make
+  # the aggregate "Frutas y verduras" reconstruction inconsistent over time. This
+  # filter is applied at the base of the aggregation ladder, so every derived
+  # table shares one window. Set to null to use everything on disk.
+  start_month: null
+
+  # Base month for the base-100 columns and the Jevons index.
+  # Categories with no data in this month fall back to their own first month and
+  # are flagged with base_es_fallback - their LEVELS are then not comparable
+  # with the others, though their growth rates still are.
+  # NOTE: equal-weight normalisation, NOT an INPC-style weighted index.
+  index_base_month: "2018-01"

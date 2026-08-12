@@ -1,0 +1,262 @@
+modulo,producto_id,producto_sniim,categoria,categoria_label,grupo
+frutas,130,Aguacate Criollo - Primera,aguacate,Aguacate,frutas
+frutas,131,Aguacate Fuerte - Primera,aguacate,Aguacate,frutas
+frutas,136,Aguacate Hass - Calidad extra,aguacate,Aguacate,frutas
+frutas,137,Aguacate Hass - Calidad super extra,aguacate,Aguacate,frutas
+frutas,133,Aguacate Hass - Primera,aguacate,Aguacate,frutas
+frutas,135,Aguacate Hass adelantado - Primera,aguacate,Aguacate,frutas
+frutas,138,Aguacate Hass flor vieja - Primera,aguacate,Aguacate,frutas
+frutas,139,Aguacate Pagua - Primera,aguacate,Aguacate,frutas
+frutas,166,Calabacita Criolla - Primera,calabacita,Calabacita,verduras
+frutas,170,Calabacita Italiana - Primera,calabacita,Calabacita,verduras
+frutas,180,Calabacita regional - Primera,calabacita,Calabacita,verduras
+frutas,183,Cebolla Bola - Primera,cebolla,Cebolla,verduras
+frutas,182,Cebolla Bola grande - Primera,cebolla,Cebolla,verduras
+frutas,187,Cebolla Morada - Primera,cebolla,Cebolla,verduras
+frutas,190,Cebolla de rabo - Primera,cebolla,Cebolla,verduras
+frutas,275,Chayote - Primera,chayote,Chayote,verduras
+frutas,272,Chayote sin espinas - Primera,chayote,Chayote,verduras
+frutas,242,Chile Poblano - Primera,chile_poblano,Chile poblano,verduras
+frutas,228,Chile Guajillo - Primera,chile_seco,Chile seco,verduras
+frutas,236,Chile Mirasol - Primera,chile_seco,Chile seco,verduras
+frutas,237,Chile Pasilla - Primera,chile_seco,Chile seco,verduras
+frutas,245,Chile Puya seco - Primera,chile_seco,Chile seco,verduras
+frutas,216,Chile ancho - Primera,chile_seco,Chile seco,verduras
+frutas,217,Chile de Árbol seco - Primera,chile_seco,Chile seco,verduras
+frutas,246,Chile Serrano - Primera,chile_serrano,Chile serrano,verduras
+frutas,208,Cilantro - Primera,cilantro_epazote_perejil,"Cilantro, epazote y perejil",verduras
+frutas,312,Epazote - Primera,cilantro_epazote_perejil,"Cilantro, epazote y perejil",verduras
+frutas,635,Perejil - Primera,cilantro_epazote_perejil,"Cilantro, epazote y perejil",verduras
+frutas,290,Durazno Amarillo - Primera,durazno,Durazno,frutas
+frutas,294,Durazno Melocotón - Primera,durazno,Durazno,frutas
+frutas,297,Durazno Prisco - Primera,durazno,Durazno,frutas
+frutas,302,Ejote - Primera,ejotes,Ejotes,verduras
+frutas,299,Ejote largo - Primera,ejotes,Ejotes,verduras
+frutas,304,Ejote redondo - Primera,ejotes,Ejotes,verduras
+frutas,181,Cacahuate - Primera,excluido,excluido,
+frutas,389,Jamaica - Primera,excluido,excluido,
+frutas,565,Nuez - Primera,excluido,excluido,
+frutas,566,Nuez - Western - Primera,excluido,excluido,
+frutas,567,Nuez Wichita - Primera,excluido,excluido,
+frutas,563,Nuez cáscara de papel - Primera,excluido,excluido,
+frutas,607,Orégano - Primera,excluido,excluido,
+frutas,655,Pistache - Primera,excluido,excluido,
+frutas,876,Yerbabuena - Primera,excluido,excluido,
+frutas,378,Guayaba - Primera,guayaba,Guayaba,frutas
+frutas,836,Tomate Bola - Primera,jitomate,Jitomate,verduras
+frutas,839,Tomate Saladette - Primera,jitomate,Jitomate,verduras
+frutas,253,Col grande - Primera,lechuga_y_col,Lechuga y col,verduras
+frutas,257,Col mediana - Primera,lechuga_y_col,Lechuga y col,verduras
+frutas,265,Col sin clasificación - Primera,lechuga_y_col,Lechuga y col,verduras
+frutas,401,Lechuga Orejona grande - Primera,lechuga_y_col,Lechuga y col,verduras
+frutas,403,Lechuga Orejona sin clasificación - Primera,lechuga_y_col,Lechuga y col,verduras
+frutas,405,Lechuga Romanita grande - Primera,lechuga_y_col,Lechuga y col,verduras
+frutas,407,Lechuga Romanita mediana - Primera,lechuga_y_col,Lechuga y col,verduras
+frutas,409,Lechuga Romanita sin clasificación - Primera,lechuga_y_col,Lechuga y col,verduras
+frutas,417,Limón c/semilla # 2 - Primera,limon,Limón,frutas
+frutas,418,Limón c/semilla # 3 - Primera,limon,Limón,frutas
+frutas,419,Limón c/semilla # 4 - Primera,limon,Limón,frutas
+frutas,421,Limón c/semilla # 5 - Primera,limon,Limón,frutas
+frutas,423,Limón c/semilla sin clasificación - Primera,limon,Limón,frutas
+frutas,426,Limón s/semilla - Primera,limon,Limón,frutas
+frutas,519,Manzana Golden Delicious - Primera,manzana,Manzana,frutas
+frutas,522,Manzana Red Delicious - Primera,manzana,Manzana,frutas
+frutas,526,Manzana Starking - Primera,manzana,Manzana,frutas
+frutas,501,Melon Cantaloupe # 14 - Primera,melon,Melón,frutas
+frutas,510,Melon Cantaloupe # 36 - Primera,melon,Melón,frutas
+frutas,500,Melón Cantaloupe # 12 - Primera,melon,Melón,frutas
+frutas,502,Melón Cantaloupe # 15 - Primera,melon,Melón,frutas
+frutas,503,Melón Cantaloupe # 16 - Primera,melon,Melón,frutas
+frutas,505,Melón Cantaloupe # 18 - Primera,melon,Melón,frutas
+frutas,506,Melón Cantaloupe # 22 - Primera,melon,Melón,frutas
+frutas,507,Melón Cantaloupe # 23 - Primera,melon,Melón,frutas
+frutas,508,Melón Cantaloupe # 27 - Primera,melon,Melón,frutas
+frutas,512,Melón Cantaloupe # 45 - Primera,melon,Melón,frutas
+frutas,513,Melón Cantaloupe # 48 - Primera,melon,Melón,frutas
+frutas,499,Melón Cantaloupe # 9 - Primera,melon,Melón,frutas
+frutas,516,Melón Cantaloupe sin clasificación - Primera,melon,Melón,frutas
+frutas,534,Naranja Agria - Primera,naranja,Naranja,frutas
+frutas,536,Naranja March chica - Primera,naranja,Naranja,frutas
+frutas,537,Naranja March grande - Primera,naranja,Naranja,frutas
+frutas,538,Naranja March mediana - Primera,naranja,Naranja,frutas
+frutas,546,Naranja Valencia chica - Primera,naranja,Naranja,frutas
+frutas,549,Naranja Valencia grande - Primera,naranja,Naranja,frutas
+frutas,551,Naranja Valencia mediana - Primera,naranja,Naranja,frutas
+frutas,560,Nopal - Primera,nopales,Nopales,verduras
+frutas,556,Nopal grande - Primera,nopales,Nopales,verduras
+frutas,178,Caña - Primera,otras_frutas,Otras frutas,frutas
+frutas,196,Ciruela Amarilla - Primera,otras_frutas,Otras frutas,frutas
+frutas,197,Ciruela Claudia - Primera,otras_frutas,Otras frutas,frutas
+frutas,200,Ciruela Moscatel - Primera,otras_frutas,Otras frutas,frutas
+frutas,201,Ciruela Negra - Primera,otras_frutas,Otras frutas,frutas
+frutas,207,Ciruela Roja - Primera,otras_frutas,Otras frutas,frutas
+frutas,198,Ciruela huesuda Amarilla - Primera,otras_frutas,Otras frutas,frutas
+frutas,199,Ciruela huesuda Roja - Primera,otras_frutas,Otras frutas,frutas
+frutas,203,Ciruela pasa - Primera,otras_frutas,Otras frutas,frutas
+frutas,250,Coco - Primera,otras_frutas,Otras frutas,frutas
+frutas,358,Fresa - Primera,otras_frutas,Otras frutas,frutas
+frutas,356,Fresa Chandler - Primera,otras_frutas,Otras frutas,frutas
+frutas,372,Granada China - Primera,otras_frutas,Otras frutas,frutas
+frutas,373,Granada Roja - Primera,otras_frutas,Otras frutas,frutas
+frutas,374,Guanabana - Primera,otras_frutas,Otras frutas,frutas
+frutas,399,Kiwi - Primera,otras_frutas,Otras frutas,frutas
+frutas,413,Lima - Primera,otras_frutas,Otras frutas,frutas
+frutas,429,Mamey - Primera,otras_frutas,Otras frutas,frutas
+frutas,451,Mandarina - Primera,otras_frutas,Otras frutas,frutas
+frutas,447,Mandarina Mónica - Primera,otras_frutas,Otras frutas,frutas
+frutas,455,Mandarina Reyna - Primera,otras_frutas,Otras frutas,frutas
+frutas,459,Mandarina Tangerina - Primera,otras_frutas,Otras frutas,frutas
+frutas,465,Mango Ataulfo - Primera,otras_frutas,Otras frutas,frutas
+frutas,469,Mango Criollo - Primera,otras_frutas,Otras frutas,frutas
+frutas,473,Mango Haden - Primera,otras_frutas,Otras frutas,frutas
+frutas,479,Mango Kent - Primera,otras_frutas,Otras frutas,frutas
+frutas,480,Mango Manila - Primera,otras_frutas,Otras frutas,frutas
+frutas,485,Mango Manililla - Primera,otras_frutas,Otras frutas,frutas
+frutas,489,Mango Oro - Primera,otras_frutas,Otras frutas,frutas
+frutas,494,Mango Tommy - Primera,otras_frutas,Otras frutas,frutas
+frutas,529,Membrillo - Primera,otras_frutas,Otras frutas,frutas
+frutas,539,Nanche - Primera,otras_frutas,Otras frutas,frutas
+frutas,554,Nectarina - Primera,otras_frutas,Otras frutas,frutas
+frutas,774,Pitaya - Primera,otras_frutas,Otras frutas,frutas
+frutas,800,Tamarindo - Primera,otras_frutas,Otras frutas,frutas
+frutas,804,Tejocote - Primera,otras_frutas,Otras frutas,frutas
+frutas,811,Toronja Blanca - Primera,otras_frutas,Otras frutas,frutas
+frutas,824,Toronja Roja - Primera,otras_frutas,Otras frutas,frutas
+frutas,823,Toronja Roja mediana - Primera,otras_frutas,Otras frutas,frutas
+frutas,832,Toronja Rosada - Primera,otras_frutas,Otras frutas,frutas
+frutas,848,Tuna - Primera,otras_frutas,Otras frutas,frutas
+frutas,845,Tuna Blanca - Primera,otras_frutas,Otras frutas,frutas
+frutas,862,Uva pasa - Primera,otras_frutas,Otras frutas,frutas
+frutas,888,Zapote - Primera,otras_frutas,Otras frutas,frutas
+frutas,891,Zarzamora - Primera,otras_frutas,Otras frutas,frutas
+frutas,31,Acelga - Primera,otras_verduras_y_legumbres,Otras verduras y legumbres,verduras
+frutas,144,Ajo Blanco # 8 - Primera,otras_verduras_y_legumbres,Otras verduras y legumbres,verduras
+frutas,142,Ajo Blanco - Primera,otras_verduras_y_legumbres,Otras verduras y legumbres,verduras
+frutas,146,Ajo Morado - Primera,otras_verduras_y_legumbres,Otras verduras y legumbres,verduras
+frutas,152,Apio - Primera,otras_verduras_y_legumbres,Otras verduras y legumbres,verduras
+frutas,157,Berenjena - Primera,otras_verduras_y_legumbres,Otras verduras y legumbres,verduras
+frutas,160,Betabel - Primera,otras_verduras_y_legumbres,Otras verduras y legumbres,verduras
+frutas,162,Brócoli - Primera,otras_verduras_y_legumbres,Otras verduras y legumbres,verduras
+frutas,169,Calabaza de castilla - Primera,otras_verduras_y_legumbres,Otras verduras y legumbres,verduras
+frutas,270,Champiñón - Primera,otras_verduras_y_legumbres,Otras verduras y legumbres,verduras
+frutas,285,Chícharo - Primera,otras_verduras_y_legumbres,Otras verduras y legumbres,verduras
+frutas,279,Chícharo arrugado - Primera,otras_verduras_y_legumbres,Otras verduras y legumbres,verduras
+frutas,263,Coliflor grande - Primera,otras_verduras_y_legumbres,Otras verduras y legumbres,verduras
+frutas,261,Coliflor mediana - Primera,otras_verduras_y_legumbres,Otras verduras y legumbres,verduras
+frutas,260,Coliflor sin clasificación - Primera,otras_verduras_y_legumbres,Otras verduras y legumbres,verduras
+frutas,308,Elote - Primera,otras_verduras_y_legumbres,Otras verduras y legumbres,verduras
+frutas,306,Elote grande - Primera,otras_verduras_y_legumbres,Otras verduras y legumbres,verduras
+frutas,307,Elote mediano - Primera,otras_verduras_y_legumbres,Otras verduras y legumbres,verduras
+frutas,316,Espinaca - Primera,otras_verduras_y_legumbres,Otras verduras y legumbres,verduras
+frutas,314,Espárrago - Primera,otras_verduras_y_legumbres,Otras verduras y legumbres,verduras
+frutas,385,Haba verde - Primera,otras_verduras_y_legumbres,Otras verduras y legumbres,verduras
+frutas,775,Rábano - Primera,otras_verduras_y_legumbres,Otras verduras y legumbres,verduras
+frutas,215,Chile Anaheim - Primera,otros_chiles_frescos,Otros chiles frescos,verduras
+frutas,221,Chile California - Primera,otros_chiles_frescos,Otros chiles frescos,verduras
+frutas,222,Chile Caloro - Primera,otros_chiles_frescos,Otros chiles frescos,verduras
+frutas,223,Chile Caribe - Primera,otros_chiles_frescos,Otros chiles frescos,verduras
+frutas,220,Chile Cat - Primera,otros_chiles_frescos,Otros chiles frescos,verduras
+frutas,225,Chile Chilaca - Primera,otros_chiles_frescos,Otros chiles frescos,verduras
+frutas,227,Chile Dulce - Primera,otros_chiles_frescos,Otros chiles frescos,verduras
+frutas,230,Chile Habanero - Primera,otros_chiles_frescos,Otros chiles frescos,verduras
+frutas,232,Chile Húngaro - Primera,otros_chiles_frescos,Otros chiles frescos,verduras
+frutas,233,Chile Jalapeño - Primera,otros_chiles_frescos,Otros chiles frescos,verduras
+frutas,239,Chile Pimiento morrón - Primera,otros_chiles_frescos,Otros chiles frescos,verduras
+frutas,238,Chile Puya fresco - Primera,otros_chiles_frescos,Otros chiles frescos,verduras
+frutas,213,Chile de Árbol fresco - Primera,otros_chiles_frescos,Otros chiles frescos,verduras
+frutas,175,Camote - Primera,papa_y_otros_tuberculos,Papa y otros tubérculos,verduras
+frutas,392,Jícama - Primera,papa_y_otros_tuberculos,Papa y otros tubérculos,verduras
+frutas,396,Jícama mediana - Primera,papa_y_otros_tuberculos,Papa y otros tubérculos,verduras
+frutas,397,Jícama piñatera - Primera,papa_y_otros_tuberculos,Papa y otros tubérculos,verduras
+frutas,740,Papa Alpha - Primera,papa_y_otros_tuberculos,Papa y otros tubérculos,verduras
+frutas,748,Papa Galeana - Primera,papa_y_otros_tuberculos,Papa y otros tubérculos,verduras
+frutas,749,Papa Gema - Primera,papa_y_otros_tuberculos,Papa y otros tubérculos,verduras
+frutas,753,Papa Marciana - Primera,papa_y_otros_tuberculos,Papa y otros tubérculos,verduras
+frutas,766,Papa Rouset - Primera,papa_y_otros_tuberculos,Papa y otros tubérculos,verduras
+frutas,767,Papa San José - Primera,papa_y_otros_tuberculos,Papa y otros tubérculos,verduras
+frutas,620,Papaya Amarilla - Primera,papaya,Papaya,frutas
+frutas,609,Papaya Maradol - Primera,papaya,Papaya,frutas
+frutas,623,Papaya Roja - Primera,papaya,Papaya,frutas
+frutas,771,Pepino - Primera,pepino,Pepino,verduras
+frutas,645,Pera Asiática - Primera,pera,Pera,frutas
+frutas,632,Pera Bartlett # 135 - Primera,pera,Pera,frutas
+frutas,626,Pera Bosco - Primera,pera,Pera,frutas
+frutas,634,Pera D´anjou # 100 - Primera,pera,Pera,frutas
+frutas,638,Pera Lechera - Primera,pera,Pera,frutas
+frutas,639,Pera Mantequilla - Primera,pera,Pera,frutas
+frutas,640,Pera Paraíso - Primera,pera,Pera,frutas
+frutas,630,Pera Ángel - Primera,pera,Pera,frutas
+frutas,646,Piña chica - Primera,pina,Piña,frutas
+frutas,648,Piña grande - Primera,pina,Piña,frutas
+frutas,651,Piña mediana - Primera,pina,Piña,frutas
+frutas,663,Plátano Chiapas - Primera,platanos,Plátanos,frutas
+frutas,665,Plátano Chiapas calidad exportación - Primera,platanos,Plátanos,frutas
+frutas,666,Plátano Dominico - Primera,platanos,Plátanos,frutas
+frutas,670,Plátano Enano-Gigante - Primera,platanos,Plátanos,frutas
+frutas,723,Plátano Macho - Primera,platanos,Plátanos,frutas
+frutas,728,Plátano Manzano - Primera,platanos,Plátanos,frutas
+frutas,727,Plátano Morado - Primera,platanos,Plátanos,frutas
+frutas,731,Plátano Pera - Primera,platanos,Plátanos,frutas
+frutas,732,Plátano Tabasco - Primera,platanos,Plátanos,frutas
+frutas,736,Plátano Veracruz - Primera,platanos,Plátanos,frutas
+frutas,783,Sandía Blanca - Primera,sandia,Sandía,frutas
+frutas,785,Sandía Charleston - Primera,sandia,Sandía,frutas
+frutas,791,Sandía Jubilee - Primera,sandia,Sandía,frutas
+frutas,795,Sandía Negra - Primera,sandia,Sandía,frutas
+frutas,796,Sandía Peacock - Primera,sandia,Sandía,frutas
+frutas,799,Sandía Rayada - Primera,sandia,Sandía,frutas
+frutas,787,Sandía Sangría - Primera,sandia,Sandía,frutas
+frutas,842,Tomate Verde - Primera,tomate_verde,Tomate verde,verduras
+frutas,851,Uva Blanca - Primera,uva,Uva,frutas
+frutas,854,Uva Calmeria - Primera,uva,Uva,frutas
+frutas,852,Uva Cardenal - Primera,uva,Uva,frutas
+frutas,857,Uva Flame - Primera,uva,Uva,frutas
+frutas,858,Uva Globo - Primera,uva,Uva,frutas
+frutas,861,Uva Moscatel - Primera,uva,Uva,frutas
+frutas,863,Uva Perlette - Primera,uva,Uva,frutas
+frutas,866,Uva Queen - Primera,uva,Uva,frutas
+frutas,871,Uva Superior - Primera,uva,Uva,frutas
+frutas,872,Uva Thompson - Primera,uva,Uva,frutas
+frutas,869,Uva sin semilla - Primera,uva,Uva,frutas
+frutas,878,Zanahoria leña - Primera,zanahoria,Zanahoria,verduras
+frutas,880,Zanahoria mediana - Primera,zanahoria,Zanahoria,verduras
+frutas,884,Zanahoria polvo - Primera,zanahoria,Zanahoria,verduras
+granos,598,Alubia chica -,excluido,excluido,
+granos,599,Alubia grande -,excluido,excluido,
+granos,1,Arroz pulido Morelos -,excluido,excluido,
+granos,2,Arroz pulido Sinaloa -,excluido,excluido,
+granos,3,Arroz pulido sin especificar -,excluido,excluido,
+granos,4,Arroz pulido tipo Morelos -,excluido,excluido,
+granos,9085,Café en grano -,excluido,excluido,
+granos,9086,Café molido -,excluido,excluido,
+granos,600,Garbanzo chico -,excluido,excluido,
+granos,601,Garbanzo grande -,excluido,excluido,
+granos,602,Haba -,excluido,excluido,
+granos,603,Lenteja chica -,excluido,excluido,
+granos,604,Lenteja grande -,excluido,excluido,
+granos,605,Maíz blanco -,excluido,excluido,
+granos,606,Maíz blanco pozolero -,excluido,excluido,
+granos,332,Frijol Azufrado -,frijol,Frijol,granos
+granos,334,Frijol Bayo -,frijol,Frijol,granos
+granos,333,Frijol Bayo berrendo -,frijol,Frijol,granos
+granos,335,Frijol Cacahuate bola -,frijol,Frijol,granos
+granos,336,Frijol Cacahuate largo -,frijol,Frijol,granos
+granos,337,Frijol Canario -,frijol,Frijol,granos
+granos,338,Frijol Colorado -,frijol,Frijol,granos
+granos,339,Frijol Flor de junio -,frijol,Frijol,granos
+granos,340,Frijol Flor de mayo -,frijol,Frijol,granos
+granos,341,Frijol Garbancillo -,frijol,Frijol,granos
+granos,342,Frijol Garbancillo zarco -,frijol,Frijol,granos
+granos,343,Frijol Mayocoba -,frijol,Frijol,granos
+granos,347,Frijol Negro -,frijol,Frijol,granos
+granos,346,Frijol Negro Nayarit -,frijol,Frijol,granos
+granos,348,Frijol Negro Veracruz -,frijol,Frijol,granos
+granos,344,Frijol Negro bola -,frijol,Frijol,granos
+granos,345,Frijol Negro importado -,frijol,Frijol,granos
+granos,349,Frijol Ojo de cabra -,frijol,Frijol,granos
+granos,350,Frijol Peruano -,frijol,Frijol,granos
+granos,352,Frijol Pinto -,frijol,Frijol,granos
+granos,351,Frijol Pinto importado -,frijol,Frijol,granos
+granos,353,Frijol Serahui -,frijol,Frijol,granos
+granos,354,Frijol Tepari -,frijol,Frijol,granos
+granos,355,Frijol Yurimun -,frijol,Frijol,granos

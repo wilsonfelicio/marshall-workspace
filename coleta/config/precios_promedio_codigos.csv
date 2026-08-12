@@ -1,0 +1,33 @@
+clave_generico,generico,cod_vintage_2011,cod_vintage_18,cod_vintage_18a
+045,Aguacate,046,046,045
+046,Durazno,055,047,046
+047,Guayaba,054,048,047
+048,Limón,050,049,048
+049,Manzana,044,050,049
+050,Melón,051,051,050
+051,Naranja,049,052,051
+052,Papaya,048,055,052
+053,Pera,053,056,053
+054,Piña,057,057,054
+055,Plátanos,045,058,055
+056,Sandía,056,059,056
+057,Uva,052,060,057
+059,Otras frutas,047,054,059
+060,Calabacita,065,061,060
+061,Cebolla,060,062,061
+062,Chayote,069,063,062
+063,Chile poblano,070,064,063
+065,Chile serrano,067,066,065
+067,Ejotes,072,068,067
+070,Jitomate,058,071,070
+071,Lechuga y col,064,072,071
+072,Nopales,068,073,072
+073,Papa y otros tubérculos,059,077,073
+075,Pepino,071,079,075
+076,Tomate verde,063,080,076
+078,Zanahoria,066,082,078
+080,Otras verduras y legumbres,061,075,080
+081,Otros chiles frescos,062,076,081
+087,"Cilantro, epazote y perejil",,,087
+064,Chile seco,077,065,064
+068,Frijol,074,069,068

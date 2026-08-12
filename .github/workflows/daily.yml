@@ -1,0 +1,122 @@
+# Daily wholesale price refresh.
+#
+# The project lives in the coleta/ subfolder of this repo, but GitHub only reads workflows
+# from the repository root, so this file stays at .github/workflows/ and every step runs
+# with working-directory: coleta. That also means the paths inside store.tar.gz are
+# relative to coleta/ — tar and untar both happen there, so they stay consistent.
+#
+# Publishes coleta/precios_mayoreo_diario.xlsx as a release asset on the `data` tag, which
+# gives a permanently stable download URL:
+#
+#   https://github.com/wilsonfelicio/marshall-workspace/releases/latest/download/precios_mayoreo_diario.xlsx
+#
+# The parquet store travels as a release asset rather than living in git:
+# data/curated/cat_market_daily.parquet alone is 160MB, over GitHub's 100MB per-file limit,
+# and committing a 3.8MB workbook daily would add ~1.4GB of history a year. Release assets
+# are replaced, not versioned, so nothing accumulates.
+#
+# Timing: SNIIM states "Diaria (de lunes a viernes)" with no hour. Measured on 12 Aug 2026,
+# the day was absent at 04:07 Mexico City and complete by 12:09, so this runs at 19:00 UTC
+# = 13:00 Mexico City. GitHub delays cron under load, sometimes by an hour; that costs
+# nothing because `run.py update` re-fetches a trailing 14-day window, so being late loses
+# nothing and being early would.
+
+name: precios diarios
+
+on:
+  schedule:
+    - cron: "0 19 * * 1-5"      # 13:00 Mexico City, Mon-Fri
+  workflow_dispatch:
+    inputs:
+      bootstrap:
+        description: "First run: build the store from scratch instead of restoring it"
+        type: boolean
+        default: false
+
+permissions:
+  contents: write               # required to replace the release assets
+
+concurrency:
+  group: precios-diarios        # the store takes an exclusive lock; never run two at once
+  cancel-in-progress: false
+
+defaults:
+  run:
+    working-directory: coleta
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: coleta/requirements.txt
+
+      - run: pip install -r requirements.txt
+
+      - name: Restore the store from the data release
+        if: ${{ !inputs.bootstrap }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release download data --pattern store.tar.gz --clobber
+          tar xzf store.tar.gz
+          rm store.tar.gz
+          echo "restored:"; du -sh data/raw data/inpc 2>/dev/null || true
+          wc -l data/manifest.csv
+
+      - name: Bootstrap the store (first run only)
+        if: ${{ inputs.bootstrap }}
+        run: |
+          python run.py catalog
+          python run.py mapping --force
+          python run.py backfill --start-year 2024 --workers 2
+
+      # `update` exits non-zero if any single product came back failed or truncated. That
+      # should not block the day: the trailing window refetches it tomorrow. The publish
+      # decision belongs to check_freshness.py, which looks at the data instead.
+      - name: Fetch the trailing window
+        id: fetch
+        run: |
+          set +e
+          python run.py update
+          echo "update_rc=$?" >> "$GITHUB_OUTPUT"
+          set -e
+
+      - name: Verify the store
+        run: python run.py verify || echo "::warning::run.py verify reported problems"
+
+      - name: Publish gate
+        run: python scripts/check_freshness.py
+
+      - name: Build the workbook
+        run: |
+          python export_panel_xlsx.py
+          ls -la precios_mayoreo_diario.xlsx
+
+      - name: Publish
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          tar czf store.tar.gz data/raw data/catalog data/inpc data/manifest.csv \
+            data/curated/.last_rows.json
+          gh release view data >/dev/null 2>&1 || \
+            gh release create data --title "Latest data" --notes "Rolling data release. Assets are replaced on each run."
+          gh release upload data precios_mayoreo_diario.xlsx store.tar.gz --clobber
+
+      - name: Summary
+        if: always()
+        run: |
+          {
+            echo "### precios_mayoreo_diario.xlsx"
+            echo
+            echo "- update exit code: \`${{ steps.fetch.outputs.update_rc }}\` (non-zero only means some products need a retry)"
+            echo "- newest quote day: \`$(python -c "import pandas as pd; print(pd.read_parquet('data/curated/var_market_daily.parquet', columns=['fecha']).fecha.max())" 2>/dev/null || echo unknown)\`"
+            echo
+            echo "[Download the workbook](https://github.com/${{ github.repository }}/releases/latest/download/precios_mayoreo_diario.xlsx)"
+          } >> "$GITHUB_STEP_SUMMARY"

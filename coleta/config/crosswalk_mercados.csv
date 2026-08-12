@@ -1,0 +1,53 @@
+destino_id,destino_sniim,clave_ciudad_inpc,ciudad_inpc,exacto,nota
+10,Aguascalientes: Centro Comercial Agropecuario de Aguascalientes,23,Aguascalientes,1,
+33,"Baja California : Central de Abasto INDIA, Tijuana",24,Tijuana,1,
+20,Baja California Sur: Unión de Comerciantes de La Paz,27,La Paz,1,
+40,"Campeche: Mercado ""Pedro Sáinz de Baranda"", Campeche",43,Campeche,1,
+50,"Coahuila: Central de Abasto de La Laguna, Torreón",15,Torreón,1,
+80,Colima: Centros de distribución de Colima,26,Colima,1,
+70,Chiapas: Central de Abasto de Tuxtla Gutiérrez,54,Tuxtla Gutiérrez,1,
+71,Chiapas: Tapachula,13,Tapachula,1,
+61,Chihuahua: Central de Abasto de Chihuahua,19,Chihuahua,1,
+63,Chihuahua: Mercado de Abasto de Cd. Juárez,07,Ciudad Juárez,1,
+100,DF: Central de Abasto de Iztapalapa DF,01,Área Metropolitana de la Cd. de México,1,
+102,"Durango: Central de Abasto ""Francisco Villa""",36,Durango,1,
+101,Durango: Centro de Distribución y Abasto de Gómez Palacio,15,Torreón,0,Gómez Palacio is part of the Comarca Lagunera conurbation with Torreón
+110,Guanajuato: Central de Abasto de León,10,León,1,
+112,"Guanajuato: Mercado de Abasto de Celaya (""Benito Juárez"")",34,Cortazar,0,Celaya is not an INPC city; Cortazar is the nearest at ~20 km
+111,Guanajuato: Módulo de Abasto Irapuato,34,Cortazar,0,Irapuato is not an INPC city; Cortazar is the nearest at ~40 km
+121,Guerrero: Central de Abastos de Acapulco,08,Acapulco,1,
+122,Guerrero: Chilpancingo de los Bravo,31,Iguala,0,Chilpancingo is not an INPC city; Iguala is the nearest Guerrero one at ~100 km
+130,Hidalgo: Central de Abasto de Pachuca,52,Pachuca,1,
+140,Jalisco: Mercado de Abasto de Guadalajara,04,Guadalajara,1,
+141,Jalisco: Mercado Felipe Ángeles de Guadalajara,04,Guadalajara,1,
+151,México: Central de Abasto de Ecatepec,01,Área Metropolitana de la Cd. de México,1,Ecatepec is inside the CDMX metropolitan area
+150,México: Central de Abasto de Toluca,14,Toluca,1,
+160,Michoacán: Mercado de Abasto de Morelia,03,Morelia,1,
+170,Morelos: Central de Abasto de Cuautla,40,Cuernavaca,0,Cuautla is not an INPC city; Cuernavaca is the Morelos one at ~40 km
+172,"Morelos: Mercado ""Adolfo López Mateos"" de Cuernavaca",40,Cuernavaca,1,
+180,Nayarit: Mercado de abasto 'Adolfo López Mateos' de Tepic,37,Tepic,1,
+181,Nayarit: Nayarabastos de Tepic,37,Tepic,1,
+190,"Nuevo León: Mercado de Abasto ""Estrella"" de San Nicolás de los Garza",05,Monterrey,1,San Nicolás de los Garza is inside the Monterrey metropolitan area
+200,Oaxaca: Módulo de Abasto de Oaxaca,38,Oaxaca,1,
+210,Puebla: Central de Abasto de Puebla,11,Puebla,1,
+220,Querétaro: Mercado de Abasto de Querétaro,39,Querétaro,1,
+230,"Quintana Roo: Mercado de Chetumal, Quintana Roo",28,Chetumal,1,
+231,Quintana Roo: Módulo de Abasto Cancún,48,Cancún,1,
+240,San Luis Potosí: Centro de Abasto de San Luis Potosí,12,San Luis Potosí,1,
+250,Sinaloa: Central de Abasto de Culiacán,09,Culiacán,1,
+252,Sinaloa: Zona de Abasto de Mazatlán,09,Culiacán,0,Mazatlán is not an INPC city; Culiacán is the Sinaloa one at ~200 km - the weakest match in this table
+261,Sonora: Central de Abasto de Cd. Obregón,50,Esperanza,1,Esperanza adjoins Ciudad Obregón
+260,"Sonora: Mercado de Abasto ""Francisco I. Madero"" de Hermosillo",20,Hermosillo,1,
+270,Tabasco: Central de Abasto de Villahermosa,17,Villahermosa,1,
+281,Tamaulipas: Módulo de Abasto de Reynosa,25,Matamoros,0,Reynosa is not an INPC city; Matamoros is the nearest at ~90 km
+280,"Tamaulipas: Módulo de Abasto de Tampico, Madero y Altamira",18,Tampico,1,
+301,Veracruz: Central de Abasto de Jalapa,16,Veracruz,0,Xalapa is not an INPC city; Veracruz port is the nearest at ~100 km
+302,Veracruz: Central de Abasto de Minatitlán,49,Coatzacoalcos,1,Minatitlán adjoins Coatzacoalcos
+306,Veracruz: Mercado Malibrán,16,Veracruz,1,Malibrán is in the Veracruz-Boca del Río area
+310,Yucatán: Central de Abasto de Mérida,02,Mérida,1,
+311,Yucatán: Centro Mayorista Oxkutzcab,02,Mérida,0,Oxkutzcab is not an INPC city; Mérida is the Yucatán one at ~100 km
+312,"Yucatán: Mercado ""Casa del Pueblo""",02,Mérida,1,Casa del Pueblo is in Mérida
+320,Zacatecas: Mercado de Abasto de Zacatecas,55,Zacatecas,1,
+9001,Veracruz: Mercado de San José de Xalapa,16,Veracruz,0,Historical market label; Xalapa is not an INPC city so Veracruz port is used
+9002,Chihuahua: Central de Abasto de Cd. Juárez,07,Ciudad Juárez,1,Historical label for the Cd. Juárez market
+9003,Michoacán: Centro de Abasto de Zamora,29,Jacona,1,Zamora adjoins Jacona which is the INPC city
