@@ -14,39 +14,27 @@ the current file. Same URL works in `curl`, pandas (`pd.read_excel(url)`), or a 
 
 ## 1. Push the code
 
-From `~/Downloads/coleta`, with `data/` excluded — the store travels as a release asset, not
-in git:
-
-```bash
-cd ~/Downloads/coleta
-cat >> .gitignore <<'EOF'
-data/
-*.xlsx
-*.pdf
-charts/
-logs/
-_incoming/
-_to_delete/
-EOF
-
-git init -b main
-git add -A
-git commit -m "SNIIM wholesale price collector and daily publication"
-git remote add origin https://github.com/wilsonfelicio/marshall-workspace.git
-git push -u origin main
-```
+Done: the project lives in the `coleta/` subfolder of `marshall-workspace`, and the workflow
+sits at the repo root in `.github/workflows/daily.yml` because GitHub reads workflows only
+from there. Every step runs with `working-directory: coleta`. `MOVE_TO_SUBFOLDER.md` has the
+copy-in procedure if it ever has to be redone. `data/` stays out of git — the store travels
+as a release asset.
 
 ## 2. Seed the store
 
 The workflow restores the store from a release asset rather than rebuilding 28 years of
-history every day. Upload it once, from the machine that already has the data:
+history every day. Upload it once, from the machine that already has the data. Build the
+tarball from `~/Downloads/coleta`, so its paths start with `data/` and not `coleta/data/` —
+the runner untars inside `coleta/`:
 
 ```bash
 cd ~/Downloads/coleta
-tar czf store.tar.gz data/raw data/catalog data/inpc data/manifest.csv
+tar czf /tmp/store.tar.gz data/raw data/catalog data/inpc data/manifest.csv
+tar tzf /tmp/store.tar.gz | head -3        # must start with data/
+cd ~/Downloads/marshall-workspace
 gh release create data --title "Latest data" \
   --notes "Rolling data release. Assets are replaced on each run." \
-  store.tar.gz
+  /tmp/store.tar.gz
 ```
 
 That tarball is about 65MB compressed, well inside the 2GB per-asset limit. If you do not
