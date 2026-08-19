@@ -29,6 +29,10 @@ from a different SNIIM application through a different collector, and the workbo
 produce half is the primary deliverable. Withholding thirty-two produce columns because a
 rastro endpoint stalled would be the wrong trade, so a stale protein series prints a
 warning and the publish goes ahead. Use --proteins-fail to make it binding instead.
+Cadence-aware for the same reason the produce check is: huevo publishes roughly weekly,
+so judging it by the daily yardstick warned on most days about a series that was exactly
+on schedule. Each series is held to its own trailing cadence, same formula as the weekly
+granos: allowed gap = max(10, 2.5 x typical) calendar days.
 
   python3 scripts/check_freshness.py [--max-age 4] [--min-cover 0.5] [--max-thin 4]
 """
@@ -157,21 +161,38 @@ if not A.no_state:
 # ---------------------------------------------------------------- proteins (reported)
 import glob                                                            # noqa: E402
 
-prot = {}
+pdays: dict = {}
 for f in glob.glob(str(ROOT / "data" / "raw" / "proteinas" / "*" / "anio=*" / "part.parquet")):
     s = pathlib.Path(f).parent.parent.name
-    m = pd.read_parquet(f, columns=["fecha"]).fecha.max()
-    prot[s] = max(prot.get(s, pd.Timestamp.min), pd.Timestamp(m))
-if not prot:
+    days = pd.to_datetime(pd.read_parquet(f, columns=["fecha"]).fecha).dt.normalize()
+    pdays.setdefault(s, set()).update(days)
+if not pdays:
     note.append("proteins: none in this store yet — the workbook will carry produce only")
 else:
-    stale = {s: v for s, v in prot.items()
-             if int(np.busday_count(v.date(), today.date())) > A.max_age}
+    prot = {s: max(v) for s, v in pdays.items()}
+    # Each series is held to its own cadence, not the daily yardstick: huevo publishes
+    # roughly weekly, and judging it by --max-age business days warned on most days about
+    # a series that was exactly on schedule. Typical gap = median spacing of its quote
+    # days over the trailing quarter; a daily series (gap <= 3) keeps the --max-age rule,
+    # a slower one gets the weekly granos formula, max(10, 2.5 x typical) calendar days.
+    stale = {}
+    pcad = {}
+    for s, dset in pdays.items():
+        days = pd.DatetimeIndex(sorted(dset))
+        recent = days[days >= days.max() - pd.Timedelta(days=90)]
+        cad = float(recent.to_series().diff().dt.days.median()) if len(recent) > 1 else 1.0
+        pcad[s] = cad
+        if cad <= 3.0:
+            if int(np.busday_count(days.max().date(), today.date())) > A.max_age:
+                stale[s] = days.max()
+        elif (pd.Timestamp(today.date()) - days.max()).days > max(10, int(round(2.5 * cad))):
+            stale[s] = days.max()
     newest = max(prot.values())
     print(f"\nproteins: {len(prot)} series, newest quote {newest:%Y-%m-%d}")
     for s in sorted(prot, key=prot.get)[:4]:
-        print(f"   {s:<20}{prot[s]:%Y-%m-%d}")
-    msg = (f"{len(stale)} protein series stale by more than {A.max_age} business days: "
+        cadtxt = f"~every {pcad[s]:.0f}d" if pcad[s] > 3.0 else "daily"
+        print(f"   {s:<20}{prot[s]:%Y-%m-%d}  ({cadtxt})")
+    msg = (f"{len(stale)} protein series behind their own cadence: "
            + ", ".join(f"{s} {v:%Y-%m-%d}" for s, v in sorted(stale.items())))
     if stale and A.proteins_fail:
         fail.append(msg)
