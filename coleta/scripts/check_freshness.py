@@ -37,6 +37,7 @@ from __future__ import annotations
 import argparse
 import datetime as dt
 import json
+import os
 import pathlib
 import sys
 
@@ -185,8 +186,24 @@ for n in note:
     print(f"ok    {n}")
 for f in fail:
     print(f"FAIL  {f}")
+# Exit through os._exit rather than falling off the end. Reading the protein store adds
+# ~33 more parquet handles to the ones the produce checks already open, and on the runner
+# (pandas 3.0.5 / pyarrow 25.0.1) that tips Arrow's teardown into `terminate called
+# without an active exception` — SIGABRT, exit 134, sixteen seconds AFTER the verdict is
+# printed. On 2026-08-19 that crash withheld a workbook whose five checks had all passed,
+# which is precisely backwards: the gate exists to stop bad data reaching the release, not
+# to lose good data to a destructor. The verdict is computed and flushed by this point and
+# .last_rows.json is already written, so there is nothing left for interpreter shutdown to
+# do except crash. Skip it.
+def _leave(code: int) -> "None":
+    sys.stdout.flush()
+    sys.stderr.flush()
+    os._exit(code)
+
+
 if fail:
     print(f"\n{len(fail)} check(s) failed — not publishing. The previously published file "
           f"stays in place.")
-    sys.exit(1)
+    _leave(1)
 print("\nall checks passed — safe to publish")
+_leave(0)

@@ -39,6 +39,7 @@ composition effects. Do not difference this and expect the model's regressor.
 """
 from __future__ import annotations
 
+import os
 import sys
 import warnings
 
@@ -357,3 +358,11 @@ print(cov.drop(columns=["ultimo_dia_menos_5", "ultimo_dia_excluido"])
       .to_string(index=False, formatters={
     "pct_de_dias": "{:.0f}".format, "mercados_mediana": "{:.0f}".format,
     "nivel_ultimo": "{:.2f}".format, "nivel_medio": "{:.2f}".format}))
+
+# Same hard exit as the publish gate, for the same reason: the workbook is closed and on
+# disk by the time these lines run, and letting Arrow tear itself down after this many
+# parquet reads risks an exit-134 abort that would fail the step and withhold a file that
+# was already built correctly. See the note in scripts/check_freshness.py.
+sys.stdout.flush()
+sys.stderr.flush()
+os._exit(0)
