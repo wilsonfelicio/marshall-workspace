@@ -65,6 +65,12 @@ jobs:
 
       - run: pip install -r requirements.txt
 
+      # Six seconds of parser and nowcast tests, so a regression surfaces here rather
+      # than forty minutes later as a mangled workbook. Deliberately blocking: verified
+      # against this runner's own pandas/pyarrow before it was added.
+      - name: Tests
+        run: python -m pytest tests/ -q
+
       - name: Restore the store from the data release
         if: ${{ !inputs.bootstrap }}
         env:

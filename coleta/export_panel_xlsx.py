@@ -138,8 +138,14 @@ for key, col, _gen, keep in PROT:
     if not len(d):
         print(f"  {col:<32} no rows after the product filter, skipped", flush=True)
         continue
-    g = (d.assign(lp=np.log(d.precio))
-         .groupby("fecha").agg(lp=("lp", "mean"), nm=("destino", "nunique")))
+    # Two stages, because one mean over all quotes would weight each QUOTE equally and a
+    # market posting 26 shrimp grades would outweigh one posting 2 — measured on camarón
+    # that construction sits a median 10.7% from this one (res_cortes 0.6%, huevo 0.8%),
+    # and worse, a heavy-portfolio market skipping a day moves the "price". Mean within
+    # market first, then across markets, which is what the LEEME promises.
+    per_mkt = (d.assign(lp=np.log(d.precio))
+               .groupby(["fecha", "destino"]).lp.mean())
+    g = per_mkt.groupby("fecha").agg(lp="mean", nm="size")
     # A day resting on a handful of markets is not a national price, and the newest day is
     # the usual offender: partway through 13 Aug 2026 only the early-reporting markets were
     # in and pollo read 50.79 against 61.85 the day before. Anyone taking the last row as

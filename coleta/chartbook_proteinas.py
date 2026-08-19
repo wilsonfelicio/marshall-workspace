@@ -102,8 +102,14 @@ def national(d, keep_products):
         d = d[d.producto.isin(keep_products)]
     if not len(d):
         return None
-    g = (d.assign(lp=np.log(d.precio))
-         .groupby("fecha").agg(lp=("lp", "mean"), nm=("destino", "nunique")))
+    # Two stages, because one mean over all quotes would weight each QUOTE equally and a
+    # market posting 26 shrimp grades would outweigh one posting 2 — measured on camarón
+    # that construction sits a median 10.7% from this one (res_cortes 0.6%, huevo 0.8%),
+    # and worse, a heavy-portfolio market skipping a day moves the "price". Mean within
+    # market first, then across markets, which is what the LEEME promises.
+    per_mkt = (d.assign(lp=np.log(d.precio))
+               .groupby(["fecha", "destino"]).lp.mean())
+    g = per_mkt.groupby("fecha").agg(lp="mean", nm="size")
     lp, nm = g.lp, g.nm
     typical = nm.rolling(60, min_periods=5, center=True).median().bfill().ffill()
     thin = nm < (MIN_COVER * typical)

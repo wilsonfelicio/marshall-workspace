@@ -12,13 +12,13 @@ https://github.com/wilsonfelicio/marshall-workspace/releases/latest/download/pre
 Public repo, so no token. In Excel: **Data → From Web**, paste that, and *Refresh All* pulls
 the current file. Same URL works in `curl`, pandas (`pd.read_excel(url)`), or a browser.
 
-## 1. Push the code
+## 1. Where the code lives
 
-Done: the project lives in the `coleta/` subfolder of `marshall-workspace`, and the workflow
-sits at the repo root in `.github/workflows/daily.yml` because GitHub reads workflows only
-from there. Every step runs with `working-directory: coleta`. `MOVE_TO_SUBFOLDER.md` has the
-copy-in procedure if it ever has to be redone. `data/` stays out of git — the store travels
-as a release asset.
+The project is the `coleta/` subfolder of `wilsonfelicio/marshall-workspace`. The workflow
+file sits at the repository root (`.github/workflows/daily.yml`) because GitHub only reads
+workflows from there; every step runs with `working-directory: coleta`. To change the
+pipeline, edit in a clone of that repo and push — the `~/Downloads/coleta` folder is a
+working copy that holds the data, not a git repo.
 
 ## 2. Seed the store
 

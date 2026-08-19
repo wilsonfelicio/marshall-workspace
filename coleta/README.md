@@ -397,35 +397,12 @@ take an advisory lock on `data/.lock` and exit with code 2 if another run holds
 it — without that, a cron `update` firing while a long `backfill` is still
 running would let each clobber the other's rows for the current year.
 
-### macOS — launchd (recommended)
+### Scheduling
 
-Preferred over cron because launchd runs a missed job when the Mac next wakes,
-instead of skipping it.
-
-```bash
-sed -i '' "s|REPLACE_ME|$(pwd)|g" scripts/mx.sniim.update.plist
-cp scripts/mx.sniim.update.plist ~/Library/LaunchAgents/
-launchctl load ~/Library/LaunchAgents/mx.sniim.update.plist
-launchctl start mx.sniim.update
-tail -f logs/cron.log
-```
-
-Those five lines: point the plist at this project, install it, load it, fire it
-once immediately rather than waiting for 19:30, and watch the log.
-
-### macOS / Linux — cron
-
-```bash
-chmod +x scripts/daily_update.sh
-crontab -e
-```
-
-```cron
-30 19 * * 1-5 /Users/wilsonfelicio/Downloads/coleta/scripts/daily_update.sh
-```
-
-Weekdays at 19:30 — SNIIM publishes on weekday afternoons, so an evening run
-captures the same day.
+The daily run happens on GitHub Actions, not on this machine: `.github/workflows/daily.yml`
+at the repository root runs weekdays at 19:00 UTC (13:00 Mexico City), refreshes both
+collectors, and replaces the release assets. SETUP.md covers the one-time setup and the
+publish gate. Nothing needs to be scheduled locally.
 
 ### Keeping an eye on it
 
@@ -561,8 +538,7 @@ sniim/
   mapping.py              the 32-category mapping rules and their rationale
   aggregate.py            DuckDB build, aggregates, chained Jevons index
 scripts/
-  daily_update.sh         scheduler wrapper
-  mx.sniim.update.plist   launchd job template
+  check_freshness.py      the publish gate
 ```
 
 Collection is deliberately **single-threaded**. Parallelism is what gets you
