@@ -5,6 +5,12 @@
 # with working-directory: coleta. That also means the paths inside store.tar.gz are
 # relative to coleta/ — tar and untar both happen there, so they stay consistent.
 #
+# The workbook carries BOTH halves of the panel: 32 produce generics from the Agrícolas
+# module and 10 protein series from Pecuarios and Pesqueros. Those are separate collectors
+# against separate SNIIM applications, so they fetch in separate steps and neither one's
+# failure withholds the other's data. The publish gate reads the produce store, which is
+# the primary series; proteins are reported but do not hold the release.
+#
 # Publishes coleta/precios_mayoreo_diario.xlsx as a release asset on the `data` tag, which
 # gives a permanently stable download URL:
 #
@@ -69,6 +75,7 @@ jobs:
           rm store.tar.gz
           echo "restored:"; du -sh data/raw data/inpc 2>/dev/null || true
           wc -l data/manifest.csv
+          wc -l data/manifest_proteinas.csv 2>/dev/null || echo "no protein manifest yet"
 
       - name: Bootstrap the store (first run only)
         if: ${{ inputs.bootstrap }}
@@ -88,6 +95,43 @@ jobs:
           echo "update_rc=$?" >> "$GITHUB_OUTPUT"
           set -e
 
+      # Proteins were added to the workbook after the store already existed, so the first
+      # run after this change finds no protein history and has to build it: about 350
+      # month-jobs, half an hour, once. Gated on the manifest rather than on a dispatch
+      # input, because a checkbox someone has to remember is a checkbox someone forgets,
+      # and the cost of forgetting is a workbook whose protein columns quietly begin two
+      # months ago instead of in 2024.
+      - name: Seed the protein series if the store has none
+        run: |
+          # `[ -f x ] && n=...` would return non-zero when the file is absent, and the
+          # default shell here is `bash -e`, so that one-liner fails the step on exactly
+          # the run it exists to handle. Spell out the if.
+          n=0
+          if [ -f data/manifest_proteinas.csv ]; then
+            n=$(grep -c ',ok,' data/manifest_proteinas.csv || true)
+          fi
+          if [ "$n" -lt 200 ]; then
+            echo "::notice::protein store holds $n complete months — backfilling 2024 to date, about 30 minutes, once"
+            python run_proteinas.py --from-year 2024 || \
+              echo "::warning::the protein backfill reported failures; it resumes on the next run"
+          else
+            echo "protein store OK: $n complete months already fetched"
+          fi
+
+      # A month is this collector's unit of work, so its resume rule would mark the current
+      # month done on the first fetch and never look at it again — the panel would freeze on
+      # the day of the first run while still reporting success. --update ignores the manifest
+      # for this month and last. Non-blocking for the same reason as `run.py update`:
+      # res_cortes still paginates and cerdo_cortes returns nothing, both known, both
+      # recorded in the manifest, and neither a reason to withhold the produce panel.
+      - name: Fetch the protein window
+        id: proteins
+        run: |
+          set +e
+          python run_proteinas.py --update
+          echo "prot_rc=$?" >> "$GITHUB_OUTPUT"
+          set -e
+
       - name: Verify the store
         run: python run.py verify || echo "::warning::run.py verify reported problems"
 
@@ -103,8 +147,17 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
+          # The protein manifest is listed only if it exists. tar exits non-zero on a
+          # missing operand, which would fail this step and withhold the produce workbook
+          # too — the one outcome the split-collector design exists to prevent. Spelled as
+          # an if for the same reason as the seed step: `[ -f x ] && v=...` returns
+          # non-zero under `bash -e` on exactly the run it is meant to handle.
+          extra=""
+          if [ -f data/manifest_proteinas.csv ]; then
+            extra="data/manifest_proteinas.csv"
+          fi
           tar czf store.tar.gz data/raw data/catalog data/inpc data/manifest.csv \
-            data/curated/.last_rows.json
+            $extra data/curated/.last_rows.json
           gh release view data >/dev/null 2>&1 || \
             gh release create data --title "Latest data" --notes "Rolling data release. Assets are replaced on each run."
           gh release upload data precios_mayoreo_diario.xlsx store.tar.gz --clobber
@@ -115,8 +168,10 @@ jobs:
           {
             echo "### precios_mayoreo_diario.xlsx"
             echo
-            echo "- update exit code: \`${{ steps.fetch.outputs.update_rc }}\` (non-zero only means some products need a retry)"
-            echo "- newest quote day: \`$(python -c "import pandas as pd; print(pd.read_parquet('data/curated/var_market_daily.parquet', columns=['fecha']).fecha.max())" 2>/dev/null || echo unknown)\`"
+            echo "- produce update exit code: \`${{ steps.fetch.outputs.update_rc }}\` (non-zero only means some products need a retry)"
+            echo "- protein update exit code: \`${{ steps.proteins.outputs.prot_rc }}\`"
+            echo "- newest produce quote day: \`$(python -c "import pandas as pd; print(pd.read_parquet('data/curated/var_market_daily.parquet', columns=['fecha']).fecha.max())" 2>/dev/null || echo unknown)\`"
+            echo "- newest protein quote day: \`$(python -c "import glob, pandas as pd; f=glob.glob('data/raw/proteinas/*/anio=*/part.parquet'); print(max(pd.read_parquet(x, columns=['fecha']).fecha.max() for x in f) if f else 'none')" 2>/dev/null || echo unknown)\`"
             echo
             echo "[Download the workbook](https://github.com/${{ github.repository }}/releases/latest/download/precios_mayoreo_diario.xlsx)"
           } >> "$GITHUB_STEP_SUMMARY"

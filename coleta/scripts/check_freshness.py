@@ -24,6 +24,12 @@ Three checks:
   3. CONTINUITY. The store must not have lost history: the total row count may not fall
      below what the previous run recorded in .last_rows.
 
+And one REPORT that is deliberately not a check: protein recency. The protein series come
+from a different SNIIM application through a different collector, and the workbook's
+produce half is the primary deliverable. Withholding thirty-two produce columns because a
+rastro endpoint stalled would be the wrong trade, so a stale protein series prints a
+warning and the publish goes ahead. Use --proteins-fail to make it binding instead.
+
   python3 scripts/check_freshness.py [--max-age 4] [--min-cover 0.5] [--max-thin 4]
 """
 from __future__ import annotations
@@ -46,6 +52,8 @@ ap.add_argument("--max-age", type=int, default=4, help="business days of stalene
 ap.add_argument("--min-cover", type=float, default=0.50)
 ap.add_argument("--max-thin", type=int, default=4)
 ap.add_argument("--no-state", action="store_true", help="skip the row-count continuity check")
+ap.add_argument("--proteins-fail", action="store_true",
+                help="let a stale protein series block the publish (default: warn only)")
 A = ap.parse_args()
 
 fail: list[str] = []
@@ -144,6 +152,32 @@ if not A.no_state:
     STATE.write_text(json.dumps({"rows": rows, "last_day": str(last.date()),
                                  "checked_at": dt.datetime.utcnow().isoformat() + "Z"},
                                 indent=1))
+
+# ---------------------------------------------------------------- proteins (reported)
+import glob                                                            # noqa: E402
+
+prot = {}
+for f in glob.glob(str(ROOT / "data" / "raw" / "proteinas" / "*" / "anio=*" / "part.parquet")):
+    s = pathlib.Path(f).parent.parent.name
+    m = pd.read_parquet(f, columns=["fecha"]).fecha.max()
+    prot[s] = max(prot.get(s, pd.Timestamp.min), pd.Timestamp(m))
+if not prot:
+    note.append("proteins: none in this store yet — the workbook will carry produce only")
+else:
+    stale = {s: v for s, v in prot.items()
+             if int(np.busday_count(v.date(), today.date())) > A.max_age}
+    newest = max(prot.values())
+    print(f"\nproteins: {len(prot)} series, newest quote {newest:%Y-%m-%d}")
+    for s in sorted(prot, key=prot.get)[:4]:
+        print(f"   {s:<20}{prot[s]:%Y-%m-%d}")
+    msg = (f"{len(stale)} protein series stale by more than {A.max_age} business days: "
+           + ", ".join(f"{s} {v:%Y-%m-%d}" for s, v in sorted(stale.items())))
+    if stale and A.proteins_fail:
+        fail.append(msg)
+    elif stale:
+        note.append("WARNING, not blocking — " + msg)
+    else:
+        note.append(f"proteins OK: {len(prot)} series, newest {newest:%Y-%m-%d}")
 
 # ---------------------------------------------------------------- verdict
 print()

@@ -2,7 +2,7 @@
 
   chartbook_frutas_verduras.pdf   32 pages, one per INPC generic, plus a cover
 
-Each page shows three series that all measure a change over ROUGHLY THIRTY DAYS, so
+Each page shows four series that all measure a change over ROUGHLY THIRTY DAYS, so
 they belong on one axis:
 
   30d%   the 30-day moving average of the wholesale price against the 30 days before it
@@ -10,6 +10,9 @@ they belong on one axis:
          monthly change measured on a shorter window, so it leads and overshoots
   CPI    INEGI's published index for the generic, each fortnight against the fortnight
          two prints earlier, plotted on the day its fortnight CLOSES
+  fit    a real-time model estimate of that published change, from the wholesale panel
+         and the last print INEGI had actually released. See nowcast.py; every point on
+         it is out of sample, and each page states its error against the 30d line alone.
 
 The dating matters more than it looks: a fortnight is labelled by its first day but
 summarises prices through its last, so plotting the dot at the label understates the
@@ -20,7 +23,7 @@ so 30 rows of the daily panel spans about six weeks and would drift in length ac
 sample. `--rows` switches to row counts if you want to reproduce a spreadsheet that
 offsets by rows.
 
-  python3 chartbook.py [--from YYYY] [--rows] [--out FILE]
+  python3 chartbook.py [--from YYYY] [--rows] [--no-model] [--out FILE]
 """
 from __future__ import annotations
 
@@ -42,12 +45,10 @@ from matplotlib.backends.backend_pdf import PdfPages
 from matplotlib.lines import Line2D
 from matplotlib.ticker import FuncFormatter, MaxNLocator
 
-BLUE, ORANGE, GRAY = "#2a78d6", "#eb6834", "#8a8880"
-SURF, INK, SEC, MUT, GRID, AXIS = "#fcfcfb", "#0b0b0b", "#52514e", "#898781", "#e1e0d9", "#c3c2b7"
-plt.rcParams.update({
-    "font.family": "DejaVu Sans", "figure.facecolor": SURF, "axes.facecolor": SURF,
-    "savefig.facecolor": SURF, "text.color": INK, "xtick.color": MUT, "ytick.color": MUT,
-    "axes.edgecolor": AXIS, "axes.linewidth": 0.9, "pdf.fonttype": 42})
+import nowcast
+import style as S
+
+S.use()
 
 # The order the user asked for: fruit, then vegetables, then the two granos.
 ORDER = ["Aguacate", "Durazno", "Guayaba", "Limón", "Manzana", "Melón", "Naranja",
@@ -62,14 +63,26 @@ ap.add_argument("--from", dest="y0", type=int, default=2024)
 ap.add_argument("--rows", action="store_true",
                 help="offset by panel rows instead of calendar days")
 ap.add_argument("--out", default="chartbook_frutas_verduras.pdf")
+# so this book can be rendered as one SECTION of a combined chartbook: no cover of its
+# own, and page numbers that continue from wherever the previous section stopped
+ap.add_argument("--no-cover", action="store_true")
+ap.add_argument("--page-offset", type=int, default=0)
+ap.add_argument("--page-total", type=int, default=0)
+ap.add_argument("--no-model", action="store_true", help="drop the fitted CPI line")
+ap.add_argument("--train-years", type=int, default=8,
+                help="wholesale history loaded before the plotted window, to train on")
 A = ap.parse_args()
 LO = pd.Timestamp(f"{A.y0}-01-01")
+TODAY = pd.Timestamp.today().strftime("%d %B %Y")
+# the plot starts at LO, but the model has to be trained on fortnights that closed well
+# before it, so the panel is loaded from further back and trimmed only at draw time
+LOAD = LO - pd.DateOffset(years=0 if A.no_model else A.train_years) - pd.Timedelta(days=120)
 
 # ------------------------------------------------------------------ wholesale, daily
 d = pd.read_parquet("data/curated/var_market_daily.parquet",
                     columns=["categoria_label", "fecha", "destino", "precio_geo"])
 d["fecha"] = pd.to_datetime(d["fecha"])
-d = d[(d.precio_geo > 0) & (d.fecha >= LO - pd.Timedelta(days=120))]
+d = d[(d.precio_geo > 0) & (d.fecha >= LOAD)]
 pw = pd.read_parquet("data/curated/pesos_mercado.parquet")
 wmap = dict(zip(pw.destino, pd.to_numeric(pw.peso_inpc, errors="coerce").fillna(0.0)))
 d["w"] = d.destino.map(wmap).fillna(0.0)
@@ -130,6 +143,12 @@ def series(name):
     n_thin = int(thin.sum())
     lp, nm = lp[~thin], nm[~thin]
     gap = float(pd.Series(lp.index).diff().dt.days.median() or 1.0)   # quoting cadence
+    # Carry each quote forward over the days its cadence covers, so a weekly series
+    # yields a continuous 30-day mean instead of 78 disconnected stubs, and so a
+    # holiday does not nick a daily line.
+    cal = pd.DataFrame({"lp": lp}).reindex(
+        pd.date_range(lp.index.min(), lp.index.max(), freq="D"))
+    cal["lp"] = cal.lp.ffill(limit=max(1, int(round(gap))))
     if A.rows:
         ma30 = lp.rolling(30, min_periods=10).mean()
         ma7 = lp.rolling(7, min_periods=3).mean()
@@ -137,12 +156,6 @@ def series(name):
         c7 = 100 * (ma7 - ma7.shift(30))
         idx = lp.index
     else:
-        # Carry each quote forward over the days its cadence covers, so a weekly series
-        # yields a continuous 30-day mean instead of 78 disconnected stubs, and so a
-        # holiday does not nick a daily line.
-        cal = pd.DataFrame({"lp": lp}).reindex(
-            pd.date_range(lp.index.min(), lp.index.max(), freq="D"))
-        cal["lp"] = cal.lp.ffill(limit=max(1, int(round(gap))))
         # 60% of the observations this generic's cadence would supply, with a floor of
         # four for the 30-day window: at min_periods=2 the last weeks of Frijol averaged
         # two quotes against a full prior window and printed a spurious +9.8%, which alone
@@ -155,58 +168,74 @@ def series(name):
         c30 = 100 * (ma30 - ma30.shift(30, freq="D").reindex(ma30.index))
         c7 = 100 * (ma7 - ma7.shift(30, freq="D").reindex(ma7.index))
         idx = cal.index
-    return (pd.DataFrame({"c30": c30, "c7": c7}, index=idx),
+    return (pd.DataFrame({"c30": c30, "c7": c7}, index=idx), cal.lp,
             float(nm.median()), gap, n_thin)
 
 
 def page(pdf, name, i, n):
+    i, n = i + A.page_offset, (A.page_total or n)
     got = series(name)
-    fig = plt.figure(figsize=(11.69, 8.27))          # A4 landscape
-    ax = fig.add_axes([0.088, 0.205, 0.889, 0.590])
-    ax.grid(axis="y", color=GRID, lw=0.9)
-    ax.set_axisbelow(True)
-    for sp in ("top", "right"):
-        ax.spines[sp].set_visible(False)
+    fig = S.page()
+    S.chrome(fig, "Precios de mayoreo", "Frutas y verduras", i, n,
+             "Source: SNIIM (Secretaría de Economía) and INEGI")
 
-    w = PESO.get(name)
-    sh = SHARE.get(name)
-    ttl = f"{name}"
+    w, sh = PESO.get(name), SHARE.get(name)
     sub = []
     if w is not None:
         sub.append(f"INPC weight {w:.3f}")
     if sh is not None:
         sub.append(f"{sh:.1f}% of subindex variance"
                    + (" — moves against it" if sh < 0 else ""))
-    fig.text(0.082, 0.930, ttl, fontsize=21, fontweight="bold", color=INK)
-    fig.text(0.082, 0.893, "  ·  ".join(sub), fontsize=11, color=SEC)
-    fig.text(0.977, 0.930, f"{i} / {n}", fontsize=10, color=MUT, ha="right")
+    fig.text(S.L, 0.858, name, fontsize=19, fontweight="bold", color=S.INK)
+    fig.text(S.L, 0.829, "   ·   ".join(sub), fontsize=9.6, color=S.GRAY)
 
     if got is None:
         fig.text(0.5, 0.5, "no wholesale quotes in this window", ha="center",
-                 color=MUT, fontsize=13)
+                 color=S.GRAY, fontsize=13)
         pdf.savefig(fig)
         plt.close(fig)
-        return None
+        return None, {}, {}
 
-    f, nmk, gap, n_thin = got
-    f = f[f.index >= LO]
-    c = CPI.get(name)
-    c = c[c.fecha >= LO] if c is not None else None
+    ax = S.panel(fig)
+    f_all, lp_cal, nmk, gap, n_thin = got
+    c_all = CPI.get(name)                       # full history: the model trains on it
+    f = f_all[f_all.index >= LO]
+    c = c_all[c_all.fecha >= LO] if c_all is not None else None
 
-    ax.axhline(0, color=MUT, lw=1.1, zorder=3)
-    ax.plot(f.index, f.c7, color=GRAY, lw=1.15, ls=(0, (4, 2.2)), zorder=4)
-    ax.plot(f.index, f.c30, color=BLUE, lw=1.9, zorder=6)
+    # ------------------------------------------------------- the fitted CPI line
+    lad, pred = {}, None
+    if not (A.no_model or A.rows) and c_all is not None:
+        X = nowcast.features(f_all, lp_cal, gap, c_all)
+        lad = nowcast.score_ladder(X, c_all, LO)
+        pred = lad.get("m2", (None,))[0]
+        if pred is not None:
+            pred = pred[pred.index >= LO]
+
+    ax.axhline(0, color=S.GRAY, lw=0.9, zorder=3)
+    ax.plot(f.index, f.c7, color=S.GRAY, lw=1.05, ls=(0, (3.5, 2.0)), zorder=4)
+    ax.plot(f.index, f.c30, color=S.INK, lw=1.7, zorder=6)
+    if pred is not None and len(pred):
+        ax.plot(pred.index, pred.values, color=S.NAVY, lw=1.5, zorder=6.5)
     if c is not None and len(c):
-        ax.scatter(c.fecha, c.chg, s=26, color=ORANGE, lw=0, zorder=7, marker="D")
-    ax.set_ylabel("change over ~30 days", fontsize=10.5, color=SEC, labelpad=6)
-    ax.yaxis.set_major_formatter(FuncFormatter(
-        lambda v, _: f"{'+' if v > 0.001 else ''}{v:.0f}%"))
+        ax.scatter(c.fecha, c.chg, s=24, color=S.ORANGE, lw=0, zorder=7, marker="D")
+    # bare ticks; the unit is stated inside the panel, this style's convention
+    ax.yaxis.set_major_formatter(FuncFormatter(lambda v, _: f"{v:.0f}"))
     ax.yaxis.set_major_locator(MaxNLocator(nbins=9, steps=[1, 2, 2.5, 5, 10],
                                            min_n_ticks=5))
     ax.xaxis.set_major_locator(mdates.MonthLocator(interval=2))
     ax.xaxis.set_major_formatter(mdates.DateFormatter("%b %y"))
     ax.set_xlim(LO, max(f.index.max(), c.fecha.max() if c is not None and len(c) else LO))
-    plt.setp(ax.get_xticklabels(), fontsize=9.5, rotation=0)
+    labels = [("Wholesale, 30-day average", S.INK), ("same on a 7-day average", S.GRAY)]
+    if pred is not None and len(pred):
+        labels.append(("Model fit for the CPI, real time", S.NAVY))
+    labels.append(("Published CPI, fortnight vs two prints earlier", S.ORANGE))
+    drawn = [(mdates.date2num(f.index), f.c30.to_numpy()),
+             (mdates.date2num(f.index), f.c7.to_numpy())]
+    if pred is not None and len(pred):
+        drawn.append((mdates.date2num(pred.index), pred.to_numpy()))
+    if c is not None and len(c):
+        drawn.append((mdates.date2num(c.fecha), c.chg.to_numpy()))
+    S.place_labels(ax, drawn, labels, "% change over ~30 days")
 
     # correlation of the wholesale monthly rate with the published print, aligned on the
     # fortnight close
@@ -240,71 +269,105 @@ def page(pdf, name, i, n):
         bits.append(f"quoted every {gap:.0f} days")
     if n_thin:
         bits.append(f"{n_thin} thin days dropped")
-    line = "   ·   ".join(bits)
-    for k, ln in enumerate(textwrap.wrap(line, width=116, break_long_words=False)):
-        fig.text(0.082, 0.845 - k * 0.026, ln, fontsize=10, color=SEC, fontweight="bold")
+    # the model's own line of the header: it is scored out of sample, and against the two
+    # simpler models, because a fit quoted on its own says nothing
+    m2 = lad.get("m2", (None, None, {}))[2]
+    if m2.get("n_oos", 0) > 6:
+        m0, m1 = lad["m0"][2], lad["m1"][2]
+        bits.append(f"model out-of-sample corr {m2['corr']:.2f}, error "
+                    f"{m2['rmse']:.2f}pp against {m0['rmse']:.2f} for the 30d line alone "
+                    f"and {m1['rmse']:.2f} without the CPI lag (n={m2['n_oos']})")
+    elif pred is not None:
+        bits.append("model shown but not scored: too few prints since training began")
+    # a generic INEGI only started publishing recently cannot have a line from the left
+    # edge — say so on the page rather than leaving a gap the reader has to interpret
+    if pred is not None and len(pred) and pred.index.min() > LO + pd.Timedelta(days=30):
+        bits.append(f"model starts {pred.index.min():%b %Y}: INEGI has published this "
+                    f"generic only since {c_all.fecha.min():%b %Y}, and the fit needs "
+                    f"{nowcast.MIN_TRAIN} prints before it can predict one")
+    for k, ln in enumerate(textwrap.wrap("   ·   ".join(bits), width=132,
+                                         break_long_words=False)):
+        fig.text(S.L, 0.795 - k * 0.0225, ln, fontsize=8.9, color=S.INK)
 
-    fig.legend(handles=[
-        Line2D([], [], color=BLUE, lw=2.2, label="Wholesale, 30-day average vs 30 days earlier"),
-        Line2D([], [], color=GRAY, lw=1.6, ls=(0, (4, 2.2)),
-               label="Wholesale, 7-day average vs 30 days earlier"),
-        Line2D([], [], color=ORANGE, lw=0, marker="D", markersize=6,
-               label="Published CPI, fortnight vs two prints earlier")],
-        loc="upper left", bbox_to_anchor=(0.082, 0.145), frameon=False, ncol=3,
-        fontsize=9.5, handlelength=2.0, columnspacing=2.2, labelcolor=SEC)
-    src = ("Source: SNIIM (Secretaría de Economía), daily wholesale quotes weighted by "
-           "INPC city weight, and INEGI. All three series measure a change over about "
-           f"thirty days; offsets in {'panel rows' if A.rows else 'calendar days'}. CPI dots "
-           "are plotted on the day each fortnight closes, not the day it is labelled, "
-           "because the print summarises prices through the last day of its fortnight.")
-    for k, ln in enumerate(textwrap.wrap(src, width=132)):
-        fig.text(0.082, 0.095 - k * 0.017, ln, fontsize=8.5, color=MUT)
+    eq = nowcast.equation(m2)
+    if eq:
+        # the coefficients in force at the last refit, in the units of the axis: points
+        # of CPI change per point of the regressor. They move at every fortnight.
+        fig.text(S.L, 0.196, eq, fontsize=9, color=S.NAVY, fontweight="bold")
+        fig.text(S.R, 0.196, f"ridge penalty {m2['alpha']:.3g}   ·   trained on "
+                 f"{m2['n_train']} fortnights   ·   refit every fortnight",
+                 fontsize=8, color=S.MUT, ha="right")
+    src = ("Wholesale is a geometric mean of daily SNIIM quotes across markets, each "
+           "weighted by its INPC city weight; the moving-average windows are calendar "
+           f"days, not rows{'' if not A.rows else ' (--rows: rows)'}. CPI dots are plotted "
+           "on the day each fortnight closes, not the day it is labelled, because the "
+           "print summarises prices through the last day of its fortnight.")
+    if eq:
+        src += (" The model is a ridge fit of the published change on the wholesale "
+                "fortnight-average change, its own lag, the 7-day edge and the last print "
+                "INEGI had actually released, re-estimated at every fortnight on data "
+                "available at the time — no point on it uses the print it draws.")
+    for k, ln in enumerate(textwrap.wrap(src, width=163)):
+        fig.text(S.L, 0.160 - k * 0.0155, ln, fontsize=7.5, color=S.MUT)
     pdf.savefig(fig)
     plt.close(fig)
-    return rho
+    return rho, m2, lad
 
 
 rows = []
 with PdfPages(A.out) as pdf:
-    # cover
-    fig = plt.figure(figsize=(11.69, 8.27))
-    fig.text(0.072, 0.795, "Mexican produce: wholesale prices", fontsize=25,
-             fontweight="bold", color=INK)
-    fig.text(0.072, 0.735, "against the published CPI", fontsize=25, fontweight="bold",
-             color=INK)
-    fig.text(0.072, 0.672,
-             f"One page per INPC generic, {len(ORDER)} of them, {A.y0} to date.",
-             fontsize=13, color=SEC)
-    body = ("Each page carries three series, all measuring a change over roughly thirty "
-            "days so that they share one axis: the wholesale 30-day average against the "
-            "30 days before it, the same thing on a 7-day average (which leads and "
-            "overshoots), and INEGI's published index for that generic, each fortnight "
-            "against the fortnight two prints earlier.\n\n"
-            "Wholesale is the geometric mean of daily quotes across markets, each market "
-            "carrying its INPC city weight. Moving-average windows are calendar days, not "
-            "row counts, because SNIIM does not quote on Sundays or holidays.\n\n"
+    # cover, unless this book is being rendered as a section of a combined one
+    if not A.no_cover:
+        fig = S.page()
+        S.chrome(fig, "Precios de mayoreo", TODAY,
+                 foot_left="Source: SNIIM (Secretaría de Economía) and INEGI")
+        fig.text(S.L, 0.790, "Mexican produce: wholesale prices", fontsize=27,
+                 color=S.ORANGE)
+        fig.text(S.L, 0.726, "against the published CPI", fontsize=27, color=S.ORANGE)
+        fig.text(S.L, 0.668,
+                 f"One page per INPC generic, {len(ORDER)} of them, {A.y0} to date.",
+                 fontsize=11.5, color=S.INK)
+        S.bullets(fig, [
+            "Four series on every page, all measuring a change over roughly thirty days so "
+            "that they share one axis: the wholesale 30-day average against the 30 days "
+            "before it, the same thing on a 7-day average (which leads and overshoots), "
+            "INEGI's published index for that generic, each fortnight against the fortnight "
+            "two prints earlier, and a model fit for that published change.",
+
+            "Wholesale is the geometric mean of daily SNIIM quotes across markets, each "
+            "market carrying its INPC city weight. Moving-average windows are calendar "
+            "days, not row counts, because SNIIM does not quote on Sundays or holidays.",
+
             "CPI dots sit on the day each fortnight CLOSES. A fortnight is labelled by its "
             "first day but summarises prices through its last, so plotting a dot at its "
             "label puts it half a month before the prices it describes — on jitomate that "
-            "alone moves the measured correlation from 0.86 to 0.40.\n\n"
-            "Nothing here is modelled. Both wholesale series are raw published quotes and "
-            "the dots are the published index.")
-    y = 0.600
-    for para in body.split("\n\n"):
-        for ln in textwrap.wrap(para, width=104):
-            fig.text(0.072, y, ln, fontsize=11, color=SEC)
-            y -= 0.030
-        y -= 0.016
-    fig.text(0.072, 0.055, "Source: SNIIM (Secretaría de Economía) and INEGI.",
-             fontsize=9, color=MUT)
-    pdf.savefig(fig)
-    plt.close(fig)
+            "alone moves the measured correlation from 0.86 to 0.40.",
+
+            "Three of the four series are raw published quotes. The fourth is a ridge "
+            "regression of the published change on the wholesale fortnight-average change, "
+            "its own lag, the 7-day edge, and the last print INEGI had actually released — "
+            "re-estimated at every fortnight on data available at the time, so every point "
+            "on it is out of sample. Each page states its error against the 30-day line "
+            "alone and against the same model without the CPI lag; the gap between those "
+            "two is how much of the fit is wholesale information rather than the CPI "
+            "repeating itself.",
+        ], 0.588)
+        pdf.savefig(fig)
+        plt.close(fig)
 
     for i, nm in enumerate(ORDER, start=1):
-        r = page(pdf, nm, i, len(ORDER))
-        rows.append({"generico": nm, "corr_30d_cpi": r})
+        r, m2, lad = page(pdf, nm, i, len(ORDER))
+        row = {"generico": nm, "corr_30d_cpi": r}
+        for tag in ("m0", "m1", "m2"):
+            st = lad.get(tag, (None, None, {}))[2]
+            row[f"{tag}_corr"] = st.get("corr")
+            row[f"{tag}_rmse"] = st.get("rmse")
+        row["n_oos"] = m2.get("n_oos")
+        row["sd_cpi"] = m2.get("sd_y")
+        rows.append(row)
         print(f"  {i:2d}/{len(ORDER)}  {nm:<30}"
-              f"{'corr ' + format(r, '.2f') if r is not None and not np.isnan(r) else '—'}")
+              f"{'corr ' + format(r, '.2f') if r is not None and not np.isnan(r) else '—':<12}"
+              f"{'model ' + format(m2['corr'], '.2f') if m2.get('corr') is not None else ''}")
 
 T = pd.DataFrame(rows)
 T.to_csv("data/curated/chartbook_corr.csv", index=False)
@@ -313,3 +376,11 @@ ok = T.corr_30d_cpi.dropna()
 print(f"corr(30d wholesale, published CPI): median {ok.median():.2f}, "
       f"best {T.loc[ok.idxmax(),'generico']} {ok.max():.2f}, "
       f"worst {T.loc[ok.idxmin(),'generico']} {ok.min():.2f}")
+if T.m2_rmse.notna().any():
+    g = T.dropna(subset=["m0_rmse", "m1_rmse", "m2_rmse"])
+    print(f"out-of-sample error, median across {len(g)} generics (pp): "
+          f"30d line alone {g.m0_rmse.median():.2f}  ->  wholesale model "
+          f"{g.m1_rmse.median():.2f}  ->  with the CPI lag {g.m2_rmse.median():.2f}"
+          f"   |  CPI's own sd {g.sd_cpi.median():.2f}")
+    print(f"model beats the 30d line on {int((g.m2_rmse < g.m0_rmse).sum())}/{len(g)}; "
+          f"the CPI lag helps on {int((g.m2_rmse < g.m1_rmse).sum())}/{len(g)}")
