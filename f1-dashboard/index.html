@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>🏎️ F1 Dutch GP — Race Weekend Dashboard</title>
+<title>🏎️ F1 Italian GP — Race Weekend Dashboard</title>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
 <style>
 :root { --bg:#0a0a0a; --surface:#141414; --border:#2a2a2a; --text:#e0e0e0; --muted:#888; --accent:#DC0000; }
@@ -14,7 +14,6 @@ body { background:var(--bg); color:var(--text); font-family:-apple-system,BlinkM
 .header .flag { font-size:2.5rem; }
 .header .meta { color:var(--muted); font-size:0.85rem; margin-top:4px; }
 .header .round { color:var(--accent); font-weight:600; }
-.header .sprint-badge { background:#f59e0b; color:#000; padding:2px 8px; border-radius:4px; font-size:0.75rem; font-weight:700; margin-left:6px; }
 .grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:16px; }
 @media (max-width:800px) { .grid { grid-template-columns:1fr; } }
 .card { background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:16px; }
@@ -25,7 +24,6 @@ body { background:var(--bg); color:var(--text); font-family:-apple-system,BlinkM
 .schedule li:last-child { border:none; }
 .schedule .session { font-weight:600; }
 .schedule .race { color:var(--accent); font-size:1.1rem; }
-.schedule .sprint { color:#f59e0b; font-size:1rem; }
 .schedule .time { color:#f59e0b; font-weight:600; }
 .schedule .note { color:var(--muted); font-size:0.75rem; }
 .standings { list-style:none; }
@@ -51,9 +49,9 @@ body { background:var(--bg); color:var(--text); font-family:-apple-system,BlinkM
 </head>
 <body>
 <div class="header">
-    <div class="flag">🇳🇱</div>
-    <h1>Dutch Grand Prix — Circuit Zandvoort</h1>
-    <div class="meta"><span class="round">Round 12</span> · Zandvoort, Netherlands · August 21–23, 2026 <span class="sprint-badge">SPRINT</span></div>
+    <div class="flag">🇮🇹</div>
+    <h1>Italian Grand Prix — Monza</h1>
+    <div class="meta"><span class="round">Round 13</span> · Autodromo Nazionale Monza · September 4–6, 2026</div>
     <div class="countdown" id="countdown"><div class="label">until lights out</div></div>
 </div>
 
@@ -64,201 +62,208 @@ body { background:var(--bg); color:var(--text); font-family:-apple-system,BlinkM
         <ul class="schedule">
 <li>
     <div><span class="session">FP1</span><br><span class="note">Fri · 60 min</span></div>
-    <div style="text-align:right"><span class="time">07:30</span><br><span class="note">Fri 21 Aug</span></div>
-    <div style="text-align:right"><span style="font-size:0.85rem">🌥️ ~19°C</span><br><span class="note">12:30 CEST · only practice hour</span></div>
+    <div style="text-align:right"><span class="time">07:30</span><br><span class="note">Fri 4 Sep</span></div>
+    <div style="text-align:right"><span style="font-size:0.85rem">☀️ ~26°C</span><br><span class="note">12:30 CEST</span></div>
 </li>
 <li>
-    <div><span class="session sprint">Sprint Quali</span><br><span class="note">Fri · SQ1/SQ2/SQ3</span></div>
-    <div style="text-align:right"><span class="time">11:30</span><br><span class="note">Fri 21 Aug</span></div>
-    <div style="text-align:right"><span style="font-size:0.85rem">🌬️ ~20°C</span><br><span class="note">16:30 CEST · sets Sprint grid</span></div>
+    <div><span class="session">FP2</span><br><span class="note">Fri · 60 min</span></div>
+    <div style="text-align:right"><span class="time">11:00</span><br><span class="note">Fri 4 Sep</span></div>
+    <div style="text-align:right"><span style="font-size:0.85rem">☀️ ~27°C</span><br><span class="note">16:00 CEST</span></div>
 </li>
 <li>
-    <div><span class="session sprint">SPRINT</span><br><span class="note">Sat · 24 laps</span></div>
-    <div style="text-align:right"><span class="time">07:00</span><br><span class="note">Sat 22 Aug</span></div>
-    <div style="text-align:right"><span style="font-size:0.85rem">🌥️ ~18°C</span><br><span class="note">12:00 CEST · 8 pts to winner</span></div>
+    <div><span class="session">FP3</span><br><span class="note">Sat · 60 min</span></div>
+    <div style="text-align:right"><span class="time">07:30</span><br><span class="note">Sat 5 Sep</span></div>
+    <div style="text-align:right"><span style="font-size:0.85rem">🌤️ ~25°C</span><br><span class="note">12:30 CEST</span></div>
 </li>
 <li>
     <div><span class="session">Qualifying</span><br><span class="note">Sat — Q1/Q2/Q3</span></div>
-    <div style="text-align:right"><span class="time">11:00</span><br><span class="note">Sat 22 Aug</span></div>
-    <div style="text-align:right"><span style="font-size:0.85rem">🌤️ ~20°C</span><br><span class="note">16:00 CEST · sets race grid</span></div>
+    <div style="text-align:right"><span class="time">11:00</span><br><span class="note">Sat 5 Sep</span></div>
+    <div style="text-align:right"><span style="font-size:0.85rem">🌤️ ~26°C</span><br><span class="note">16:00 CEST · sets race grid</span></div>
 </li>
 <li>
-    <div><span class="session race">RACE</span><br><span class="note">Sun afternoon — 72 laps</span></div>
-    <div style="text-align:right"><span class="time">10:00</span><br><span class="note">Sun 23 Aug</span></div>
-    <div style="text-align:right"><span style="font-size:0.85rem">🌥️ ~20°C</span><br><span class="note">15:00 CEST · coastal, rain always a risk</span></div>
+    <div><span class="session race">RACE</span><br><span class="note">Sun afternoon — 53 laps</span></div>
+    <div style="text-align:right"><span class="time">10:00</span><br><span class="note">Sun 6 Sep</span></div>
+    <div style="text-align:right"><span style="font-size:0.85rem">☀️ ~27°C</span><br><span class="note">15:00 CEST</span></div>
 </li>
         </ul>
-        <div class="note" style="margin-top:8px">⚠️ Sprint weekend — the first ever F1 Sprint on Dutch soil, and the <strong>last-ever</strong> F1 race at Zandvoort. Only <em>one</em> hour of practice before it starts counting: FP1 Friday morning, then straight into Sprint Qualifying that afternoon. Get the setup wrong and there's no time to fix it. Weather this far out isn't locked — but Zandvoort sits right on the North Sea, so treat every forecast as provisional: sea breeze, fast-moving cloud and a genuine rain risk are the norm here (2020–23 all had wet or damp running). Mild, ~18–21°C. On a narrow, banked, track-position circuit, one damp session can flip the whole order — and with two qualifying sessions (Sprint + GP), Friday and Saturday both matter.</div>
+        <div class="note" style="margin-top:8px">Back to a normal weekend format after the Zandvoort Sprint — three full practice sessions to dial in the skinniest wings of the year. Late-summer Lombardy is usually warm and sunny, but forecasts this far out are indicative only; afternoon thunderstorms rolling off the Alps are always a possibility in September. The big setup question: how low can teams trim the new active-aero cars at the fastest track on the calendar — straight-line speed vs stability into the chicanes.</div>
     </div>
 
     <!-- Circuit Info -->
     <div class="card">
         <h3>🏁 Circuit</h3>
-        <div style="font-size:1.1rem;font-weight:600;margin-bottom:12px;">Circuit Zandvoort</div>
+        <div style="font-size:1.1rem;font-weight:600;margin-bottom:12px;">Autodromo Nazionale Monza</div>
         <div class="circuit-info">
-            <div class="circuit-stat"><div class="val">4.259</div><div class="label">km length</div></div>
-            <div class="circuit-stat"><div class="val">72</div><div class="label">laps</div></div>
-            <div class="circuit-stat"><div class="val">14</div><div class="label">turns</div></div>
-            <div class="circuit-stat"><div class="val">2</div><div class="label">DRS zones</div></div>
-            <div class="circuit-stat"><div class="val">307</div><div class="label">km total</div></div>
+            <div class="circuit-stat"><div class="val">5.793</div><div class="label">km length</div></div>
+            <div class="circuit-stat"><div class="val">53</div><div class="label">laps</div></div>
+            <div class="circuit-stat"><div class="val">11</div><div class="label">turns</div></div>
+            <div class="circuit-stat"><div class="val">~360</div><div class="label">km/h top speed</div></div>
+            <div class="circuit-stat"><div class="val">306.7</div><div class="label">km total</div></div>
         </div>
-        <div style="margin-top:12px;color:var(--muted);font-size:0.8rem;">A 1948 dune-side classic in the seaside town of Zandvoort, reborn for F1 in 2021 after 36 years away. It's the <strong>only track on the calendar with banked corners</strong> — the Hugenholtzbocht (Turn 3) and the flat-out final Arie Luyendyk bend (Turn 14) are banked at ~18°, letting cars carry huge speed onto the main straight. The lap is a fast, flowing, roller-coaster ribbon threaded through the dunes with almost no run-off and barely a moment to breathe. Overtaking is genuinely hard: the heavy braking into the Tarzan hairpin (Turn 1) off the DRS main straight is the one real passing spot, so grid position and clean qualifying laps are gold. Coastal wind and shifting grip make it a driver's track.</div>
+        <div style="margin-top:12px;color:var(--muted);font-size:0.8rem;">The <strong>Temple of Speed</strong>. Built in 1922 in a royal park north of Milan, Monza is the oldest circuit on the calendar and has hosted the Italian GP every F1 season since 1950 bar one (1980). It's the fastest lap of the year: ~80% full throttle, four long straights interrupted by two heavy-braking chicanes, the twin Lesmo corners, the Ascari complex, and the endless Parabolica that slings cars back onto the 1.1&nbsp;km main straight. Teams run their thinnest wings of the season, tow games dominate qualifying, and slipstream battles make it one of the most passable tracks in F1. The heaviest braking zone — ~340 to ~85&nbsp;km/h into the Rettifilo chicane — is the prime overtaking spot.</div>
         <div style="margin-top:8px;"><a href="circuit.html" style="color:#f59e0b;font-size:0.8rem;">→ View circuit diagram</a></div>
     </div>
 
     <!-- Drivers Standings -->
     <div class="card">
-        <h3>🏆 Drivers Championship — After Round 11 (Hungary)</h3>
+        <h3>🏆 Drivers Championship — After Round 12 (Netherlands)</h3>
         <ul class="standings">
 <li>
     <span class="pos">1</span>
     <span class="team-dot" style="background:#00D2BE"></span>
     <span class="name">Kimi Antonelli</span>
-    <span class="pts">219</span>
+    <span class="pts">242</span>
     <div class="bar" style="width:100%;background:#00D2BE"></div>
 </li>
 <li>
     <span class="pos">2</span>
-    <span class="team-dot" style="background:#DC0000"></span>
-    <span class="name">Lewis Hamilton</span>
-    <span class="pts">169</span>
-    <div class="bar" style="width:77%;background:#DC0000"></div>
+    <span class="team-dot" style="background:#00D2BE"></span>
+    <span class="name">George Russell</span>
+    <span class="pts">183</span>
+    <div class="bar" style="width:76%;background:#00D2BE"></div>
 </li>
 <li>
     <span class="pos">3</span>
-    <span class="team-dot" style="background:#00D2BE"></span>
-    <span class="name">George Russell</span>
-    <span class="pts">160</span>
-    <div class="bar" style="width:73%;background:#00D2BE"></div>
+    <span class="team-dot" style="background:#DC0000"></span>
+    <span class="name">Lewis Hamilton</span>
+    <span class="pts">183</span>
+    <div class="bar" style="width:76%;background:#DC0000"></div>
 </li>
 <li>
     <span class="pos">4</span>
-    <span class="team-dot" style="background:#DC0000"></span>
-    <span class="name">Charles Leclerc</span>
-    <span class="pts">138</span>
-    <div class="bar" style="width:63%;background:#DC0000"></div>
+    <span class="team-dot" style="background:#FF8700"></span>
+    <span class="name">Lando Norris</span>
+    <span class="pts">159</span>
+    <div class="bar" style="width:66%;background:#FF8700"></div>
 </li>
 <li>
     <span class="pos">5</span>
-    <span class="team-dot" style="background:#FF8700"></span>
-    <span class="name">Lando Norris</span>
-    <span class="pts">128</span>
-    <div class="bar" style="width:58%;background:#FF8700"></div>
+    <span class="team-dot" style="background:#DC0000"></span>
+    <span class="name">Charles Leclerc</span>
+    <span class="pts">155</span>
+    <div class="bar" style="width:64%;background:#DC0000"></div>
 </li>
 <li>
     <span class="pos">6</span>
     <span class="team-dot" style="background:#3671C6"></span>
     <span class="name">Max Verstappen</span>
-    <span class="pts">109</span>
-    <div class="bar" style="width:50%;background:#3671C6"></div>
+    <span class="pts">112</span>
+    <div class="bar" style="width:46%;background:#3671C6"></div>
 </li>
 <li>
     <span class="pos">7</span>
     <span class="team-dot" style="background:#FF8700"></span>
     <span class="name">Oscar Piastri</span>
-    <span class="pts">92</span>
-    <div class="bar" style="width:42%;background:#FF8700"></div>
+    <span class="pts">104</span>
+    <div class="bar" style="width:43%;background:#FF8700"></div>
 </li>
 <li>
     <span class="pos">8</span>
     <span class="team-dot" style="background:#3671C6"></span>
     <span class="name">Isack Hadjar</span>
     <span class="pts">68</span>
-    <div class="bar" style="width:31%;background:#3671C6"></div>
+    <div class="bar" style="width:28%;background:#3671C6"></div>
 </li>
 <li>
     <span class="pos">9</span>
     <span class="team-dot" style="background:#6692FF"></span>
     <span class="name">Liam Lawson</span>
-    <span class="pts">43</span>
+    <span class="pts">49</span>
     <div class="bar" style="width:20%;background:#6692FF"></div>
 </li>
 <li>
     <span class="pos">10</span>
     <span class="team-dot" style="background:#0090FF"></span>
     <span class="name">Pierre Gasly</span>
-    <span class="pts">42</span>
-    <div class="bar" style="width:19%;background:#0090FF"></div>
+    <span class="pts">44</span>
+    <div class="bar" style="width:18%;background:#0090FF"></div>
 </li>
 <li>
     <span class="pos">11</span>
     <span class="team-dot" style="background:#6692FF"></span>
     <span class="name">Arvid Lindblad</span>
     <span class="pts">23</span>
-    <div class="bar" style="width:11%;background:#6692FF"></div>
+    <div class="bar" style="width:10%;background:#6692FF"></div>
 </li>
 <li>
     <span class="pos">12</span>
     <span class="team-dot" style="background:#0090FF"></span>
     <span class="name">Franco Colapinto</span>
     <span class="pts">19</span>
-    <div class="bar" style="width:9%;background:#0090FF"></div>
+    <div class="bar" style="width:8%;background:#0090FF"></div>
 </li>
 <li>
     <span class="pos">13</span>
     <span class="team-dot" style="background:#B6BABD"></span>
     <span class="name">Oliver Bearman</span>
     <span class="pts">18</span>
-    <div class="bar" style="width:8%;background:#B6BABD"></div>
+    <div class="bar" style="width:7%;background:#B6BABD"></div>
 </li>
 <li>
     <span class="pos">14</span>
     <span class="team-dot" style="background:#00594F"></span>
     <span class="name">Gabriel Bortoleto</span>
     <span class="pts">10</span>
-    <div class="bar" style="width:5%;background:#00594F"></div>
+    <div class="bar" style="width:4%;background:#00594F"></div>
 </li>
 <li>
     <span class="pos">15</span>
-    <span class="team-dot" style="background:#64C4FF"></span>
-    <span class="name">Carlos Sainz</span>
+    <span class="team-dot" style="background:#00594F"></span>
+    <span class="name">Nico Hülkenberg</span>
     <span class="pts">6</span>
-    <div class="bar" style="width:3%;background:#64C4FF"></div>
+    <div class="bar" style="width:2.5%;background:#00594F"></div>
 </li>
 <li>
     <span class="pos">16</span>
     <span class="team-dot" style="background:#64C4FF"></span>
-    <span class="name">Alexander Albon</span>
-    <span class="pts">5</span>
+    <span class="name">Carlos Sainz</span>
+    <span class="pts">6</span>
     <div class="bar" style="width:2.5%;background:#64C4FF"></div>
 </li>
 <li>
     <span class="pos">17</span>
-    <span class="team-dot" style="background:#B6BABD"></span>
-    <span class="name">Esteban Ocon</span>
-    <span class="pts">3</span>
-    <div class="bar" style="width:1.5%;background:#B6BABD"></div>
+    <span class="team-dot" style="background:#64C4FF"></span>
+    <span class="name">Alexander Albon</span>
+    <span class="pts">5</span>
+    <div class="bar" style="width:2%;background:#64C4FF"></div>
 </li>
 <li>
     <span class="pos">18</span>
-    <span class="team-dot" style="background:#00594F"></span>
-    <span class="name">Nico Hülkenberg</span>
-    <span class="pts">2</span>
-    <div class="bar" style="width:1%;background:#00594F"></div>
+    <span class="team-dot" style="background:#B6BABD"></span>
+    <span class="name">Esteban Ocon</span>
+    <span class="pts">3</span>
+    <div class="bar" style="width:1.2%;background:#B6BABD"></div>
 </li>
 <li>
     <span class="pos">19</span>
     <span class="team-dot" style="background:#006F62"></span>
     <span class="name">Fernando Alonso</span>
-    <span class="pts">1</span>
-    <div class="bar" style="width:0.5%;background:#006F62"></div>
+    <span class="pts">3</span>
+    <div class="bar" style="width:1.2%;background:#006F62"></div>
 </li>
 <li>
     <span class="pos">20</span>
+    <span class="team-dot" style="background:#6692FF"></span>
+    <span class="name">Yuki Tsunoda</span>
+    <span class="pts">0</span>
+    <div class="bar" style="width:0.5%;background:#6692FF"></div>
+</li>
+<li>
+    <span class="pos">21</span>
     <span class="team-dot" style="background:#006F62"></span>
     <span class="name">Lance Stroll</span>
     <span class="pts">0</span>
     <div class="bar" style="width:0.5%;background:#006F62"></div>
 </li>
 <li>
-    <span class="pos">21</span>
+    <span class="pos">22</span>
     <span class="team-dot" style="background:#888888"></span>
     <span class="name">Valtteri Bottas</span>
     <span class="pts">0</span>
     <div class="bar" style="width:0.5%;background:#888888"></div>
 </li>
 <li>
-    <span class="pos">22</span>
+    <span class="pos">23</span>
     <span class="team-dot" style="background:#888888"></span>
     <span class="name">Sergio Pérez</span>
     <span class="pts">0</span>
@@ -275,56 +280,55 @@ body { background:var(--bg); color:var(--text); font-family:-apple-system,BlinkM
 
     <!-- Track History -->
     <div class="card full">
-        <h3>📜 Zandvoort — Track History & Iconic Moments</h3>
+        <h3>📜 Monza — Track History & Iconic Moments</h3>
         <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:12px;margin-bottom:16px;">
-            <div class="circuit-stat"><div class="val">1952</div><div class="label">First Dutch GP</div></div>
-            <div class="circuit-stat"><div class="val">1:11.097</div><div class="label">Race lap record</div></div>
-            <div class="circuit-stat"><div class="val">4</div><div class="label">Clark wins (record)</div></div>
-            <div class="circuit-stat"><div class="val">8</div><div class="label">Ferrari wins (record)</div></div>
-            <div class="circuit-stat"><div class="val">18°</div><div class="label">banking (T3 & T14)</div></div>
+            <div class="circuit-stat"><div class="val">1922</div><div class="label">Circuit built</div></div>
+            <div class="circuit-stat"><div class="val">1:21.046</div><div class="label">Race lap record</div></div>
+            <div class="circuit-stat"><div class="val">5</div><div class="label">Schumacher / Hamilton wins</div></div>
+            <div class="circuit-stat"><div class="val">20</div><div class="label">Ferrari wins (record)</div></div>
+            <div class="circuit-stat"><div class="val">264.4</div><div class="label">km/h fastest-ever avg lap</div></div>
         </div>
         <div style="font-size:0.82rem;line-height:1.6;">
-            <div style="margin-bottom:10px;"><strong style="color:#f59e0b;">Most wins (driver):</strong> Jim Clark holds the all-time record with 4 Dutch GP victories in the 1960s. In the modern era Max Verstappen is king of his home race, winning three in a row (2021–2023) before McLaren broke the streak.</div>
-            <div style="margin-bottom:10px;"><strong style="color:#f59e0b;">Most constructor wins:</strong> Ferrari lead the all-time Zandvoort count with 8 wins, stretching back to Alberto Ascari's win in the very first World Championship Dutch GP in 1952.</div>
-            <div style="margin-bottom:10px;"><strong style="color:#f59e0b;">Lap record:</strong> 1:11.097 — Lewis Hamilton (Mercedes, 2021). The outright fastest lap ever seen here is Oscar Piastri's 1:08.662 in 2025 qualifying, on the reprofiled, banked modern layout.</div>
-            <div style="margin-bottom:10px;"><strong style="color:#f59e0b;">The real overtake spot:</strong> the heavy braking into the banked Tarzan hairpin (Turn 1) at the end of the DRS main straight is the one genuine passing place. The banked final corner (Arie Luyendyk) is taken almost flat, firing cars onto that straight — carry speed through it and you get a run. Everywhere else the narrow dune ribbon makes passing brutal: it's a qualifying and track-position circuit, and this weekend there are <em>two</em> grids to nail (Sprint + GP).</div>
+            <div style="margin-bottom:10px;"><strong style="color:#f59e0b;">Most wins (driver):</strong> Michael Schumacher and Lewis Hamilton share the Italian GP record with 5 victories apiece. Hamilton's first came in 2012 for McLaren; Schumacher's five all came in red, which is why the tifosi still sing his name.</div>
+            <div style="margin-bottom:10px;"><strong style="color:#f59e0b;">Most constructor wins:</strong> Ferrari, with 20 home victories — no team has won any race more often at a single circuit. Every one triggers the famous podium invasion, with the crowd flooding the main straight under the rostrum.</div>
+            <div style="margin-bottom:10px;"><strong style="color:#f59e0b;">Lap record:</strong> 1:21.046 — Rubens Barrichello (Ferrari, 2004), still standing from the V10 era. The fastest lap in F1 history was also set here: Hamilton's 2020 pole at an average of 264.362 km/h. With 2026's low-drag active-aero cars, both marks are live targets this weekend.</div>
+            <div style="margin-bottom:10px;"><strong style="color:#f59e0b;">Where to pass:</strong> the ~340→85 km/h braking zone into the Rettifilo chicane (Turn 1) at the end of the 1.1 km main straight is the biggest stop of the season and the prime move. The Roggia chicane after the Curva Grande tow is option two, and late lunges into Ascari happen every year. Slipstream is worth ~0.3s a lap here — expect trains, tows and DRS-era-style drafting games even under the new override rules.</div>
         </div>
         <div style="margin-top:14px;border-top:1px solid var(--border);padding-top:14px;">
             <div style="font-size:0.8rem;color:var(--muted);margin-bottom:8px;text-transform:uppercase;letter-spacing:0.5px;">Iconic Moments</div>
             <ul style="list-style:none;font-size:0.82rem;line-height:1.6;">
-                <li style="padding:6px 0;border-bottom:1px solid var(--border);">🏁 <strong>1952 — the beginning:</strong> Alberto Ascari won the first World Championship Dutch GP at Zandvoort for Ferrari, on his way to the title. The dune circuit became an instant classic.</li>
-                <li style="padding:6px 0;border-bottom:1px solid var(--border);">🕊️ <strong>1973 — tragedy and change:</strong> Roger Williamson's fatal accident shocked the sport and became a landmark moment in the push for better marshalling and trackside safety.</li>
-                <li style="padding:6px 0;border-bottom:1px solid var(--border);">⚔️ <strong>1985 — Lauda's last win:</strong> In his final season, Niki Lauda held off McLaren teammate Alain Prost by barely two tenths for the 25th and last victory of his career — then Zandvoort fell off the calendar for 36 years.</li>
-                <li style="padding:6px 0;border-bottom:1px solid var(--border);">🧡 <strong>2021 — the orange homecoming:</strong> F1 returned after 36 years and Max Verstappen won in front of a sea of orange, taking the championship lead from Hamilton in a title year that ended in Abu Dhabi drama.</li>
-                <li style="padding:6px 0;border-bottom:1px solid var(--border);">👑 <strong>2021–2023 — Verstappen's hat-trick:</strong> Three straight home wins from pole, each in front of 300,000+ fans. For three years, Zandvoort belonged to Max.</li>
-                <li style="padding:6px 0;">🧡 <strong>2024–2025 — papaya takes over:</strong> Lando Norris ended the streak with a dominant 2024 win, then Oscar Piastri won in 2025 and set the fastest lap ever seen at the track — back-to-back home defeats for Verstappen heading into the farewell.</li>
+                <li style="padding:6px 0;border-bottom:1px solid var(--border);">⚡ <strong>1971 — the closest finish ever:</strong> Peter Gethin won by 0.01s over Ronnie Peterson in a five-car slipstream drag to the line — the top five covered by 0.61 seconds. Pre-chicane Monza at its absurd best.</li>
+                <li style="padding:6px 0;border-bottom:1px solid var(--border);">🖤 <strong>1978 — Peterson's last race:</strong> a startline pile-up claimed Ronnie Peterson's life and reshaped F1 safety. Mario Andretti clinched the title that day in the saddest way possible.</li>
+                <li style="padding:6px 0;border-bottom:1px solid var(--border);">❤️ <strong>1988 — for Enzo:</strong> weeks after Enzo Ferrari's death, Gerhard Berger and Michele Alboreto delivered a Ferrari 1–2 — the only race all season McLaren's dominant MP4/4 didn't win. Monza does script-writing.</li>
+                <li style="padding:6px 0;border-bottom:1px solid var(--border);">🌧️ <strong>2008 — a star is born:</strong> 21-year-old Sebastian Vettel took pole and won in the rain in a Toro Rosso, becoming F1's then-youngest winner in the team's only victory.</li>
+                <li style="padding:6px 0;border-bottom:1px solid var(--border);">🔴 <strong>2019 — Leclerc holds the line:</strong> Charles Leclerc fended off both Mercedes for the tifosi's first home win since 2010, a week after his first career victory at Spa.</li>
+                <li style="padding:6px 0;border-bottom:1px solid var(--border);">🤯 <strong>2020 — Gasly's miracle:</strong> a red flag, a penalty for Hamilton, and Pierre Gasly held off Sainz for AlphaTauri's shock win — one of the great modern upsets.</li>
+                <li style="padding:6px 0;">💥 <strong>2021 — the halo earns its keep:</strong> Verstappen and Hamilton collided at the Rettifilo, Max's car landing on Lewis's halo. Daniel Ricciardo led a McLaren 1–2 through the chaos.</li>
             </ul>
         </div>
     </div>
 
     <!-- Key Stories -->
     <div class="card full">
-        <h3>📰 Key Stories Heading Into the Netherlands</h3>
+        <h3>📰 Key Stories Heading Into Italy</h3>
         <ul class="stories">
-<li><strong>Farewell, Zandvoort — the last dance in the dunes</strong> — This is the final F1 race ever at Circuit Zandvoort, closing a six-year chapter that reopened in 2021. When the flag falls Sunday, F1 leaves the Dutch coast indefinitely. Expect a full-throated orange send-off — and every driver wanting their name on the last-ever winners' list.</li>
-<li><strong>First Sprint on Dutch soil — chaos multiplier, and rain in play</strong> — Zandvoort has never run the Sprint format before, and it lands with only one hour of practice before things count. A narrow, banked, low-run-off track plus a compressed schedule and 8 bonus points on Saturday is a recipe for a shaken-up order. Forecasts point to a real chance of the first genuinely wet competitive running for the 2026 cars — none of the grid has raced these machines in the rain yet. Two qualifying sessions mean Friday afternoon matters almost as much as Saturday.</li>
-<li><strong>Antonelli heads in as runaway leader — and rewriting the record books</strong> — The rookie leaves the summer break 50 clear of Hamilton and 59 up on teammate Russell after a P3 in Hungary. He's already the youngest-ever points leader and pole-sitter, and his six wins are the most by any teenager in F1 history. He can grab a seventh here before turning 20 on August 25. Zandvoort's precision-and-banking demands suit a planted car, and the Mercedes has been the class of the field. A clean weekend and the title is increasingly his to lose — though a DNF plus a Hamilton win would slash the gap to 16.</li>
-<li><strong>Norris arrives with momentum — and history here</strong> — Lando took his first win of 2026 at the Hungaroring and comes to a track he dominated in 2024. McLaren's upgraded car finally looks like a race-winner again. He's P5 and 91 back, but if the papaya form is real, Zandvoort is where he starts eating into the Mercedes lead.</li>
-<li><strong>Verstappen's last shot at home — Honda brings a farewell PU update</strong> — Max was beaten at Zandvoort by Norris (2024) and Piastri (2025), still has no win in 2026, but arrives on the back of three podiums in his last four starts. Honda is reportedly bringing a power-unit update for its Dutch swan song, and a win would both end the drought and match Jim Clark's all-time Zandvoort record of four. Red Bull's form in banked, high-load corners is the question mark. If he delivers, it's the send-off script the whole orange army is praying for.</li>
-<li><strong>Mercedes intra-team tension simmers</strong> — Russell (P3) needs to stop the bleeding to teammate Antonelli, now 59 points up the road. Zandvoort's flowing layout and banking have historically suited the Silver Arrows, so both should be near the front — which is exactly when the team-order questions get awkward.</li>
-<li><strong>Ferrari's downforce test — and Hamilton still chasing that first red win</strong> — Hamilton (P2) and Leclerc (P4) keep the Scuderia best-of-the-rest behind Mercedes. The high-downforce, banked Zandvoort could flatter the red cars, but they've been out-qualified all year. Lewis owns the lap record here (2021) and is still hunting a maiden victory in Ferrari colours.</li>
-<li><strong>Track position is everything — twice</strong> — Overtaking at Zandvoort is limited to the braking zone into Tarzan; the rest is a qualifying track. With a Sprint grid <em>and</em> a race grid to set, whoever masters the banked, low-grip ribbon on Friday and Saturday controls the weekend. Saturdays win championships here.</li>
+<li><strong>Antonelli's home race — from the back of the grid</strong> — The script wrote itself: the 20-year-old Italian championship leader, first home GP as title favourite, tifosi split between him and Ferrari. Then Mercedes confirmed a complete new power unit beyond his season allocation, sending him to the back of the grid. The logic is cold championship math — the old PU cost him DNFs in Barcelona and Silverstone, and Monza's slipstream-friendly layout is the cheapest place on the calendar to serve the penalty. He leads by 59 points (242 vs 183); a recovery drive into the top five would barely dent the cushion, but a first-lap chicane melee is the nightmare scenario.</li>
+<li><strong>Norris is the form man — and the only live threat</strong> — Back-to-back wins in Hungary and Zandvoort have dragged Lando to P4, 83 points behind with 10 rounds to go after Monza. Stella says the upgraded MCL40 lets him drive "at a World Champion level," and with Antonelli starting last, Monza is McLaren's best chance yet to make this a championship again. He won here from the front in the past; a third straight win would change the season's temperature completely.</li>
+<li><strong>Ferrari brings an engine upgrade to the temple</strong> — The Scuderia arrives at home P2 in both championships, with Hamilton tied on 183 with Russell and racing at Monza in red for the first time. An 067/6 power unit upgrade is expected this weekend, aimed squarely at Mercedes. Hamilton has 5 Italian GP wins, Leclerc has won here twice (2019, 2024) — and with the Mercedes of Antonelli buried in the pack at the start, the tifosi will smell blood.</li>
+<li><strong>Hadjar targets a comeback, Red Bull juggles seats</strong> — Isack Hadjar (P8, 68 pts) aims to return from the wrist injury — a "small crack" in his left hand — that ruled him out of Zandvoort. Liam Lawson deputised well at Red Bull (P7 in the Dutch GP) and Tsunoda filled the Racing Bulls seat; if Hadjar isn't cleared, that shuffle repeats. Meanwhile Verstappen crashed out of his home race on lap 1 and is still winless in 2026 — P6 and 130 points off the lead, at a track where Red Bull's low-drag efficiency used to be a weapon.</li>
+<li><strong>Russell vs Hamilton, tied at 183</strong> — The old Mercedes teammates are dead level for P2, split only on countback. Russell has out-scored everyone but Antonelli since Canada but keeps losing Sundays to reliability and penalties; Hamilton has quietly been the most consistent podium collector since summer. Whoever wins this duel likely finishes best-of-the-rest — and at Monza they're in different cars for the first time.</li>
+<li><strong>New-era cars at the fastest track</strong> — This is the first time the 2026 active-aero, override-boost cars race at Monza's low-drag extreme. Straight-line speeds could nudge 360 km/h, Barrichello's 22-year-old lap record is genuinely under threat, and nobody quite knows how the energy-recovery-heavy power units will handle four long full-throttle blasts per lap. Expect engineers sweating deployment maps as much as drivers sweating the chicanes.</li>
         </ul>
     </div>
 </div>
 
 <div style="text-align:center;color:var(--muted);font-size:0.7rem;margin-top:16px;">
-    Built by Marshall 🔶 for Wilson · Data: formula1.com, FIA, racingnews365.com, the-race.com, f1-fansite.com, wikipedia.org · Updated August 19, 2026
+    Built by Marshall 🔶 for Wilson · Data: formula1.com, FIA, racingnews365.com, speedcafe.com, wikipedia.org · Updated August 26, 2026
 </div>
 
 <script>
-// Countdown to race: Sun Aug 23, 15:00 CEST = 13:00 UTC
-const raceTime = new Date('2026-08-23T13:00:00Z');
+// Countdown to race: Sun Sep 6, 15:00 CEST = 13:00 UTC
+const raceTime = new Date('2026-09-06T13:00:00Z');
 function updateCountdown() {
     const now = new Date();
     const diff = raceTime - now;
@@ -340,7 +344,7 @@ setInterval(updateCountdown, 60000);
 
 // Constructors chart
 const teams = ["Mercedes", "Ferrari", "McLaren", "Red Bull", "Racing Bulls", "Alpine", "Haas", "Audi", "Williams", "Aston Martin", "Cadillac"];
-const pts = [379, 307, 220, 177, 66, 61, 21, 12, 11, 1, 0];
+const pts = [425, 338, 263, 186, 66, 63, 21, 16, 11, 3, 0];
 const colors = ["#00D2BE", "#DC0000", "#FF8700", "#3671C6", "#6692FF", "#0090FF", "#B6BABD", "#00594F", "#64C4FF", "#006F62", "#888888"];
 
 new Chart(document.getElementById('constChart').getContext('2d'), {
