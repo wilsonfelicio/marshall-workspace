@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>🏁 Autodromo Nazionale Monza — Diagram</title>
+<title>🏁 Madring — Circuit Diagram</title>
 <style>
 :root { --bg:#0a0a0a; --surface:#141414; --border:#2a2a2a; --text:#e0e0e0; --muted:#888; --accent:#DC0000; }
 * { margin:0; padding:0; box-sizing:border-box; }
@@ -23,113 +23,127 @@ body { background:var(--bg); color:var(--text); font-family:-apple-system,BlinkM
 .corner-label { fill:#e0e0e0; font-size:13px; font-weight:600; font-family:-apple-system,sans-serif; }
 .speed-label { fill:#f59e0b; font-size:11px; font-family:-apple-system,sans-serif; }
 .zone-label { fill:#4ade80; font-size:11px; font-weight:600; font-family:-apple-system,sans-serif; }
+.note-label { fill:#888; font-size:11px; font-family:-apple-system,sans-serif; }
 </style>
 </head>
 <body>
 <div class="wrap">
 <div class="header">
-    <div class="flag">🇮🇹</div>
-    <h1>Autodromo Nazionale Monza</h1>
-    <div class="meta">5.793 km · 11 turns · 53 laps · 2 overtake-boost zones · Clockwise · ~80% full throttle</div>
+    <div class="flag">🇪🇸</div>
+    <h1>Madring — Circuito de Madring, Madrid</h1>
+    <div class="meta">5.416 km · 22 turns (+5A, 20A) · 57 laps · 2 straight-mode zones · Simplified layout — inaugural race, no lap record yet</div>
 </div>
 
 <div class="card">
-<svg class="diagram" viewBox="0 0 860 620" xmlns="http://www.w3.org/2000/svg">
-    <!-- Track outline (stylized Monza) -->
-    <path d="M 175 520
-             L 600 520
-             L 626 508
-             L 622 494
-             L 648 484
-             C 700 462 716 420 716 370
-             L 716 250
-             C 716 226 704 214 686 210
-             L 664 206
-             L 668 188
-             C 672 168 660 152 640 148
-             L 560 132
-             C 536 128 516 136 500 152
-             L 452 200
-             C 430 222 402 230 372 226
-             L 300 216
-             L 268 240
-             L 234 232
-             L 208 254
-             C 188 272 180 292 180 316
-             L 176 448
-             C 174 486 160 500 152 508
-             C 146 514 152 520 175 520 Z"
+<svg class="diagram" viewBox="0 0 860 640" xmlns="http://www.w3.org/2000/svg">
+    <!-- Track outline (stylized Madring) -->
+    <path id="track" d="M 200 540
+             L 620 540
+             L 660 532
+             C 690 524 700 502 694 482
+             L 690 408
+             C 689 388 692 372 702 360
+             L 730 306
+             C 736 284 726 266 704 264
+             L 662 268
+             C 640 271 630 259 633 243
+             L 640 203
+             C 643 182 630 171 610 173
+             C 580 177 576 154 546 158
+             C 516 162 521 183 491 186
+             C 461 189 456 166 426 169
+             L 382 173
+             C 352 176 340 186 338 206
+             L 336 242
+             C 336 260 322 266 302 266
+             A 86 86 0 0 0 302 438
+             C 322 438 336 444 348 462
+             C 354 472 348 482 332 486
+             L 302 492
+             C 288 495 284 505 270 507
+             L 240 510
+             C 222 512 210 518 204 528
+             C 200 534 196 540 200 540 Z"
           fill="none" stroke="#3a3a3a" stroke-width="20" stroke-linejoin="round" stroke-linecap="round"/>
-    <path d="M 175 520
-             L 600 520
-             L 626 508
-             L 622 494
-             L 648 484
-             C 700 462 716 420 716 370
-             L 716 250
-             C 716 226 704 214 686 210
-             L 664 206
-             L 668 188
-             C 672 168 660 152 640 148
-             L 560 132
-             C 536 128 516 136 500 152
-             L 452 200
-             C 430 222 402 230 372 226
-             L 300 216
-             L 268 240
-             L 234 232
-             L 208 254
-             C 188 272 180 292 180 316
-             L 176 448
-             C 174 486 160 500 152 508
-             C 146 514 152 520 175 520 Z"
+    <path d="M 200 540
+             L 620 540
+             L 660 532
+             C 690 524 700 502 694 482
+             L 690 408
+             C 689 388 692 372 702 360
+             L 730 306
+             C 736 284 726 266 704 264
+             L 662 268
+             C 640 271 630 259 633 243
+             L 640 203
+             C 643 182 630 171 610 173
+             C 580 177 576 154 546 158
+             C 516 162 521 183 491 186
+             C 461 189 456 166 426 169
+             L 382 173
+             C 352 176 340 186 338 206
+             L 336 242
+             C 336 260 322 266 302 266
+             A 86 86 0 0 0 302 438
+             C 322 438 336 444 348 462
+             C 354 472 348 482 332 486
+             L 302 492
+             C 288 495 284 505 270 507
+             L 240 510
+             C 222 512 210 518 204 528
+             C 200 534 196 540 200 540 Z"
           fill="none" stroke="#e0e0e0" stroke-width="3" stroke-linejoin="round"/>
 
-    <!-- Boost zone 1: main straight into Rettifilo -->
-    <line x1="230" y1="522" x2="590" y2="522" stroke="#4ade80" stroke-width="5" stroke-dasharray="8 5" stroke-linecap="round"/>
-    <text class="zone-label" x="410" y="544" text-anchor="middle">BOOST · Main straight (1.1 km, ~360 km/h) → Rettifilo</text>
+    <!-- Tunnel sections (under the motorway) -->
+    <line x1="392" y1="172" x2="428" y2="169" stroke="#555" stroke-width="24" stroke-linecap="round"/>
+    <line x1="344" y1="192" x2="338" y2="216" stroke="#555" stroke-width="24" stroke-linecap="round"/>
+    <text class="note-label" x="388" y="146" text-anchor="middle">twin tunnels (under M-11)</text>
 
-    <!-- Boost zone 2: back straight from Serraglio into Ascari -->
-    <line x1="490" y1="160" x2="440" y2="210" stroke="#4ade80" stroke-width="5" stroke-dasharray="8 5" stroke-linecap="round"/>
-    <text class="zone-label" x="484" y="196" text-anchor="start">BOOST 2 · into Ascari</text>
+    <!-- Straight-mode zone 1: main straight -->
+    <line x1="250" y1="556" x2="590" y2="556" stroke="#4ade80" stroke-width="5" stroke-dasharray="8 5" stroke-linecap="round"/>
+    <text class="zone-label" x="420" y="578" text-anchor="middle">STRAIGHT MODE · main straight (T22 → T1) · ~340 km/h</text>
+
+    <!-- Straight-mode zone 2: T3 → T4 -->
+    <line x1="716" y1="358" x2="742" y2="310" stroke="#4ade80" stroke-width="5" stroke-dasharray="8 5" stroke-linecap="round"/>
+    <text class="zone-label" x="752" y="342" text-anchor="start">STRAIGHT</text>
+    <text class="zone-label" x="752" y="356" text-anchor="start">MODE 2</text>
 
     <!-- Start/finish line -->
-    <line x1="330" y1="512" x2="330" y2="530" stroke="#fff" stroke-width="6"/>
-    <text class="corner-label" x="330" y="562" text-anchor="middle" style="fill:#DC0000;">START /</text>
-    <text class="corner-label" x="330" y="577" text-anchor="middle" style="fill:#DC0000;">FINISH</text>
+    <line x1="300" y1="532" x2="300" y2="550" stroke="#fff" stroke-width="6"/>
+    <text class="corner-label" x="300" y="600" text-anchor="middle" style="fill:#DC0000;">START / FINISH</text>
 
     <!-- Overtake zones (orange dots) -->
-    <circle cx="614" cy="506" r="8" fill="#f59e0b"/>
-    <circle cx="678" cy="200" r="7" fill="#f59e0b"/>
-    <circle cx="420" cy="220" r="7" fill="#f59e0b"/>
+    <circle cx="676" cy="516" r="8" fill="#f59e0b"/>
+    <circle cx="716" cy="278" r="7" fill="#f59e0b"/>
+    <circle cx="344" cy="456" r="7" fill="#f59e0b"/>
 
     <!-- Corner labels + speeds -->
-    <text class="corner-label" x="618" y="472" text-anchor="middle">T1–2 Variante del Rettifilo</text>
-    <text class="speed-label"  x="618" y="486" text-anchor="middle">~340 → 85 km/h · biggest stop of the year · MAIN overtake</text>
+    <text class="corner-label" x="700" y="452" text-anchor="start">T1</text>
+    <text class="speed-label"  x="700" y="466" text-anchor="start">~340 → 90 km/h · biggest stop</text>
+    <text class="speed-label"  x="700" y="480" text-anchor="start">overtake #1</text>
 
-    <text class="corner-label" x="736" y="380" text-anchor="start">T3 Curva Grande</text>
-    <text class="speed-label"  x="736" y="394" text-anchor="start">~330 km/h · flat</text>
+    <text class="corner-label" x="668" y="240" text-anchor="start">T4</text>
+    <text class="speed-label"  x="668" y="254" text-anchor="start">hard stop · overtake #2</text>
 
-    <text class="corner-label" x="700" y="176" text-anchor="start">T4–5 Roggia</text>
-    <text class="speed-label"  x="700" y="190" text-anchor="start">~100 km/h · overtake #2</text>
+    <text class="corner-label" x="600" y="228" text-anchor="middle">T5–5A · Subida de las Cárcavas</text>
+    <text class="speed-label"  x="600" y="242" text-anchor="middle">uphill · unusual double-apex</text>
 
-    <text class="corner-label" x="600" y="112" text-anchor="middle">T6–7 Lesmo 1 & 2</text>
-    <text class="speed-label"  x="600" y="126" text-anchor="middle">~180 / 190 km/h</text>
+    <text class="corner-label" x="500" y="120" text-anchor="middle">T6–T9 Valdebebas esses</text>
+    <text class="speed-label"  x="500" y="134" text-anchor="middle">~250 km/h fast flicks · commitment section</text>
 
-    <text class="corner-label" x="380" y="256" text-anchor="middle">Serraglio</text>
-    <text class="speed-label"  x="380" y="270" text-anchor="middle">downhill flat-out run</text>
+    <text class="corner-label" x="150" y="330" text-anchor="end">T12 La Monumental</text>
+    <text class="speed-label"  x="150" y="344" text-anchor="end">550 m · 24% banking (13.5°)</text>
+    <text class="speed-label"  x="150" y="358" text-anchor="end">~6 s in the corner · 45,000 seats</text>
+    <text class="speed-label"  x="150" y="372" text-anchor="end">longest banked turn in F1</text>
 
-    <text class="corner-label" x="222" y="212" text-anchor="middle">T8–10 Variante Ascari</text>
-    <text class="speed-label"  x="222" y="226" text-anchor="middle">~230 km/h · rhythm section</text>
+    <text class="corner-label" x="352" y="510" text-anchor="start">T14–T17 “The Bunker”</text>
+    <text class="speed-label"  x="352" y="524" text-anchor="start">~80–100 km/h · tight & technical · late-brake pass</text>
 
-    <text class="corner-label" x="156" y="380" text-anchor="end">Back straight</text>
-    <text class="speed-label"  x="156" y="394" text-anchor="end">~335 km/h</text>
-
-    <text class="corner-label" x="140" y="480" text-anchor="end">T11 Parabolica</text>
-    <text class="speed-label"  x="140" y="494" text-anchor="end">~215 km/h · long, opening radius</text>
+    <text class="corner-label" x="180" y="490" text-anchor="end">T20A–T22</text>
+    <text class="speed-label"  x="180" y="504" text-anchor="end">exit speed critical → main straight</text>
 
     <!-- Direction arrow -->
-    <g transform="translate(430,498)">
+    <g transform="translate(440,518)">
         <path d="M 0 0 L 26 2 M 18 -4 L 28 2 L 18 8" stroke="#888" stroke-width="2" fill="none"/>
         <text x="-6" y="4" text-anchor="end" style="fill:#888;font-size:11px;font-family:-apple-system,sans-serif;">lap direction</text>
     </g>
@@ -137,13 +151,14 @@ body { background:var(--bg); color:var(--text); font-family:-apple-system,BlinkM
 
 <div class="legend">
     <div><span class="swatch" style="border-top-color:#e0e0e0;"></span> Track</div>
-    <div><span class="swatch" style="border-top-color:#4ade80; border-top-style:dashed;"></span> Overtake-boost zone</div>
+    <div><span class="swatch" style="border-top-color:#4ade80; border-top-style:dashed;"></span> Straight-mode (overtake-boost) zone</div>
     <div><span class="dot" style="background:#f59e0b;"></span> Overtake spot</div>
+    <div><span class="swatch" style="border-top-color:#555; border-top-width:8px;"></span> Tunnel</div>
     <div><span class="swatch" style="border-top-color:#fff;"></span> Start / finish</div>
 </div>
 
 <div style="margin-top:14px;color:var(--muted);font-size:0.78rem;line-height:1.5;">
-    Monza is four full-throttle blasts stitched together by three braking events. The lap: 1.1&nbsp;km down the main straight at ~360&nbsp;km/h into the brutal Rettifilo chicane (the season's heaviest braking and the prime passing move), flat through the majestic Curva Grande, another hard stop at the Roggia chicane, then the twin Lesmos — the only "normal" corners on the track. The downhill Serraglio run feeds the Ascari complex, the lap's one rhythm section, before the back straight and the endless Parabolica, where exit speed decides your fate all the way down the main straight. Thin wings, tow games in qualifying, slipstream trains in the race — pure speed, nothing else.
+    A lap of the brand-new Madring (layout simplified — nobody has raced it yet): full noise down the main straight past the IFEMA halls into the heavy T1 stop, the lap's prime passing zone. A second straight-mode blast into T4 gives move number two. The Subida de las Cárcavas climbs into the fast Valdebebas esses — the commitment section — before the track dives through twin tunnels beneath the M-11 motorway. Then the signature: <strong>La Monumental</strong>, a 550&nbsp;m semicircular bowl banked at 24%, where cars run wide-open for about six seconds inside a 45,000-seat amphitheatre. What the banking gives, the Bunker takes away — a tight, walled, second-gear complex where mistakes meet concrete — before the final corners fire cars back onto the straight, where exit speed decides whether you attack or defend into T1. Designed by Studio Dromo with overtaking as the explicit brief; Sunday is the proof.
 </div>
 </div>
 

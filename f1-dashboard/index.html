@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>🏎️ F1 Italian GP — Race Weekend Dashboard</title>
+<title>🏎️ F1 Spanish GP — Race Weekend Dashboard</title>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
 <style>
 :root { --bg:#0a0a0a; --surface:#141414; --border:#2a2a2a; --text:#e0e0e0; --muted:#888; --accent:#DC0000; }
@@ -49,9 +49,9 @@ body { background:var(--bg); color:var(--text); font-family:-apple-system,BlinkM
 </head>
 <body>
 <div class="header">
-    <div class="flag">🇮🇹</div>
-    <h1>Italian Grand Prix — Monza</h1>
-    <div class="meta"><span class="round">Round 13</span> · Autodromo Nazionale Monza · September 4–6, 2026</div>
+    <div class="flag">🇪🇸</div>
+    <h1>Spanish Grand Prix — Madrid</h1>
+    <div class="meta"><span class="round">Round 14</span> · Madring (Circuito de Madring) · September 11–13, 2026 · INAUGURAL RACE</div>
     <div class="countdown" id="countdown"><div class="label">until lights out</div></div>
 </div>
 
@@ -62,134 +62,134 @@ body { background:var(--bg); color:var(--text); font-family:-apple-system,BlinkM
         <ul class="schedule">
 <li>
     <div><span class="session">FP1</span><br><span class="note">Fri · 60 min</span></div>
-    <div style="text-align:right"><span class="time">07:30</span><br><span class="note">Fri 4 Sep</span></div>
-    <div style="text-align:right"><span style="font-size:0.85rem">☀️ ~26°C</span><br><span class="note">12:30 CEST</span></div>
+    <div style="text-align:right"><span class="time">08:30</span><br><span class="note">Fri 11 Sep</span></div>
+    <div style="text-align:right"><span style="font-size:0.85rem">☀️ ~28°C</span><br><span class="note">13:30 CEST</span></div>
 </li>
 <li>
     <div><span class="session">FP2</span><br><span class="note">Fri · 60 min</span></div>
-    <div style="text-align:right"><span class="time">11:00</span><br><span class="note">Fri 4 Sep</span></div>
-    <div style="text-align:right"><span style="font-size:0.85rem">☀️ ~27°C</span><br><span class="note">16:00 CEST</span></div>
+    <div style="text-align:right"><span class="time">12:00</span><br><span class="note">Fri 11 Sep</span></div>
+    <div style="text-align:right"><span style="font-size:0.85rem">☀️ ~28°C</span><br><span class="note">17:00 CEST</span></div>
 </li>
 <li>
     <div><span class="session">FP3</span><br><span class="note">Sat · 60 min</span></div>
-    <div style="text-align:right"><span class="time">07:30</span><br><span class="note">Sat 5 Sep</span></div>
-    <div style="text-align:right"><span style="font-size:0.85rem">🌤️ ~25°C</span><br><span class="note">12:30 CEST</span></div>
+    <div style="text-align:right"><span class="time">07:30</span><br><span class="note">Sat 12 Sep</span></div>
+    <div style="text-align:right"><span style="font-size:0.85rem">☀️ ~29°C</span><br><span class="note">12:30 CEST</span></div>
 </li>
 <li>
     <div><span class="session">Qualifying</span><br><span class="note">Sat — Q1/Q2/Q3</span></div>
-    <div style="text-align:right"><span class="time">11:00</span><br><span class="note">Sat 5 Sep</span></div>
-    <div style="text-align:right"><span style="font-size:0.85rem">🌤️ ~26°C</span><br><span class="note">16:00 CEST · sets race grid</span></div>
+    <div style="text-align:right"><span class="time">11:00</span><br><span class="note">Sat 12 Sep</span></div>
+    <div style="text-align:right"><span style="font-size:0.85rem">☀️ ~29°C</span><br><span class="note">16:00 CEST · sets race grid</span></div>
 </li>
 <li>
-    <div><span class="session race">RACE</span><br><span class="note">Sun afternoon — 53 laps</span></div>
-    <div style="text-align:right"><span class="time">10:00</span><br><span class="note">Sun 6 Sep</span></div>
-    <div style="text-align:right"><span style="font-size:0.85rem">☀️ ~27°C</span><br><span class="note">15:00 CEST</span></div>
+    <div><span class="session race">RACE</span><br><span class="note">Sun afternoon — 57 laps</span></div>
+    <div style="text-align:right"><span class="time">10:00</span><br><span class="note">Sun 13 Sep</span></div>
+    <div style="text-align:right"><span style="font-size:0.85rem">☀️ ~30°C</span><br><span class="note">15:00 CEST</span></div>
 </li>
         </ul>
-        <div class="note" style="margin-top:8px">Back to a normal weekend format after the Zandvoort Sprint — three full practice sessions to dial in the skinniest wings of the year. Late-summer Lombardy is usually warm and sunny, but forecasts this far out are indicative only; afternoon thunderstorms rolling off the Alps are always a possibility in September. The big setup question: how low can teams trim the new active-aero cars at the fastest track on the calendar — straight-line speed vs stability into the chicanes.</div>
+        <div class="note" style="margin-top:8px">Friday matters more than usual: nobody has driven this track outside the simulator, so FP1 is a genuine data-gathering session and the field could be scrambled all weekend as grip comes to a green street surface. Madrid in mid-September is reliably hot and dry (~350 sunny days a year — forecast indicative). Pirelli brings the middle of its range: C2 hard / C3 medium / C4 soft. New street circuits historically mean walls, mistakes and safety cars — strategy rolls the dice.</div>
     </div>
 
     <!-- Circuit Info -->
     <div class="card">
         <h3>🏁 Circuit</h3>
-        <div style="font-size:1.1rem;font-weight:600;margin-bottom:12px;">Autodromo Nazionale Monza</div>
+        <div style="font-size:1.1rem;font-weight:600;margin-bottom:12px;">Madring — Madrid (IFEMA / Valdebebas)</div>
         <div class="circuit-info">
-            <div class="circuit-stat"><div class="val">5.793</div><div class="label">km length</div></div>
-            <div class="circuit-stat"><div class="val">53</div><div class="label">laps</div></div>
-            <div class="circuit-stat"><div class="val">11</div><div class="label">turns</div></div>
-            <div class="circuit-stat"><div class="val">~360</div><div class="label">km/h top speed</div></div>
-            <div class="circuit-stat"><div class="val">306.7</div><div class="label">km total</div></div>
+            <div class="circuit-stat"><div class="val">5.416</div><div class="label">km length</div></div>
+            <div class="circuit-stat"><div class="val">57</div><div class="label">laps</div></div>
+            <div class="circuit-stat"><div class="val">22</div><div class="label">turns (+5A, 20A)</div></div>
+            <div class="circuit-stat"><div class="val">~340</div><div class="label">km/h top speed</div></div>
+            <div class="circuit-stat"><div class="val">308.5</div><div class="label">km total</div></div>
         </div>
-        <div style="margin-top:12px;color:var(--muted);font-size:0.8rem;">The <strong>Temple of Speed</strong>. Built in 1922 in a royal park north of Milan, Monza is the oldest circuit on the calendar and has hosted the Italian GP every F1 season since 1950 bar one (1980). It's the fastest lap of the year: ~80% full throttle, four long straights interrupted by two heavy-braking chicanes, the twin Lesmo corners, the Ascari complex, and the endless Parabolica that slings cars back onto the 1.1&nbsp;km main straight. Teams run their thinnest wings of the season, tow games dominate qualifying, and slipstream battles make it one of the most passable tracks in F1. The heaviest braking zone — ~340 to ~85&nbsp;km/h into the Rettifilo chicane — is the prime overtaking spot.</div>
+        <div style="margin-top:12px;color:var(--muted);font-size:0.8rem;">Brand new and genuinely different: a hybrid street/permanent circuit wrapped around the IFEMA Exhibition Centre near Barajas, designed by Studio Dromo (Zandvoort's banking, Spa's renovation). The signature is <strong>La Monumental</strong> — a ~550&nbsp;m semicircular banked corner at 24% gradient (13.5°), the longest banked turn in F1, ringed by a 45,000-seat grandstand; cars are in it for around six seconds. Add two tunnel sections under a motorway, real elevation change, a fast Valdebebas esses sequence, a slow technical "Bunker" section, and two straight-mode (overtake-boost) zones. Projected lap ~1:34.4. Capacity 110,000 — sold out.</div>
         <div style="margin-top:8px;"><a href="circuit.html" style="color:#f59e0b;font-size:0.8rem;">→ View circuit diagram</a></div>
     </div>
 
     <!-- Drivers Standings -->
     <div class="card">
-        <h3>🏆 Drivers Championship — After Round 12 (Netherlands)</h3>
+        <h3>🏆 Drivers Championship — After Round 13 (Italy)</h3>
         <ul class="standings">
 <li>
     <span class="pos">1</span>
     <span class="team-dot" style="background:#00D2BE"></span>
     <span class="name">Kimi Antonelli</span>
-    <span class="pts">242</span>
+    <span class="pts">267</span>
     <div class="bar" style="width:100%;background:#00D2BE"></div>
 </li>
 <li>
     <span class="pos">2</span>
     <span class="team-dot" style="background:#00D2BE"></span>
     <span class="name">George Russell</span>
-    <span class="pts">183</span>
-    <div class="bar" style="width:76%;background:#00D2BE"></div>
+    <span class="pts">201</span>
+    <div class="bar" style="width:75%;background:#00D2BE"></div>
 </li>
 <li>
     <span class="pos">3</span>
     <span class="team-dot" style="background:#DC0000"></span>
     <span class="name">Lewis Hamilton</span>
-    <span class="pts">183</span>
-    <div class="bar" style="width:76%;background:#DC0000"></div>
+    <span class="pts">191</span>
+    <div class="bar" style="width:72%;background:#DC0000"></div>
 </li>
 <li>
     <span class="pos">4</span>
     <span class="team-dot" style="background:#FF8700"></span>
     <span class="name">Lando Norris</span>
-    <span class="pts">159</span>
-    <div class="bar" style="width:66%;background:#FF8700"></div>
+    <span class="pts">171</span>
+    <div class="bar" style="width:64%;background:#FF8700"></div>
 </li>
 <li>
     <span class="pos">5</span>
     <span class="team-dot" style="background:#DC0000"></span>
     <span class="name">Charles Leclerc</span>
     <span class="pts">155</span>
-    <div class="bar" style="width:64%;background:#DC0000"></div>
+    <div class="bar" style="width:58%;background:#DC0000"></div>
 </li>
 <li>
     <span class="pos">6</span>
     <span class="team-dot" style="background:#3671C6"></span>
     <span class="name">Max Verstappen</span>
-    <span class="pts">112</span>
-    <div class="bar" style="width:46%;background:#3671C6"></div>
+    <span class="pts">127</span>
+    <div class="bar" style="width:48%;background:#3671C6"></div>
 </li>
 <li>
     <span class="pos">7</span>
     <span class="team-dot" style="background:#FF8700"></span>
     <span class="name">Oscar Piastri</span>
-    <span class="pts">104</span>
+    <span class="pts">116</span>
     <div class="bar" style="width:43%;background:#FF8700"></div>
 </li>
 <li>
     <span class="pos">8</span>
     <span class="team-dot" style="background:#3671C6"></span>
     <span class="name">Isack Hadjar</span>
-    <span class="pts">68</span>
-    <div class="bar" style="width:28%;background:#3671C6"></div>
+    <span class="pts">71</span>
+    <div class="bar" style="width:27%;background:#3671C6"></div>
 </li>
 <li>
     <span class="pos">9</span>
     <span class="team-dot" style="background:#6692FF"></span>
     <span class="name">Liam Lawson</span>
-    <span class="pts">49</span>
-    <div class="bar" style="width:20%;background:#6692FF"></div>
+    <span class="pts">51</span>
+    <div class="bar" style="width:19%;background:#6692FF"></div>
 </li>
 <li>
     <span class="pos">10</span>
     <span class="team-dot" style="background:#0090FF"></span>
     <span class="name">Pierre Gasly</span>
-    <span class="pts">44</span>
-    <div class="bar" style="width:18%;background:#0090FF"></div>
+    <span class="pts">41</span>
+    <div class="bar" style="width:15%;background:#0090FF"></div>
 </li>
 <li>
     <span class="pos">11</span>
     <span class="team-dot" style="background:#6692FF"></span>
     <span class="name">Arvid Lindblad</span>
-    <span class="pts">23</span>
-    <div class="bar" style="width:10%;background:#6692FF"></div>
+    <span class="pts">29</span>
+    <div class="bar" style="width:11%;background:#6692FF"></div>
 </li>
 <li>
     <span class="pos">12</span>
     <span class="team-dot" style="background:#0090FF"></span>
     <span class="name">Franco Colapinto</span>
-    <span class="pts">19</span>
+    <span class="pts">21</span>
     <div class="bar" style="width:8%;background:#0090FF"></div>
 </li>
 <li>
@@ -245,7 +245,7 @@ body { background:var(--bg); color:var(--text); font-family:-apple-system,BlinkM
     <span class="pos">20</span>
     <span class="team-dot" style="background:#6692FF"></span>
     <span class="name">Yuki Tsunoda</span>
-    <span class="pts">0</span>
+    <span class="pts">1</span>
     <div class="bar" style="width:0.5%;background:#6692FF"></div>
 </li>
 <li>
@@ -280,55 +280,54 @@ body { background:var(--bg); color:var(--text); font-family:-apple-system,BlinkM
 
     <!-- Track History -->
     <div class="card full">
-        <h3>📜 Monza — Track History & Iconic Moments</h3>
+        <h3>📜 Madring & The Spanish GP — History</h3>
         <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:12px;margin-bottom:16px;">
-            <div class="circuit-stat"><div class="val">1922</div><div class="label">Circuit built</div></div>
-            <div class="circuit-stat"><div class="val">1:21.046</div><div class="label">Race lap record</div></div>
-            <div class="circuit-stat"><div class="val">5</div><div class="label">Schumacher / Hamilton wins</div></div>
-            <div class="circuit-stat"><div class="val">20</div><div class="label">Ferrari wins (record)</div></div>
-            <div class="circuit-stat"><div class="val">264.4</div><div class="label">km/h fastest-ever avg lap</div></div>
+            <div class="circuit-stat"><div class="val">2026</div><div class="label">Circuit opened — F1 debut</div></div>
+            <div class="circuit-stat"><div class="val">1981</div><div class="label">Last Madrid F1 race (Jarama)</div></div>
+            <div class="circuit-stat"><div class="val">56th</div><div class="label">Championship Spanish GP</div></div>
+            <div class="circuit-stat"><div class="val">24%</div><div class="label">La Monumental banking</div></div>
+            <div class="circuit-stat"><div class="val">110k</div><div class="label">Capacity (expandable 140k)</div></div>
         </div>
         <div style="font-size:0.82rem;line-height:1.6;">
-            <div style="margin-bottom:10px;"><strong style="color:#f59e0b;">Most wins (driver):</strong> Michael Schumacher and Lewis Hamilton share the Italian GP record with 5 victories apiece. Hamilton's first came in 2012 for McLaren; Schumacher's five all came in red, which is why the tifosi still sing his name.</div>
-            <div style="margin-bottom:10px;"><strong style="color:#f59e0b;">Most constructor wins:</strong> Ferrari, with 20 home victories — no team has won any race more often at a single circuit. Every one triggers the famous podium invasion, with the crowd flooding the main straight under the rostrum.</div>
-            <div style="margin-bottom:10px;"><strong style="color:#f59e0b;">Lap record:</strong> 1:21.046 — Rubens Barrichello (Ferrari, 2004), still standing from the V10 era. The fastest lap in F1 history was also set here: Hamilton's 2020 pole at an average of 264.362 km/h. With 2026's low-drag active-aero cars, both marks are live targets this weekend.</div>
-            <div style="margin-bottom:10px;"><strong style="color:#f59e0b;">Where to pass:</strong> the ~340→85 km/h braking zone into the Rettifilo chicane (Turn 1) at the end of the 1.1 km main straight is the biggest stop of the season and the prime move. The Roggia chicane after the Curva Grande tow is option two, and late lunges into Ascari happen every year. Slipstream is worth ~0.3s a lap here — expect trains, tows and DRS-era-style drafting games even under the new override rules.</div>
+            <div style="margin-bottom:10px;"><strong style="color:#f59e0b;">No lap record exists.</strong> Whoever sets pole on Saturday writes the first line of this circuit's record book; Sunday's fastest lap becomes the race lap record. Projected pace is around 1:34.4. First-ever winner at a brand-new circuit is a distinction that lasts forever — think Hamilton at Sochi, Verstappen at Jeddah, Russell at Vegas.</div>
+            <div style="margin-bottom:10px;"><strong style="color:#f59e0b;">Madrid's F1 past:</strong> the capital last hosted F1 at Jarama, 30 km north, in 1981 — 45 years ago. Madring makes Madrid the seventh Spanish venue to hold a championship round, after Pedralbes, Jarama, Montjuïc, Jerez, Valencia and Barcelona-Catalunya, which held the Spanish GP continuously from 1991 through 2025.</div>
+            <div style="margin-bottom:10px;"><strong style="color:#f59e0b;">Where to pass:</strong> the designers promise "long straights and big stops". Prime zones: the main straight (straight-mode zone) into the heavy T1 braking; the second straight-mode zone between T3 and T4; and the exit of La Monumental slinging cars onto the following straight. On a narrow street-style surface off-line grip will be poor early in the weekend — expect divebombs, and expect the stewards to be busy.</div>
         </div>
         <div style="margin-top:14px;border-top:1px solid var(--border);padding-top:14px;">
-            <div style="font-size:0.8rem;color:var(--muted);margin-bottom:8px;text-transform:uppercase;letter-spacing:0.5px;">Iconic Moments</div>
+            <div style="font-size:0.8rem;color:var(--muted);margin-bottom:8px;text-transform:uppercase;letter-spacing:0.5px;">Iconic Spanish GP Moments</div>
             <ul style="list-style:none;font-size:0.82rem;line-height:1.6;">
-                <li style="padding:6px 0;border-bottom:1px solid var(--border);">⚡ <strong>1971 — the closest finish ever:</strong> Peter Gethin won by 0.01s over Ronnie Peterson in a five-car slipstream drag to the line — the top five covered by 0.61 seconds. Pre-chicane Monza at its absurd best.</li>
-                <li style="padding:6px 0;border-bottom:1px solid var(--border);">🖤 <strong>1978 — Peterson's last race:</strong> a startline pile-up claimed Ronnie Peterson's life and reshaped F1 safety. Mario Andretti clinched the title that day in the saddest way possible.</li>
-                <li style="padding:6px 0;border-bottom:1px solid var(--border);">❤️ <strong>1988 — for Enzo:</strong> weeks after Enzo Ferrari's death, Gerhard Berger and Michele Alboreto delivered a Ferrari 1–2 — the only race all season McLaren's dominant MP4/4 didn't win. Monza does script-writing.</li>
-                <li style="padding:6px 0;border-bottom:1px solid var(--border);">🌧️ <strong>2008 — a star is born:</strong> 21-year-old Sebastian Vettel took pole and won in the rain in a Toro Rosso, becoming F1's then-youngest winner in the team's only victory.</li>
-                <li style="padding:6px 0;border-bottom:1px solid var(--border);">🔴 <strong>2019 — Leclerc holds the line:</strong> Charles Leclerc fended off both Mercedes for the tifosi's first home win since 2010, a week after his first career victory at Spa.</li>
-                <li style="padding:6px 0;border-bottom:1px solid var(--border);">🤯 <strong>2020 — Gasly's miracle:</strong> a red flag, a penalty for Hamilton, and Pierre Gasly held off Sainz for AlphaTauri's shock win — one of the great modern upsets.</li>
-                <li style="padding:6px 0;">💥 <strong>2021 — the halo earns its keep:</strong> Verstappen and Hamilton collided at the Rettifilo, Max's car landing on Lewis's halo. Daniel Ricciardo led a McLaren 1–2 through the chaos.</li>
+                <li style="padding:6px 0;border-bottom:1px solid var(--border);">🛡️ <strong>1981 — Villeneuve's masterclass (Jarama):</strong> Gilles Villeneuve parked his evil-handling Ferrari on the racing line for 67 laps and won with four cars swarming his gearbox — top five covered by 1.24s. Madrid's last F1 race was an all-timer.</li>
+                <li style="padding:6px 0;border-bottom:1px solid var(--border);">⚔️ <strong>1986 — 0.014 seconds (Jerez):</strong> Senna and Mansell drag-raced to the line after Mansell's late tyre stop; the Lotus won by 93 centimetres — still one of the closest finishes ever.</li>
+                <li style="padding:6px 0;border-bottom:1px solid var(--border);">🔥 <strong>1991 — sparks on the straight (Barcelona):</strong> Mansell and Senna wheel-to-wheel down the front straight, inches apart at 300 km/h, sparks flying — the defining image of early-90s F1.</li>
+                <li style="padding:6px 0;border-bottom:1px solid var(--border);">🌧️ <strong>1996 — the Regenmeister arrives:</strong> Michael Schumacher's first Ferrari win, lapping 3–4 seconds faster than anyone in a monsoon at Barcelona.</li>
+                <li style="padding:6px 0;border-bottom:1px solid var(--border);">🤯 <strong>2012 — Maldonado, seriously:</strong> Pastor Maldonado held off Alonso's Ferrari for Williams' last win before 2025 — the biggest shock of the decade.</li>
+                <li style="padding:6px 0;border-bottom:1px solid var(--border);">👶 <strong>2016 — a teenager wins on debut:</strong> Max Verstappen, 18, won his first race for Red Bull after the Mercedes wiped each other out on lap 1 — youngest winner in F1 history, a record that may never fall.</li>
+                <li style="padding:6px 0;">🏠 <strong>2013 — Alonso's home glory:</strong> Fernando Alonso's last home win, celebrated with a Spanish flag handed to him on the cool-down lap. He's on the grid this weekend, 45 years after Madrid last saw F1.</li>
             </ul>
         </div>
     </div>
 
     <!-- Key Stories -->
     <div class="card full">
-        <h3>📰 Key Stories Heading Into Italy</h3>
+        <h3>📰 Key Stories Heading Into Madrid</h3>
         <ul class="stories">
-<li><strong>Antonelli's home race — from the back of the grid</strong> — The script wrote itself: the 20-year-old Italian championship leader, first home GP as title favourite, tifosi split between him and Ferrari. Then Mercedes confirmed a complete new power unit beyond his season allocation, sending him to the back of the grid. The logic is cold championship math — the old PU cost him DNFs in Barcelona and Silverstone, and Monza's slipstream-friendly layout is the cheapest place on the calendar to serve the penalty. He leads by 59 points (242 vs 183); a recovery drive into the top five would barely dent the cushion, but a first-lap chicane melee is the nightmare scenario.</li>
-<li><strong>Norris is the form man — and the only live threat</strong> — Back-to-back wins in Hungary and Zandvoort have dragged Lando to P4, 83 points behind with 10 rounds to go after Monza. Stella says the upgraded MCL40 lets him drive "at a World Champion level," and with Antonelli starting last, Monza is McLaren's best chance yet to make this a championship again. He won here from the front in the past; a third straight win would change the season's temperature completely.</li>
-<li><strong>Ferrari brings an engine upgrade to the temple</strong> — The Scuderia arrives at home P2 in both championships, with Hamilton tied on 183 with Russell and racing at Monza in red for the first time. An 067/6 power unit upgrade is expected this weekend, aimed squarely at Mercedes. Hamilton has 5 Italian GP wins, Leclerc has won here twice (2019, 2024) — and with the Mercedes of Antonelli buried in the pack at the start, the tifosi will smell blood.</li>
-<li><strong>Hadjar targets a comeback, Red Bull juggles seats</strong> — Isack Hadjar (P8, 68 pts) aims to return from the wrist injury — a "small crack" in his left hand — that ruled him out of Zandvoort. Liam Lawson deputised well at Red Bull (P7 in the Dutch GP) and Tsunoda filled the Racing Bulls seat; if Hadjar isn't cleared, that shuffle repeats. Meanwhile Verstappen crashed out of his home race on lap 1 and is still winless in 2026 — P6 and 130 points off the lead, at a track where Red Bull's low-drag efficiency used to be a weapon.</li>
-<li><strong>Russell vs Hamilton, tied at 183</strong> — The old Mercedes teammates are dead level for P2, split only on countback. Russell has out-scored everyone but Antonelli since Canada but keeps losing Sundays to reliability and penalties; Hamilton has quietly been the most consistent podium collector since summer. Whoever wins this duel likely finishes best-of-the-rest — and at Monza they're in different cars for the first time.</li>
-<li><strong>New-era cars at the fastest track</strong> — This is the first time the 2026 active-aero, override-boost cars race at Monza's low-drag extreme. Straight-line speeds could nudge 360 km/h, Barrichello's 22-year-old lap record is genuinely under threat, and nobody quite knows how the energy-recovery-heavy power units will handle four long full-throttle blasts per lap. Expect engineers sweating deployment maps as much as drivers sweating the chicanes.</li>
+<li><strong>A brand-new track, and nobody has a notebook</strong> — F1 races in Madrid for the first time since Jarama 1981, on a circuit that only exists in simulators. Hybrid street/permanent layout around the IFEMA halls: 22 corners, two tunnels, elevation, a slow "Bunker" complex and the 550 m, 24%-banked La Monumental. Green track, unknown bumps, walls close by — Friday running will be worth more than at any race this season, and the team that decodes setup first can bank a result the car doesn't deserve.</li>
+<li><strong>Antonelli's march — 267 points and counting</strong> — Seven wins in 13 races, a 66-point lead over his own teammate, and he arrives fresh off winning his home race at Monza despite the engine-penalty scare. At 20, he's closing on the youngest championship in history (Vettel won his at 23). The math: if he leaves Madrid 75+ clear of Russell, Mercedes can start planning the party. A new circuit is the great equalizer — and the only realistic way this title race tightens.</li>
+<li><strong>Sainz gets a true home race at last</strong> — Carlos Sainz was born in Madrid; this race is literally in his city, and the crowd will be his. The awkward part: he's P16 with 6 points in a Williams that has scored 11 all year. Alonso's return to a Madrid F1 race 45 years after Jarama is the other half of the Spanish story — in an Aston Martin that has 3 points and sits ahead of only Cadillac. Expect enormous grandstand energy and, on current form, not much home silverware.</li>
+<li><strong>Red Bull's revolving door, weekend three</strong> — Isack Hadjar's cracked wrist keeps him out again: Liam Lawson stays in the senior Red Bull seat (P7 at Zandvoort, points at Monza) and Tsunoda fills in at Racing Bulls. Meanwhile Verstappen took P3 at Monza but is still winless in 2026 — sixth in the championship, 140 points off the lead, in the strangest season of his career.</li>
+<li><strong>Russell vs Hamilton, round two of the P2 fight</strong> — Russell leads it 201 to 191 after finishing second at Monza. Hamilton, in Ferrari red with a home-crowd win at Barcelona-Catalunya already this season, has been the most consistent podium scorer since summer. Ferrari (346) still trails Mercedes (468) by 122 in the constructors — realistically defending P2 from McLaren (287) rather than attacking P1.</li>
+<li><strong>Does the overtaking promise hold?</strong> — Madring was pitched explicitly as the anti-Barcelona: big stops, two straight-mode zones, a banked corner that should allow side-by-side running. The 2026 active-aero cars with override boost are unproven on a layout like this. If it works, F1 gets a new classic; if it doesn't, expect a very loud told-you-so from the Montmeló faithful whose race got demoted to a rotation slot.</li>
         </ul>
     </div>
 </div>
 
 <div style="text-align:center;color:var(--muted);font-size:0.7rem;margin-top:16px;">
-    Built by Marshall 🔶 for Wilson · Data: formula1.com, FIA, racingnews365.com, speedcafe.com, wikipedia.org · Updated August 26, 2026
+    Built by Marshall 🔶 for Wilson · Data: formula1.com, FIA, jolpica-f1, wikipedia.org · Updated September 9, 2026
 </div>
 
 <script>
-// Countdown to race: Sun Sep 6, 15:00 CEST = 13:00 UTC
-const raceTime = new Date('2026-09-06T13:00:00Z');
+// Countdown to race: Sun Sep 13, 15:00 CEST = 13:00 UTC
+const raceTime = new Date('2026-09-13T13:00:00Z');
 function updateCountdown() {
     const now = new Date();
     const diff = raceTime - now;
@@ -344,7 +343,7 @@ setInterval(updateCountdown, 60000);
 
 // Constructors chart
 const teams = ["Mercedes", "Ferrari", "McLaren", "Red Bull", "Racing Bulls", "Alpine", "Haas", "Audi", "Williams", "Aston Martin", "Cadillac"];
-const pts = [425, 338, 263, 186, 66, 63, 21, 16, 11, 3, 0];
+const pts = [468, 346, 287, 204, 75, 62, 21, 16, 11, 3, 0];
 const colors = ["#00D2BE", "#DC0000", "#FF8700", "#3671C6", "#6692FF", "#0090FF", "#B6BABD", "#00594F", "#64C4FF", "#006F62", "#888888"];
 
 new Chart(document.getElementById('constChart').getContext('2d'), {
