@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>🏁 Madring — Circuit Diagram</title>
+<title>🏁 Baku City Circuit — Circuit Diagram</title>
 <style>
 :root { --bg:#0a0a0a; --surface:#141414; --border:#2a2a2a; --text:#e0e0e0; --muted:#888; --accent:#DC0000; }
 * { margin:0; padding:0; box-sizing:border-box; }
@@ -29,136 +29,146 @@ body { background:var(--bg); color:var(--text); font-family:-apple-system,BlinkM
 <body>
 <div class="wrap">
 <div class="header">
-    <div class="flag">🇪🇸</div>
-    <h1>Madring — Circuito de Madring, Madrid</h1>
-    <div class="meta">5.416 km · 22 turns (+5A, 20A) · 57 laps · 2 straight-mode zones · Simplified layout — inaugural race, no lap record yet</div>
+    <div class="flag">🇦🇿</div>
+    <h1>Baku City Circuit — Azerbaijan</h1>
+    <div class="meta">6.003 km · 20 turns · 51 laps · 2 DRS/boost zones · Lap record 1:43.009 (Leclerc, 2019) · Simplified layout</div>
 </div>
 
 <div class="card">
-<svg class="diagram" viewBox="0 0 860 640" xmlns="http://www.w3.org/2000/svg">
-    <!-- Track outline (stylized Madring) -->
-    <path id="track" d="M 200 540
-             L 620 540
-             L 660 532
-             C 690 524 700 502 694 482
-             L 690 408
-             C 689 388 692 372 702 360
-             L 730 306
-             C 736 284 726 266 704 264
-             L 662 268
-             C 640 271 630 259 633 243
-             L 640 203
-             C 643 182 630 171 610 173
-             C 580 177 576 154 546 158
-             C 516 162 521 183 491 186
-             C 461 189 456 166 426 169
-             L 382 173
-             C 352 176 340 186 338 206
-             L 336 242
-             C 336 260 322 266 302 266
-             A 86 86 0 0 0 302 438
-             C 322 438 336 444 348 462
-             C 354 472 348 482 332 486
-             L 302 492
-             C 288 495 284 505 270 507
-             L 240 510
-             C 222 512 210 518 204 528
-             C 200 534 196 540 200 540 Z"
+<svg class="diagram" viewBox="0 0 860 600" xmlns="http://www.w3.org/2000/svg">
+    <!-- Track outline (stylized Baku, anticlockwise, lap direction right → left on bottom straight) -->
+    <path id="track" d="M 760 470
+             L 170 470
+             Q 140 470 140 440
+             L 140 405
+             Q 140 380 168 380
+             L 296 380
+             Q 320 380 320 356
+             L 320 302
+             Q 320 280 296 280
+             L 226 280
+             Q 200 280 200 256
+             L 200 224
+             Q 200 200 226 200
+             L 254 198
+             L 268 188
+             L 260 168
+             L 276 152
+             L 306 148
+             L 376 140
+             Q 402 137 414 154
+             L 432 180
+             Q 441 193 458 193
+             L 556 193
+             Q 578 193 586 208
+             L 602 238
+             Q 610 253 630 253
+             L 700 253
+             Q 722 253 728 275
+             L 744 340
+             Q 750 362 764 380
+             Q 780 402 778 432
+             Q 776 462 760 470 Z"
           fill="none" stroke="#3a3a3a" stroke-width="20" stroke-linejoin="round" stroke-linecap="round"/>
-    <path d="M 200 540
-             L 620 540
-             L 660 532
-             C 690 524 700 502 694 482
-             L 690 408
-             C 689 388 692 372 702 360
-             L 730 306
-             C 736 284 726 266 704 264
-             L 662 268
-             C 640 271 630 259 633 243
-             L 640 203
-             C 643 182 630 171 610 173
-             C 580 177 576 154 546 158
-             C 516 162 521 183 491 186
-             C 461 189 456 166 426 169
-             L 382 173
-             C 352 176 340 186 338 206
-             L 336 242
-             C 336 260 322 266 302 266
-             A 86 86 0 0 0 302 438
-             C 322 438 336 444 348 462
-             C 354 472 348 482 332 486
-             L 302 492
-             C 288 495 284 505 270 507
-             L 240 510
-             C 222 512 210 518 204 528
-             C 200 534 196 540 200 540 Z"
+    <path d="M 760 470
+             L 170 470
+             Q 140 470 140 440
+             L 140 405
+             Q 140 380 168 380
+             L 296 380
+             Q 320 380 320 356
+             L 320 302
+             Q 320 280 296 280
+             L 226 280
+             Q 200 280 200 256
+             L 200 224
+             Q 200 200 226 200
+             L 254 198
+             L 268 188
+             L 260 168
+             L 276 152
+             L 306 148
+             L 376 140
+             Q 402 137 414 154
+             L 432 180
+             Q 441 193 458 193
+             L 556 193
+             Q 578 193 586 208
+             L 602 238
+             Q 610 253 630 253
+             L 700 253
+             Q 722 253 728 275
+             L 744 340
+             Q 750 362 764 380
+             Q 780 402 778 432
+             Q 776 462 760 470 Z"
           fill="none" stroke="#e0e0e0" stroke-width="3" stroke-linejoin="round"/>
 
-    <!-- Tunnel sections (under the motorway) -->
-    <line x1="392" y1="172" x2="428" y2="169" stroke="#555" stroke-width="24" stroke-linecap="round"/>
-    <line x1="344" y1="192" x2="338" y2="216" stroke="#555" stroke-width="24" stroke-linecap="round"/>
-    <text class="note-label" x="388" y="146" text-anchor="middle">twin tunnels (under M-11)</text>
+    <!-- Castle walls hint -->
+    <text class="note-label" x="262" y="120" text-anchor="middle">Icherisheher — 12th-century old city walls</text>
 
-    <!-- Straight-mode zone 1: main straight -->
-    <line x1="250" y1="556" x2="590" y2="556" stroke="#4ade80" stroke-width="5" stroke-dasharray="8 5" stroke-linecap="round"/>
-    <text class="zone-label" x="420" y="578" text-anchor="middle">STRAIGHT MODE · main straight (T22 → T1) · ~340 km/h</text>
+    <!-- DRS/boost zone 1: main straight (T20 → T1) -->
+    <line x1="240" y1="488" x2="730" y2="488" stroke="#4ade80" stroke-width="5" stroke-dasharray="8 5" stroke-linecap="round"/>
+    <text class="zone-label" x="485" y="510" text-anchor="middle">DRS / BOOST ZONE 1 · 2.2 km flat-out blast · ~360 km/h in the tow</text>
 
-    <!-- Straight-mode zone 2: T3 → T4 -->
-    <line x1="716" y1="358" x2="742" y2="310" stroke="#4ade80" stroke-width="5" stroke-dasharray="8 5" stroke-linecap="round"/>
-    <text class="zone-label" x="752" y="342" text-anchor="start">STRAIGHT</text>
-    <text class="zone-label" x="752" y="356" text-anchor="start">MODE 2</text>
+    <!-- DRS/boost zone 2: T2 → T3 -->
+    <line x1="180" y1="364" x2="290" y2="364" stroke="#4ade80" stroke-width="5" stroke-dasharray="8 5" stroke-linecap="round"/>
+    <text class="zone-label" x="235" y="350" text-anchor="middle">DRS / BOOST 2</text>
 
     <!-- Start/finish line -->
-    <line x1="300" y1="532" x2="300" y2="550" stroke="#fff" stroke-width="6"/>
-    <text class="corner-label" x="300" y="600" text-anchor="middle" style="fill:#DC0000;">START / FINISH</text>
+    <line x1="560" y1="462" x2="560" y2="480" stroke="#fff" stroke-width="6"/>
+    <text class="corner-label" x="560" y="540" text-anchor="middle" style="fill:#DC0000;">START / FINISH</text>
 
     <!-- Overtake zones (orange dots) -->
-    <circle cx="676" cy="516" r="8" fill="#f59e0b"/>
-    <circle cx="716" cy="278" r="7" fill="#f59e0b"/>
-    <circle cx="344" cy="456" r="7" fill="#f59e0b"/>
+    <circle cx="150" cy="452" r="8" fill="#f59e0b"/>
+    <circle cx="312" cy="372" r="7" fill="#f59e0b"/>
+    <circle cx="592" cy="222" r="7" fill="#f59e0b"/>
 
     <!-- Corner labels + speeds -->
-    <text class="corner-label" x="700" y="452" text-anchor="start">T1</text>
-    <text class="speed-label"  x="700" y="466" text-anchor="start">~340 → 90 km/h · biggest stop</text>
-    <text class="speed-label"  x="700" y="480" text-anchor="start">overtake #1</text>
+    <text class="corner-label" x="128" y="510" text-anchor="start">T1</text>
+    <text class="speed-label"  x="128" y="524" text-anchor="start">~360 → 100 km/h · monster stop · overtake #1</text>
 
-    <text class="corner-label" x="668" y="240" text-anchor="start">T4</text>
-    <text class="speed-label"  x="668" y="254" text-anchor="start">hard stop · overtake #2</text>
+    <text class="corner-label" x="120" y="400" text-anchor="end">T2</text>
+    <text class="speed-label"  x="120" y="414" text-anchor="end">90° left</text>
 
-    <text class="corner-label" x="600" y="228" text-anchor="middle">T5–5A · Subida de las Cárcavas</text>
-    <text class="speed-label"  x="600" y="242" text-anchor="middle">uphill · unusual double-apex</text>
+    <text class="corner-label" x="336" y="340" text-anchor="start">T3</text>
+    <text class="speed-label"  x="336" y="354" text-anchor="start">hard stop · overtake #2</text>
 
-    <text class="corner-label" x="500" y="120" text-anchor="middle">T6–T9 Valdebebas esses</text>
-    <text class="speed-label"  x="500" y="134" text-anchor="middle">~250 km/h fast flicks · commitment section</text>
+    <text class="corner-label" x="338" y="300" text-anchor="start">T4–T6</text>
+    <text class="speed-label"  x="338" y="314" text-anchor="start">90° city blocks · walls tight on exit</text>
 
-    <text class="corner-label" x="150" y="330" text-anchor="end">T12 La Monumental</text>
-    <text class="speed-label"  x="150" y="344" text-anchor="end">550 m · 24% banking (13.5°)</text>
-    <text class="speed-label"  x="150" y="358" text-anchor="end">~6 s in the corner · 45,000 seats</text>
-    <text class="speed-label"  x="150" y="372" text-anchor="end">longest banked turn in F1</text>
+    <text class="corner-label" x="178" y="176" text-anchor="end">T8–T12 Castle section</text>
+    <text class="speed-label"  x="178" y="190" text-anchor="end">7.6 m wide · ~95 km/h · uphill</text>
+    <text class="speed-label"  x="178" y="204" text-anchor="end">narrowest point in F1 · zero margin</text>
 
-    <text class="corner-label" x="352" y="510" text-anchor="start">T14–T17 “The Bunker”</text>
-    <text class="speed-label"  x="352" y="524" text-anchor="start">~80–100 km/h · tight & technical · late-brake pass</text>
+    <text class="corner-label" x="430" y="120" text-anchor="middle">T13 kink</text>
+    <text class="speed-label"  x="430" y="134" text-anchor="middle">downhill · bumpy braking</text>
 
-    <text class="corner-label" x="180" y="490" text-anchor="end">T20A–T22</text>
-    <text class="speed-label"  x="180" y="504" text-anchor="end">exit speed critical → main straight</text>
+    <text class="corner-label" x="592" y="170" text-anchor="middle">T15</text>
+    <text class="speed-label"  x="592" y="184" text-anchor="middle">downhill stop · lunge spot</text>
+
+    <text class="corner-label" x="700" y="230" text-anchor="middle">T16–T20</text>
+    <text class="speed-label"  x="700" y="216" text-anchor="middle">flat-out sweeps · exit of T16 decides the straight</text>
+
+    <text class="speed-label" x="790" y="430" text-anchor="start">seafront</text>
+    <text class="speed-label" x="790" y="444" text-anchor="start">sweep</text>
 
     <!-- Direction arrow -->
-    <g transform="translate(440,518)">
-        <path d="M 0 0 L 26 2 M 18 -4 L 28 2 L 18 8" stroke="#888" stroke-width="2" fill="none"/>
-        <text x="-6" y="4" text-anchor="end" style="fill:#888;font-size:11px;font-family:-apple-system,sans-serif;">lap direction</text>
+    <g transform="translate(460,452)">
+        <path d="M 26 0 L 0 2 M 8 -4 L -2 2 L 8 8" stroke="#888" stroke-width="2" fill="none"/>
+        <text x="34" y="6" text-anchor="start" style="fill:#888;font-size:11px;font-family:-apple-system,sans-serif;">lap direction</text>
     </g>
 </svg>
 
 <div class="legend">
     <div><span class="swatch" style="border-top-color:#e0e0e0;"></span> Track</div>
-    <div><span class="swatch" style="border-top-color:#4ade80; border-top-style:dashed;"></span> Straight-mode (overtake-boost) zone</div>
+    <div><span class="swatch" style="border-top-color:#4ade80; border-top-style:dashed;"></span> DRS / overtake-boost zone</div>
     <div><span class="dot" style="background:#f59e0b;"></span> Overtake spot</div>
-    <div><span class="swatch" style="border-top-color:#555; border-top-width:8px;"></span> Tunnel</div>
     <div><span class="swatch" style="border-top-color:#fff;"></span> Start / finish</div>
 </div>
 
 <div style="margin-top:14px;color:var(--muted);font-size:0.78rem;line-height:1.5;">
-    A lap of the brand-new Madring (layout simplified — nobody has raced it yet): full noise down the main straight past the IFEMA halls into the heavy T1 stop, the lap's prime passing zone. A second straight-mode blast into T4 gives move number two. The Subida de las Cárcavas climbs into the fast Valdebebas esses — the commitment section — before the track dives through twin tunnels beneath the M-11 motorway. Then the signature: <strong>La Monumental</strong>, a 550&nbsp;m semicircular bowl banked at 24%, where cars run wide-open for about six seconds inside a 45,000-seat amphitheatre. What the banking gives, the Bunker takes away — a tight, walled, second-gear complex where mistakes meet concrete — before the final corners fire cars back onto the straight, where exit speed decides whether you attack or defend into T1. Designed by Studio Dromo with overtaking as the explicit brief; Sunday is the proof.
+    A lap of Baku: launch past the pits and hold it flat for ~2.2&nbsp;km along the Caspian seafront — the longest full-throttle stretch in F1, nudging 360&nbsp;km/h in the slipstream — before the monster stop into T1, the lap's prime passing zone. T2 and the second boost zone feed the T3 stop, move number two. A run of 90° city blocks leads to the signature: the <strong>castle section (T8–T12)</strong>, 7.6&nbsp;m wide, uphill, threading the 12th-century Icherisheher walls in second gear — the tightest squeeze on the calendar, where one clipped apex ends the weekend. From there the track falls back toward the sea: the bumpy T13 kink, the downhill T15 stop that invites lunges, then the flat-out T16–T20 sweeps where exit speed decides whether you attack or defend for the next 2.2&nbsp;km. Monaco walls, Monza speeds — that's why nothing here ever ends quietly.
 </div>
 </div>
 
