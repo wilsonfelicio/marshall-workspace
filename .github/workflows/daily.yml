@@ -150,6 +150,7 @@ jobs:
           ls -la precios_mayoreo_diario.xlsx
 
       - name: Publish
+        id: publish
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
@@ -166,7 +167,36 @@ jobs:
             $extra data/curated/.last_rows.json
           gh release view data >/dev/null 2>&1 || \
             gh release create data --title "Latest data" --notes "Rolling data release. Assets are replaced on each run."
-          gh release upload data precios_mayoreo_diario.xlsx store.tar.gz --clobber
+          # --clobber deletes each old asset before uploading its replacement, so a failed
+          # upload leaves the release with no store at all, and the store lives nowhere
+          # else. On 17 Sep 2026 one HTTP 500 from the GitHub API did exactly that and cost
+          # a full re-bootstrap. Retrying is safe: a re-run simply uploads what is missing.
+          ok=""
+          for attempt in 1 2 3 4 5; do
+            if gh release upload data precios_mayoreo_diario.xlsx store.tar.gz --clobber; then
+              ok=1
+              break
+            fi
+            echo "::warning::release upload failed (attempt $attempt of 5)"
+            sleep $((attempt * 30))
+          done
+          if [ -z "$ok" ]; then
+            exit 1
+          fi
+
+      # Last resort if every retry failed: keep the day's store and workbook as a run
+      # artifact so nothing has to be re-collected. To recover, download the artifact and
+      # run `gh release upload data precios_mayoreo_diario.xlsx store.tar.gz --clobber`.
+      # Paths are from the repository root; `working-directory` does not apply to `uses`.
+      - name: Keep the store if publishing failed
+        if: ${{ failure() && steps.publish.conclusion == 'failure' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: unpublished-store
+          path: |
+            coleta/store.tar.gz
+            coleta/precios_mayoreo_diario.xlsx
+          retention-days: 14
 
       - name: Summary
         if: always()
