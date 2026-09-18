@@ -152,10 +152,7 @@ jobs:
           python export_panel_xlsx.py
           ls -la precios_mayoreo_diario.xlsx
 
-      - name: Publish
-        id: publish
-        env:
-          GH_TOKEN: ${{ github.token }}
+      - name: Pack the store
         run: |
           # The protein manifest is listed only if it exists. tar exits non-zero on a
           # missing operand, which would fail this step and withhold the produce workbook
@@ -173,6 +170,28 @@ jobs:
           fi
           tar czf store.tar.gz data/raw data/catalog data/manifest.csv \
             $extra data/curated/.last_rows.json
+
+      # The release holds one copy and --clobber deletes it before uploading the next, so
+      # the day's store and workbook are set aside first, on every run. Thirty days of
+      # them also means a bad data day can be rolled back, not only a failed upload. To
+      # restore, download the artifact and run
+      # `gh release upload data precios_mayoreo_diario.xlsx store.tar.gz --clobber`.
+      # Paths are from the repository root; `working-directory` does not apply to `uses`.
+      - name: Back up the store and workbook
+        continue-on-error: true     # a failed backup must not withhold the day's data
+        uses: actions/upload-artifact@v4
+        with:
+          name: store-backup
+          path: |
+            coleta/store.tar.gz
+            coleta/precios_mayoreo_diario.xlsx
+          retention-days: 30
+          compression-level: 0      # both files are already compressed
+
+      - name: Publish
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
           gh release view data >/dev/null 2>&1 || \
             gh release create data --title "Latest data" --notes "Rolling data release. Assets are replaced on each run."
           # --clobber deletes each old asset before uploading its replacement, so a failed
@@ -191,20 +210,6 @@ jobs:
           if [ -z "$ok" ]; then
             exit 1
           fi
-
-      # Last resort if every retry failed: keep the day's store and workbook as a run
-      # artifact so nothing has to be re-collected. To recover, download the artifact and
-      # run `gh release upload data precios_mayoreo_diario.xlsx store.tar.gz --clobber`.
-      # Paths are from the repository root; `working-directory` does not apply to `uses`.
-      - name: Keep the store if publishing failed
-        if: ${{ failure() && steps.publish.conclusion == 'failure' }}
-        uses: actions/upload-artifact@v4
-        with:
-          name: unpublished-store
-          path: |
-            coleta/store.tar.gz
-            coleta/precios_mayoreo_diario.xlsx
-          retention-days: 14
 
       - name: Summary
         if: always()
