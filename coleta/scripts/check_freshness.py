@@ -140,6 +140,7 @@ else:
 
 # ---------------------------------------------------------------- 3. continuity
 rows = int(len(d))
+shrank = False
 if not A.no_state:
     prev = None
     if STATE.exists():
@@ -149,6 +150,7 @@ if not A.no_state:
             prev = None
     if prev is not None and rows < prev:
         fail.append(f"store shrank: {rows:,} rows now against {prev:,} on the previous run")
+        shrank = True
     elif prev is not None:
         note.append(f"continuity OK: {rows:,} rows, {rows - prev:+,} since the last run")
     else:
@@ -225,6 +227,7 @@ def _leave(code: int) -> "None":
 if fail:
     print(f"\n{len(fail)} check(s) failed — not publishing. The previously published file "
           f"stays in place.")
-    _leave(1)
+    # 2 tells the workflow not to save this store over the good one; 1 lets it.
+    _leave(2 if shrank else 1)
 print("\nall checks passed — safe to publish")
 _leave(0)

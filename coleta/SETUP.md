@@ -68,9 +68,10 @@ on Wednesdays, and the gate knows that.
 
 ## The publish gate
 
-`scripts/check_freshness.py` runs before the workbook is built, and a failure stops the job
+`scripts/check_freshness.py` runs before the workbook is built, and a failure fails the run
 **without** replacing the published file — so a bad day leaves yesterday's good file in
-place rather than overwriting it. Three checks:
+place rather than overwriting it. The store is still saved to the release, so the day's
+fetch is not lost; the exception is a Continuity failure, which saves nothing. Three checks:
 
 | Check | Fails when |
 |---|---|

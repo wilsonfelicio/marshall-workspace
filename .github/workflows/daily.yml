@@ -41,6 +41,10 @@ on:
       days:
         description: "Trailing window in days, to close a gap after an outage (blank = the configured 14)"
         type: number
+      publish_partial:
+        description: "Publish the workbook even if the gate refuses it (a shrunken store still blocks)"
+        type: boolean
+        default: false
 
 permissions:
   contents: write               # required to replace the release assets
@@ -144,15 +148,29 @@ jobs:
       - name: Verify the store
         run: python run.py verify || echo "::warning::run.py verify reported problems"
 
+      # The gate decides about the WORKBOOK only. The store is saved either way: on 18 Sep
+      # 2026 a run before SNIIM had finished posting the day failed the gate and threw away
+      # a 45-day refetch and a 28-minute protein backfill with it. A partial day in the
+      # store is harmless, the trailing window refetches it tomorrow. The one exception is
+      # exit code 2, "the store shrank": that store must not replace the good one.
       - name: Publish gate
-        run: python scripts/check_freshness.py
+        id: gate
+        continue-on-error: true     # the last step fails the run instead
+        run: |
+          set +e
+          python scripts/check_freshness.py
+          rc=$?
+          echo "rc=$rc" >> "$GITHUB_OUTPUT"
+          exit $rc
 
       - name: Build the workbook
+        if: ${{ steps.gate.outputs.rc == '0' || (inputs.publish_partial && steps.gate.outputs.rc == '1') }}
         run: |
           python export_panel_xlsx.py
           ls -la precios_mayoreo_diario.xlsx
 
       - name: Pack the store
+        if: ${{ steps.gate.outputs.rc != '2' }}
         run: |
           # The protein manifest is listed only if it exists. tar exits non-zero on a
           # missing operand, which would fail this step and withhold the produce workbook
@@ -178,6 +196,7 @@ jobs:
       # `gh release upload data precios_mayoreo_diario.xlsx store.tar.gz --clobber`.
       # Paths are from the repository root; `working-directory` does not apply to `uses`.
       - name: Back up the store and workbook
+        if: ${{ steps.gate.outputs.rc != '2' }}
         continue-on-error: true     # a failed backup must not withhold the day's data
         uses: actions/upload-artifact@v4
         with:
@@ -189,9 +208,17 @@ jobs:
           compression-level: 0      # both files are already compressed
 
       - name: Publish
+        if: ${{ steps.gate.outputs.rc != '2' }}
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
+          # If the gate refused the workbook it was never built and only the store goes
+          # up; the workbook asset is not named, so --clobber leaves the previously
+          # published one in place.
+          files="store.tar.gz"
+          if [ -f precios_mayoreo_diario.xlsx ]; then
+            files="precios_mayoreo_diario.xlsx store.tar.gz"
+          fi
           gh release view data >/dev/null 2>&1 || \
             gh release create data --title "Latest data" --notes "Rolling data release. Assets are replaced on each run."
           # --clobber deletes each old asset before uploading its replacement, so a failed
@@ -200,7 +227,7 @@ jobs:
           # a full re-bootstrap. Retrying is safe: a re-run simply uploads what is missing.
           ok=""
           for attempt in 1 2 3 4 5; do
-            if gh release upload data precios_mayoreo_diario.xlsx store.tar.gz --clobber; then
+            if gh release upload data $files --clobber; then
               ok=1
               break
             fi
@@ -210,6 +237,10 @@ jobs:
           if [ -z "$ok" ]; then
             exit 1
           fi
+
+      - name: Fail the run if the gate refused the workbook
+        if: ${{ steps.gate.outputs.rc != '0' && !(inputs.publish_partial && steps.gate.outputs.rc == '1') }}
+        run: exit 1
 
       - name: Summary
         if: always()
