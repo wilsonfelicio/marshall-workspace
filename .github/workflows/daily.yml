@@ -38,6 +38,9 @@ on:
         description: "First run: build the store from scratch instead of restoring it"
         type: boolean
         default: false
+      days:
+        description: "Trailing window in days, to close a gap after an outage (blank = the configured 14)"
+        type: number
 
 permissions:
   contents: write               # required to replace the release assets
@@ -97,7 +100,7 @@ jobs:
         id: fetch
         run: |
           set +e
-          python run.py update
+          python run.py update ${{ inputs.days && format('--days {0}', inputs.days) || '' }}
           echo "update_rc=$?" >> "$GITHUB_OUTPUT"
           set -e
 
@@ -163,7 +166,12 @@ jobs:
           if [ -f data/manifest_proteinas.csv ]; then
             extra="data/manifest_proteinas.csv"
           fi
-          tar czf store.tar.gz data/raw data/catalog data/inpc data/manifest.csv \
+          # Same for data/inpc: it comes from inpc_run.py, which the bootstrap path never
+          # runs, so on 18 Sep 2026 a 2.6-hour bootstrap died here with nothing published.
+          if [ -d data/inpc ]; then
+            extra="$extra data/inpc"
+          fi
+          tar czf store.tar.gz data/raw data/catalog data/manifest.csv \
             $extra data/curated/.last_rows.json
           gh release view data >/dev/null 2>&1 || \
             gh release create data --title "Latest data" --notes "Rolling data release. Assets are replaced on each run."
