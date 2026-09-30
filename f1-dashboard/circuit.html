@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>🏁 Baku City Circuit — Circuit Diagram</title>
+<title>🏁 Sepang International Circuit — Circuit Diagram</title>
 <style>
 :root { --bg:#0a0a0a; --surface:#141414; --border:#2a2a2a; --text:#e0e0e0; --muted:#888; --accent:#DC0000; }
 * { margin:0; padding:0; box-sizing:border-box; }
@@ -29,134 +29,111 @@ body { background:var(--bg); color:var(--text); font-family:-apple-system,BlinkM
 <body>
 <div class="wrap">
 <div class="header">
-    <div class="flag">🇦🇿</div>
-    <h1>Baku City Circuit — Azerbaijan</h1>
-    <div class="meta">6.003 km · 20 turns · 51 laps · 2 DRS/boost zones · Lap record 1:43.009 (Leclerc, 2019) · Simplified layout</div>
+    <div class="flag">🇲🇾</div>
+    <h1>Sepang International Circuit — Malaysia</h1>
+    <div class="meta">5.543 km · 15 turns · 56 laps · 2 DRS/boost zones · Lap record 1:34.080 (Vettel, 2017) · Simplified layout</div>
 </div>
 
 <div class="card">
 <svg class="diagram" viewBox="0 0 860 600" xmlns="http://www.w3.org/2000/svg">
-    <!-- Track outline (stylized Baku, anticlockwise, lap direction right → left on bottom straight) -->
-    <path id="track" d="M 760 470
-             L 170 470
-             Q 140 470 140 440
-             L 140 405
-             Q 140 380 168 380
-             L 296 380
-             Q 320 380 320 356
-             L 320 302
-             Q 320 280 296 280
-             L 226 280
-             Q 200 280 200 256
-             L 200 224
-             Q 200 200 226 200
-             L 254 198
-             L 268 188
-             L 260 168
-             L 276 152
-             L 306 148
-             L 376 140
-             Q 402 137 414 154
-             L 432 180
-             Q 441 193 458 193
-             L 556 193
-             Q 578 193 586 208
-             L 602 238
-             Q 610 253 630 253
-             L 700 253
-             Q 722 253 728 275
-             L 744 340
-             Q 750 362 764 380
-             Q 780 402 778 432
-             Q 776 462 760 470 Z"
+    <!-- Track outline (stylized Sepang, clockwise; twin straights at the bottom split by the T15 hairpin) -->
+    <path id="track" d="M 200 490
+             L 660 490
+             Q 740 490 740 440
+             Q 740 395 690 380
+             L 560 335
+             Q 530 325 523 298
+             C 505 262 468 250 452 226
+             Q 430 192 392 182
+             L 335 180
+             Q 282 178 282 140
+             Q 282 102 332 102
+             L 558 102
+             Q 612 102 618 145
+             L 620 175
+             C 628 205 600 228 614 258
+             L 620 375
+             Q 622 420 585 420
+             L 200 420
+             Q 150 420 150 455
+             Q 150 490 200 490 Z"
           fill="none" stroke="#3a3a3a" stroke-width="20" stroke-linejoin="round" stroke-linecap="round"/>
-    <path d="M 760 470
-             L 170 470
-             Q 140 470 140 440
-             L 140 405
-             Q 140 380 168 380
-             L 296 380
-             Q 320 380 320 356
-             L 320 302
-             Q 320 280 296 280
-             L 226 280
-             Q 200 280 200 256
-             L 200 224
-             Q 200 200 226 200
-             L 254 198
-             L 268 188
-             L 260 168
-             L 276 152
-             L 306 148
-             L 376 140
-             Q 402 137 414 154
-             L 432 180
-             Q 441 193 458 193
-             L 556 193
-             Q 578 193 586 208
-             L 602 238
-             Q 610 253 630 253
-             L 700 253
-             Q 722 253 728 275
-             L 744 340
-             Q 750 362 764 380
-             Q 780 402 778 432
-             Q 776 462 760 470 Z"
+    <path d="M 200 490
+             L 660 490
+             Q 740 490 740 440
+             Q 740 395 690 380
+             L 560 335
+             Q 530 325 523 298
+             C 505 262 468 250 452 226
+             Q 430 192 392 182
+             L 335 180
+             Q 282 178 282 140
+             Q 282 102 332 102
+             L 558 102
+             Q 612 102 618 145
+             L 620 175
+             C 628 205 600 228 614 258
+             L 620 375
+             Q 622 420 585 420
+             L 200 420
+             Q 150 420 150 455
+             Q 150 490 200 490 Z"
           fill="none" stroke="#e0e0e0" stroke-width="3" stroke-linejoin="round"/>
 
-    <!-- Castle walls hint -->
-    <text class="note-label" x="262" y="120" text-anchor="middle">Icherisheher — 12th-century old city walls</text>
+    <!-- Grandstand hint -->
+    <text class="note-label" x="430" y="585" text-anchor="middle">Hibiscus-roof main grandstand between the twin straights</text>
 
-    <!-- DRS/boost zone 1: main straight (T20 → T1) -->
-    <line x1="240" y1="488" x2="730" y2="488" stroke="#4ade80" stroke-width="5" stroke-dasharray="8 5" stroke-linecap="round"/>
-    <text class="zone-label" x="485" y="510" text-anchor="middle">DRS / BOOST ZONE 1 · 2.2 km flat-out blast · ~360 km/h in the tow</text>
+    <!-- DRS/boost zone 1: main straight (T15 → T1) -->
+    <line x1="230" y1="508" x2="640" y2="508" stroke="#4ade80" stroke-width="5" stroke-dasharray="8 5" stroke-linecap="round"/>
+    <text class="zone-label" x="435" y="528" text-anchor="middle">DRS / BOOST ZONE 1 · ~900 m pit straight · ~330 km/h</text>
 
-    <!-- DRS/boost zone 2: T2 → T3 -->
-    <line x1="180" y1="364" x2="290" y2="364" stroke="#4ade80" stroke-width="5" stroke-dasharray="8 5" stroke-linecap="round"/>
-    <text class="zone-label" x="235" y="350" text-anchor="middle">DRS / BOOST 2</text>
+    <!-- DRS/boost zone 2: back straight (T14 → T15) -->
+    <line x1="560" y1="404" x2="230" y2="404" stroke="#4ade80" stroke-width="5" stroke-dasharray="8 5" stroke-linecap="round"/>
+    <text class="zone-label" x="395" y="394" text-anchor="middle">DRS / BOOST ZONE 2 · ~900 m back straight</text>
 
     <!-- Start/finish line -->
-    <line x1="560" y1="462" x2="560" y2="480" stroke="#fff" stroke-width="6"/>
-    <text class="corner-label" x="560" y="540" text-anchor="middle" style="fill:#DC0000;">START / FINISH</text>
+    <line x1="380" y1="482" x2="380" y2="500" stroke="#fff" stroke-width="6"/>
+    <text class="corner-label" x="380" y="550" text-anchor="middle" style="fill:#DC0000;">START / FINISH</text>
 
     <!-- Overtake zones (orange dots) -->
-    <circle cx="150" cy="452" r="8" fill="#f59e0b"/>
-    <circle cx="312" cy="372" r="7" fill="#f59e0b"/>
-    <circle cx="592" cy="222" r="7" fill="#f59e0b"/>
+    <circle cx="732" cy="464" r="8" fill="#f59e0b"/>
+    <circle cx="158" cy="440" r="8" fill="#f59e0b"/>
+    <circle cx="527" cy="308" r="7" fill="#f59e0b"/>
 
     <!-- Corner labels + speeds -->
-    <text class="corner-label" x="128" y="510" text-anchor="start">T1</text>
-    <text class="speed-label"  x="128" y="524" text-anchor="start">~360 → 100 km/h · monster stop · overtake #1</text>
+    <text class="corner-label" x="758" y="452" text-anchor="start">T1–T2</text>
+    <text class="speed-label"  x="758" y="466" text-anchor="start">~330 → 90 km/h</text>
+    <text class="speed-label"  x="758" y="480" text-anchor="start">huge wide entry · overtake #1</text>
 
-    <text class="corner-label" x="120" y="400" text-anchor="end">T2</text>
-    <text class="speed-label"  x="120" y="414" text-anchor="end">90° left</text>
+    <text class="corner-label" x="548" y="320" text-anchor="start">T4</text>
+    <text class="speed-label"  x="548" y="334" text-anchor="start">hard stop after uphill run · overtake #3</text>
 
-    <text class="corner-label" x="336" y="340" text-anchor="start">T3</text>
-    <text class="speed-label"  x="336" y="354" text-anchor="start">hard stop · overtake #2</text>
+    <text class="corner-label" x="418" y="238" text-anchor="start">T5–T6</text>
+    <text class="speed-label"  x="418" y="252" text-anchor="start">fast esses · ~250 km/h commitment</text>
 
-    <text class="corner-label" x="338" y="300" text-anchor="start">T4–T6</text>
-    <text class="speed-label"  x="338" y="314" text-anchor="start">90° city blocks · walls tight on exit</text>
+    <text class="corner-label" x="352" y="164" text-anchor="middle">T7–T8</text>
+    <text class="speed-label"  x="352" y="150" text-anchor="middle">long double-apex rights · front-tyre killers</text>
 
-    <text class="corner-label" x="178" y="176" text-anchor="end">T8–T12 Castle section</text>
-    <text class="speed-label"  x="178" y="190" text-anchor="end">7.6 m wide · ~95 km/h · uphill</text>
-    <text class="speed-label"  x="178" y="204" text-anchor="end">narrowest point in F1 · zero margin</text>
+    <text class="corner-label" x="258" y="90" text-anchor="middle">T9</text>
+    <text class="speed-label"  x="258" y="76" text-anchor="start">tight hairpin · 2nd gear ~80 km/h</text>
 
-    <text class="corner-label" x="430" y="120" text-anchor="middle">T13 kink</text>
-    <text class="speed-label"  x="430" y="134" text-anchor="middle">downhill · bumpy braking</text>
+    <text class="corner-label" x="450" y="88" text-anchor="middle">T10–T11</text>
+    <text class="speed-label"  x="450" y="74" text-anchor="middle">long right-handers, building speed</text>
 
-    <text class="corner-label" x="592" y="170" text-anchor="middle">T15</text>
-    <text class="speed-label"  x="592" y="184" text-anchor="middle">downhill stop · lunge spot</text>
+    <text class="corner-label" x="648" y="160" text-anchor="start">T12–T13</text>
+    <text class="speed-label"  x="648" y="174" text-anchor="start">fast left-right sweep · ~230 km/h</text>
 
-    <text class="corner-label" x="700" y="230" text-anchor="middle">T16–T20</text>
-    <text class="speed-label"  x="700" y="216" text-anchor="middle">flat-out sweeps · exit of T16 decides the straight</text>
+    <text class="corner-label" x="640" y="300" text-anchor="start">T14</text>
+    <text class="speed-label"  x="640" y="314" text-anchor="start">90° left · exit decides the back straight</text>
 
-    <text class="speed-label" x="790" y="430" text-anchor="start">seafront</text>
-    <text class="speed-label" x="790" y="444" text-anchor="start">sweep</text>
+    <text class="corner-label" x="118" y="430" text-anchor="end">T15</text>
+    <text class="speed-label"  x="118" y="444" text-anchor="end">the hairpin · ~310 → 90 km/h</text>
+    <text class="speed-label"  x="118" y="458" text-anchor="end">overtake #2 · exit punished for 2 km</text>
 
     <!-- Direction arrow -->
-    <g transform="translate(460,452)">
-        <path d="M 26 0 L 0 2 M 8 -4 L -2 2 L 8 8" stroke="#888" stroke-width="2" fill="none"/>
-        <text x="34" y="6" text-anchor="start" style="fill:#888;font-size:11px;font-family:-apple-system,sans-serif;">lap direction</text>
+    <g transform="translate(400,468)">
+        <path d="M 0 0 L 26 2 M 18 -4 L 28 2 L 18 8" stroke="#888" stroke-width="2" fill="none"/>
+        <text x="-8" y="6" text-anchor="end" style="fill:#888;font-size:11px;font-family:-apple-system,sans-serif;">lap direction</text>
     </g>
 </svg>
 
@@ -168,7 +145,7 @@ body { background:var(--bg); color:var(--text); font-family:-apple-system,BlinkM
 </div>
 
 <div style="margin-top:14px;color:var(--muted);font-size:0.78rem;line-height:1.5;">
-    A lap of Baku: launch past the pits and hold it flat for ~2.2&nbsp;km along the Caspian seafront — the longest full-throttle stretch in F1, nudging 360&nbsp;km/h in the slipstream — before the monster stop into T1, the lap's prime passing zone. T2 and the second boost zone feed the T3 stop, move number two. A run of 90° city blocks leads to the signature: the <strong>castle section (T8–T12)</strong>, 7.6&nbsp;m wide, uphill, threading the 12th-century Icherisheher walls in second gear — the tightest squeeze on the calendar, where one clipped apex ends the weekend. From there the track falls back toward the sea: the bumpy T13 kink, the downhill T15 stop that invites lunges, then the flat-out T16–T20 sweeps where exit speed decides whether you attack or defend for the next 2.2&nbsp;km. Monaco walls, Monza speeds — that's why nothing here ever ends quietly.
+    A lap of Sepang: launch down the ~900&nbsp;m pit straight to <strong>T1</strong>, an entry so wide that three cars can arrive side by side — the prime passing zone, with around-the-outside a real option. T2 spits you toward the uphill run to <strong>T4</strong>, stop number three on the overtake list. Then the track starts flowing: the fast <strong>T5–T6</strong> esses, the long double-apex <strong>T7–T8</strong> rights that quietly murder front tyres in 32°C heat, and the second-gear <strong>T9</strong> hairpin. The middle sector builds speed through T10–T13 before everything funnels into <strong>T14</strong>: nail the exit, because what follows is the back straight, the boost zone, and the <strong>T15 hairpin</strong> — miss your braking there and your rival gets the tow all the way down the pit straight for another go at T1. Two chances to pass per lap, every lap, and an equatorial thunderstorm on standby: Tilke never topped his first attempt.
 </div>
 </div>
 
