@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>🏁 Sepang International Circuit — Circuit Diagram</title>
+<title>🏁 Marina Bay Street Circuit — Circuit Diagram</title>
 <style>
 :root { --bg:#0a0a0a; --surface:#141414; --border:#2a2a2a; --text:#e0e0e0; --muted:#888; --accent:#DC0000; }
 * { margin:0; padding:0; box-sizing:border-box; }
@@ -29,127 +29,146 @@ body { background:var(--bg); color:var(--text); font-family:-apple-system,BlinkM
 <body>
 <div class="wrap">
 <div class="header">
-    <div class="flag">🇲🇾</div>
-    <h1>Sepang International Circuit — Malaysia</h1>
-    <div class="meta">5.543 km · 15 turns · 56 laps · 2 DRS/boost zones · Lap record 1:34.080 (Vettel, 2017) · Simplified layout</div>
+    <div class="flag">🇸🇬</div>
+    <h1>Marina Bay Street Circuit — Singapore</h1>
+    <div class="meta">4.927 km · 19 turns · 62 laps · 4 DRS zones · Night race · Lap record 1:34.486 (Ricciardo, 2024) · Simplified layout</div>
 </div>
 
 <div class="card">
-<svg class="diagram" viewBox="0 0 860 600" xmlns="http://www.w3.org/2000/svg">
-    <!-- Track outline (stylized Sepang, clockwise; twin straights at the bottom split by the T15 hairpin) -->
-    <path id="track" d="M 200 490
-             L 660 490
-             Q 740 490 740 440
-             Q 740 395 690 380
-             L 560 335
-             Q 530 325 523 298
-             C 505 262 468 250 452 226
-             Q 430 192 392 182
-             L 335 180
-             Q 282 178 282 140
-             Q 282 102 332 102
-             L 558 102
-             Q 612 102 618 145
-             L 620 175
-             C 628 205 600 228 614 258
-             L 620 375
-             Q 622 420 585 420
-             L 200 420
-             Q 150 420 150 455
-             Q 150 490 200 490 Z"
+<svg class="diagram" viewBox="0 0 860 640" xmlns="http://www.w3.org/2000/svg">
+    <!-- Track outline (stylized Marina Bay, anticlockwise) -->
+    <path id="track" d="M 620 510
+             L 260 510
+             Q 215 510 205 480
+             Q 196 452 215 435
+             Q 233 420 225 395
+             L 190 290
+             Q 180 258 196 230
+             L 240 155
+             Q 255 130 290 128
+             L 420 122
+             Q 455 120 470 142
+             Q 484 162 512 164
+             L 585 168
+             Q 630 170 628 205
+             Q 626 232 596 236
+             Q 572 240 575 265
+             L 590 330
+             Q 596 358 625 365
+             Q 668 375 672 415
+             Q 676 455 650 478
+             Q 632 495 645 510
+             Z"
           fill="none" stroke="#3a3a3a" stroke-width="20" stroke-linejoin="round" stroke-linecap="round"/>
-    <path d="M 200 490
-             L 660 490
-             Q 740 490 740 440
-             Q 740 395 690 380
-             L 560 335
-             Q 530 325 523 298
-             C 505 262 468 250 452 226
-             Q 430 192 392 182
-             L 335 180
-             Q 282 178 282 140
-             Q 282 102 332 102
-             L 558 102
-             Q 612 102 618 145
-             L 620 175
-             C 628 205 600 228 614 258
-             L 620 375
-             Q 622 420 585 420
-             L 200 420
-             Q 150 420 150 455
-             Q 150 490 200 490 Z"
+    <path d="M 620 510
+             L 260 510
+             Q 215 510 205 480
+             Q 196 452 215 435
+             Q 233 420 225 395
+             L 190 290
+             Q 180 258 196 230
+             L 240 155
+             Q 255 130 290 128
+             L 420 122
+             Q 455 120 470 142
+             Q 484 162 512 164
+             L 585 168
+             Q 630 170 628 205
+             Q 626 232 596 236
+             Q 572 240 575 265
+             L 590 330
+             Q 596 358 625 365
+             Q 668 375 672 415
+             Q 676 455 650 478
+             Q 632 495 645 510
+             Z"
           fill="none" stroke="#e0e0e0" stroke-width="3" stroke-linejoin="round"/>
 
-    <!-- Grandstand hint -->
-    <text class="note-label" x="430" y="585" text-anchor="middle">Hibiscus-roof main grandstand between the twin straights</text>
+    <!-- Landmark hints -->
+    <text class="note-label" x="430" y="600" text-anchor="middle">Pit straight along Republic Boulevard — anticlockwise, ~1,600 floodlights overhead</text>
+    <text class="note-label" x="400" y="320" text-anchor="middle">Marina Bay</text>
+    <text class="note-label" x="560" y="140" text-anchor="middle">Anderson Bridge ↑</text>
+    <text class="note-label" x="705" y="500" text-anchor="start">Bay Grandstand</text>
 
-    <!-- DRS/boost zone 1: main straight (T15 → T1) -->
-    <line x1="230" y1="508" x2="640" y2="508" stroke="#4ade80" stroke-width="5" stroke-dasharray="8 5" stroke-linecap="round"/>
-    <text class="zone-label" x="435" y="528" text-anchor="middle">DRS / BOOST ZONE 1 · ~900 m pit straight · ~330 km/h</text>
+    <!-- DRS zone 1: pit straight (T19 → T1) -->
+    <line x1="600" y1="528" x2="280" y2="528" stroke="#4ade80" stroke-width="5" stroke-dasharray="8 5" stroke-linecap="round"/>
+    <text class="zone-label" x="440" y="548" text-anchor="middle">DRS 1 · pit straight · ~300 km/h into T1</text>
 
-    <!-- DRS/boost zone 2: back straight (T14 → T15) -->
-    <line x1="560" y1="404" x2="230" y2="404" stroke="#4ade80" stroke-width="5" stroke-dasharray="8 5" stroke-linecap="round"/>
-    <text class="zone-label" x="395" y="394" text-anchor="middle">DRS / BOOST ZONE 2 · ~900 m back straight</text>
+    <!-- DRS zone 2: Raffles Boulevard (T5 → T7) -->
+    <line x1="208" y1="382" x2="178" y2="292" stroke="#4ade80" stroke-width="5" stroke-dasharray="8 5" stroke-linecap="round"/>
+    <text class="zone-label" x="160" y="350" text-anchor="end">DRS 2</text>
+    <text class="note-label" x="160" y="364" text-anchor="end">Raffles Blvd</text>
+
+    <!-- DRS zone 3: after T13 toward T14 -->
+    <line x1="590" y1="252" x2="600" y2="318" stroke="#4ade80" stroke-width="5" stroke-dasharray="8 5" stroke-linecap="round"/>
+    <text class="zone-label" x="548" y="295" text-anchor="end">DRS 3</text>
+
+    <!-- DRS zone 4: old chicane zone (T15 → T16) -->
+    <line x1="648" y1="385" x2="688" y2="430" stroke="#4ade80" stroke-width="5" stroke-dasharray="8 5" stroke-linecap="round"/>
+    <text class="zone-label" x="700" y="408" text-anchor="start">DRS 4</text>
+    <text class="note-label" x="700" y="422" text-anchor="start">old T16–19 chicane</text>
+    <text class="note-label" x="700" y="436" text-anchor="start">removed 2023 → flat-out</text>
 
     <!-- Start/finish line -->
-    <line x1="380" y1="482" x2="380" y2="500" stroke="#fff" stroke-width="6"/>
-    <text class="corner-label" x="380" y="550" text-anchor="middle" style="fill:#DC0000;">START / FINISH</text>
+    <line x1="430" y1="502" x2="430" y2="520" stroke="#fff" stroke-width="6"/>
+    <text class="corner-label" x="430" y="572" text-anchor="middle" style="fill:#DC0000;">START / FINISH</text>
 
     <!-- Overtake zones (orange dots) -->
-    <circle cx="732" cy="464" r="8" fill="#f59e0b"/>
-    <circle cx="158" cy="440" r="8" fill="#f59e0b"/>
-    <circle cx="527" cy="308" r="7" fill="#f59e0b"/>
+    <circle cx="210" cy="472" r="8" fill="#f59e0b"/>
+    <circle cx="232" cy="148" r="8" fill="#f59e0b"/>
+    <circle cx="615" cy="200" r="8" fill="#f59e0b"/>
+    <circle cx="668" cy="450" r="7" fill="#f59e0b"/>
 
     <!-- Corner labels + speeds -->
-    <text class="corner-label" x="758" y="452" text-anchor="start">T1–T2</text>
-    <text class="speed-label"  x="758" y="466" text-anchor="start">~330 → 90 km/h</text>
-    <text class="speed-label"  x="758" y="480" text-anchor="start">huge wide entry · overtake #1</text>
+    <text class="corner-label" x="168" y="488" text-anchor="end">T1–T3</text>
+    <text class="speed-label"  x="168" y="502" text-anchor="end">300 → ~100 km/h</text>
+    <text class="speed-label"  x="168" y="516" text-anchor="end">lap-1 chaos magnet</text>
 
-    <text class="corner-label" x="548" y="320" text-anchor="start">T4</text>
-    <text class="speed-label"  x="548" y="334" text-anchor="start">hard stop after uphill run · overtake #3</text>
+    <text class="corner-label" x="245" y="408" text-anchor="start">T5</text>
+    <text class="speed-label"  x="245" y="422" text-anchor="start">flat kink ~290 km/h</text>
 
-    <text class="corner-label" x="418" y="238" text-anchor="start">T5–T6</text>
-    <text class="speed-label"  x="418" y="252" text-anchor="start">fast esses · ~250 km/h commitment</text>
+    <text class="corner-label" x="200" y="120" text-anchor="end">T7 · Memorial</text>
+    <text class="speed-label"  x="200" y="134" text-anchor="end">hardest brake · 300 → 120</text>
+    <text class="speed-label"  x="200" y="148" text-anchor="end">overtake #1</text>
 
-    <text class="corner-label" x="352" y="164" text-anchor="middle">T7–T8</text>
-    <text class="speed-label"  x="352" y="150" text-anchor="middle">long double-apex rights · front-tyre killers</text>
+    <text class="corner-label" x="340" y="105" text-anchor="middle">T8–T9</text>
+    <text class="speed-label"  x="340" y="91" text-anchor="middle">bumpy 90° streets</text>
 
-    <text class="corner-label" x="258" y="90" text-anchor="middle">T9</text>
-    <text class="speed-label"  x="258" y="76" text-anchor="start">tight hairpin · 2nd gear ~80 km/h</text>
+    <text class="corner-label" x="478" y="105" text-anchor="middle">T10</text>
+    <text class="speed-label"  x="478" y="91" text-anchor="middle">tight left · ex-"Singapore Sling"</text>
 
-    <text class="corner-label" x="450" y="88" text-anchor="middle">T10–T11</text>
-    <text class="speed-label"  x="450" y="74" text-anchor="middle">long right-handers, building speed</text>
+    <text class="corner-label" x="648" y="200" text-anchor="start">T13 hairpin</text>
+    <text class="speed-label"  x="648" y="214" text-anchor="start">2nd gear ~90 km/h · overtake #2</text>
 
-    <text class="corner-label" x="648" y="160" text-anchor="start">T12–T13</text>
-    <text class="speed-label"  x="648" y="174" text-anchor="start">fast left-right sweep · ~230 km/h</text>
+    <text class="corner-label" x="548" y="255" text-anchor="end">T14</text>
+    <text class="speed-label"  x="548" y="269" text-anchor="end">90° left onto Esplanade Dr</text>
 
-    <text class="corner-label" x="640" y="300" text-anchor="start">T14</text>
-    <text class="speed-label"  x="640" y="314" text-anchor="start">90° left · exit decides the back straight</text>
+    <text class="corner-label" x="648" y="352" text-anchor="start">T15</text>
 
-    <text class="corner-label" x="118" y="430" text-anchor="end">T15</text>
-    <text class="speed-label"  x="118" y="444" text-anchor="end">the hairpin · ~310 → 90 km/h</text>
-    <text class="speed-label"  x="118" y="458" text-anchor="end">overtake #2 · exit punished for 2 km</text>
+    <text class="corner-label" x="620" y="462" text-anchor="end">T16–T17</text>
+    <text class="speed-label"  x="620" y="476" text-anchor="end">under Bay Grandstand</text>
+
+    <text class="corner-label" x="660" y="532" text-anchor="start">T18–T19</text>
+    <text class="speed-label"  x="660" y="546" text-anchor="start">final flicks onto pit straight</text>
 
     <!-- Direction arrow -->
-    <g transform="translate(400,468)">
-        <path d="M 0 0 L 26 2 M 18 -4 L 28 2 L 18 8" stroke="#888" stroke-width="2" fill="none"/>
-        <text x="-8" y="6" text-anchor="end" style="fill:#888;font-size:11px;font-family:-apple-system,sans-serif;">lap direction</text>
-    </g>
+    <path d="M 520 510 l 14 -7 l 0 14 Z" fill="#888"/>
+    <text class="note-label" x="545" y="500" text-anchor="start">← direction</text>
 </svg>
 
 <div class="legend">
-    <div><span class="swatch" style="border-top-color:#e0e0e0;"></span> Track</div>
-    <div><span class="swatch" style="border-top-color:#4ade80; border-top-style:dashed;"></span> DRS / overtake-boost zone</div>
-    <div><span class="dot" style="background:#f59e0b;"></span> Overtake spot</div>
-    <div><span class="swatch" style="border-top-color:#fff;"></span> Start / finish</div>
+    <div><span class="swatch" style="border-top-color:#e0e0e0;"></span> Track outline</div>
+    <div><span class="swatch" style="border-top-color:#4ade80;border-top-style:dashed;"></span> DRS zone (×4)</div>
+    <div><span class="dot" style="background:#f59e0b;"></span> Overtake zone</div>
+    <div><span class="swatch" style="border-top-color:#fff;border-top-width:5px;"></span> Start/finish</div>
 </div>
 
-<div style="margin-top:14px;color:var(--muted);font-size:0.78rem;line-height:1.5;">
-    A lap of Sepang: launch down the ~900&nbsp;m pit straight to <strong>T1</strong>, an entry so wide that three cars can arrive side by side — the prime passing zone, with around-the-outside a real option. T2 spits you toward the uphill run to <strong>T4</strong>, stop number three on the overtake list. Then the track starts flowing: the fast <strong>T5–T6</strong> esses, the long double-apex <strong>T7–T8</strong> rights that quietly murder front tyres in 32°C heat, and the second-gear <strong>T9</strong> hairpin. The middle sector builds speed through T10–T13 before everything funnels into <strong>T14</strong>: nail the exit, because what follows is the back straight, the boost zone, and the <strong>T15 hairpin</strong> — miss your braking there and your rival gets the tow all the way down the pit straight for another go at T1. Two chances to pass per lap, every lap, and an equatorial thunderstorm on standby: Tilke never topped his first attempt.
-</div>
+<div style="margin-top:14px;color:var(--muted);font-size:0.8rem;line-height:1.5;">
+Qualifying is ~70% of the job here: with walls on every apex and only two honest braking-zone passes (T7 and T13), track position rules. The 2023 removal of the old grandstand chicane created the DRS 4 flat-out stretch and cut ~8s off the lap, but it's still the slowest average-speed race of the year — 62 laps, nearly two hours, 30°C and 80% humidity at night. Until 2024, every single edition had a safety car.
 </div>
 
 <a class="back" href="index.html">← Back to dashboard</a>
+</div>
 </div>
 </body>
 </html>
