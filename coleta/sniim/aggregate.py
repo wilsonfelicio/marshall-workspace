@@ -560,15 +560,25 @@ def build_aggregates(cfg, con: duckdb.DuckDBPyConnection) -> dict[str, int]:
     # their relatives WITHIN a market first, then combine markets by weight. If
     # the market weight were applied per cell instead, a market reporting five
     # varieties would carry five times its intended weight.
+    #
+    # The spine is a real table, not a CTE: as a CTE DuckDB estimated it at ~580k
+    # rows instead of ~11k, so it joined var_market_monthly to itself with no month
+    # condition first (227M rows, ~14 GB, ~90 s). On 3 Nov 2026 that spill filled
+    # the runner's disk and failed the build. With an exact row count it runs in
+    # well under a second.
+    con.execute(
+        """
+        CREATE OR REPLACE TEMP TABLE espina AS
+        SELECT categoria, categoria_label, grupo_inpc, mes,
+               lag(mes) OVER (PARTITION BY categoria ORDER BY mes) AS mes_prev
+        FROM (SELECT DISTINCT categoria, categoria_label, grupo_inpc, mes
+              FROM var_market_monthly)
+        """
+    )
     con.execute(
         f"""
         CREATE OR REPLACE TABLE cat_index_monthly AS
-        WITH espina AS (
-            SELECT categoria, categoria_label, grupo_inpc, mes,
-                   lag(mes) OVER (PARTITION BY categoria ORDER BY mes) AS mes_prev
-            FROM (SELECT DISTINCT categoria, categoria_label, grupo_inpc, mes
-                  FROM var_market_monthly)
-        ),
+        WITH
         -- stage 1: relatives of matched variety x market cells, within a market
         por_mercado AS (
             SELECT e.categoria, e.mes, a.destino,
