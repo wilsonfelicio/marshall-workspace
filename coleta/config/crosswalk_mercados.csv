@@ -51,3 +51,15 @@ destino_id,destino_sniim,clave_ciudad_inpc,ciudad_inpc,exacto,nota
 9001,Veracruz: Mercado de San José de Xalapa,16,Veracruz,0,Historical market label; Xalapa is not an INPC city so Veracruz port is used
 9002,Chihuahua: Central de Abasto de Cd. Juárez,07,Ciudad Juárez,1,Historical label for the Cd. Juárez market
 9003,Michoacán: Centro de Abasto de Zamora,29,Jacona,1,Zamora adjoins Jacona which is the INPC city
+11,Aguascalientes: Central de Abasto de Aguascalientes,23,Aguascalientes,1,
+191,"Nuevo León: Central de Abasto de Guadalupe, Nvo. León",05,Monterrey,1,Guadalupe is inside the Monterrey metropolitan area
+304,"Veracruz: Otros puntos de cotización en Poza Rica, Ver.",16,Veracruz,0,Poza Rica is not an INPC city; Veracruz port kept as the state fallback had it - Tampico (Tamaulipas) is a comparable distance
+307,Veracruz: Otros Centros Mayoristas de Xalapa,16,Veracruz,0,Xalapa is not an INPC city; Veracruz port is the nearest at ~100 km
+9004,"Veracruz: Central de Abasto Sur de las Huastecas, Poza Rica",16,Veracruz,0,"Historical label; Poza Rica is not an INPC city, Veracruz port kept as for the other Poza Rica market"
+9005,"Sonora: Mercado de Abasto ""Olímpico"" de Hermosillo",20,Hermosillo,1,Historical label for a Hermosillo market
+9006,"Zacatecas: Tianguis ""Francisco García Salinas""",55,Zacatecas,1,"Historical label; location within the state not confirmed, Zacatecas is the state's INPC city"
+9007,Guerrero: Central de Abasto Baltazar R. Leyva Mancilla,08,Acapulco,0,"Historical label; location within the state not confirmed, Acapulco kept as the state fallback had it"
+9008,"Sinaloa: Central de Abasto ""La Yarda"" de los Mochis",09,Culiacán,0,"Historical label; Los Mochis is not an INPC city, Culiacán is the Sinaloa one at ~200 km"
+9009,"Morelos: Central de Abasto ""Emiliano Zapata""",40,Cuernavaca,0,Historical label; Cuernavaca is the Morelos INPC city
+9010,"Baja California : Mercado ""Braulio Maldonado"" Mexicali",06,Mexicali,1,Historical label for a Mexicali market
+9011,"Baja California : Mercado de Abasto ""Nuevo Estado 29"" Mexicali",06,Mexicali,1,Historical label for a Mexicali market
