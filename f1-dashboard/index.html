@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>🏎️ F1 Mexico City GP — Race Weekend Dashboard</title>
+<title>🏎️ F1 São Paulo GP — Race Weekend Dashboard</title>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
 <style>
 :root { --bg:#0a0a0a; --surface:#141414; --border:#2a2a2a; --text:#e0e0e0; --muted:#888; --accent:#DC0000; }
@@ -49,105 +49,105 @@ body { background:var(--bg); color:var(--text); font-family:-apple-system,BlinkM
 </head>
 <body>
 <div class="header">
-    <div class="flag">🇲🇽</div>
-    <h1>Mexico City Grand Prix — Autódromo Hermanos Rodríguez</h1>
-    <div class="meta"><span class="round">Round 19</span> · Mexico City · October 30 – November 1, 2026 · Match point #2 for Antonelli, on Día de Muertos weekend</div>
+    <div class="flag">🇧🇷</div>
+    <h1>São Paulo Grand Prix — Autódromo José Carlos Pace (Interlagos)</h1>
+    <div class="meta"><span class="round">Round 20</span> · São Paulo · November 6 – 8, 2026 · Mercedes can clinch the Constructors · Bortoleto's home race</div>
     <div class="countdown" id="countdown"><div class="label">until lights out</div></div>
 </div>
 
 <div class="grid">
     <!-- Schedule -->
     <div class="card">
-        <h3>📅 Schedule (BRT — São Paulo) · Standard Format</h3>
+        <h3>📅 Schedule (BRT — local) · Standard Format · No Sprint</h3>
         <ul class="schedule">
 <li>
     <div><span class="session">FP1</span><br><span class="note">Fri</span></div>
-    <div style="text-align:right"><span class="time">15:30</span><br><span class="note">Fri 30 Oct</span></div>
-    <div style="text-align:right"><span style="font-size:0.85rem">☀️ midday</span><br><span class="note">12:30 local (CST)</span></div>
+    <div style="text-align:right"><span class="time">12:30</span><br><span class="note">Fri 6 Nov</span></div>
+    <div style="text-align:right"><span style="font-size:0.85rem">☀️ midday heat</span><br><span class="note">15:30 UTC</span></div>
 </li>
 <li>
     <div><span class="session">FP2</span><br><span class="note">Fri</span></div>
-    <div style="text-align:right"><span class="time">19:00</span><br><span class="note">Fri 30 Oct</span></div>
-    <div style="text-align:right"><span style="font-size:0.85rem">🌤️ late afternoon</span><br><span class="note">16:00 local (CST)</span></div>
+    <div style="text-align:right"><span class="time">16:00</span><br><span class="note">Fri 6 Nov</span></div>
+    <div style="text-align:right"><span style="font-size:0.85rem">⛅ afternoon — rain risk</span><br><span class="note">19:00 UTC</span></div>
 </li>
 <li>
     <div><span class="session">FP3</span><br><span class="note">Sat</span></div>
-    <div style="text-align:right"><span class="time">14:30</span><br><span class="note">Sat 31 Oct</span></div>
-    <div style="text-align:right"><span style="font-size:0.85rem">☀️ late morning</span><br><span class="note">11:30 local (CST)</span></div>
+    <div style="text-align:right"><span class="time">11:30</span><br><span class="note">Sat 7 Nov</span></div>
+    <div style="text-align:right"><span style="font-size:0.85rem">☀️ late morning</span><br><span class="note">14:30 UTC</span></div>
 </li>
 <li>
     <div><span class="session">Qualifying</span><br><span class="note">Sat — Q1/Q2/Q3</span></div>
-    <div style="text-align:right"><span class="time">18:00</span><br><span class="note">Sat 31 Oct</span></div>
-    <div style="text-align:right"><span style="font-size:0.85rem">☀️ afternoon</span><br><span class="note">15:00 local (CST)</span></div>
+    <div style="text-align:right"><span class="time">15:00</span><br><span class="note">Sat 7 Nov</span></div>
+    <div style="text-align:right"><span style="font-size:0.85rem">⛈️ afternoon storms typical</span><br><span class="note">18:00 UTC</span></div>
 </li>
 <li>
     <div><span class="session race">RACE</span><br><span class="note">Sun — 71 laps</span></div>
-    <div style="text-align:right"><span class="time">17:00</span><br><span class="note">Sun 1 Nov</span></div>
-    <div style="text-align:right"><span style="font-size:0.85rem">☀️ ~22°C typical</span><br><span class="note">14:00 local (CST) · 20:00 UTC</span></div>
+    <div style="text-align:right"><span class="time">14:00</span><br><span class="note">Sun 8 Nov</span></div>
+    <div style="text-align:right"><span style="font-size:0.85rem">⛅ ~24°C typical</span><br><span class="note">17:00 UTC</span></div>
 </li>
         </ul>
-        <div class="note" style="margin-top:8px">Mexico City runs UTC−6 year-round (no DST), so everything lands +3h in BRT — another <strong>Sunday 17:00</strong> race. No sprint. Middle leg of the Americas triple-header: Austin → Mexico City → <strong>Interlagos Nov 6–8</strong>. Home race is NEXT weekend.</div>
+        <div class="note" style="margin-top:8px">Standard weekend — no sprint this year (sprint returns in 2027). Interlagos sits at the end of the Americas triple-header and usually delivers F1's best weather roulette: November is start-of-rainy-season São Paulo, afternoon cells build fast off the ocean breeze. The 2024 quali chaos was here. <strong>Race at Sunday 14:00 local</strong> — a civilised time to tune in.</div>
     </div>
 
     <!-- Circuit Info -->
     <div class="card">
         <h3>🏁 Circuit</h3>
-        <div style="font-size:1.1rem;font-weight:600;margin-bottom:12px;">Autódromo Hermanos Rodríguez — Mexico City</div>
+        <div style="font-size:1.1rem;font-weight:600;margin-bottom:12px;">Autódromo José Carlos Pace — Interlagos, São Paulo</div>
         <div class="circuit-info">
-            <div class="circuit-stat"><div class="val">4.304</div><div class="label">km length</div></div>
+            <div class="circuit-stat"><div class="val">4.309</div><div class="label">km length</div></div>
             <div class="circuit-stat"><div class="val">71</div><div class="label">laps</div></div>
-            <div class="circuit-stat"><div class="val">17</div><div class="label">turns</div></div>
+            <div class="circuit-stat"><div class="val">15</div><div class="label">turns</div></div>
             <div class="circuit-stat"><div class="val">~306</div><div class="label">km total</div></div>
-            <div class="circuit-stat"><div class="val">2,285 m</div><div class="label">altitude — highest in F1</div></div>
+            <div class="circuit-stat"><div class="val">800 m</div><div class="label">altitude</div></div>
         </div>
-        <div style="margin-top:12px;color:var(--muted);font-size:0.8rem;">The thin-air circuit: at 2,285&nbsp;m the air is ~25% less dense, so cars run Monaco-spec wings but get Monza-level downforce and grip. Cooling, braking and the hybrid all suffer — this is the race engineers dread. The <strong>1.2&nbsp;km run to Turn 1</strong> is the longest flat-out blast to a first corner all season, and the <strong>Foro Sol stadium section</strong> (built inside an old baseball ground) is the loudest corner complex in F1. Lap record 1:17.774 (Bottas, 2021). Pirelli brings its softest trio: C3/C4/C5.</div>
+        <div style="margin-top:12px;color:var(--muted);font-size:0.8rem;">Short, bumpy, anticlockwise — one of only six left-handers on the calendar. Named for F1 driver José Carlos Pace (1975 winner here, killed in a '77 plane crash). Built in 1940 in a bowl between two lakes (<em>inter lagos</em>) with the <strong>Senna S</strong> plunging downhill into Turn 1, a long uphill blast through <strong>Subida dos Boxes</strong> onto the pit straight, and medium-speed infield corners that reward chassis balance over outright power. Short lap = mixed strategies = usually the best race of the season. Lap record 1:10.540 (Bottas, 2018). Pirelli brings C2/C3/C4 — one step harder than Mexico.</div>
         <div style="margin-top:8px;"><a href="circuit.html" style="color:#f59e0b;font-size:0.8rem;">→ View circuit diagram</a></div>
     </div>
 
     <!-- Drivers Standings -->
     <div class="card">
-        <h3>🏆 Drivers Championship — After Round 18 (United States GP)</h3>
+        <h3>🏆 Drivers Championship — After Round 19 (Mexico City GP)</h3>
         <ul class="standings">
 <li>
     <span class="pos">1</span>
     <span class="team-dot" style="background:#00D2BE"></span>
-    <span class="name">Kimi Antonelli</span>
-    <span class="pts">365</span>
+    <span class="name">Kimi Antonelli 👑</span>
+    <span class="pts">380</span>
     <div class="bar" style="width:100%;background:#00D2BE"></div>
 </li>
 <li>
     <span class="pos">2</span>
-    <span class="team-dot" style="background:#00D2BE"></span>
-    <span class="name">George Russell</span>
-    <span class="pts">242</span>
-    <div class="bar" style="width:66%;background:#00D2BE"></div>
+    <span class="team-dot" style="background:#3671C6"></span>
+    <span class="name">Max Verstappen</span>
+    <span class="pts">261</span>
+    <div class="bar" style="width:69%;background:#3671C6"></div>
 </li>
 <li>
     <span class="pos">3</span>
     <span class="team-dot" style="background:#DC0000"></span>
     <span class="name">Lewis Hamilton</span>
-    <span class="pts">241</span>
-    <div class="bar" style="width:66%;background:#DC0000"></div>
+    <span class="pts">259</span>
+    <div class="bar" style="width:68%;background:#DC0000"></div>
 </li>
 <li>
     <span class="pos">4</span>
-    <span class="team-dot" style="background:#3671C6"></span>
-    <span class="name">Max Verstappen</span>
-    <span class="pts">236</span>
-    <div class="bar" style="width:65%;background:#3671C6"></div>
+    <span class="team-dot" style="background:#00D2BE"></span>
+    <span class="name">George Russell</span>
+    <span class="pts">250</span>
+    <div class="bar" style="width:66%;background:#00D2BE"></div>
 </li>
 <li>
     <span class="pos">5</span>
     <span class="team-dot" style="background:#DC0000"></span>
     <span class="name">Charles Leclerc</span>
-    <span class="pts">233</span>
+    <span class="pts">245</span>
     <div class="bar" style="width:64%;background:#DC0000"></div>
 </li>
 <li>
     <span class="pos">6</span>
     <span class="team-dot" style="background:#FF8700"></span>
     <span class="name">Lando Norris</span>
-    <span class="pts">211</span>
+    <span class="pts">221</span>
     <div class="bar" style="width:58%;background:#FF8700"></div>
 </li>
 <li>
@@ -155,28 +155,28 @@ body { background:var(--bg); color:var(--text); font-family:-apple-system,BlinkM
     <span class="team-dot" style="background:#FF8700"></span>
     <span class="name">Oscar Piastri</span>
     <span class="pts">144</span>
-    <div class="bar" style="width:39%;background:#FF8700"></div>
+    <div class="bar" style="width:38%;background:#FF8700"></div>
 </li>
 <li>
     <span class="pos">8</span>
     <span class="team-dot" style="background:#3671C6"></span>
     <span class="name">Isack Hadjar</span>
-    <span class="pts">105</span>
-    <div class="bar" style="width:29%;background:#3671C6"></div>
+    <span class="pts">107</span>
+    <div class="bar" style="width:28%;background:#3671C6"></div>
 </li>
 <li>
     <span class="pos">9</span>
     <span class="team-dot" style="background:#6692FF"></span>
     <span class="name">Liam Lawson</span>
-    <span class="pts">77</span>
-    <div class="bar" style="width:21%;background:#6692FF"></div>
+    <span class="pts">83</span>
+    <div class="bar" style="width:22%;background:#6692FF"></div>
 </li>
 <li>
     <span class="pos">10</span>
     <span class="team-dot" style="background:#0090FF"></span>
     <span class="name">Pierre Gasly</span>
     <span class="pts">42</span>
-    <div class="bar" style="width:12%;background:#0090FF"></div>
+    <div class="bar" style="width:11%;background:#0090FF"></div>
 </li>
 <li>
     <span class="pos">11</span>
@@ -190,56 +190,56 @@ body { background:var(--bg); color:var(--text); font-family:-apple-system,BlinkM
     <span class="team-dot" style="background:#0090FF"></span>
     <span class="name">Franco Colapinto</span>
     <span class="pts">27</span>
-    <div class="bar" style="width:7.4%;background:#0090FF"></div>
+    <div class="bar" style="width:7.1%;background:#0090FF"></div>
 </li>
 <li>
     <span class="pos">13</span>
     <span class="team-dot" style="background:#B6BABD"></span>
     <span class="name">Oliver Bearman</span>
     <span class="pts">23</span>
-    <div class="bar" style="width:6.3%;background:#B6BABD"></div>
+    <div class="bar" style="width:6.1%;background:#B6BABD"></div>
 </li>
 <li>
     <span class="pos">14</span>
     <span class="team-dot" style="background:#00594F"></span>
-    <span class="name">Nico Hülkenberg</span>
-    <span class="pts">13</span>
-    <div class="bar" style="width:3.6%;background:#00594F"></div>
+    <span class="name">Gabriel Bortoleto 🇧🇷</span>
+    <span class="pts">14</span>
+    <div class="bar" style="width:3.7%;background:#00594F"></div>
 </li>
 <li>
     <span class="pos">15</span>
     <span class="team-dot" style="background:#00594F"></span>
-    <span class="name">Gabriel Bortoleto</span>
-    <span class="pts">10</span>
-    <div class="bar" style="width:2.7%;background:#00594F"></div>
+    <span class="name">Nico Hülkenberg</span>
+    <span class="pts">13</span>
+    <div class="bar" style="width:3.4%;background:#00594F"></div>
 </li>
 <li>
     <span class="pos">16</span>
     <span class="team-dot" style="background:#B6BABD"></span>
     <span class="name">Esteban Ocon</span>
     <span class="pts">7</span>
-    <div class="bar" style="width:1.9%;background:#B6BABD"></div>
+    <div class="bar" style="width:1.8%;background:#B6BABD"></div>
 </li>
 <li>
     <span class="pos">17</span>
     <span class="team-dot" style="background:#006F62"></span>
     <span class="name">Fernando Alonso</span>
     <span class="pts">7</span>
-    <div class="bar" style="width:1.9%;background:#006F62"></div>
+    <div class="bar" style="width:1.8%;background:#006F62"></div>
 </li>
 <li>
     <span class="pos">18</span>
     <span class="team-dot" style="background:#64C4FF"></span>
     <span class="name">Carlos Sainz</span>
     <span class="pts">7</span>
-    <div class="bar" style="width:1.9%;background:#64C4FF"></div>
+    <div class="bar" style="width:1.8%;background:#64C4FF"></div>
 </li>
 <li>
     <span class="pos">19</span>
     <span class="team-dot" style="background:#64C4FF"></span>
     <span class="name">Alexander Albon</span>
     <span class="pts">5</span>
-    <div class="bar" style="width:1.4%;background:#64C4FF"></div>
+    <div class="bar" style="width:1.3%;background:#64C4FF"></div>
 </li>
 <li>
     <span class="pos">20</span>
@@ -250,84 +250,72 @@ body { background:var(--bg); color:var(--text); font-family:-apple-system,BlinkM
 </li>
 <li>
     <span class="pos">21</span>
-    <span class="team-dot" style="background:#006F62"></span>
-    <span class="name">Lance Stroll</span>
-    <span class="pts">0</span>
-    <div class="bar" style="width:0.5%;background:#006F62"></div>
-</li>
-<li>
-    <span class="pos">22</span>
-    <span class="team-dot" style="background:#888888"></span>
-    <span class="name">Valtteri Bottas</span>
-    <span class="pts">0</span>
-    <div class="bar" style="width:0.5%;background:#888888"></div>
-</li>
-<li>
-    <span class="pos">23</span>
-    <span class="team-dot" style="background:#888888"></span>
-    <span class="name">Sergio Pérez</span>
-    <span class="pts">0</span>
-    <div class="bar" style="width:0.5%;background:#888888"></div>
+    <span class="team-dot" style="background:#B6BABD"></span>
+    <span class="name">Ryo Hirakawa</span>
+    <span class="pts">1</span>
+    <div class="bar" style="width:0.5%;background:#B6BABD"></div>
 </li>
         </ul>
     </div>
 
     <!-- Constructors -->
     <div class="card">
-        <h3>🏗️ Constructors Championship</h3>
+        <h3>🏗️ Constructors Championship — Mercedes can clinch Sunday</h3>
         <div class="chart-container"><canvas id="constChart"></canvas></div>
+        <div class="note" style="margin-top:10px;font-size:0.8rem;color:var(--muted);">Mercedes (630) lead Ferrari (504) by <strong>126 points</strong> with 86 still available (44 to the top team per race × 2 rounds after Brazil = 2 more races after this one). Mercedes clinches the title in São Paulo if it <strong>outscores Ferrari by at least 3 points</strong>. Red Bull (380) sits 9 clear of McLaren (371) — the P3 fight is wide open with a surging Verstappen. McLaren has scored one win since July and is quietly losing a position.</div>
     </div>
 
     <!-- Track History -->
     <div class="card full">
-        <h3>📜 Autódromo Hermanos Rodríguez — History</h3>
+        <h3>📜 Interlagos — History</h3>
         <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:12px;margin-bottom:16px;">
-            <div class="circuit-stat"><div class="val">1963</div><div class="label">First Mexican GP</div></div>
-            <div class="circuit-stat"><div class="val">1:17.774</div><div class="label">Lap record — Bottas, 2021</div></div>
-            <div class="circuit-stat"><div class="val">5</div><div class="label">Most wins — Verstappen</div></div>
-            <div class="circuit-stat"><div class="val">2,285 m</div><div class="label">Highest circuit in F1</div></div>
-            <div class="circuit-stat"><div class="val">~372</div><div class="label">km/h — F1's fastest speed trap (Bottas '16)</div></div>
-            <div class="circuit-stat"><div class="val">110 dB</div><div class="label">Foro Sol stadium crowd</div></div>
+            <div class="circuit-stat"><div class="val">1973</div><div class="label">First F1 Brazilian GP</div></div>
+            <div class="circuit-stat"><div class="val">1:10.540</div><div class="label">Lap record — Bottas, 2018</div></div>
+            <div class="circuit-stat"><div class="val">6</div><div class="label">Most wins — Hamilton</div></div>
+            <div class="circuit-stat"><div class="val">4.309 km</div><div class="label">Second-shortest on calendar</div></div>
+            <div class="circuit-stat"><div class="val">Anticlockwise</div><div class="label">1 of 6 on the calendar</div></div>
+            <div class="circuit-stat"><div class="val">Sunset</div><div class="label">Legendary golden-hour finishes</div></div>
         </div>
         <div style="font-size:0.82rem;line-height:1.6;">
-            <div style="margin-bottom:10px;"><strong style="color:#f59e0b;">The brothers' track.</strong> Built in the Magdalena Mixhuca park in 1959 and named for Ricardo and Pedro Rodríguez — Mexico's racing princes who both died in cockpits. Ricardo was killed here in 1962 practice, aged just 20, at the fearsome banked <strong>Peraltada</strong>; Pedro died at the Norisring in 1971. F1 has come and gone in three eras (1963–70, 1986–92, 2015–today), and the modern layout cuts through the Foro Sol baseball stadium where the old Peraltada used to run — trading F1's scariest corner for its loudest grandstand.</div>
-            <div style="margin-bottom:10px;"><strong style="color:#f59e0b;">Winners' roll (modern era):</strong> Verstappen ×5 ('17, '18, '21, '22, '23) — the track record. Rosberg ('15), Hamilton ×2 ('16, '19), Sainz ('24, his Ferrari farewell-season win), Norris ('25). Of the current grid, <strong>Verstappen, Hamilton, Sainz and Norris</strong> have won here. Titles have been settled in Mexico too: Surtees in '64, Hunt's famous run in '76 was at Fuji but Hamilton clinched '17 and '18 right here — both times mid-pack after first-lap contact.</div>
-            <div style="margin-bottom:10px;"><strong style="color:#f59e0b;">Where to pass:</strong> The <strong>1.2 km drag to T1</strong> is the overtaking spot — 360+ km/h in the thin air down to ~100, with slipstream + override making lap-1 three-wide arrivals a tradition. Zone two is the run to <strong>T4</strong>, zone three the braking for <strong>T12</strong> into the stadium. Thin air means long braking distances and weak aero wake punishment — following is easier here than almost anywhere. Watch the <strong>T1–T3 run-off</strong>: cutting the first complex ("the optional Turn 1") is this year's talking point again.</div>
+            <div style="margin-bottom:10px;"><strong style="color:#f59e0b;">Built in a bowl between the lakes.</strong> Construction began in 1938 on farmland south of São Paulo — the name <em>Interlagos</em> literally means "between lakes" (Guarapiranga and Billings). Blueprints were lifted from Brooklands, Roosevelt Raceway and Montlhéry, and the track opened in 1940 as a banked monster you could run as a giant oval. Shortened to the current infield layout in 1990. Renamed in 1985 for <strong>José Carlos Pace</strong>, Brazil's 1975 Interlagos winner, killed in a light-plane crash two years later.</div>
+            <div style="margin-bottom:10px;"><strong style="color:#f59e0b;">Winners' roll (modern era):</strong> Hamilton ×3 ('16, '18, '21 sprint-to-win drive from P10), Verstappen ×2 ('19, '24-sprint-and-race in the rain), Norris ('25), Sainz ('23), Russell ('22), Bottas ('21), Pérez ('22 sprint), Vettel ('13, '10), Button ('09 title). Of the current grid, <strong>Hamilton, Verstappen, Russell, Sainz, Bottas, Pérez, Norris and Alonso</strong> have stood on the top step here. Interlagos has decided more titles than any track still on the calendar outside Abu Dhabi: Hunt '76, Prost '83/'85/'89, Senna '91 (home win), Schumacher '00, Räikkönen '07, Hamilton '08, Button '09, Hamilton '19.</div>
+            <div style="margin-bottom:10px;"><strong style="color:#f59e0b;">Where to pass:</strong> Short lap, big elevation, loads of overtaking. Zone one: <strong>Senna S (T1–T2)</strong> — a late-brake left-hander plunging downhill, with DRS off the pit straight. Zone two: <strong>Descida do Lago (T4)</strong> — second DRS, used for second-move slipstreaming. Zone three: braking for <strong>Bico de Pato (T10)</strong>. The 1.2 km uphill run from Juncão (T12) back to the start-finish is the longest flat-out section — chassis balance here decides whether you're a sitting duck or the predator onto the Senna S. Weather is the great equaliser: Interlagos is afternoon-thunderstorm country and two of the last four races here have been rained on.</div>
         </div>
         <div style="margin-top:14px;border-top:1px solid var(--border);padding-top:14px;">
-            <div style="font-size:0.8rem;color:var(--muted);margin-bottom:8px;text-transform:uppercase;letter-spacing:0.5px;">Iconic Mexico Moments</div>
+            <div style="font-size:0.8rem;color:var(--muted);margin-bottom:8px;text-transform:uppercase;letter-spacing:0.5px;">Iconic Interlagos Moments</div>
             <ul style="list-style:none;font-size:0.82rem;line-height:1.6;">
-                <li style="padding:6px 0;border-bottom:1px solid var(--border);">🏆 <strong>1964 — Three-way title finale:</strong> Clark, Hill and Surtees all arrived with a shot. Clark's engine died with two laps left, and Lorenzo Bandini waved teammate Surtees through to P2 on the final lap — handing him the championship by one point. Still the closest thing to a scripted ending F1 has produced by accident.</li>
-                <li style="padding:6px 0;border-bottom:1px solid var(--border);">🚷 <strong>1970 — The crowd that stopped F1:</strong> 200,000 fans broke the fences and sat on the grass verges lining the track. Pedro Rodríguez personally toured the circuit begging them to move. The race ran anyway — a dog was hit, drivers were furious — and F1 refused to return for 16 years.</li>
-                <li style="padding:6px 0;border-bottom:1px solid var(--border);">💪 <strong>1990 — Mansell around the outside:</strong> The pass of the era — Mansell swept around the outside of Berger through the banked Peraltada at ~290 km/h, a corner where lifting was brave and passing was lunacy. Prost won from P13 that day; the podium was pure Ferrari-Williams vintage.</li>
-                <li style="padding:6px 0;border-bottom:1px solid var(--border);">🎙️ <strong>2016 — The podium that changed three times:</strong> Verstappen crossed P3, got a penalty while in the cooldown room; Vettel inherited it, delivered his infamous expletive-laden radio rant at Charlie Whiting — then lost it hours later for a Ricciardo block. Three podium finishers in one evening.</li>
-                <li style="padding:6px 0;border-bottom:1px solid var(--border);">👑 <strong>2017 — Title clinched from P9:</strong> Vettel and Hamilton collided at Turn 3 on lap 1; Hamilton drove back through the field with a punctured race and clinched title #4 anyway, while Verstappen disappeared up the road. Mexico loved it — the party didn't care who won.</li>
-                <li style="padding:6px 0;">🐂 <strong>2021 — Max's triple-slipstream:</strong> From P3 on the grid, Verstappen towed past both Mercedes and swept around the outside of Hamilton into Turn 1 — race effectively over in 800 metres. Pérez took his first home podium and the Foro Sol nearly came down.</li>
+                <li style="padding:6px 0;border-bottom:1px solid var(--border);">🇧🇷 <strong>1991 — Senna on seven gears:</strong> Ayrton won his home race for the first time with his McLaren stuck in sixth gear for the final laps, body cramping so badly he couldn't lift the trophy on the podium. The image of him collapsed in the car, screaming into the radio, is the single most-replayed Interlagos moment.</li>
+                <li style="padding:6px 0;border-bottom:1px solid var(--border);">💔 <strong>2007 — Räikkönen steals it on the last page:</strong> Hamilton arrived with a four-point lead, lost electrics early, finished P7. Alonso couldn't keep up. Räikkönen won the race AND the title by one point — the only Finn to do both on the same afternoon.</li>
+                <li style="padding:6px 0;border-bottom:1px solid var(--border);">🏆 <strong>2008 — "Is that Glock?":</strong> The last corner of the last lap of the season. Hamilton needed P5 and Glock was slipping on dry tyres in the drizzle. Hamilton got past at Junção on the final lap and clinched his first title by ONE point, Massa crying on the podium having won the race. Still the greatest title finish in F1 history.</li>
+                <li style="padding:6px 0;border-bottom:1px solid var(--border);">🌧️ <strong>2016 — Verstappen in the rain:</strong> From P16 to P3 in a wet race with a late tyre gamble nobody else dared. The pass around the outside of Rosberg at Juncão and the near-save coming out of the Senna S are still in the F1 highlight reel. Max was 19.</li>
+                <li style="padding:6px 0;border-bottom:1px solid var(--border);">🎭 <strong>2019 — Gasly beats Hamilton to the line:</strong> Toro Rosso's Pierre Gasly held off a charging Hamilton by 0.062s on the drag to the flag after a safety-car restart. Only his second podium of all time. Verstappen won, Albon spun by Hamilton, and the Mercedes-Honda politics boiled for weeks.</li>
+                <li style="padding:6px 0;border-bottom:1px solid var(--border);">⚡ <strong>2021 — Hamilton's drive of the decade:</strong> Disqualified from quali, 20-place engine penalty, started the sprint from P20. Won the sprint. Started the race from P10. Won the race. 25 overtakes across two days against a title-leading Verstappen — the drive even his critics admit.</li>
+                <li style="padding:6px 0;">💧 <strong>2024 — Quali chaos, Max from P17:</strong> Qualifying ran into Sunday morning after biblical rain. Verstappen started P17, drove through the field in the rain to win, and the title fight was effectively over. The best wet-weather drive of the current era.</li>
             </ul>
         </div>
     </div>
 
     <!-- Key Stories -->
     <div class="card full">
-        <h3>📰 Key Stories Heading Into Mexico City</h3>
+        <h3>📰 Key Stories Heading Into Interlagos</h3>
         <ul class="stories">
-<li><strong>Match point #2 — and this one's hard to miss</strong> — Antonelli leads Russell 365–242 with 125 points left. The only way the title fight survives Mexico: <strong>Russell wins AND Antonelli finishes P9 or lower</strong>. Anything else and the 20-year-old is champion on Sunday — youngest ever by three clear years (Vettel was 23), in his second season, with four rounds to spare. He arrives having won in Austin, his 9th of the year.</li>
-<li><strong>Checo's 300th, at home, on Día de Muertos</strong> — Pérez becomes the sixth driver to reach 300 GP starts, in front of the Foro Sol, in the weekend the city celebrates its dead. The romance ends there: Cadillac is still on zero points and Pérez is batting away retirement questions. Last year was the first home race without a Mexican driver since 2015 — expect the loudest grandstand of the season regardless of where he qualifies.</li>
-<li><strong>Four drivers, nine points, one P2</strong> — Russell 242, Hamilton 241, Verstappen 236, Leclerc 233. Best-of-the-rest is the real championship now, and Verstappen is the form pick: five Mexico wins, victories in Bahrain and Singapore this autumn, P3 at Austin.</li>
-<li><strong>Red Bull vs McLaren: dead level</strong> — 355–355 for P3 in the constructors after Red Bull's autumn surge (Verstappen + Hadjar) caught a McLaren that has scored one win since July. Mercedes (607) needs a handful of points to seal the constructors title; Ferrari (474) is safe in P2.</li>
-<li><strong>Thin air, soft tyres</strong> — Pirelli brings the C3/C4/C5 softest trio to the hardest cooling race of the year. 25% less air density means Monza grip with Monaco wings, long braking zones, and easy following — plus the annual argument about drivers cutting the T1–T3 complex ("Mexico's optional Turn 1").</li>
-<li><strong>Interlagos is NEXT WEEK</strong> — Nov 6–8 closes the triple-header. If Russell somehow keeps the title alive on Sunday, it gets decided at your home race.</li>
+<li><strong>Youngest ever champion arrives home-ish</strong> — Antonelli clinched in Mexico with P3, becoming F1's youngest ever world champion at <strong>20 years, 2 months, 7 days</strong> — three years and change clear of Vettel's 2010 record. His 9th win of the year was Austin. Interlagos is his first race as champ — expect the Mercedes garage to fully let him off the leash now that the maths is done.</li>
+<li><strong>Mercedes needs just three points — and they can take the double on Sunday</strong> — 630 vs Ferrari's 504, 126-point gap, 86 still on the table after Brazil. <strong>Outscore Ferrari by 3+ and it's done.</strong> With Antonelli flying, Russell solid and Ferrari not having won since Hamilton's summer breakthrough, this is Mercedes's title to lose in Wilson's backyard. Hasn't happened since 2020.</li>
+<li><strong>Bortoleto's home race — a national event</strong> — Gabriel Bortoleto is the first Brazilian on the grid since Massa in 2017. He's sitting on 14 points in a developing Sauber (soon-to-be Audi) that's finally found the back end. Scored in Mexico. The Interlagos grandstands have been waiting for this since Felipe left — expect chant-level noise every time his car crests the hill.</li>
+<li><strong>Three drivers for P2 overall</strong> — Verstappen 261, Hamilton 259, Russell 250, Leclerc 245. Max is the form pick (won in Mexico, Austin P3, already won here twice), Hamilton wants to add Interlagos to his podium wall as a Ferrari driver, Russell is Mercedes's other half of the constructors push. All four are separated by 16 points with four races to go.</li>
+<li><strong>Red Bull vs McLaren for P3 — nine points</strong> — Red Bull 380, McLaren 371. McLaren has crumbled in the autumn (one win since July, Piastri now 77 points behind Norris) while Hadjar + Verstappen are dragging Red Bull back up. Interlagos usually rewards good mechanical grip and tyre management — slight McLaren circuit on paper, but form says otherwise.</li>
+<li><strong>Weather will decide this one</strong> — São Paulo is deep into rainy season and two of the last four races here have been wet. FP2 and quali Saturday afternoon are the most exposed slots on the schedule. If it rains, bet on Verstappen; if it doesn't, bet on Mercedes.</li>
         </ul>
     </div>
 </div>
 
 <div style="text-align:center;color:var(--muted);font-size:0.7rem;margin-top:16px;">
-    Built by Marshall 🔶 for Wilson · Data: formula1.com, FIA, racingnews365, f1-fansite.com, racefans.net · Updated October 28, 2026
+    Built by Marshall 🔶 for Wilson · Data: formula1.com, FIA, racingnews365, scuderiafans, the-race · Updated November 4, 2026
 </div>
 
 <script>
-// Countdown to race: Sun Nov 1, 14:00 CST = 20:00 UTC = 17:00 BRT
-const raceTime = new Date('2026-11-01T20:00:00Z');
+// Countdown to race: Sun Nov 8, 14:00 BRT = 17:00 UTC
+const raceTime = new Date('2026-11-08T17:00:00Z');
 function updateCountdown() {
     const now = new Date();
     const diff = raceTime - now;
@@ -341,9 +329,9 @@ function updateCountdown() {
 updateCountdown();
 setInterval(updateCountdown, 60000);
 
-// Constructors chart — after Round 18 (United States GP)
-const teams = ["Mercedes", "Ferrari", "Red Bull", "McLaren", "Racing Bulls", "Alpine", "Haas", "Audi", "Williams", "Aston Martin", "Cadillac"];
-const pts = [607, 474, 355, 355, 102, 69, 30, 23, 12, 7, 0];
+// Constructors chart — after Round 19 (Mexico City GP)
+const teams = ["Mercedes", "Ferrari", "Red Bull", "McLaren", "Racing Bulls", "Alpine", "Haas", "Audi/Sauber", "Williams", "Aston Martin", "Cadillac"];
+const pts = [630, 504, 380, 371, 121, 69, 31, 27, 12, 7, 0];
 const colors = ["#00D2BE", "#DC0000", "#3671C6", "#FF8700", "#6692FF", "#0090FF", "#B6BABD", "#00594F", "#64C4FF", "#006F62", "#888888"];
 
 new Chart(document.getElementById('constChart').getContext('2d'), {

@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>🏁 Autódromo Hermanos Rodríguez — Circuit Diagram</title>
+<title>🏁 Interlagos — Circuit Diagram</title>
 <style>
 :root { --bg:#0a0a0a; --surface:#141414; --border:#2a2a2a; --text:#e0e0e0; --muted:#888; --accent:#DC0000; }
 * { margin:0; padding:0; box-sizing:border-box; }
@@ -29,141 +29,142 @@ body { background:var(--bg); color:var(--text); font-family:-apple-system,BlinkM
 <body>
 <div class="wrap">
 <div class="header">
-    <div class="flag">🇲🇽</div>
-    <h1>Autódromo Hermanos Rodríguez — Mexico City</h1>
-    <div class="meta">4.304 km · 17 turns · 71 laps · Clockwise · Lap record 1:17.774 (Bottas, 2021) · 2,285 m altitude · Simplified layout</div>
+    <div class="flag">🇧🇷</div>
+    <h1>Autódromo José Carlos Pace — Interlagos, São Paulo</h1>
+    <div class="meta">4.309 km · 15 turns · 71 laps · Anticlockwise · Lap record 1:10.540 (Bottas, 2018) · ~800 m altitude · Simplified layout</div>
 </div>
 
 <div class="card">
 <svg class="diagram" viewBox="0 0 860 640" xmlns="http://www.w3.org/2000/svg">
-    <!-- Track outline (stylized Hermanos Rodríguez, clockwise) -->
-    <path id="track" d="M 180 110
-             L 645 110
-             Q 695 112 697 152
-             Q 698 178 672 186
-             Q 650 194 653 222
-             L 653 355
-             Q 653 392 622 398
-             Q 600 402 592 420
-             Q 583 440 558 436
-             Q 536 432 528 450
-             Q 518 470 493 463
-             Q 470 457 461 474
-             Q 451 492 425 487
-             L 310 500
-             Q 282 505 268 490
-             Q 255 475 235 482
-             Q 210 490 208 515
-             Q 205 542 172 540
-             Q 140 538 142 508
-             L 148 445
-             Q 152 420 140 400
-             L 132 190
-             Q 128 112 180 110
+    <!-- Track outline (stylized Interlagos, anticlockwise)
+         Path flow: start/finish straight (top-right to top-left),
+         plunge down into Senna S (T1-T2), Descida do Lago (T3-T4),
+         sweep around infield (T5-T11), Juncao (T12), long uphill
+         back to the start/finish line. -->
+    <path d="M 660 110
+             L 240 110
+             Q 180 112 170 155
+             Q 158 198 200 215
+             L 310 265
+             Q 342 282 322 315
+             Q 300 350 265 352
+             Q 225 353 212 390
+             Q 200 428 240 450
+             Q 285 468 320 450
+             Q 365 428 400 450
+             Q 430 468 455 452
+             Q 486 432 515 455
+             Q 545 480 580 475
+             Q 620 470 630 505
+             Q 640 540 605 555
+             Q 560 570 540 545
+             Q 520 518 490 525
+             Q 455 535 445 505
+             Q 438 470 408 475
+             Q 390 478 385 460
+             Q 380 440 405 418
+             Q 440 395 475 390
+             Q 540 385 592 360
+             Q 660 325 695 290
+             Q 735 245 735 180
+             Q 735 115 695 110
              Z"
           fill="none" stroke="#3a3a3a" stroke-width="20" stroke-linejoin="round" stroke-linecap="round"/>
-    <path d="M 180 110
-             L 645 110
-             Q 695 112 697 152
-             Q 698 178 672 186
-             Q 650 194 653 222
-             L 653 355
-             Q 653 392 622 398
-             Q 600 402 592 420
-             Q 583 440 558 436
-             Q 536 432 528 450
-             Q 518 470 493 463
-             Q 470 457 461 474
-             Q 451 492 425 487
-             L 310 500
-             Q 282 505 268 490
-             Q 255 475 235 482
-             Q 210 490 208 515
-             Q 205 542 172 540
-             Q 140 538 142 508
-             L 148 445
-             Q 152 420 140 400
-             L 132 190
-             Q 128 112 180 110
+    <path d="M 660 110
+             L 240 110
+             Q 180 112 170 155
+             Q 158 198 200 215
+             L 310 265
+             Q 342 282 322 315
+             Q 300 350 265 352
+             Q 225 353 212 390
+             Q 200 428 240 450
+             Q 285 468 320 450
+             Q 365 428 400 450
+             Q 430 468 455 452
+             Q 486 432 515 455
+             Q 545 480 580 475
+             Q 620 470 630 505
+             Q 640 540 605 555
+             Q 560 570 540 545
+             Q 520 518 490 525
+             Q 455 535 445 505
+             Q 438 470 408 475
+             Q 390 478 385 460
+             Q 380 440 405 418
+             Q 440 395 475 390
+             Q 540 385 592 360
+             Q 660 325 695 290
+             Q 735 245 735 180
+             Q 735 115 695 110
              Z"
-          fill="none" stroke="#e0e0e0" stroke-width="3" stroke-linejoin="round"/>
+          fill="none" stroke="#ffffff" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" stroke-dasharray="0"/>
 
-    <!-- Landmark hints -->
-    <text class="note-label" x="410" y="65" text-anchor="middle">1.2 km main straight — longest run to a first corner in F1 · 360+ km/h in the thin air</text>
-    <text class="note-label" x="500" y="560" text-anchor="middle">Esses S7–S11 — medium-speed snake, low grip off-line</text>
-    <text class="note-label" x="172" y="585" text-anchor="middle">Foro Sol stadium</text>
-    <text class="note-label" x="172" y="600" text-anchor="middle">(T13–T15) · 110 dB</text>
-    <text class="note-label" x="95" y="300" text-anchor="end">Old Peraltada ran here —</text>
-    <text class="note-label" x="95" y="315" text-anchor="end">banked 180°, bypassed since 2015</text>
+    <!-- Start/Finish line -->
+    <line x1="500" y1="98" x2="500" y2="122" stroke="#fff" stroke-width="4"/>
+    <text x="500" y="88" text-anchor="middle" class="corner-label">START / FINISH</text>
 
-    <!-- Override (ex-DRS) zone 1: main straight -->
-    <line x1="260" y1="92" x2="630" y2="92" stroke="#4ade80" stroke-width="5" stroke-dasharray="8 5" stroke-linecap="round"/>
-    <text class="zone-label" x="445" y="84" text-anchor="middle">Zone 1 · main overtaking spot → T1</text>
-
-    <!-- Override zone 2: back straight T3 → T4 -->
-    <line x1="673" y1="230" x2="673" y2="350" stroke="#4ade80" stroke-width="5" stroke-dasharray="8 5" stroke-linecap="round"/>
-    <text class="zone-label" x="688" y="285" text-anchor="start">Zone 2</text>
-    <text class="note-label" x="688" y="299" text-anchor="start">→ T4</text>
-
-    <!-- Override zone 3: T11 → T12 -->
-    <line x1="420" y1="508" x2="315" y2="520" stroke="#4ade80" stroke-width="5" stroke-dasharray="8 5" stroke-linecap="round"/>
-    <text class="zone-label" x="370" y="540" text-anchor="middle">Zone 3 · → T12</text>
-
-    <!-- Start/finish line -->
-    <line x1="300" y1="100" x2="300" y2="120" stroke="#fff" stroke-width="6"/>
-    <text class="corner-label" x="300" y="140" text-anchor="middle" style="fill:#DC0000;">START / FINISH</text>
+    <!-- DRS zones (green dashed, following the direction of travel) -->
+    <!-- DRS 1: pit straight → Senna S -->
+    <line x1="490" y1="105" x2="245" y2="105" stroke="#4ade80" stroke-width="3" stroke-dasharray="8 4"/>
+    <text x="370" y="135" class="zone-label">DRS 1 — pit straight</text>
+    <!-- DRS 2: run between T3 exit toward Descida do Lago (T4) -->
+    <line x1="315" y1="275" x2="327" y2="310" stroke="#4ade80" stroke-width="3" stroke-dasharray="8 4"/>
+    <text x="235" y="300" class="zone-label">DRS 2 — Reta Oposta</text>
+    <!-- DRS 3: long uphill run from Juncao back toward S/F -->
+    <line x1="608" y1="358" x2="700" y2="180" stroke="#4ade80" stroke-width="3" stroke-dasharray="8 4"/>
+    <text x="700" y="270" class="zone-label" transform="rotate(-62 700 270)">DRS 3 — Subida uphill</text>
 
     <!-- Overtake zones (orange dots) -->
-    <circle cx="680" cy="135" r="8" fill="#f59e0b"/>
-    <circle cx="640" cy="390" r="8" fill="#f59e0b"/>
-    <circle cx="272" cy="492" r="8" fill="#f59e0b"/>
+    <circle cx="225" cy="135" r="8" fill="#f59e0b"/>
+    <text x="195" y="160" class="speed-label">T1 Senna S</text>
+    <circle cx="320" cy="325" r="8" fill="#f59e0b"/>
+    <text x="340" y="328" class="speed-label">T4 Descida do Lago</text>
+    <circle cx="610" cy="520" r="8" fill="#f59e0b"/>
+    <text x="540" y="590" class="speed-label">T12 Juncão / Subida</text>
 
-    <!-- Corner labels + speeds -->
-    <text class="corner-label" x="716" y="150" text-anchor="start">T1</text>
-    <text class="speed-label"  x="716" y="164" text-anchor="start">360 → 100 km/h · biggest braking zone</text>
-    <text class="speed-label"  x="716" y="178" text-anchor="start">three-wide on lap 1 is tradition</text>
+    <!-- Corner markers -->
+    <text x="225" y="100" class="corner-label">T1–T2</text>
+    <text x="155" y="180" class="note-label">Senna S</text>
+    <text x="150" y="195" class="note-label">↓ downhill</text>
 
-    <text class="corner-label" x="635" y="215" text-anchor="end">T2–T3</text>
-    <text class="speed-label"  x="635" y="229" text-anchor="end">S-complex · run-off cutting = "the optional T1"</text>
+    <text x="330" y="282" class="corner-label">T3</text>
+    <text x="300" y="347" class="corner-label">T4</text>
+    <text x="195" y="400" class="corner-label">T5–T6</text>
 
-    <text class="corner-label" x="610" y="378" text-anchor="start">T4</text>
-    <text class="speed-label"  x="610" y="364" text-anchor="start">overtake #2 · 330 → 110 km/h</text>
+    <text x="245" y="476" class="corner-label">T7</text>
+    <text x="325" y="440" class="corner-label">T8</text>
+    <text x="400" y="440" class="corner-label">T9</text>
+    <text x="460" y="440" class="corner-label">T10 Bico de Pato</text>
 
-    <text class="corner-label" x="570" y="415" text-anchor="end">T5–T6</text>
-    <text class="speed-label"  x="585" y="460" text-anchor="start">twisty link</text>
+    <text x="515" y="485" class="corner-label">T11 Mergulho</text>
+    <text x="623" y="493" class="corner-label">T12 Juncão</text>
+    <text x="548" y="568" class="note-label">(slowest corner)</text>
 
-    <text class="corner-label" x="460" y="445" text-anchor="middle">T7–T11</text>
-    <text class="speed-label"  x="460" y="431" text-anchor="middle">esses · ~200 km/h rhythm section</text>
+    <text x="675" y="310" class="corner-label">T13</text>
+    <text x="745" y="235" class="corner-label">T14</text>
+    <text x="700" y="100" class="corner-label">T15</text>
 
-    <text class="corner-label" x="285" y="468" text-anchor="middle">T12</text>
-    <text class="speed-label"  x="285" y="454" text-anchor="middle">overtake #3 · stadium entry</text>
+    <!-- Speed annotations -->
+    <text x="370" y="100" class="speed-label">~335 km/h</text>
+    <text x="430" y="420" class="speed-label">slowest ~110 km/h at Juncão</text>
 
-    <text class="corner-label" x="240" y="530" text-anchor="start">T13–T15</text>
-    <text class="speed-label"  x="240" y="544" text-anchor="start">Foro Sol hairpins · ~90 km/h · the party</text>
-
-    <text class="corner-label" x="160" y="430" text-anchor="start">T16</text>
-    <text class="speed-label"  x="160" y="416" text-anchor="start">stadium exit</text>
-
-    <text class="corner-label" x="145" y="165" text-anchor="start">T17</text>
-    <text class="speed-label"  x="190" y="165" text-anchor="start">half-Peraltada · flat · onto the big straight</text>
-
-    <!-- Direction arrow -->
-    <path d="M 480 110 l -14 -7 l 0 14 Z" fill="#888" transform="rotate(180 480 110)"/>
-    <text class="note-label" x="480" y="135" text-anchor="middle">direction →</text>
+    <!-- Elevation note -->
+    <text x="430" y="610" text-anchor="middle" class="note-label">Total elevation change: ~43 m · bowl layout · anticlockwise</text>
 </svg>
 
 <div class="legend">
-    <div><span class="swatch" style="border-top-color:#e0e0e0;"></span> Track outline</div>
-    <div><span class="swatch" style="border-top-color:#4ade80;border-top-style:dashed;"></span> Overtake-boost zone (ex-DRS, ×3)</div>
-    <div><span class="dot" style="background:#f59e0b;"></span> Overtake zone</div>
-    <div><span class="swatch" style="border-top-color:#fff;border-top-width:5px;"></span> Start/finish</div>
+    <div><span class="swatch" style="border-top-color:#fff"></span>Track</div>
+    <div><span class="dot" style="background:#f59e0b"></span>Overtake zone</div>
+    <div><span class="swatch" style="border-top-color:#4ade80;border-top-style:dashed"></span>DRS zone</div>
+    <div><span class="swatch" style="border-top-color:#fff;border-top-width:4px"></span>Start / Finish</div>
 </div>
 
-<div style="margin-top:14px;color:var(--muted);font-size:0.8rem;line-height:1.5;">
-Mexico is a drag-race circuit wearing a technical disguise. At 2,285 m the air is ~25% thinner, so cars bolt on maximum-downforce wings and still slide around on Monza-level grip — while hitting the highest top speeds of the year on the run to T1. Braking distances stretch, brakes and power units cook, and the tow is enormous, which makes T1 the single best passing opportunity on the calendar. The esses reward rhythm, the Foro Sol stadium section is slow, dusty and decisive for the final sector, and T17 — the surviving half of the legendary banked Peraltada — must be taken flat to carry speed onto the 1.2 km straight. Track position helps, but nobody is safe into Turn 1.
+<div style="margin-top:14px;font-size:0.82rem;line-height:1.5;color:var(--muted);">
+    <strong style="color:#f59e0b">Where it gets decided:</strong> You can't win the race at <strong>Senna S</strong> but you can lose it — the downhill braking zone off the pit straight with DRS 1 is the primary overtake point, and lap-1 contact is a near-tradition. Second move is at <strong>T4 Descida do Lago</strong>, usually a slipstream pass off Reta Oposta. The real strategic corner is <strong>T12 Juncão</strong>: get a good exit and the 1.2 km uphill drag through Subida dos Boxes puts you right on the car ahead for Senna S next lap. Short lap (around 70s) means strategy swings fast — undercuts bite and the pit window is narrow.
 </div>
 
-<a class="back" href="index.html">← Back to dashboard</a>
+<a href="index.html" class="back">← back to dashboard</a>
 </div>
 </div>
 </body>
