@@ -1,0 +1,43 @@
+# Keep only the last 30 days of audio briefings.
+#
+# GitHub Pages refuses to publish a site over 1 GB. The daily briefing adds ~8 MB, and on
+# 6 Nov 2026 audio/ reached 1,055 MB and the Pages deploy timed out at "syncing_files".
+# The briefing is committed by Marshall from another machine, so retention lives here,
+# triggered by its push. Dates come from the filename (briefing-YYYY-MM-DD.mp3), not
+# from git or file mtimes. Marshall pulls before pushing, so this commit does not break
+# its next push.
+
+name: prune old audio
+
+on:
+  push:
+    branches: [main]
+    paths: ["audio/**"]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: prune-audio
+  cancel-in-progress: false
+
+jobs:
+  prune:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Delete briefings older than 30 days
+        run: |
+          cutoff=$(date -u -d '29 days ago' +%Y-%m-%d)   # today plus 29 earlier days
+          echo "keeping briefings dated $cutoff or later"
+          for f in audio/briefing-*.mp3; do
+            d=${f#audio/briefing-}; d=${d%.mp3}
+            if [[ "$d" < "$cutoff" ]]; then git rm -q "$f"; echo "removed $f"; fi
+          done
+          if git diff --cached --quiet; then echo "nothing to prune"; exit 0; fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898283+github-actions[bot]@users.noreply.github.com"
+          git commit -q -m "Prune audio briefings before $cutoff"
+          git pull -q --rebase && git push
