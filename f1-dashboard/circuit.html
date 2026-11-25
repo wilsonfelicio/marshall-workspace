@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>🏁 Las Vegas Strip Circuit — Circuit Diagram</title>
+<title>🏁 Lusail International Circuit — Circuit Diagram</title>
 <style>
 :root { --bg:#0a0a0a; --surface:#141414; --border:#2a2a2a; --text:#e0e0e0; --muted:#888; --accent:#DC0000; }
 * { margin:0; padding:0; box-sizing:border-box; }
@@ -29,105 +29,114 @@ body { background:var(--bg); color:var(--text); font-family:-apple-system,BlinkM
 <body>
 <div class="wrap">
 <div class="header">
-    <div class="flag">🇺🇸</div>
-    <h1>Las Vegas Strip Circuit — Paradise, Nevada</h1>
-    <div class="meta">6.201 km · 17 turns · 50 laps · Counterclockwise · Night race · Lap record 1:33.365 (Verstappen, 2025) · Simplified layout</div>
+    <div class="flag">🇶🇦</div>
+    <h1>Lusail International Circuit — Doha, Qatar</h1>
+    <div class="meta">5.419 km · 16 turns · 57 laps · Clockwise · Night race · Lap record 1:22.384 (Norris, 2024) · Simplified layout</div>
 </div>
 
 <div class="card">
 <svg class="diagram" viewBox="0 0 860 640" xmlns="http://www.w3.org/2000/svg">
-    <!-- Track outline (stylized Las Vegas Strip Circuit, counterclockwise)
-         Flow: start/finish straight (bottom, left→right), T1 hard left,
-         Koval Lane straight up the right side, loop around the Sphere
-         (T5–T9, top right), Sands Ave across the top (T10–T11),
-         T12 left onto the Strip, ~1.9 km blast down the left side,
-         T14 hairpin-left at the bottom, T15–T17 back to start/finish. -->
-    <path d="M 300 560
-             L 640 560
-             Q 700 560 700 500
-             L 700 230
-             Q 700 195 725 175
-             Q 762 146 737 108
-             Q 712 76 668 94
-             Q 643 106 610 110
-             L 240 110
-             Q 175 112 170 170
-             L 165 490
-             Q 163 542 212 555
-             Q 245 562 258 545
-             Q 272 528 287 545
-             Q 294 555 300 560
+    <!-- Track outline (stylized Lusail, clockwise)
+         Flow: main straight across the top (left→right, 1.07 km), T1 right
+         turning down the right side, T2–T3 esses, T4–T5 sweep out to the
+         right edge, T6 tight left poking back inward, T7–T9 curling to the
+         bottom right, run along the bottom (right→left) to the T10 left,
+         T11 kink, then the fast T12–13–14 triple-apex right sweeping up the
+         left side, T15 left kink, T16 long final right onto the straight. -->
+    <path d="M 160 90
+             L 620 90
+             Q 685 92 697 140
+             Q 705 170 678 190
+             Q 652 210 672 242
+             Q 692 272 738 276
+             Q 780 280 784 318
+             Q 786 352 748 354
+             Q 714 356 716 394
+             Q 718 434 752 462
+             Q 784 490 762 528
+             Q 740 562 688 556
+             L 352 542
+             Q 300 538 292 498
+             Q 286 464 252 452
+             Q 215 440 196 400
+             Q 168 345 196 290
+             Q 215 252 196 215
+             Q 178 182 160 150
+             Q 148 118 160 90
              Z"
           fill="none" stroke="#3a3a3a" stroke-width="20" stroke-linejoin="round" stroke-linecap="round"/>
-    <path d="M 300 560
-             L 640 560
-             Q 700 560 700 500
-             L 700 230
-             Q 700 195 725 175
-             Q 762 146 737 108
-             Q 712 76 668 94
-             Q 643 106 610 110
-             L 240 110
-             Q 175 112 170 170
-             L 165 490
-             Q 163 542 212 555
-             Q 245 562 258 545
-             Q 272 528 287 545
-             Q 294 555 300 560
+    <path d="M 160 90
+             L 620 90
+             Q 685 92 697 140
+             Q 705 170 678 190
+             Q 652 210 672 242
+             Q 692 272 738 276
+             Q 780 280 784 318
+             Q 786 352 748 354
+             Q 714 356 716 394
+             Q 718 434 752 462
+             Q 784 490 762 528
+             Q 740 562 688 556
+             L 352 542
+             Q 300 538 292 498
+             Q 286 464 252 452
+             Q 215 440 196 400
+             Q 168 345 196 290
+             Q 215 252 196 215
+             Q 178 182 160 150
+             Q 148 118 160 90
              Z"
           fill="none" stroke="#ffffff" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
 
     <!-- Start/Finish line -->
-    <line x1="400" y1="548" x2="400" y2="572" stroke="#fff" stroke-width="4"/>
-    <text x="400" y="596" text-anchor="middle" class="corner-label">START / FINISH</text>
-    <text x="490" y="545" class="note-label">→ direction of travel</text>
+    <line x1="300" y1="78" x2="300" y2="102" stroke="#fff" stroke-width="4"/>
+    <text x="300" y="68" text-anchor="middle" class="corner-label">START / FINISH</text>
+    <text x="380" y="115" class="note-label">→ direction of travel</text>
 
-    <!-- DRS / low-drag zones (green dashed) -->
-    <!-- Zone 1: Koval Lane straight up to the Sphere -->
-    <line x1="714" y1="480" x2="714" y2="250" stroke="#4ade80" stroke-width="3" stroke-dasharray="8 4"/>
-    <text x="728" y="370" class="zone-label" transform="rotate(-90 728 370)">DRS 1 — Koval Lane</text>
-    <!-- Zone 2: the Strip, down the left side into T14 -->
-    <line x1="150" y1="200" x2="150" y2="470" stroke="#4ade80" stroke-width="3" stroke-dasharray="8 4"/>
-    <text x="138" y="420" class="zone-label" transform="rotate(-90 138 420)">DRS 2 — The Strip · ~1.9 km</text>
+    <!-- Overtake-mode / boost zones (green dashed) -->
+    <!-- Zone 1: main straight, 1.07 km into T1 -->
+    <line x1="330" y1="60" x2="630" y2="60" stroke="#4ade80" stroke-width="3" stroke-dasharray="8 4"/>
+    <text x="480" y="48" text-anchor="middle" class="zone-label">BOOST — main straight · 1.07 km · ~330 km/h</text>
+    <!-- Zone 2: bottom run into T10 -->
+    <line x1="640" y1="580" x2="400" y2="570" stroke="#4ade80" stroke-width="3" stroke-dasharray="8 4"/>
+    <text x="520" y="602" text-anchor="middle" class="zone-label">BOOST — back section into T10</text>
+    <text x="520" y="618" text-anchor="middle" class="note-label">2026 Overtake Mode replaces DRS — exact zones set by FIA at the event</text>
 
     <!-- Overtake zones (orange dots) -->
-    <circle cx="697" cy="542" r="8" fill="#f59e0b"/>
-    <text x="620" y="525" class="speed-label">T1 — late brake, ~90 km/h</text>
-    <circle cx="703" cy="215" r="8" fill="#f59e0b"/>
-    <text x="580" y="200" class="speed-label">T5 — end of Koval</text>
-    <circle cx="190" cy="548" r="8" fill="#f59e0b"/>
-    <text x="205" y="590" class="speed-label">T14 — hardest braking of the season, 350→90 km/h</text>
+    <circle cx="694" cy="130" r="8" fill="#f59e0b"/>
+    <text x="570" y="140" class="speed-label">T1 — the banker, 330→130 km/h</text>
+    <circle cx="750" cy="354" r="8" fill="#f59e0b"/>
+    <text x="600" y="340" class="speed-label">T6 — inside-line lunge, ~100 km/h</text>
+    <circle cx="294" cy="500" r="8" fill="#f59e0b"/>
+    <text x="310" y="520" class="speed-label">T10 — late brake on the left-hander</text>
 
     <!-- Corner markers -->
-    <text x="718" y="565" class="corner-label">T1–T2</text>
-    <text x="740" y="400" class="note-label" transform="rotate(-90 740 400)">Koval straight ~320 km/h</text>
-
-    <text x="775" y="125" class="corner-label">T5–T9</text>
-    <text x="775" y="142" class="note-label">around the Sphere</text>
-
-    <text x="400" y="95" class="corner-label">T10–T11 · Sands Ave</text>
-
-    <text x="60" y="140" class="corner-label">T12</text>
-    <text x="30" y="157" class="note-label">left onto the Strip</text>
-    <text x="180" y="330" class="speed-label" transform="rotate(-90 180 330)">~352 km/h past the Bellagio &amp; Caesars</text>
-
-    <text x="135" y="525" class="corner-label">T14</text>
-    <text x="255" y="515" class="corner-label">T15–T17</text>
-    <text x="300" y="530" class="note-label">kink back to S/F</text>
+    <text x="712" y="175" class="corner-label">T1–T2</text>
+    <text x="640" y="235" class="corner-label">T3</text>
+    <text x="745" y="260" class="corner-label">T4–T5</text>
+    <text x="800" y="310" class="note-label" transform="rotate(-90 800 310)">fast right sweep</text>
+    <text x="700" y="420" class="corner-label">T7–T9</text>
+    <text x="640" y="440" class="note-label">curling back-section rights</text>
+    <text x="250" y="485" class="corner-label">T10–T11</text>
+    <text x="130" y="350" class="corner-label" transform="rotate(-90 130 350)">T12–13–14 · triple apex</text>
+    <text x="152" y="330" class="speed-label" transform="rotate(-90 152 330)">~250 km/h, Maggotts-Becketts style</text>
+    <text x="150" y="200" class="corner-label">T15</text>
+    <text x="120" y="120" class="corner-label">T16</text>
+    <text x="85" y="137" class="note-label">long right onto straight</text>
 
     <!-- Note -->
-    <text x="430" y="625" text-anchor="middle" class="note-label">Flat desert street circuit · ~80% full throttle · track temps 10–15°C at night · 2026 active aero: low-drag mode on every straight</text>
+    <text x="430" y="638" text-anchor="middle" class="note-label">MotoGP-born flow: mostly medium/high-speed corners · front-left tyre killer · sand off-line · two mandatory stops in 2026</text>
 </svg>
 
 <div class="legend">
     <div><span class="swatch" style="border-top-color:#fff"></span>Track</div>
     <div><span class="dot" style="background:#f59e0b"></span>Overtake zone</div>
-    <div><span class="swatch" style="border-top-color:#4ade80;border-top-style:dashed"></span>DRS / low-drag zone</div>
+    <div><span class="swatch" style="border-top-color:#4ade80;border-top-style:dashed"></span>Boost / overtake-mode zone</div>
     <div><span class="swatch" style="border-top-color:#fff;border-top-width:4px"></span>Start / Finish</div>
 </div>
 
 <div style="margin-top:14px;font-size:0.82rem;line-height:1.5;color:var(--muted);">
-    <strong style="color:#f59e0b">Where it gets decided:</strong> Everything funnels into <strong>T14</strong> — a ~1.9 km tow down the Strip ending in the biggest braking zone of the year, from ~350 km/h to second gear. Defend there and you're exposed into <strong>T1</strong> next; the undercut is weak because warm-up on cold asphalt takes two laps, so most passes happen on track, late in stints, on tyre delta. The <strong>Sphere section (T5–T9)</strong> is where lap time is found — slow, technical, and the only part of the lap that punishes a skinny-wing setup. Graining the front-left on the long left-handers is the race-killer; managing it decides who's alive at the end when the safety car (three for three editions) shuffles the deck.
+    <strong style="color:#f59e0b">Where it gets decided:</strong> Almost everything happens into <strong>T1</strong> — a 1.07 km tow down the main straight into the only genuinely heavy braking zone, with the <strong>T16</strong> exit before it deciding who gets the run. The <strong>T6</strong> tight left and the <strong>T10</strong> left-hander are the secondary lunges. The lap is really won in the <strong>T12–13–14 triple-apex right</strong>: carry speed there and you gain three tenths and a better run home — but it hammers the front-left, which is why Pirelli mandates two stops. With strategy forced into the same windows for everyone, qualifying and tyre offset late in stints are everything; sand off the racing line and regular safety cars add the chaos variable.
 </div>
 
 <a href="index.html" class="back">← back to dashboard</a>
